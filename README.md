@@ -1,6 +1,6 @@
-# Combine Foundation — Official Website
+# Combine Foundation Official Website
 
-> Official website of Combine Foundation — built with Next.js and Firebase by the Spring Internship 2026 team.
+> Official website of Combine Foundation built with Next.js and Firebase by team.
 
 ---
 
@@ -113,27 +113,6 @@ chore: update Firebase SDK version
 ```
 
 All PRs must be reviewed and approved by the **Technical Lead** before merging into `dev`.
-
----
-
-## Team Roles
-
-| Role | Responsibility |
-|---|---|
-| Technical Lead | Code review, PR approval, final merge |
-| Frontend Developer | UI components, layouts, Firebase Auth integration |
-| Firebase Developer | Firestore schema, security rules, storage |
-| UI/UX Designer | Screen designs, design system, developer assets |
-| Content Manager | Website copy, SEO, tone consistency |
-
----
-
-## Internship Program
-
-- **Duration:** 3 months (April 15 – July 15, 2026)
-- **Mode:** Remote / Hybrid
-- **Managed by:** Shama Naz
-- **Organization:** Combine Foundation, Karachi, Pakistan
 
 ---
 
