@@ -8,7 +8,7 @@
 
 Combine Foundation is a registered non-profit organization focused on measurable impact across **Education, Healthcare, Entrepreneurship, and Community Welfare**.
 
-This repository contains the source code for the official Combine Foundation website, developed as part of the **Spring Internship 2026 — Website Development Program**.
+This repository contains the source code for the official Combine Foundation website, developed as part of the **Spring Internship 2026 Website Development Program**.
 
 ---
 
@@ -28,33 +28,33 @@ This repository contains the source code for the official Combine Foundation web
 
 ```
 /
-├── pages/
-│   ├── index.js          # Home
-│   ├── about.js          # About Us
-│   ├── programs.js       # Programs & Services
-│   ├── events.js         # Events
-│   ├── team.js           # Our Team
-│   ├── projects.js       # Projects
-│   ├── publications.js   # Publications
-│   ├── volunteer.js      # Volunteer Program
-│   └── donations.js      # Donations
+├── app/
+│   ├── page.tsx          # Home
+│   ├── about.tsx          # About Us
+│   ├── programs.tsx       # Programs & Services
+│   ├── events.tsx         # Events
+│   ├── team.tsx           # Our Team
+│   ├── projects.tsx       # Projects
+│   ├── publications.tsx   # Publications
+│   ├── volunteer.tsx      # Volunteer Program
+│   └── donations.tsx      # Donations
+|   └── courses.tsx        # Courses
 ├── components/
 ├── firebase/
-│   ├── config.js
+│   ├── config.ts
 │   └── rules/
 ├── public/
 └── styles/
 ```
 
 ---
-
 ## Local Setup
 
 **Prerequisites:** Node.js, VS Code, Git access
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/combine-foundation/website.git
+git clone https://github.com/CombineFoundation/website.git
 
 # 2. Navigate into the project
 cd website
