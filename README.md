@@ -44,7 +44,6 @@ This repository contains the source code for the official Combine Foundation web
 │   ├── config.ts
 │   └── rules/
 ├── public/
-└── styles/
 ```
 
 ---
