@@ -54,7 +54,7 @@ This repository contains the source code for the official Combine Foundation web
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/CombineFoundation/website.git](https://github.com/CombineFoundation/website.git)
+git clone https://github.com/CombineFoundation/website.git
 
 # 2. Navigate into the project
 cd website
