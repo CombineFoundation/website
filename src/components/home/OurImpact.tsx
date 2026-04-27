@@ -18,7 +18,7 @@ const impactItems: ImpactItem[] = [
     stat: "100+",
     title: "Schools Built",
     // image: "/images/impact/schools.jpg",
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
   },
@@ -27,7 +27,7 @@ const impactItems: ImpactItem[] = [
     stat: "500+",
     title: "Volunteers Trained",
     // image: "/images/impact/volunteers.jpg",
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.",
   },
@@ -36,7 +36,7 @@ const impactItems: ImpactItem[] = [
     stat: "50+",
     title: "Cities Reached",
     // image: "/images/impact/cities.jpg",
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
       
@@ -46,7 +46,7 @@ const impactItems: ImpactItem[] = [
     stat: "50+",
     title: "Cities Reached",
     // image: "/images/impact/cities.jpg",
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
       

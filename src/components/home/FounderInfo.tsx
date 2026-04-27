@@ -25,40 +25,27 @@ export default function QuoteSection() {
           description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
         />
 
-        <div className="mt-6 bg-[#1a3a7c] rounded-2xl px-8 py-10 md:px-12 md:py-14 md:pr-[300px] lg:pr-[360px]">
-          <h2 className="text-white font-bold text-xl md:text-2xl tracking-wide mb-5">
-            {quoteData.name}
-          </h2>
-          <p className="text-white/90 text-sm md:text-base leading-7 md:leading-8">
-            {quoteData.quote}
-          </p>
-        </div>
+        <div className="relative mt-6">
+          <div className="bg-[#1a3a7c] rounded-2xl px-8 py-10 md:px-12 md:py-14 md:pr-[210px] lg:pr-[150px] xl:pr-[300px] w-[85vw] max-w-5xl">
+            <h2 className="text-white font-bold text-xl md:text-2xl tracking-wide mb-5">
+              {quoteData.name}
+            </h2>
+            <p className="text-white/90 text-sm md:text-base leading-7 md:leading-8">
+              {quoteData.quote}
+            </p>
+          </div>
 
-        <div className="md:hidden relative w-full h-64 mt-4 rounded-2xl overflow-hidden">
-          <Image
-            src={quoteData.image}
-            alt={quoteData.name}
-            fill
-            className="object-cover object-top"
-          />
+          <div className="hidden md:block absolute bottom-0 right-[-11%] w-[360px] lg:w-[380px] xl:w-[400px] h-[380px] pointer-events-none">
+            <Image
+              src={quoteData.image}
+              alt={quoteData.name}
+              fill
+              className="object-cover object-bottom"
+              priority
+            />
+          </div>
         </div>
       </section>
-
-      <div
-        // className="hidden md:block absolute right-0 bottom-0 w-[280px] lg:w-[340px] h-[120%]"
-        className="hidden md:block absolute right-[-7%]  bottom-0 w-[35%] h-[120%]"
-        style={{
-          // top: "10px",
-          // mixBlendMode: "screen",
-        }}
-      >
-        <Image
-          src={quoteData.image}
-          alt={quoteData.name}
-          fill
-          className="object-contain object-bottom"
-        />
-      </div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ type BlogPost = {
 const blogPosts: BlogPost[] = [
   {
     id: 1,
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     authorName: "Person's Name",
     date: "Jan 30",
     title: "Name of the blog",
@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     authorName: "Person's Name",
     date: "Feb 20",
     title: "Name of the blog",
@@ -37,7 +37,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 3,
-    image: "/image1.avif",
+    image: "/home/image1.avif",
     authorName: "Person's Name",
     date: "May 5",
     title: "Name of the blog",
