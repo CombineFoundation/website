@@ -39,7 +39,7 @@ const impactItems: ImpactItem[] = [
     image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-      
+
   },
   {
     id: 4,
@@ -49,17 +49,17 @@ const impactItems: ImpactItem[] = [
     image: "/home/image1.avif",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-      
+
   },
-  
+
 ];
 type ImpactCardProps = {
   item: ImpactItem;
 };
- 
+
 function ImpactCard({ item }: ImpactCardProps) {
   const [hovered, setHovered] = useState<boolean>(false);
- 
+
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -79,7 +79,7 @@ function ImpactCard({ item }: ImpactCardProps) {
           className="object-cover object-top"
         />
       </div>
- 
+
       <div className="p-5 overflow-hidden" style={{ height: hovered ? "290px" : "210px", transition: "height 0.5s ease" }}>
         <p className="text-3xl font-bold text-gray-900 leading-none mb-1">
           {item.stat}
@@ -102,12 +102,12 @@ function ImpactCard({ item }: ImpactCardProps) {
     </div>
   );
 }
- 
+
 export default function OurImpact() {
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto bg-white">
+    <section className="py-16 px-6 max-w-6xl mx-auto ">
       <SectionHeader title="OUR IMPACT" description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et." />
- 
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
         {impactItems.map((item) => (
           <ImpactCard key={item.id} item={item} />
