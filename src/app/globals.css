@@ -2,7 +2,6 @@
 
 :root {
   --background: #F7FBFF;
-  --foreground: #171717;
   --primary-100: #D0EBF7;
   --primary-200: #8ACCEB;
   --primary-300: #64BCE4;
@@ -42,17 +41,9 @@
   --color-foreground: var(--foreground);
   --font-montserrat: var(--font-montserrat);
   --font-inter: var(--font-inter);
-  --font-geist: var(--font-geist-sans);
   
   --text-body: 14px;
   --leading-body: 1.35;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #041F2B;
-    --foreground: #ffffff;
-  }
 }
 
 body {
