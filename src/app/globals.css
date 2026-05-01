@@ -2,9 +2,7 @@
 
 :root {
   --background: #F7FBFF;
-<<<<<<< HEAD
   --foreground: #171717;
-=======
   --primary-100: #D0EBF7;
   --primary-200: #8ACCEB;
   --primary-300: #64BCE4;
@@ -25,7 +23,6 @@
   --secondary-900: #040F1A;
   --accent-orange: #F0632E;
   --foreground: var(--primary-900);
->>>>>>> 0c38d21e9de991265e00e693c147c2ebf4e39cb1
 }
 
 @theme inline {
@@ -43,14 +40,12 @@
   --color-secondary-500: var(--secondary-500);
   --color-accent-orange: var(--accent-orange);
   --color-foreground: var(--foreground);
-<<<<<<< HEAD
   --font-montserrat: var(--font-montserrat);
   --font-inter: var(--font-inter);
   --font-geist: var(--font-geist-sans);
   
   --text-body: 14px;
   --leading-body: 1.35;
-=======
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,13 +53,11 @@
     --background: #041F2B;
     --foreground: #ffffff;
   }
->>>>>>> 0c38d21e9de991265e00e693c147c2ebf4e39cb1
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-<<<<<<< HEAD
   font-family: var(--font-montserrat), sans-serif;
   font-size: 14px;
   line-height: 1.35;
@@ -75,8 +68,3 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), sans-serif;
   line-height: 1.2;
 }
-
-=======
-  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
-}
->>>>>>> 0c38d21e9de991265e00e693c147c2ebf4e39cb1
