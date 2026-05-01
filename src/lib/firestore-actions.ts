@@ -14,8 +14,9 @@ export const addProgram = async (program: Omit<Program, 'id' | 'createdAt'>) => 
   return await addDoc(collection(db, "programs"), {
     ...program,
     createdAt: serverTimestamp(),
-  });
+  });      
 };
+
 
 // Applications
 export const addApplication = async (application: Omit<Application, 'id' | 'createdAt'>) => {
