@@ -47,7 +47,7 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
     <div className="border-b border-gray-200">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer"
+        className="w-[80vw] m-auto flex items-center justify-between gap-4 py-5 text-left cursor-pointer"
       >
         <span className="text-gray-900 font-semibold text-sm md:text-base">
           {item.question}
@@ -77,7 +77,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="px-6 py-14 max-w-3xl mx-auto">
+    <section className="px-6 py-14 max-w-7xl mx-auto">
       <SectionHeader
         title="Frequently Asked Questions"
         description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."

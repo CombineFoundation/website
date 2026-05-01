@@ -17,7 +17,7 @@ type BlogPost = {
 const blogPosts: BlogPost[] = [
   {
     id: 1,
-    image: "/home/image1.avif",
+    image: "/home/blog/blog1.png",
     authorName: "Person's Name",
     date: "Jan 20",
     title: "Name of the blog",
@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
-    image: "/home/image1.avif",
+    image: "/home/blog/blog2.png",
     authorName: "Person's Name",
     date: "Jan 20",
     title: "Name of the blog",
@@ -37,7 +37,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 3,
-    image: "/home/image1.avif",
+    image: "/home/blog/blog3.png",
     authorName: "Person's Name",
     date: "Jan 20",
     title: "Name of the blog",
@@ -53,9 +53,9 @@ type BlogCardProps = {
 
 function BlogCard({ post }: BlogCardProps) {
   return (
-    <div className="flex flex-col font-sans w-full max-w-[372px]">
+    <div className="flex flex-col font-sans w-full">
       <div
-        className="relative w-full rounded-2xl overflow-hidden flex-shrink-0"
+        className="relative w-full rounded-2xl overflow-hidden shrink-0"
         style={{ height: "320px" }}
       >
         <Image
@@ -93,9 +93,10 @@ function BlogCard({ post }: BlogCardProps) {
         </div>
         <Link
           href={`/blog/${post.slug}`}
-          className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-opacity duration-200 mt-1 hover:opacity-90"
+          className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-opacity duration-200 mt-1 hover:opacity-90"
           style={{
-            background: "radial-gradient(circle at 40% 35%, #2e86d4 0%, #1057b0 50%, #0a3d8f 100%)",
+            // background: "linear-gradient(180deg, #2e86d4 0%, #1057b0 50%, #0a3d8f 100%)",
+            background: "linear-gradient(90deg, #0F3D6B 0%, #0061C3 50%, #0061C3 75%, #0F3D6B 100%)",
           }}
           aria-label={`Read ${post.title}`}
         >

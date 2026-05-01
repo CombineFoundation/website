@@ -17,8 +17,7 @@ const impactItems: ImpactItem[] = [
     id: 1,
     stat: "100+",
     title: "Schools Built",
-    // image: "/images/impact/schools.jpg",
-    image: "/home/image1.avif",
+    image: "/home/impact/impact1.png",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
   },
@@ -26,8 +25,7 @@ const impactItems: ImpactItem[] = [
     id: 2,
     stat: "500+",
     title: "Volunteers Trained",
-    // image: "/images/impact/volunteers.jpg",
-    image: "/home/image1.avif",
+    image: "/home/impact/impact2.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.",
   },
@@ -35,8 +33,7 @@ const impactItems: ImpactItem[] = [
     id: 3,
     stat: "50+",
     title: "Cities Reached",
-    // image: "/images/impact/cities.jpg",
-    image: "/home/image1.avif",
+    image: "/home/impact/impact2.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
 
@@ -45,8 +42,25 @@ const impactItems: ImpactItem[] = [
     id: 4,
     stat: "50+",
     title: "Cities Reached",
-    // image: "/images/impact/cities.jpg",
-    image: "/home/image1.avif",
+    image: "/home/impact/impact4.png",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
+
+  },
+  {
+    id: 5,
+    stat: "50+",
+    title: "Cities Reached",
+    image: "/home/impact/impact5.png",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
+
+  },
+  {
+    id: 6,
+    stat: "50+",
+    title: "Cities Reached",
+    image: "/home/impact/impact6.png",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
 
@@ -64,12 +78,12 @@ function ImpactCard({ item }: ImpactCardProps) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="rounded-2xl border border-gray-200 bg-white cursor-pointer shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden p-2"
-      style={{ height: "420px" }}
+      className="rounded-4xl min-[450px]:w-[75%] w-75 sm:w-auto m-auto cursor-pointer duration-300 overflow-hidden p-2 border-2 border-gray-400"
+      style={{ height: "370px" }}
     >
       <div
-        className="relative w-full overflow-hidden rounded-2xl flex-shrink-0 transition-all duration-500 ease-in-out"
-        style={{ height: hovered ? "50px" : "210px" }}
+        className="relative w-full overflow-hidden rounded-4xl shrink-0 transition-all duration-500 ease-in-out"
+        style={{ height: hovered ? "30px" : "180px" }}
       >
         <Image
           src={item.image}
@@ -80,11 +94,11 @@ function ImpactCard({ item }: ImpactCardProps) {
         />
       </div>
 
-      <div className="p-5 overflow-hidden" style={{ height: hovered ? "290px" : "210px", transition: "height 0.5s ease" }}>
-        <p className="text-3xl font-bold text-gray-900 leading-none mb-1">
+      <div className="p-5 overflow-hidden" style={{ height: hovered ? "300px " : "210px", transition: "height 0.5s ease" }}>
+        <p className="text-3xl md:text-4xl font-bold text-gray-900 leading-none mb-1">
           {item.stat}
         </p>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2.5">
+        <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2.5 font-montserrat">
           {item.title}
         </h3>
         <p
@@ -92,7 +106,7 @@ function ImpactCard({ item }: ImpactCardProps) {
           style={{
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
-            WebkitLineClamp: hovered ? 9 : 4,
+            WebkitLineClamp: hovered ? 9 : 3,
             overflow: "hidden",
           }}
         >
@@ -108,7 +122,7 @@ export default function OurImpact() {
     <section className="py-16 px-6 max-w-6xl mx-auto ">
       <SectionHeader title="OUR IMPACT" description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et." />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  items-center">
         {impactItems.map((item) => (
           <ImpactCard key={item.id} item={item} />
         ))}

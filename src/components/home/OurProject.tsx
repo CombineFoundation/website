@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import SectionHeader from "../UI/SectionHeader";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ const projects: Project[] = [
     name: "PROJECT NAME",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non",
-    image: "/home/image1.avif",
+    image: "/home/project/project.png",
     link: "/projects/1",
   },
   {
@@ -26,7 +27,7 @@ const projects: Project[] = [
     name: "PROJECT TWO",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue.",
-    image: "/home/image1.avif",
+    image: "/home/project/project.png",
     link: "/projects/2",
   },
   {
@@ -34,7 +35,7 @@ const projects: Project[] = [
     name: "PROJECT THREE",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.",
-    image: "/home/image1.avif",
+    image: "/home/project/project.png",
     link: "/projects/3",
   },
 ];
@@ -90,8 +91,13 @@ export default function ProjectsSlider() {
 
   return (
     <section className="relative px-10 py-4">
-      <div className="absolute left-3 top-1/2 w-2 h-[30%] translate-y-[-65%] rounded-full bg-[#1a2f5a]" />
-      <div className="absolute right-3 translate-y-[-65%] top-1/2 w-2 h-[30%] rounded-full bg-[#1a2f5a]" />
+      <SectionHeader
+        title="Our Projects"
+        description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
+      />
+
+      <div className="absolute left-3 top-1/2 w-1.5 h-[30%] translate-y-[-65%] rounded-full bg-[#1a2f5a]" />
+      <div className="absolute right-3 translate-y-[-65%] top-1/2 w-1.5 h-[30%] rounded-full bg-[#1a2f5a]" />
 
       <div
         className="relative w-full rounded-2xl overflow-hidden"
@@ -117,7 +123,7 @@ export default function ProjectsSlider() {
             priority
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
 
         <div
@@ -127,7 +133,7 @@ export default function ProjectsSlider() {
             transition: "opacity 0.3s ease",
           }}
         >
-          <h2 className="text-white text-4xl font-bold tracking-wide mb-5">
+          <h2 className="text-white text-4xl font-bold mb-5">
             {project.name}
           </h2>
           <p className="text-white/90 text-base leading-relaxed mb-8 line-clamp-5">
@@ -142,7 +148,7 @@ export default function ProjectsSlider() {
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 mt-5">
+      <div className="flex justify-center sm:justify-end gap-3 my-10">
         <button
           onClick={handlePrev}
           aria-label="Previous project"
@@ -164,7 +170,7 @@ export default function ProjectsSlider() {
         <button
           onClick={handleNext}
           aria-label="Next project"
-          className="w-11 h-11 rounded-full bg-[#1a2f5a] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
         >
           <svg
             width="18"
