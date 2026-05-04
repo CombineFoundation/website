@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import { db } from "./firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Program, Application, Message } from "./collections";
 
@@ -82,3 +82,5 @@ export const seedDatabase = async () => {
     console.error("Error seeding database:", error);
   }
 };
+
+seedDatabase();
