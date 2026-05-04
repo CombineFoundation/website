@@ -3,9 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import Topbar from "@/components/layout/Topbar";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -37,14 +36,13 @@ export default function RootLayout({
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[var(--font-montserrat)]">
-        <SpeedInsights />
-        <Analytics />
-        <Topbar />
-        <Navbar navItems={navItems} />
-        <main className="flex-grow">
+        <Header />
+        <main className="flex-grow flex flex-col">
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
