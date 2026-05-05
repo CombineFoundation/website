@@ -53,19 +53,17 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
         <span className="text-gray-900 font-semibold text-base md:text-lg transition-colors duration-300 group-hover:text-secondary-500">
           {item.question}
         </span>
-        <span 
-          className={`flex-shrink-0 text-2xl transition-colors duration-300 ${
-            isOpen ? "text-secondary-500" : "text-gray-400"
-          }`}
+        <span
+          className={`flex-shrink-0 text-2xl transition-colors duration-300 ${isOpen ? "text-secondary-500" : "text-gray-400"
+            }`}
         >
           {isOpen ? "−" : "+"}
         </span>
       </button>
 
       <div
-        className={`grid transition-all duration-300 ease-in-out px-4 ${
-          isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0 pb-0"
-        }`}
+        className={`grid transition-all duration-300 ease-in-out px-4 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0 pb-0"
+          }`}
       >
         <div className="overflow-hidden">
           <p className="text-gray-600 text-sm md:text-base leading-relaxed">
@@ -78,7 +76,7 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
 }
 
 export default function FaqSection() {
-  const [openId, setOpenId] = useState<number | null>(1);
+  const [openId, setOpenId] = useState<number | null>(0);
 
   const toggle = (id: number) => {
     setOpenId((prev) => (prev === id ? null : id));

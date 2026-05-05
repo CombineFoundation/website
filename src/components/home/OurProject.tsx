@@ -90,14 +90,14 @@ export default function ProjectsSlider() {
   const project = projects[current];
 
   return (
-    <section className="relative px-10 py-4">
+    <section className="relative px-5 sm:px-10 py-4">
       <SectionHeader
         title="Our Projects"
         description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
       />
 
-      <div className="absolute left-3 top-1/2 w-1.5 h-[30%] translate-y-[-65%] rounded-full bg-[#1a2f5a]" />
-      <div className="absolute right-3 translate-y-[-65%] top-1/2 w-1.5 h-[30%] rounded-full bg-[#1a2f5a]" />
+      <div className="absolute left-1 sm:left-3 top-1/2 w-1.5 h-[30%] translate-y-[-35%] rounded-full bg-[#1a2f5a]" />
+      <div className="absolute right-1 sm:right-3 translate-y-[-35%] top-1/2 w-1.5 h-[30%] rounded-full bg-[#1a2f5a]" />
 
       <div
         className="relative w-full rounded-2xl overflow-hidden"
@@ -127,16 +127,16 @@ export default function ProjectsSlider() {
         </div>
 
         <div
-          className="absolute inset-0 flex flex-col justify-center px-10 max-w-2xl"
+          className="absolute inset-0 flex flex-col justify-center px-10 max-w-2xl items-center md:items-start"
           style={{
             opacity: sliding ? 0 : 1,
             transition: "opacity 0.3s ease",
           }}
         >
-          <h2 className="text-white text-4xl font-bold mb-5">
+          <h2 className="text-white text-2xl md:text-4xl font-bold mb-5 text-center md:text-left ">
             {project.name}
           </h2>
-          <p className="text-white/90 text-base leading-relaxed mb-8 line-clamp-5">
+          <p className="text-white/90 text-sm md:text-base leading-relaxed mb-8 line-clamp-5">
             {project.description}
           </p>
           <Link

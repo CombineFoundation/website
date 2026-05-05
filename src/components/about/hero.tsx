@@ -5,14 +5,13 @@ import PageHeroMobile from "@/components/UI/Pageheromobile";
 
 export default function AboutHero() {
     return (
-        <section className="w-full bg-[#F7FBFF] py-10 md:px-10">
-            {/* Desktop View */}
-            <div className="hidden md:grid relative max-w-6xl mx-auto grid-cols-2 h-[95%] rounded-3xl">
-                <div className="absolute w-full h-[94%] bg-[#E8E8E8] top-4 right-0 z-1" />
+        <section className="w-full bg-[#F7FBFF] py-4">
+            <div className="hidden md:grid grid-cols-2 relative max-w-6xl mx-auto  h-[95%] rounded-3xl">
+                <div className="absolute w-[50%] h-[94%] bg-[#E8E8E8] top-4 right-[30%] z-1" />
 
                 {/* TOP LEFT - ABOUT TEXT */}
-                <div className="bg-[#F7FBFF] rounded-br-3xl flex items-center justify-center p-6 z-2">
-                    <h1 className="text-5xl md:text-7xl font-extrabold text-gray-950">
+                <div className="bg-[#F7FBFF] rounded-br-3xl flex items-center justify-center z-2">
+                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-gray-950">
                         ABOUT
                     </h1>
                 </div>
@@ -40,19 +39,20 @@ export default function AboutHero() {
                 </div>
 
                 {/* BOTTOM RIGHT - TEXT */}
-                <div className="bg-[#F7FBFF] rounded-tl-3xl flex items-center justify-center p-6 z-2">
-                    <h1 className="text-5xl md:text-7xl font-extrabold text-gray-950">
+                <div className="bg-[#F7FBFF] rounded-tl-3xl flex items-center justify-center z-2 ">
+                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-gray-950">
                         COMBINE
                     </h1>
                 </div>
             </div>
 
             {/* Mobile View */}
-            <div className="md:hidden w-full">
+            <div className="md:hidden w-full ">
                 <PageHeroMobile
                     title="About Us"
                     imageSrc="/about/hero/hero1.png"
                     imageAlt="About Combine Hero"
+                    styles="block md:hidden"
                 />
             </div>
         </section>
