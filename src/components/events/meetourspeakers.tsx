@@ -12,19 +12,19 @@ const speakers: Speaker[] = [
         id: 1,
         name: "Faysal Aziz Khan",
         role: "President | BOL Media Group",
-        image: "/images/speakers/faysal-aziz-khan.jpg",
+        image: "/events/eventsperson.png",
     },
     {
         id: 2,
         name: "Faysal Aziz Khan",
         role: "President | BOL Media Group",
-        image: "/images/speakers/faysal-aziz-khan.jpg",
+        image: "/events/eventsperson.png",
     },
     {
         id: 3,
         name: "Faysal Aziz Khan",
         role: "President | BOL Media Group",
-        image: "/images/speakers/faysal-aziz-khan.jpg",
+        image: "/events/eventsperson.png",
     },
 ];
 
@@ -36,7 +36,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
 
 
 
-                <div className="absolute right-0 top-0 w-32 h-32 rounded-2xl overflow-hidden z-10 border-2 border-white shadow-sm">
+                <div className="absolute top-0 w-36 h-32 rounded-2xl overflow-hidden z-10 border-2 border-white shadow-sm">
                     <img
                         src={speaker.image}
                         alt={speaker.name}
@@ -66,7 +66,7 @@ export default function MeetOurSpeakers() {
             <div className="w-full h-px bg-gray-300 mb-10" />
 
 
-            <div className="flex justify-around flex-wrap items-center gap-x-8 gap-y-20 ">
+            <div className="grid grid-cols-1 min-[405px]:grid-cols-2 sm:grid-cols-3 justify-center items-center gap-x-8 gap-y-20 ">
                 {speakers.map((speaker) => (
                     <SpeakerCard key={speaker.id} speaker={speaker} />
                 ))}

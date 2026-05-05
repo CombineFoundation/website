@@ -87,8 +87,8 @@ export default function Goals() {
                 {activeTab.items.map((item, i) => (
                     <div key={item.id}>
                         <div className="flex items-start gap-3 py-5">
-                            <span className="text-gray-400 mt-1 text-xs shrink-0">•</span>
-                            <p className="text-gray-700 text-sm md:text-base leading-7">
+                            <span className="text-black mt-1 text-xs shrink-0">•</span>
+                            <p className="text-black text-sm md:text-base leading-7">
                                 {item.text}
                             </p>
                         </div>

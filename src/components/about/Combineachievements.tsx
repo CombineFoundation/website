@@ -107,12 +107,12 @@ export default function CombineAchievements() {
                 }}
             >
                 <div className="flex-1">
-                    <h3 className="text-gray-900 font-bold text-xl md:text-2xl mb-4">
+                    <h3 className="text-black font-bold text-xl md:text-2xl mb-4">
                         {item.title}
                     </h3>
                     <div className="space-y-4">
                         {item.paragraphs.map((para, i) => (
-                            <p key={i} className="text-gray-600 text-sm leading-5">
+                            <p key={i} className="text-black text-sm leading-5">
                                 {para}
                             </p>
                         ))}

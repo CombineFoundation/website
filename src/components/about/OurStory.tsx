@@ -33,7 +33,7 @@ export default function OurStory() {
             <div className="flex flex-col lg:flex-row gap-8 md:gap-12 items-start">
                 <div className="flex-1 space-y-5">
                     {storyContent.paragraphs.map((para, i) => (
-                        <p key={i} className="text-gray-700 text-base lg:text-lg leading-7">
+                        <p key={i} className="text-black text-base lg:text-lg leading-7">
                             {para}
                         </p>
                     ))}

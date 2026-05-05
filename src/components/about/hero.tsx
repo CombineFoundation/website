@@ -11,7 +11,7 @@ export default function AboutHero() {
 
                 {/* TOP LEFT - ABOUT TEXT */}
                 <div className="bg-[#F7FBFF] rounded-br-3xl flex items-center justify-center z-2">
-                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-gray-950">
+                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-black">
                         ABOUT
                     </h1>
                 </div>
@@ -40,14 +40,13 @@ export default function AboutHero() {
 
                 {/* BOTTOM RIGHT - TEXT */}
                 <div className="bg-[#F7FBFF] rounded-tl-3xl flex items-center justify-center z-2 ">
-                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-gray-950">
+                    <h1 className="text-6xl min-[856px]:text-7xl min-[1100px]:text-8xl font-extrabold text-black">
                         COMBINE
                     </h1>
                 </div>
             </div>
 
-            {/* Mobile View */}
-            <div className="md:hidden w-full ">
+            <div className="md:hidden w-full">
                 <PageHeroMobile
                     title="About Us"
                     imageSrc="/about/hero/hero1.png"

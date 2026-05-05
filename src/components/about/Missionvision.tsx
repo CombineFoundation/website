@@ -30,12 +30,12 @@ export default function Missionvision() {
             key={item.id}
             className="rounded-2xl border border-gray-200 bg-white px-7 py-6"
           >
-            <h3 className="text-gray-900 font-bold text-xl mb-3">
+            <h3 className="text-black font-bold text-xl mb-3">
               {item.title}
             </h3>
 
             <div className="w-full h-1 bg-[#e8511a] mb-5" />
-            <p className="text-gray-700 text-sm leading-7">
+            <p className="text-black text-sm leading-7">
               {item.description}
             </p>
           </div>
