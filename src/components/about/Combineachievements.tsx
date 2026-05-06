@@ -91,7 +91,7 @@ export default function CombineAchievements() {
     const item = achievements[current];
 
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
             <SectionHeader title="Combine&apos;s Achievements" />
 
             <div

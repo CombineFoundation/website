@@ -46,30 +46,11 @@ const events: Event[] = [
     },
 ];
 
-// ─── Date Helpers ────────────────────────────────────────────────────────────
-//
-// HOW REAL DATES WORK HERE:
-//
-//  1. new Date("22 June 2022")  → JavaScript parses the event's date string
-//     into a real Date object with a correct weekday, month, and year.
-//
-//  2. For the calendar grid we only need three numbers:
-//       • firstDayOfMonth.getDay()    → weekday the 1st falls on (0=Sun … 6=Sat)
-//       • new Date(y, m+1, 0).getDate() → total days in the month
-//     These two numbers let us build any month's grid automatically.
-//
-//  3. We initialise `currentMonth` to the month of the earliest upcoming event
-//     (or today if there are none), so the calendar opens on a relevant month.
-//
-//  4. Prev / Next buttons just increment/decrement the month counter;
-//     JavaScript's Date constructor handles year-wrapping (month 13 → Jan+1 yr).
 
 function parseEventDate(dateStr: string): Date {
-    // e.g. "22 June 2022" → new Date("22 June 2022") is valid in all modern engines
     return new Date(dateStr);
 }
 
-/** Returns all events that fall on a given calendar day */
 function eventsOnDay(year: number, month: number, day: number): Event[] {
     return events.filter((e) => {
         const d = parseEventDate(e.date);
@@ -81,17 +62,15 @@ function eventsOnDay(year: number, month: number, day: number): Event[] {
     });
 }
 
-/** Build a matrix of day numbers (0 = empty padding cell) for a given month */
 function buildMonthGrid(year: number, month: number): number[][] {
-    const firstWeekday = new Date(year, month, 1).getDay(); // 0–6
-    const daysInMonth = new Date(year, month + 1, 0).getDate(); // 28–31
+    const firstWeekday = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     const cells: number[] = [
-        ...Array(firstWeekday).fill(0),          // leading empty cells
+        ...Array(firstWeekday).fill(0),
         ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
     ];
 
-    // chunk into rows of 7
     const rows: number[][] = [];
     for (let i = 0; i < cells.length; i += 7) {
         rows.push(cells.slice(i, i + 7));
@@ -105,7 +84,7 @@ const MONTH_NAMES = [
 ];
 const WEEK_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-// ─── Derive the initial month from the first event date ──────────────────────
+
 function getInitialMonth() {
     if (events.length === 0) {
         const today = new Date();
@@ -118,7 +97,6 @@ function getInitialMonth() {
     return { year: first.getFullYear(), month: first.getMonth() };
 }
 
-// ─── SVG Icons ───────────────────────────────────────────────────────────────
 
 function CalendarIcon({ size = 18 }: { size?: number }) {
     return (
@@ -170,7 +148,6 @@ function buildCalendarUrl(event: Event): string {
     return `${base}&text=${title}&details=${details}&location=${location}`;
 }
 
-// ─── List Card ────────────────────────────────────────────────────────────────
 
 function EventCard({ event }: { event: Event }) {
     return (
@@ -215,7 +192,7 @@ function EventCard({ event }: { event: Event }) {
                         {event.startTime} - {event.endTime}
                     </div>
                     <div className="flex items-start gap-3 text-gray-700 text-sm font-semibold">
-                        <span className="text-gray-500 mt-0.5 flex-shrink-0"><PinIcon /></span>
+                        <span className="text-gray-500 mt-0.5 shrink-0"><PinIcon /></span>
                         {event.location}
                     </div>
                 </div>
@@ -223,8 +200,6 @@ function EventCard({ event }: { event: Event }) {
         </div>
     );
 }
-
-// ─── Event Detail Popover ─────────────────────────────────────────────────────
 
 function EventPopover({ event, onClose }: { event: Event; onClose: () => void }) {
     return (
@@ -412,7 +387,7 @@ export default function UpcomingEvents() {
     const [view, setView] = useState<ViewMode>("list");
 
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
             <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>

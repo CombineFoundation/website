@@ -106,7 +106,7 @@ function ValueCard({ value }: ValueCardProps) {
 
 export default function OurValues() {
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
 
             <SectionHeader title="Our Values" />
 

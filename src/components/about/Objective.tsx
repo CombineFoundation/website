@@ -13,7 +13,7 @@ const objectiveContent: ObjectiveContent = {
 
 export default function Objective() {
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-4">
+        <section className="w-full mx-auto px-6 py-4">
             <div
                 className="w-full rounded-2xl px-8 py-7 bg-[#124980]"
             >

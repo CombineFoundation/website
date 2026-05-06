@@ -15,7 +15,7 @@ const content: EventsIdeaContent = {
 
 export default function ourideas() {
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
             <h2 className="text-gray-900 font-semibold text-2xl md:text-3xl mb-3">
                 {content.title}
             </h2>

@@ -23,7 +23,7 @@ const items: MissionVisionItem[] = [
 
 export default function Missionvision() {
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+    <section className="w-full mx-auto px-6 py-10 md:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((item) => (
           <div

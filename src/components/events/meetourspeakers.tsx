@@ -58,7 +58,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
 
 export default function MeetOurSpeakers() {
     return (
-        <section className="w-full max-w-5xl mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
 
             <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
                 Meet Our Speakers
