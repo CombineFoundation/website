@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #F7FBFF;
   --primary-100: #D0EBF7;
@@ -58,4 +59,26 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), sans-serif;
   line-height: 1.2;
+}
+
+
+svg {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
+}
+
+svg path {
+    user-select: none;
+}
+
+svg g {
+    outline: none;
+}
+
+/* Hide the black border rectangle rendered internally by react19-simple-maps */
+.rsm-svg > rect:first-child {
+    display: none !important;
 }
