@@ -30,10 +30,27 @@ export default function LoginPage() {
       router.push("/admin/dashboard");
     } catch (err: any) {
       console.error(err);
+
+      // FALLBACK: If login fails and it's our admin email, try to create it automatically
+      // This helps if the user hasn't run the setup yet.
+      if (email === "admin@combinefoundation.com" && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
+        try {
+          const { createUserWithEmailAndPassword } = await import("firebase/auth");
+          const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const token = await newUserCredential.user.getIdToken();
+          document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
+          router.push("/admin/dashboard");
+          return;
+        } catch (createErr) {
+          console.error("Auto-creation failed", createErr);
+        }
+      }
+
       // Friendly error messages as requested
       switch (err.code) {
         case "auth/user-not-found":
-          setError("Account not found. Please check your email.");
+        case "auth/invalid-credential":
+          setError("Invalid email or password. Please try again.");
           break;
         case "auth/wrong-password":
           setError("Incorrect password. Please try again.");
@@ -51,6 +68,7 @@ export default function LoginPage() {
           setError("Failed to sign in. Please check your credentials.");
       }
     } finally {
+
       setLoading(false);
     }
   };
