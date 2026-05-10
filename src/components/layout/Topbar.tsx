@@ -1,13 +1,13 @@
-import React from 'react';
+import Link from 'next/link';
 
 const Topbar = () => {
   return (
-    <div className="bg-navy text-white py-1 px-4 text-sm hidden md:block">
-      <div className="container mx-auto flex justify-between items-center">
-        <p>Announcement: Register for our upcoming Web Development Bootcamp!</p>
-        <div className="flex gap-4">
-          <button className="hover:text-orange transition-colors">Login</button>
-          <button className="hover:text-orange transition-colors">Register</button>
+    <div className="bg-[#134981] text-white py-1.5 px-4 text-xs hidden md:block border-b border-white/10">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <p className="font-medium">Welcome to Combine Foundation - Empowering Communities</p>
+        <div className="flex gap-6 items-center">
+          <Link href="/admin" className="hover:text-[#F97316] transition-all font-bold tracking-wide uppercase text-[10px]">Login</Link>
+          <Link href="/register" className="hover:text-[#F97316] transition-all font-bold tracking-wide uppercase text-[10px]">Register</Link>
         </div>
       </div>
     </div>

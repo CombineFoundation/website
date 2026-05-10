@@ -27,7 +27,7 @@ export default function LoginPage() {
       const token = await userCredential.user.getIdToken();
       document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
       
-      router.push("/admin");
+      router.push("/admin/dashboard");
     } catch (err: any) {
       console.error(err);
       // Friendly error messages as requested
