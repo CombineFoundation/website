@@ -1,3 +1,4 @@
+/*
 export default function Home() {
   return (
     <div>
@@ -5,4 +6,9 @@ export default function Home() {
       <p>This is a simple home page component.</p>
     </div>
   );
+}
+*/
+
+export default function Home() {
+  return null;
 }

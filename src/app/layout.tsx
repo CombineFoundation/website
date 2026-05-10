@@ -3,8 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+// import Header from "@/components/Header";
+// import Footer from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "Combine Foundation is a non-profit organization dedicated to supporting and empowering individuals and communities through various initiatives and programs. Our mission is to create positive change and foster growth by providing resources, education, and opportunities for those in need.",
 };
 
+/*
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -24,6 +25,7 @@ const navItems = [
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
 ];
+*/
 
 export default function RootLayout({
   children,
@@ -36,11 +38,11 @@ export default function RootLayout({
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[var(--font-montserrat)]">
-        <Header />
+        {/* <Header /> */}
         <main className="flex-grow flex flex-col">
           {children}
         </main>
-        <Footer />
+        {/* <Footer /> */}
         <SpeedInsights />
         <Analytics />
       </body>
