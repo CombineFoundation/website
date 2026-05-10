@@ -20,7 +20,8 @@ export default function DonationForm() {
         paymentMethod: "",
     });
 
-    const handle = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }));
+    const handle = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+        setForm((p) => ({ ...p, [k]: e.target.value }));
 
     const fieldClass =
         "w-full px-4 py-3 rounded-lg border border-[#b0bec5] bg-white text-black text-sm placeholder-gray-400 outline-none focus:border-blue-400 transition-colors font-[inherit]";

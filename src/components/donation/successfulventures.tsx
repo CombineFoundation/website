@@ -32,15 +32,20 @@ const VENTURES = [
     },
 ];
 
-function DragSlider({ images }) {
-    const trackRef = useRef(null);
+interface DragSliderProps {
+    images: string[];
+}
+
+function DragSlider({ images }: DragSliderProps) {
+    const trackRef = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
     const scrollLeft = useRef(0);
     const [dragged, setDragged] = useState(false);
 
     /* ── Mouse events ── */
-    const onMouseDown = (e) => {
+    const onMouseDown = (e: React.MouseEvent) => {
+        if (!trackRef.current) return;
         isDragging.current = true;
         setDragged(false);
         startX.current = e.pageX - trackRef.current.offsetLeft;
@@ -48,8 +53,8 @@ function DragSlider({ images }) {
         trackRef.current.style.cursor = "grabbing";
     };
 
-    const onMouseMove = (e) => {
-        if (!isDragging.current) return;
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current || !trackRef.current) return;
         e.preventDefault();
         const x = e.pageX - trackRef.current.offsetLeft;
         const walk = x - startX.current;
@@ -118,14 +123,14 @@ export default function SuccessfulVentures() {
                 <div className="flex flex-col gap-12">
                     {VENTURES.map((venture) => (
                         <div key={venture.id}>
-                            <p className="text-base md:text-lg font-semibold text-black mb-4 leading-snug">
+                            <p className="text-base md:text-lg lg:text-xl font-semibold text-black mb-4 leading-snug">
                                 {venture.heading}
                             </p>
                             <hr className="border-t border-gray-300 mb-5" />
 
                             <DragSlider images={venture.images} />
 
-                            <p className="text-sm text-black leading-relaxed mt-5">
+                            <p className="text-sm lg:text-lg text-black leading-relaxed mt-5">
                                 {venture.description}
                             </p>
                         </div>
