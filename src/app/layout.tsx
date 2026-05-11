@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { usePathname } from "next/navigation";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -10,23 +14,25 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-export const metadata: Metadata = {
-  title: "Combine Foundation",
-  description: "Combine Foundation is a non-profit organization dedicated to supporting and empowering individuals and communities through various initiatives and programs. Our mission is to create positive change and foster growth by providing resources, education, and opportunities for those in need.",
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin") || pathname?.startsWith("/login");
+
   return (
     <html
       lang="en"
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[var(--font-montserrat)]">
-        {children}
+        {!isAdminPage && <Header />}
+        <main className="flex-grow flex flex-col">
+          {children}
+        </main>
+        {!isAdminPage && <Footer />}
         <SpeedInsights />
         <Analytics />
       </body>
