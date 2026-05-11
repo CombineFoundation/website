@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #F7FBFF;
   --primary-100: #D0EBF7;
@@ -39,17 +40,45 @@
   --color-secondary-500: var(--secondary-500);
   --color-accent-orange: var(--accent-orange);
   --color-foreground: var(--foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #041F2B;
-    --foreground: #ffffff;
-  }
+  --font-montserrat: var(--font-montserrat);
+  --font-inter: var(--font-inter);
+  
+  --text-body: 14px;
+  --leading-body: 1.35;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  line-height: 1.2;
+}
+
+
+svg {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
+}
+.drag-slider::-webkit-scrollbar { display: none; }
+svg path {
+    user-select: none;
+}
+
+svg g {
+    outline: none;
+}
+
+/* Hide the black border rectangle rendered internally by react19-simple-maps */
+.rsm-svg > rect:first-child {
+    display: none !important;
 }
