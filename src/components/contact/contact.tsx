@@ -229,8 +229,8 @@ const ContactForm = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[#1a2f5a] to-[#0C3155]
-                                       hover:from-[#243d73] hover:to-[#1a3d6f]
+                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[#0F3D6B] via-[#0061C3] to-[#0F3D6B]
+hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
                                        text-white text-sm lg:text-base xl:text-lg
                                        font-semibold tracking-wide transition-all duration-200
                                        disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
@@ -244,7 +244,7 @@ const ContactForm = () => {
 
                         {/* Address */}
                         <div className="flex flex-col">
-                            <span className="mt-0.5 flex-shrink-0 text-gray-600">
+                            <span className="mt-0.5 flex-shrink-0 text-black">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -252,14 +252,14 @@ const ContactForm = () => {
                                     <circle cx="12" cy="9" r="2.5" />
                                 </svg>
                             </span>
-                            <p className="text-sm lg:text-base xl:text-lg text-gray-600 font-semibold leading-relaxed mt-1">
+                            <p className="text-sm lg:text-base xl:text-lg text-black font-semibold leading-relaxed mt-1">
                                 House 23, Street 3 Block 13D, Gulshan - e - Iqbal
                             </p>
                         </div>
 
                         {/* Phone */}
                         <div className="flex flex-col mb-1">
-                            <span className="flex-shrink-0 text-gray-600">
+                            <span className="flex-shrink-0 text-black">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -270,14 +270,14 @@ const ContactForm = () => {
                                              A2 2 0 0122 16.92z" />
                                 </svg>
                             </span>
-                            <p className="text-sm lg:text-base xl:text-lg text-gray-600 font-semibold">
+                            <p className="text-sm lg:text-base xl:text-lg text-black font-semibold">
                                 +92 319 3372277
                             </p>
                         </div>
 
                         {/* Email */}
                         <div className="flex flex-col">
-                            <span className="flex-shrink-0 text-gray-600">
+                            <span className="flex-shrink-0 text-black">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -288,7 +288,7 @@ const ContactForm = () => {
 
                             <a
                                 href="mailto:info@combinefoundation.org"
-                                className="text-sm lg:text-base xl:text-lg font-semibold text-gray-600 hover:text-blue-600 transition-colors"
+                                className="text-sm lg:text-base xl:text-lg font-semibold text-black hover:text-blue-600 transition-colors"
                             >
                                 combinegroup@gmail.com
                             </a>
@@ -298,7 +298,7 @@ const ContactForm = () => {
                         <div className="flex items-center gap-5 mt-1">
                             {/* Instagram */}
                             <a href="https://www.instagram.com/combinefoundation" aria-label="Instagram"
-                                className="text-gray-500 hover:text-pink-500 transition-colors">
+                                className="text-black hover:text-pink-500 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -309,7 +309,7 @@ const ContactForm = () => {
                             </a>
                             {/* Facebook */}
                             <a href="https://www.facebook.com/combinefoundationoffical" aria-label="Facebook"
-                                className="text-gray-500 hover:text-blue-600 transition-colors">
+                                className="text-black hover:text-blue-600 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -318,7 +318,7 @@ const ContactForm = () => {
                             </a>
                             {/* LinkedIn */}
                             <a href="https://www.linkedin.com/company/combine-foundation/" aria-label="LinkedIn"
-                                className="text-gray-500 hover:text-blue-700 transition-colors">
+                                className="text-black hover:text-blue-700 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
