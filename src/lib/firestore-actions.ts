@@ -6,12 +6,12 @@ import {
   query, 
   where 
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { getDb } from "./firebase";
 import { Program, Application, Message } from "@/types/database";
 
 // Programs
 export const addProgram = async (program: Omit<Program, 'id' | 'createdAt'>) => {
-  return await addDoc(collection(db, "programs"), {
+  return await addDoc(collection(getDb(), "programs"), {
     ...program,
     createdAt: serverTimestamp(),
   });      
@@ -20,7 +20,7 @@ export const addProgram = async (program: Omit<Program, 'id' | 'createdAt'>) => 
 
 // Applications
 export const addApplication = async (application: Omit<Application, 'id' | 'createdAt'>) => {
-  return await addDoc(collection(db, "applications"), {
+  return await addDoc(collection(getDb(), "applications"), {
     ...application,
     createdAt: serverTimestamp(),
   });
@@ -28,7 +28,7 @@ export const addApplication = async (application: Omit<Application, 'id' | 'crea
 
 // Messages
 export const addMessage = async (message: Omit<Message, 'id' | 'createdAt'>) => {
-  return await addDoc(collection(db, "messages"), {
+  return await addDoc(collection(getDb(), "messages"), {
     ...message,
     createdAt: serverTimestamp(),
   });

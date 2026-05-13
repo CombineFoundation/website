@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,9 +20,18 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
+    if (!auth) {
+      setLoading(false);
+      setError("Authentication is not initialized. Please try again later.");
+      return;
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
+      if (!userCredential.user) {
+        throw new Error("Authentication succeeded but no user was returned.");
+      }
+
       // On success, set a session cookie for the middleware
       const token = await userCredential.user.getIdToken();
       document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
@@ -35,8 +44,11 @@ export default function LoginPage() {
       // This helps if the user hasn't run the setup yet.
       if (email === "admin@combinefoundation.com" && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
         try {
-          const { createUserWithEmailAndPassword } = await import("firebase/auth");
           const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
+          if (!newUserCredential.user) {
+            throw new Error("Account created but no user was returned.");
+          }
+
           const token = await newUserCredential.user.getIdToken();
           document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
           router.push("/admin/dashboard");

@@ -10,6 +10,11 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   const handleLogout = async () => {
+    if (!auth) {
+      console.error("Firebase auth is not initialized");
+      return;
+    }
+
     try {
       await signOut(auth);
       // Clear the session cookie
