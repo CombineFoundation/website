@@ -34,7 +34,7 @@ const Locations = () => {
     const activeLocation = LOCATIONS.find((l) => l.id === activeId)!;
 
     return (
-        <section className="bg-[#F3F4F6] py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
+        <section className=" py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
             <div className="w-full">
 
                 {/* Header */}
@@ -83,7 +83,7 @@ const Locations = () => {
                         <p className="text-[15px] text-gray-800 leading-snug">{activeLocation.address}</p>
                     </div>
 
-                    {/* Map — full width, no overlay */}
+
                     <div className="rounded-[20px] overflow-hidden border border-gray-300 h-[260px] sm:h-[320px]">
                         <iframe
                             key={activeId}
@@ -112,11 +112,8 @@ const Locations = () => {
                             referrerPolicy="no-referrer-when-downgrade"
                         />
 
-                        {/* White Fade Overlay */}
-                        <div className="absolute inset-0 bg-white/35 z-[1]" />
-
                         {/* Floating Cards */}
-                        <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 w-[360px]">
+                        <div className="absolute top-1 left-1 z-10 flex flex-col gap-4 w-[360px]">
                             {LOCATIONS.map((loc) => {
                                 const isActive = loc.id === activeId;
                                 return (

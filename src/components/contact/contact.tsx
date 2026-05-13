@@ -131,7 +131,7 @@ const ContactForm = () => {
         `${baseInput} ${err ? "border-red-400 focus:ring-red-400" : "border-gray-300"}`;
 
     return (
-        <section className="bg-white py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
+        <section className=" py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
             <div className="w-full">
                 {/* Header */}
                 <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-2">
@@ -243,7 +243,7 @@ const ContactForm = () => {
                     <div className="flex flex-col gap-6 md:w-64 lg:w-80 xl:w-96">
 
                         {/* Address */}
-                        <div className="flex items-start gap-3 lg:gap-4">
+                        <div className="flex flex-col">
                             <span className="mt-0.5 flex-shrink-0 text-gray-600">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -252,13 +252,13 @@ const ContactForm = () => {
                                     <circle cx="12" cy="9" r="2.5" />
                                 </svg>
                             </span>
-                            <p className="text-sm lg:text-base xl:text-lg text-gray-600 font-semibold leading-relaxed">
+                            <p className="text-sm lg:text-base xl:text-lg text-gray-600 font-semibold leading-relaxed mt-1">
                                 House 23, Street 3 Block 13D, Gulshan - e - Iqbal
                             </p>
                         </div>
 
                         {/* Phone */}
-                        <div className="flex items-center gap-3 lg:gap-4">
+                        <div className="flex flex-col mb-1">
                             <span className="flex-shrink-0 text-gray-600">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -271,12 +271,12 @@ const ContactForm = () => {
                                 </svg>
                             </span>
                             <p className="text-sm lg:text-base xl:text-lg text-gray-600 font-semibold">
-                                +92 123 1234567
+                                +92 319 3372277
                             </p>
                         </div>
 
                         {/* Email */}
-                        <div className="flex items-center gap-3 lg:gap-4">
+                        <div className="flex flex-col">
                             <span className="flex-shrink-0 text-gray-600">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -285,8 +285,9 @@ const ContactForm = () => {
                                     <polyline points="22,6 12,13 2,6" />
                                 </svg>
                             </span>
+
                             <a
-                                href="mailto:combinegroup@gmail.com"
+                                href="mailto:info@combinefoundation.org"
                                 className="text-sm lg:text-base xl:text-lg font-semibold text-gray-600 hover:text-blue-600 transition-colors"
                             >
                                 combinegroup@gmail.com
@@ -296,7 +297,7 @@ const ContactForm = () => {
                         {/* Social Icons */}
                         <div className="flex items-center gap-5 mt-1">
                             {/* Instagram */}
-                            <a href="#" aria-label="Instagram"
+                            <a href="https://www.instagram.com/combinefoundation" aria-label="Instagram"
                                 className="text-gray-500 hover:text-pink-500 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -307,7 +308,7 @@ const ContactForm = () => {
                                 </svg>
                             </a>
                             {/* Facebook */}
-                            <a href="#" aria-label="Facebook"
+                            <a href="https://www.facebook.com/combinefoundationoffical" aria-label="Facebook"
                                 className="text-gray-500 hover:text-blue-600 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -316,7 +317,7 @@ const ContactForm = () => {
                                 </svg>
                             </a>
                             {/* LinkedIn */}
-                            <a href="#" aria-label="LinkedIn"
+                            <a href="https://www.linkedin.com/company/combine-foundation/" aria-label="LinkedIn"
                                 className="text-gray-500 hover:text-blue-700 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
