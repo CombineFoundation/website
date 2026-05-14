@@ -44,28 +44,28 @@ export default function Footer() {
         <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 pt-4">
           {/* Quick Links */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-medium text-base mb-2">Quick Links</h3>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Projects</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Free Courses</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Volunteer Program</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Careers</Link>
+            <h3 className="text-[#eb5829] font-black text-lg mb-2">Quick Links</h3>
+            <Link href="/projects" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Projects</Link>
+            <Link href="/courses" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Free Courses</Link>
+            <Link href="/volunteer" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Volunteer Program</Link>
+            <Link href="/careers" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Careers</Link>
           </div>
 
           {/* Donate */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-medium text-base mb-2">Donate</h3>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Donate Now</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Events Calender</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Publications</Link>
+            <h3 className="text-[#eb5829] font-black text-lg mb-2">Donate</h3>
+            <Link href="/donate" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Donate Now</Link>
+            <Link href="/events" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Events Calender</Link>
+            <Link href="/publications" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Publications</Link>
           </div>
 
           {/* Support */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-medium text-base mb-2">Support</h3>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Contact Us</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-[13px] text-gray-200 hover:text-white transition-colors">Annual Reports</Link>
+            <h3 className="text-[#eb5829] font-black text-lg mb-2">Support</h3>
+            <Link href="/contact" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Contact Us</Link>
+            <Link href="/privacy" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/reports" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Annual Reports</Link>
           </div>
         </div>
       </div>
