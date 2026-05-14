@@ -233,7 +233,6 @@ export default function Header() {
                 <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden mt-3">
                   <div className="bg-[#134981] p-4 text-white">
                     <p className="text-[10px] uppercase tracking-wider font-bold opacity-80">Be a part of change</p>
-                    <p className="text-sm font-semibold">Join Our Mission</p>
                   </div>
                   <div className="py-2">
                     {joinUsItems.map((item) => (
