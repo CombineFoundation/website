@@ -1,5 +1,6 @@
 import ProfileHero from '@/components/team/ProfileHero';
 import TeamMemberCard from '@/components/team/TeamMemberCard';
+import AboutHero from '@/components/UI/hero';
 
 
 const teamData = {
@@ -51,23 +52,15 @@ export default function TeamPage() {
   return (
     <main className="min-h-screen bg-white font-sans">
 
-      {/* Hero Section */}
-      <section className="bg-gray-50 py-20 overflow-hidden relative">
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="flex flex-col items-center justify-center">
-             <h1 className="text-7xl md:text-9xl font-black text-navy opacity-10 absolute -top-10 left-1/2 -translate-x-1/2 select-none">
-              TEAM
-            </h1>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-navy mb-6 tracking-tight">
-              OUR <span className="text-orange">TEAM</span>
-            </h1>
-            <div className="w-24 h-2 bg-orange rounded-full"></div>
-            <p className="mt-8 text-xl text-gray-600 max-w-2xl">
-              Meet the dedicated individuals who make Combine Foundation's mission a reality every single day.
-            </p>
-          </div>
-        </div>
-      </section>
+      <AboutHero 
+        text1="OUR" 
+        text2="TEAM" 
+        image1="https://images.unsplash.com/photo-1511632765486-a01c80cf8cb4?auto=format&fit=crop&q=80&w=800" 
+        image2="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800"
+        text1Size="small"
+        text2Size="small"
+        mobileTitle="OUR TEAM"
+      />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
@@ -75,12 +68,18 @@ export default function TeamPage() {
         {/* Founder & CEO */}
         <div className="space-y-12">
           <section id="founder">
-            <h2 className="text-3xl font-bold text-navy mb-8 border-b-4 border-orange w-fit pb-2">Founder Profile</h2>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-3xl font-bold text-black whitespace-nowrap">Founder Profile</h2>
+              <div className="h-[2px] bg-gray-300 w-full rounded"></div>
+            </div>
             <ProfileHero {...teamData.founder} />
           </section>
 
           <section id="ceo">
-            <h2 className="text-3xl font-bold text-navy mb-8 border-b-4 border-orange w-fit pb-2">CEO Profile</h2>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-3xl font-bold text-black whitespace-nowrap">CEO Profile</h2>
+              <div className="h-[2px] bg-gray-300 w-full rounded"></div>
+            </div>
             <ProfileHero {...teamData.ceo} reverse />
           </section>
         </div>
@@ -89,8 +88,11 @@ export default function TeamPage() {
 
         {/* Board of Trustees */}
         <section id="board" className="mb-24">
-          <h2 className="text-3xl font-bold text-navy mb-12 text-center">Board of Trustees</h2>
-          <div className="max-w-4xl mx-auto divide-y divide-gray-100 bg-white rounded-3xl shadow-sm border border-gray-50">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold text-black whitespace-nowrap">Board of Trustees</h2>
+            <div className="h-[2px] bg-gray-300 w-full rounded"></div>
+          </div>
+          <div className="max-w-5xl mx-auto divide-y divide-gray-200">
             {teamData.boardOfTrustees.map((member) => (
               <TeamMemberCard key={member.name} {...member} variant="list" />
             ))}
@@ -108,19 +110,22 @@ export default function TeamPage() {
 
         {/* Partners */}
         <section id="partners" className="mb-20">
-          <h2 className="text-3xl font-bold text-navy mb-12 text-center">Our Partners</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-3xl font-bold text-black whitespace-nowrap">Partners</h2>
+            <div className="h-[2px] bg-gray-300 w-full rounded"></div>
+          </div>
+          <div className="grid grid-cols-1 gap-12">
             {teamData.partners.map((partner) => (
-              <div key={partner.name} className="flex flex-col md:flex-row gap-6 bg-gray-50 p-8 rounded-3xl group hover:shadow-xl transition-all duration-500">
-                <div className="w-full md:w-1/2 overflow-hidden rounded-2xl">
-                  <img src={partner.image} alt={partner.name} className="w-full h-full object-cover aspect-video group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div className="w-full md:w-1/2 flex flex-col justify-center">
-                  <h4 className="text-2xl font-bold text-navy">{partner.name}</h4>
-                  <p className="text-orange font-semibold mb-4">{partner.role}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Working together to create a lasting impact in the lives of youth and communities.
+              <div key={partner.name} className="flex flex-col md:flex-row gap-8 items-center bg-white p-4 rounded-3xl group">
+                <div className="w-full md:w-1/2 flex flex-col justify-center pr-4">
+                  <h4 className="text-xl md:text-2xl font-bold text-black mb-4">{partner.name}</h4>
+                  <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                    {partner.role === 'Strategic Partner' ? 'Curabitur pellentesque nibh nibh, et maximus amet fermentum sit amet. Pellentesque commodo lacus ut scelerisque condimentum. Quisque sagittis orci nullam condimentum, vehicula leo id erat placerat in iaculis arcu erat, eget tempus dui tincidunt. Proin ut lorem.' : 'Curabitur pellentesque nibh nibh, et maximus amet fermentum sit amet. Pellentesque commodo lacus ut scelerisque condimentum. Quisque sagittis orci nullam condimentum, vehicula leo id erat placerat in iaculis arcu erat, eget tempus dui tincidunt. Proin ut lorem.'}
                   </p>
+                </div>
+                <div className="w-full md:w-1/2 overflow-hidden rounded-2xl relative">
+                  <img src={partner.image} alt={partner.name} className="w-full h-full object-cover aspect-[4/3] rounded-2xl" />
+                  <div className="absolute bottom-2 right-2 bg-orange text-white text-[10px] font-bold px-2 py-1 rounded">COMBINE</div>
                 </div>
               </div>
             ))}
@@ -136,8 +141,11 @@ export default function TeamPage() {
 function SectionGrid({ title, members }: { title: string, members: any[] }) {
   return (
     <section>
-      <h2 className="text-3xl font-bold text-navy mb-12 text-center">{title}</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="flex items-center gap-4 mb-12">
+        <h2 className="text-3xl font-bold text-black whitespace-nowrap">{title}</h2>
+        <div className="h-[2px] bg-gray-300 w-full rounded"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {members.map((member) => (
           <TeamMemberCard key={member.name} {...member} />
         ))}
