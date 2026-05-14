@@ -85,11 +85,11 @@ export default function Header() {
 
   const joinUsItems = [
     { label: "Career Opportunities", href: "/careers", icon: <Briefcase className="w-4 h-4" /> },
-    { label: "Volunteer for Combine", href: "/volunteer", icon: <Users className="w-4 h-4" /> },
+    { label: "Volunteer for Combine", href: "/volunteer-program", icon: <Users className="w-4 h-4" /> },
   ];
 
   return (
-    <header className="w-full sticky top-0 z-[100] bg-white">
+    <header className="w-full top-0 z-[100] bg-white">
       {/* Top Bar */}
       <div className="bg-[#134981] text-white py-2 px-4 md:px-8 text-xs font-medium">
         <div className="max-w-7xl mx-auto flex justify-between items-center">

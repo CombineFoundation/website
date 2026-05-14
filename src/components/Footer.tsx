@@ -16,8 +16,6 @@ export default function Footer() {
             letterSpacing: "0.01em",
             textTransform: "uppercase",
             color:"#0C3155",
-            y: "50%",
-            x: "100%",
             // transform: "rotate(180deg)",
           }}
         >

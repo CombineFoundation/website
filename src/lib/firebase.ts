@@ -1,8 +1,8 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getAuth, Auth } from "firebase/auth";
+import { getFirestore, Firestore } from "firebase/firestore";
+import { getStorage, FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,13 +14,26 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+// Initialize Firebase only if API key is present
+let app: FirebaseApp | undefined = undefined;
+if (firebaseConfig.apiKey) {
+  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+} else {
+  // During build time or if env vars are missing
+  console.warn("Firebase API Key is missing. Firebase services will not be initialized.");
+}
 
-// Initialize services
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+// Initialize services with safety checks
+const auth: Auth | undefined = app ? getAuth(app) : undefined;
+const db: Firestore | undefined = app ? getFirestore(app) : undefined;
+const storage: FirebaseStorage | undefined = app ? getStorage(app) : undefined;
+
+export const getDb = (): Firestore => {
+  if (!db) {
+    throw new Error("Firestore is not initialized. Check your Firebase configuration.");
+  }
+  return db;
+};
 
 // Initialize Analytics (only in client-side)
 let analytics;
