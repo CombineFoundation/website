@@ -1,6 +1,4 @@
-import ProfileHero from '@/components/team/ProfileHero';
-import TeamMemberCard from '@/components/team/TeamMemberCard';
-
+import React from 'react';
 
 const teamData = {
   founder: {
@@ -42,85 +40,149 @@ const teamData = {
     { name: "Maryam Noor", role: "Youth Leader", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400" },
   ],
   partners: [
-    { name: "Hamdard Foundation", role: "Strategic Partner", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800" },
-    { name: "Saylani Trust", role: "Development Partner", image: "https://images.unsplash.com/photo-1551836022-83587b97143c?auto=format&fit=crop&q=80&w=800" },
+    { name: "Hammad Foundation", role: "Strategic Partner", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800" },
+    { name: "Hammad Foundation ", role: "Development Partner", image: "https://images.unsplash.com/photo-1551836022-83587b97143c?auto=format&fit=crop&q=80&w=800" },
+    { name: "Hammad Foundation  ", role: "Community Partner", image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800" },
   ]
 };
 
+function SectionHeader({ title }: { title: string }) {
+  return (
+    <div className="mb-10">
+      <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{title}</h2>
+      <div className="w-full h-[1px] bg-gray-300"></div>
+    </div>
+  );
+}
+
+function GridSection({ title, members }: { title: string, members: any[] }) {
+  return (
+    <section className="mb-20">
+      <SectionHeader title={title} />
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+        {members.map((member) => (
+          <div key={member.name} className="flex flex-col items-center text-center">
+            <div className="w-32 h-32 md:w-48 md:h-48 mb-6 overflow-hidden rounded-[40px]">
+              <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+            </div>
+            <h4 className="font-bold text-black text-lg md:text-xl mb-1">{member.name}</h4>
+            <p className="text-sm md:text-base text-gray-600">{member.role} | Combine Foundation</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function TeamPage() {
   return (
-    <main className="min-h-screen bg-white font-sans">
+    <main className="min-h-screen bg-[#F7FBFF] font-sans overflow-hidden">
 
       {/* Hero Section */}
-      <section className="bg-gray-50 py-20 overflow-hidden relative">
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-7xl md:text-9xl font-black text-navy opacity-10 absolute -top-10 left-1/2 -translate-x-1/2 select-none">
-              TEAM
-            </h1>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-navy mb-6 tracking-tight">
-              OUR <span className="text-orange">TEAM</span>
-            </h1>
-            <div className="w-24 h-2 bg-orange rounded-full"></div>
-            <p className="mt-8 text-xl text-gray-600 max-w-2xl">
-              Meet the dedicated individuals who make Combine Foundation's mission a reality every single day.
-            </p>
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 md:px-8">
+          
+          <div className="flex flex-col gap-8 md:gap-0 max-w-6xl mx-auto">
+            {/* Top Row: "OUR" + Image */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
+              <h1 className="text-8xl md:text-[200px] font-black text-black tracking-tighter leading-none m-0">
+                OUR
+              </h1>
+              <div className="bg-[#EBEBEB] p-4 md:p-6 rounded-[30px] md:rounded-[50px] w-full md:w-3/5">
+                 <img src={teamData.partners[0].image} alt="Team" className="w-full h-[200px] md:h-[300px] object-cover rounded-2xl md:rounded-[40px]" />
+              </div>
+            </div>
+
+            {/* Bottom Row: Image + "TEAM" */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 mt-8 md:-mt-8">
+              <div className="bg-[#EBEBEB] p-4 md:p-6 rounded-[30px] md:rounded-[50px] w-full md:w-3/5 order-2 md:order-1">
+                 <img src={teamData.partners[1].image} alt="Team" className="w-full h-[200px] md:h-[300px] object-cover rounded-2xl md:rounded-[40px]" />
+              </div>
+              <h1 className="text-8xl md:text-[200px] font-black text-black tracking-tighter leading-none m-0 order-1 md:order-2">
+                TEAM
+              </h1>
+            </div>
           </div>
+
         </div>
       </section>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 md:px-8 py-16 max-w-6xl">
 
-        {/* Founder & CEO */}
-        <div className="space-y-12">
-          <section id="founder">
-            <h2 className="text-3xl font-bold text-navy mb-8 border-b-4 border-orange w-fit pb-2">Founder Profile</h2>
-            <ProfileHero {...teamData.founder} />
-          </section>
+        {/* Founder Profile */}
+        <section className="mb-24">
+          <SectionHeader title="Founder Profile" />
+          <div className="flex flex-col md:flex-row gap-10 items-center">
+            <div className="flex-1 order-2 md:order-1">
+              <h3 className="text-2xl font-bold text-black uppercase mb-6">{teamData.founder.name}</h3>
+              {teamData.founder.description.map((p, i) => (
+                <p key={i} className="text-gray-600 mb-5 leading-relaxed text-lg">{p}</p>
+              ))}
+            </div>
+            <div className="w-full md:w-5/12 order-1 md:order-2">
+               <img src={teamData.founder.image} alt={teamData.founder.name} className="rounded-[40px] w-full h-[350px] md:h-[450px] object-cover" />
+            </div>
+          </div>
+        </section>
 
-          <section id="ceo">
-            <h2 className="text-3xl font-bold text-navy mb-8 border-b-4 border-orange w-fit pb-2">CEO Profile</h2>
-            <ProfileHero {...teamData.ceo} reverse />
-          </section>
-        </div>
-
-        <hr className="my-20 border-gray-100" />
+        {/* CEO Profile */}
+        <section className="mb-24">
+          <SectionHeader title="CEO Profile" />
+          <div className="flex flex-col md:flex-row gap-10 items-center">
+            <div className="w-full md:w-5/12">
+               <img src={teamData.ceo.image} alt={teamData.ceo.name} className="rounded-[40px] w-full h-[350px] md:h-[450px] object-cover" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold text-black uppercase mb-6">{teamData.ceo.name}</h3>
+              {teamData.ceo.description.map((p, i) => (
+                <p key={i} className="text-gray-600 mb-5 leading-relaxed text-lg">{p}</p>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Board of Trustees */}
-        <section id="board" className="mb-24">
-          <h2 className="text-3xl font-bold text-navy mb-12 text-center">Board of Trustees</h2>
-          <div className="max-w-4xl mx-auto divide-y divide-gray-100 bg-white rounded-3xl shadow-sm border border-gray-50">
+        <section className="mb-24">
+          <SectionHeader title="Board of Trustees" />
+          <div className="flex flex-col gap-12">
             {teamData.boardOfTrustees.map((member) => (
-              <TeamMemberCard key={member.name} {...member} variant="list" />
+              <div key={member.name} className="flex flex-col md:flex-row items-center md:items-start gap-8">
+                 <div className="w-48 h-48 md:w-64 md:h-64 shrink-0">
+                    <img src={member.image} alt={member.name} className="rounded-[40px] w-full h-full object-cover" />
+                 </div>
+                 <div className="flex-1 pt-4 text-center md:text-left">
+                    <h4 className="text-2xl font-bold text-black mb-4">{member.name}</h4>
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      {member.role} at Combine Foundation. Working together to create a lasting impact in the lives of youth and communities through strategic leadership and vision.
+                    </p>
+                 </div>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Grids */}
-        <div className="space-y-32">
-          <SectionGrid title="Department Heads" members={teamData.departmentHeads} />
-          <SectionGrid title="Ambassadors" members={teamData.ambassadors} />
-          <SectionGrid title="Youth Leaders" members={teamData.youthLeaders} />
-        </div>
-
-        <hr className="my-20 border-gray-100" />
+        <GridSection title="Department heads" members={teamData.departmentHeads} />
+        <GridSection title="Ambassadors" members={teamData.ambassadors} />
+        <GridSection title="Youth Leaders" members={teamData.youthLeaders} />
 
         {/* Partners */}
-        <section id="partners" className="mb-20">
-          <h2 className="text-3xl font-bold text-navy mb-12 text-center">Our Partners</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <section className="mb-20">
+          <SectionHeader title="Partners" />
+          <div className="flex flex-col gap-12 md:gap-16">
             {teamData.partners.map((partner) => (
-              <div key={partner.name} className="flex flex-col md:flex-row gap-6 bg-gray-50 p-8 rounded-3xl group hover:shadow-xl transition-all duration-500">
-                <div className="w-full md:w-1/2 overflow-hidden rounded-2xl">
-                  <img src={partner.image} alt={partner.name} className="w-full h-full object-cover aspect-video group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div className="w-full md:w-1/2 flex flex-col justify-center">
-                  <h4 className="text-2xl font-bold text-navy">{partner.name}</h4>
-                  <p className="text-orange font-semibold mb-4">{partner.role}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Working together to create a lasting impact in the lives of youth and communities.
+              <div key={partner.name} className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1 order-2 md:order-1 pr-0 md:pr-8">
+                  <h4 className="text-2xl font-bold text-black mb-4">{partner.name}</h4>
+                  <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                    Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem
                   </p>
+                </div>
+                <div className="w-full md:w-5/12 order-1 md:order-2">
+                  <div className="overflow-hidden rounded-[30px] aspect-[16/10] w-full shadow-sm">
+                    <img src={partner.image} alt={partner.name} className="w-full h-full object-cover" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -128,20 +190,6 @@ export default function TeamPage() {
         </section>
 
       </div>
-
     </main>
-  );
-}
-
-function SectionGrid({ title, members }: { title: string, members: any[] }) {
-  return (
-    <section>
-      <h2 className="text-3xl font-bold text-navy mb-12 text-center">{title}</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {members.map((member) => (
-          <TeamMemberCard key={member.name} {...member} />
-        ))}
-      </div>
-    </section>
   );
 }
