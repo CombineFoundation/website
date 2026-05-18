@@ -5,6 +5,7 @@ export interface Program {
   title: string;
   description: string;
   published: boolean;
+  category?: string;
   createdAt: Timestamp | Date | FieldValue;
 }
 

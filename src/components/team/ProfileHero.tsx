@@ -14,10 +14,10 @@ const ProfileHero = ({ name, role, description, image, reverse = false }: Profil
       <div className="w-full md:w-1/2">
         <div className="relative">
           <div className="absolute -top-4 -left-4 w-24 h-24 bg-orange opacity-20 rounded-full blur-2xl"></div>
-          <img 
-            src={image} 
-            alt={name} 
-            className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3] relative z-10" 
+          <img
+            src={image}
+            alt={name}
+            className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3] relative z-10"
           />
           <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-navy opacity-10 rounded-full blur-3xl"></div>
         </div>
