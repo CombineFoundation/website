@@ -340,7 +340,7 @@ function CalendarView() {
                                                 {/* Day number */}
                                                 <span
                                                     className={`
-                                                        self-start w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1
+                                                        self-start w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 cursor-pointer
                                                         ${isToday(day)
                                                             ? "bg-blue-600 text-white font-bold"
                                                             : "text-gray-600"
@@ -355,7 +355,7 @@ function CalendarView() {
                                                     <button
                                                         key={ev.id}
                                                         onClick={() => setSelectedEvent(ev)}
-                                                        className="w-full text-left text-white text-xs font-semibold rounded-md px-1.5 py-1 leading-tight mb-0.5 truncate transition-opacity hover:opacity-80"
+                                                        className="w-full text-left text-white text-xs font-semibold rounded-md px-1.5 py-1 leading-tight mb-0.5 truncate transition-opacity hover:opacity-90 cursor-pointer"
                                                         style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
                                                         title={ev.title}
                                                     >
@@ -384,7 +384,7 @@ function CalendarView() {
 type ViewMode = "list" | "calendar";
 
 export default function UpcomingEvents() {
-    const [view, setView] = useState<ViewMode>("list");
+    const [view, setView] = useState<ViewMode>("calendar");
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
