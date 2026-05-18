@@ -231,9 +231,6 @@ export default function Header() {
               {/* Dropdown Menu */}
               <div className="absolute top-full right-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-[100]">
                 <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden mt-3">
-                  <div className="bg-[#134981] p-4 text-white">
-                    <p className="text-[10px] uppercase tracking-wider font-bold opacity-80">Be a part of change</p>
-                  </div>
                   <div className="py-2">
                     {joinUsItems.map((item) => (
                       <Link 
