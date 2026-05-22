@@ -1,0 +1,152 @@
+====================== HOME PAGE ======================
+
+1) Hero Slider images
+   Figma: 1280x480  (2.67:1)
+   My CSS estimate: 1920x520 (3.69:1)
+   -> DIFFERENT
+
+2) Our Impact card images
+   Figma: 336x176  (1.91:1)
+   My CSS estimate: 600x400 (1.5:1)
+   -> DIFFERENT
+
+3) Project slider image
+   Figma: 1152x400  (2.88:1)
+   My CSS estimate: 1920x430 (4.47:1)
+   -> DIFFERENT
+
+4) Founder image
+   Figma: 616x508  (1.21:1)
+   My CSS estimate: 500x380 (1.32:1)
+   -> DIFFERENT
+
+5) Blog card images
+   Figma: 372x368  (~1:1)
+   My CSS estimate: 600x320 (1.88:1)
+   -> DIFFERENT
+
+====================== ABOUT PAGE ======================
+
+1) Hero grid images (hero1, hero2)
+   Figma: 524x208  (2.52:1)
+   My CSS estimate: 800x400 (2:1)
+   -> DIFFERENT
+
+2) Our Story image
+   Figma: 560x464  (1.21:1)
+   My CSS estimate: 800x360 (2.22:1)
+   -> DIFFERENT
+
+3) About Founder image
+   Figma: 1152x336  (3.43:1)
+   My CSS estimate: 1200x350 (3.43:1)
+   -> SAME PROPORTION
+
+4) Achievement gallery images
+   Figma: 212x200  (1.06:1)
+   My CSS estimate: 400x190 (2.11:1)
+   -> DIFFERENT
+
+====================== PROJECTS PAGE ======================
+
+1) Hero image
+   Figma: 1152x452  (2.55:1)
+   My CSS estimate: 1200x350 (3.43:1)
+   -> DIFFERENT
+
+2) Achievement gallery thumbnails
+   Figma: 376x352  (1.07:1)
+   My CSS estimate: 250x250 (1:1)
+   -> DIFFERENT
+
+3) Before/After images
+   Figma: 568x496  (1.15:1)
+   My CSS estimate: 1200x675 (1.78:1)
+   -> DIFFERENT
+
+4) Partner logos
+   Figma: 176x176  (1:1 square)
+   My CSS estimate: 200x200 (1:1 square)
+   -> SAME PROPORTION
+
+====================== EVENTS PAGE ======================
+
+1) Hero image
+   Figma: 1152x452  (2.55:1)
+   My CSS estimate: 1200x350 (3.43:1)
+   -> DIFFERENT
+
+2) Speaker portrait images
+   Figma: 196x188  (~1:1)
+   My CSS estimate: 288x288 (1:1)
+   -> SAME PROPORTION (both near-square)
+
+====================== PUBLICATIONS PAGE ======================
+
+1) Hero image
+   Figma: 1152x452  (2.55:1)
+   My CSS estimate: 1200x350 (3.43:1)
+   -> DIFFERENT
+
+2) Annual Report covers
+   Figma: 336x176  (1.91:1)
+   My CSS estimate: 430x300 (1.43:1)
+   -> DIFFERENT
+
+3) MOU slider image
+   Figma: 1152x452  (2.55:1)
+   My CSS estimate: 1200x384 (3.13:1)
+   -> DIFFERENT
+
+4) Tax/Sharia Certificate images
+   Figma: 373x289  (1.29:1)
+   My CSS estimate: 600x600 (1:1)
+   -> DIFFERENT
+
+====================== VOLUNTEER PAGE ======================
+
+1) Hero grid images (vol1, vol2)
+   Figma: 528x213  (2.48:1)
+   My CSS estimate: 800x400 (2:1)
+   -> DIFFERENT
+
+2) How It Works image
+   Figma: 471x528  (0.89:1)
+   My CSS estimate: 480x620 (0.77:1)
+   -> DIFFERENT
+
+3) Why Join Us panel images
+   Figma: 363x273  (1.33:1)
+   My CSS estimate: 600x400 (1.5:1)
+   -> DIFFERENT
+
+4) Testimonial image
+   Figma: 196x188  (~1:1)
+   My CSS estimate: 384x480 (0.8:1)
+   -> DIFFERENT
+
+====================== DONATIONS PAGE ======================
+
+1) Hero image
+   Figma: 1152x528  (2.18:1)
+   My CSS estimate: 1200x350 (3.43:1)
+   -> DIFFERENT
+
+2) Next Goal images (df1, donation)
+   Figma: 276x301  (0.92:1)
+   My CSS estimate: 420x320 (1.31:1)
+   -> DIFFERENT
+
+3) Successful Ventures slider
+   Figma: 568x470  (1.21:1)
+   My CSS estimate: 800x600 (1.33:1)
+   -> DIFFERENT
+
+============================================================
+SUMMARY: Only 3 matched in proportion:
+  - About Founder  (3.43:1)
+  - Partner logos  (1:1 square)
+  - Speaker portraits (~1:1 near-square)
+Everything else was different.
+Final advice: Use Figma dimensions as source of truth.
+============================================================
