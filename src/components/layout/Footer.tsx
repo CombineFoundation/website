@@ -20,7 +20,7 @@ const Footer = () => {
           <ul className="flex flex-col gap-3 text-lg">
             <li><Link href="/projects" className="font-black hover:text-orange transition-colors">Projects</Link></li>
             <li><Link href="/courses" className="font-black hover:text-orange transition-colors">Free Courses</Link></li>
-            <li><Link href="/volunteer" className="font-black hover:text-orange transition-colors">Volunteer Program</Link></li>
+            <li><Link href="/volunteer-program" className="font-black hover:text-orange transition-colors">Volunteer Program</Link></li>
             <li><Link href="/careers" className="font-black hover:text-orange transition-colors">Careers</Link></li>
           </ul>
         </div>
@@ -29,8 +29,8 @@ const Footer = () => {
         <div>
           <h4 className="text-orange font-black text-lg mb-6">Donate</h4>
           <ul className="flex flex-col gap-3 text-lg">
-            <li><Link href="/donate" className="font-black hover:text-orange transition-colors">Donate Now</Link></li>
-            <li><Link href="/events" className="font-black hover:text-orange transition-colors">Events Calender</Link></li>
+            <li><Link href="/donations" className="font-black hover:text-orange transition-colors">Donate Now</Link></li>
+            <li><Link href="/events#calendar" className="font-black hover:text-orange transition-colors">Events Calendar</Link></li>
             <li><Link href="/publications" className="font-black hover:text-orange transition-colors">Publications</Link></li>
           </ul>
         </div>
@@ -42,7 +42,7 @@ const Footer = () => {
             <li><Link href="/contact" className="font-black hover:text-orange transition-colors">Contact Us</Link></li>
             <li><Link href="/privacy" className="font-black hover:text-orange transition-colors">Privacy Policy</Link></li>
             <li><Link href="/terms" className="font-black hover:text-orange transition-colors">Terms of Service</Link></li>
-            <li><Link href="/reports" className="font-black hover:text-orange transition-colors">Annual Reports</Link></li>
+            <li><Link href="/publications#annual-reports" className="font-black hover:text-orange transition-colors">Annual Reports</Link></li>
           </ul>
         </div>
       </div>
