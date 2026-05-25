@@ -15,7 +15,7 @@ export default function VisionBanner({ text, buttonText, url }: Props) {
                 <p className="text-white text-sm sm:text-xl md:text-2xl font-bold text-center sm:text-left">
                     {text}
                 </p>
-                <Link href={url || ""} className="shrink-0 bg-[#F0632E] hover:bg-[#d15228] text-white font-semibold text-sm px-6 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap">
+                <Link href={url || ""} className="shrink-0 bg-[#F0632E] hover:bg-[#d15228] text-white font-semibold text-sm px-6 py-3 rounded-full transition-colors duration-200 whitespace-nowrap">
                     {buttonText}
                 </Link>
             </div>

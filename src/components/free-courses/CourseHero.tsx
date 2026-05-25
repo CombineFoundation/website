@@ -11,7 +11,7 @@ export default function CourseHero({ course }: CourseHeroProps) {
 
   return (
     <>
-      <div className="w-full bg-white px-9 py-8 max-sm:px-6 max-sm:py-6">
+      <div className="w-full pl-17 pr-10 py-8 max-sm:px-6 max-sm:py-6">
         <div className="text-[12.5px] lg:text-sm xl:text-base text-gray-500 mb-7">
           Free Courses&nbsp;/&nbsp;<span className="text-gray-500">{course.title}</span>
         </div>
@@ -92,7 +92,7 @@ export default function CourseHero({ course }: CourseHeroProps) {
             </div>
 
             <div
-              className="absolute left-[35%] top-[55px] w-[62%] h-[260px] rounded-[10px] overflow-hidden z-20"
+              className="absolute left-[35%] top-[85px] w-[62%] h-[260px] rounded-[10px] overflow-hidden z-20"
               style={{ boxShadow: "0 6px 18px rgba(0,0,0,0.22)" }}
             >
               <img

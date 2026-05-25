@@ -15,11 +15,11 @@ export default function Modules({ modules }: ModulesProps) {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:mx-9">
         {modules.map((mod) => (
           <div
             key={mod.id}
-            className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col min-h-[280px]"
+            className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col min-h-[350px]"
           >
             <h3 className="text-base lg:text-lg xl:text-xl font-bold text-gray-900 mb-3">
               {mod.title}
@@ -40,11 +40,11 @@ export default function Modules({ modules }: ModulesProps) {
       </div>
 
       <div className="w-full flex mt-6 mb-10 justify-center">
-        <div className="w-full sm:w-[98%] bg-[#124980] rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 px-8 py-6">
+        <div className="w-full sm:w-[95%] bg-[#124980] rounded-xl flex flex-col min-[550px]:flex-row items-center justify-between gap-4 px-8 py-6">
           <p className="text-white text-sm sm:text-xl md:text-2xl font-bold text-center sm:text-left">
             Need More Information?
           </p>
-          <button className="shrink-0 bg-[#F0632E] hover:bg-[#d15228] text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap">
+          <button className="shrink-0 bg-[#F0632E] hover:bg-[#d15228] text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-full transition-colors duration-200 whitespace-nowrap">
             Download Course Guidelines
           </button>
         </div>
