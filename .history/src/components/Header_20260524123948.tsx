@@ -14,9 +14,10 @@ import {
   BookOpen,
   Users,
   Trophy,
+  Linkedin,
   Facebook,
   Instagram,
-  Linkedin,
+  Twitter,
 } from "lucide-react";
 
 export default function Header() {
@@ -25,11 +26,11 @@ export default function Header() {
   const ourWorkItems = [
     { label: "Events", href: "/events", icon: <Calendar className="w-4 h-4" /> },
     { label: "Projects", href: "/projects", icon: <Trophy className="w-4 h-4" /> },
-    { label: "Courses", href: "#", icon: <BookOpen className="w-4 h-4" /> },
+    { label: "Courses", href: "/courses", icon: <BookOpen className="w-4 h-4" /> },
   ];
 
   const joinUsItems = [
-    { label: "Career Opportunities", href: "#", icon: <Briefcase className="w-4 h-4" /> },
+    { label: "Career Opportunities", href: "/careers", icon: <Briefcase className="w-4 h-4" /> },
     { label: "Volunteer for Combine", href: "/volunteer-program", icon: <Users className="w-4 h-4" /> },
   ];
 
@@ -40,14 +41,6 @@ export default function Header() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Social Icons */}
           <div className="flex items-center space-x-4">
-            <Link 
-              href="https://www.instagram.com/combinefoundation" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-200 transition-colors"
-            >
-              <Instagram className="w-4 h-4" />
-            </Link>
             <Link 
               href="https://www.linkedin.com/company/combine-foundation/" 
               target="_blank" 
@@ -63,6 +56,30 @@ export default function Header() {
               className="hover:text-blue-200 transition-colors"
             >
               <Facebook className="w-4 h-4" />
+            </Link>
+            <Link 
+              href="https://www.instagram.com/combinefoundation" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-blue-200 transition-colors"
+            >
+              <Instagram className="w-4 h-4" />
+            </Link>
+            <Link 
+              href="https://x.com/combinefoundation" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-blue-200 transition-colors"
+            >
+              <Twitter className="w-4 h-4" />
+            </Link>
+            <Link 
+              href="mailto:info@combinefoundation.org" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-blue-200 transition-colors"
+            >
+              <Mail className="w-4 h-4" />
             </Link>
           </div>
 
@@ -174,7 +191,7 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="/donations" className="border-2 border-[#134981] text-[#134981] px-8 py-2.5 rounded-full font-bold hover:bg-[#134981] hover:text-white transition-all duration-300 shadow-sm">
+            <Link href="/donate" className="border-2 border-[#134981] text-[#134981] px-8 py-2.5 rounded-full font-bold hover:bg-[#134981] hover:text-white transition-all duration-300 shadow-sm">
               Donate
             </Link>
           </div>
@@ -222,7 +239,7 @@ export default function Header() {
             </div>
 
             <div className="pt-6 border-t border-gray-100 flex flex-col space-y-4">
-              <Link href="/donations" className="w-full bg-[#134981] text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
+              <Link href="/donate" className="w-full bg-[#134981] text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
                 Donate Now
               </Link>
             </div>
