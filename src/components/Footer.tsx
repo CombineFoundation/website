@@ -44,9 +44,9 @@ export default function Footer() {
           <div className="flex flex-col space-y-4">
             <h3 className="text-[#eb5829] font-black text-lg mb-2">Quick Links</h3>
             <Link href="/projects" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Projects</Link>
-            <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Free Courses</Link>
+            <Link href="/free-courses" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Free Courses</Link>
             <Link href="/volunteer-program" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Volunteer Program</Link>
-            <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Careers</Link>
+            <Link href="/careers" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Careers</Link>
           </div>
 
           {/* Donate */}
