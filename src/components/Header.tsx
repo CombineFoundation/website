@@ -67,11 +67,11 @@ export default function Header() {
   const ourWorkItems = [
     { label: "Events", href: "/events", icon: <Calendar className="w-4 h-4" /> },
     { label: "Projects", href: "/projects", icon: <Trophy className="w-4 h-4" /> },
-    { label: "Courses", href: "#", icon: <BookOpen className="w-4 h-4" /> },
+    { label: "Courses", href: "/free-courses", icon: <BookOpen className="w-4 h-4" /> },
   ];
 
   const joinUsItems = [
-    { label: "Career Opportunities", href: "#", icon: <Briefcase className="w-4 h-4" /> },
+    { label: "Career Opportunities", href: "/career", icon: <Briefcase className="w-4 h-4" /> },
     { label: "Volunteer for Combine", href: "/volunteer-program", icon: <Users className="w-4 h-4" /> },
   ];
 
