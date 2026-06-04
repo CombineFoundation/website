@@ -1,5 +1,4 @@
-import React from 'react'
-import PageHeroMobile from "@/components/UI/Pageheromobile"
+
 import DonationForm from "@/components/donation/DonationForm"
 import DonationUsage from "@/components/donation/DonationUsage"
 import SuccessfulVentures from "@/components/donation/successfulventures"
@@ -8,11 +7,6 @@ import CtaSection from "@/components/UI/CtaSection"
 function page() {
     return (
         <div>
-            <PageHeroMobile title='Donate'
-                imageSrc='/donation/donation.png'
-                styles='object-top'
-                Overlaycolor='bg-transparent'
-            />
             <DonationForm />
             <DonationUsage />
             <SuccessfulVentures />

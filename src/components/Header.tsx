@@ -61,30 +61,17 @@ const Instagram = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const Twitter = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-  </svg>
-);
-
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const ourWorkItems = [
     { label: "Events", href: "/events", icon: <Calendar className="w-4 h-4" /> },
     { label: "Projects", href: "/projects", icon: <Trophy className="w-4 h-4" /> },
-    { label: "Courses", href: "/courses", icon: <BookOpen className="w-4 h-4" /> },
+    { label: "Courses", href: "/free-courses", icon: <BookOpen className="w-4 h-4" /> },
   ];
 
   const joinUsItems = [
-    { label: "Career Opportunities", href: "/careers", icon: <Briefcase className="w-4 h-4" /> },
+    { label: "Career Opportunities", href: "/career", icon: <Briefcase className="w-4 h-4" /> },
     { label: "Volunteer for Combine", href: "/volunteer-program", icon: <Users className="w-4 h-4" /> },
   ];
 
@@ -95,6 +82,14 @@ export default function Header() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Social Icons */}
           <div className="flex items-center space-x-4">
+            <Link 
+              href="https://www.instagram.com/combinefoundation" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-blue-200 transition-colors"
+            >
+              <Instagram className="w-4 h-4" />
+            </Link>
             <Link 
               href="https://www.linkedin.com/company/combine-foundation/" 
               target="_blank" 
@@ -111,40 +106,16 @@ export default function Header() {
             >
               <Facebook className="w-4 h-4" />
             </Link>
-            <Link 
-              href="https://www.instagram.com/combinefoundation" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-200 transition-colors"
-            >
-              <Instagram className="w-4 h-4" />
-            </Link>
-            <Link 
-              href="https://x.com/combinefoundation" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-200 transition-colors"
-            >
-              <Twitter className="w-4 h-4" />
-            </Link>
-            <Link 
-              href="mailto:info@combinefoundation.org" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-200 transition-colors"
-            >
-              <Mail className="w-4 h-4" />
-            </Link>
           </div>
 
           {/* Contact Info */}
           <div className="flex items-center space-x-6">
             <a
-              href="mailto:combinefoundation@combinegrp.com"
+              href="mailto:info@combinefoundation.org"
               className="flex items-center space-x-2 hover:text-blue-200 transition-colors"
             >
               <Mail className="w-4 h-4" />
-              <span className="hidden sm:inline text-[10px] md:text-xs">combinefoundation@combinegrp.com</span>
+              <span className="hidden sm:inline text-[10px] md:text-xs">info@combinefoundation.org</span>
             </a>
             <a
               href="tel:+922134801551-52"
@@ -230,26 +201,22 @@ export default function Header() {
 
               {/* Dropdown Menu */}
               <div className="absolute top-full right-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-[100]">
-                <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden mt-3">
-                  <div className="py-2">
-                    {joinUsItems.map((item) => (
-                      <Link 
-                        key={item.label} 
-                        href={item.href}
-                        className="flex items-center px-5 py-4 text-gray-700 hover:bg-blue-50 hover:text-[#134981] transition-colors group/item"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 group-hover/item:bg-[#134981] group-hover/item:text-white transition-all">
-                          {item.icon}
-                        </div>
-                        <span className="text-sm font-medium">{item.label}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                {joinUsItems.map((item) => (
+                  <Link 
+                    key={item.label} 
+                    href={item.href}
+                    className="flex items-center px-5 py-4 bg-white rounded-xl shadow-2xl border border-gray-100 mb-2 text-gray-700 hover:bg-blue-50 hover:text-[#134981] transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 group-hover/item:bg-[#134981] group-hover/item:text-white transition-all">
+                      {item.icon}
+                    </div>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
 
-            <Link href="/donate" className="border-2 border-[#134981] text-[#134981] px-8 py-2.5 rounded-full font-bold hover:bg-[#134981] hover:text-white transition-all duration-300 shadow-sm">
+            <Link href="/donations" className="border-2 border-[#134981] text-[#134981] px-8 py-2.5 rounded-full font-bold hover:bg-[#134981] hover:text-white transition-all duration-300 shadow-sm">
               Donate
             </Link>
           </div>
@@ -297,7 +264,7 @@ export default function Header() {
             </div>
 
             <div className="pt-6 border-t border-gray-100 flex flex-col space-y-4">
-              <Link href="/donate" className="w-full bg-[#134981] text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
+              <Link href="/donations" className="w-full bg-[#134981] text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
                 Donate Now
               </Link>
             </div>

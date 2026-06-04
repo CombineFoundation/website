@@ -11,7 +11,9 @@ export default function Home() {
       <OurImpact />
       <OurProject />
       <FounderInfo />
-      <FaqSection />
+      <FaqSection
+      description = "Find answers to common questions about our mission, projects, and how you can get involved."
+      />
       <BlogSection />
     </div>
   );
