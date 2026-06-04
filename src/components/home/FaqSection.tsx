@@ -54,16 +54,20 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
           {item.question}
         </span>
         <span
-          className={`flex-shrink-0 text-2xl transition-colors duration-300 ${isOpen ? "text-secondary-500" : "text-gray-400"
-            }`}
+          className={`flex-shrink-0 text-2xl transition-colors duration-300 ${
+            isOpen ? "text-secondary-500" : "text-gray-400"
+          }`}
         >
           {isOpen ? "−" : "+"}
         </span>
       </button>
 
       <div
-        className={`grid transition-all duration-300 ease-in-out px-4 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0 pb-0"
-          }`}
+        className={`grid transition-all duration-300 ease-in-out px-4 ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100 pb-5"
+            : "grid-rows-[0fr] opacity-0 pb-0"
+        }`}
       >
         <div className="overflow-hidden">
           <p className="text-gray-600 text-sm md:text-base leading-relaxed">
@@ -75,7 +79,14 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
   );
 }
 
-export default function FaqSection() {
+// ─── Props ────────────────────────────────────────────────────────────────────
+type FaqSectionProps = {
+  /** When provided the full SectionHeader (title + description) is rendered.
+   *  When omitted the heading falls back to the plain image-style layout. */
+  description?: string;
+};
+
+export default function FaqSection({ description }: FaqSectionProps) {
   const [openId, setOpenId] = useState<number | null>(0);
 
   const toggle = (id: number) => {
@@ -84,10 +95,19 @@ export default function FaqSection() {
 
   return (
     <section className="px-6 py-16 w-full lg:w-[90%] mx-auto">
-      <SectionHeader
-        title="Frequently Asked Questions"
-        description="Find answers to common questions about our mission, projects, and how you can get involved."
-      />
+      {/* ── Heading ── */}
+      {description ? (
+        // ✅ Description provided → keep existing SectionHeader unchanged
+        <SectionHeader
+          title="Frequently Asked Questions"
+          description={description}
+        />
+      ) : (
+        // 🖼 No description → plain heading style matching the image
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">
+          Frequently Asked Questions
+        </h2>
+      )}
 
       <div className="mt-10">
         {faqs.map((item) => (
