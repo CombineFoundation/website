@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import { getDb } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Program, Application, Message } from "./collections";
 
@@ -30,7 +30,7 @@ export const seedDatabase = async () => {
 
     const programIds: string[] = [];
     for (const prog of programs) {
-      const docRef = await addDoc(collection(db!, "programs"), prog);
+      const docRef = await addDoc(collection(getDb(), "programs"), prog);
       programIds.push(docRef.id);
       console.log(`Program added with ID: ${docRef.id}`);
     }
@@ -52,7 +52,7 @@ export const seedDatabase = async () => {
     ];
 
     for (const app of applications) {
-      const docRef = await addDoc(collection(db!, "applications"), app);
+      const docRef = await addDoc(collection(getDb(), "applications"), app);
       console.log(`Application added with ID: ${docRef.id}`);
     }
 
@@ -73,7 +73,7 @@ export const seedDatabase = async () => {
     ];
 
     for (const msg of messages) {
-      const docRef = await addDoc(collection(db!, "messages"), msg);
+      const docRef = await addDoc(collection(getDb(), "messages"), msg);
       console.log(`Message added with ID: ${docRef.id}`);
     }
 
