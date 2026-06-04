@@ -3,49 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/UI/SectionHeader";
+import { BLOG_POSTS } from "@/lib/blogs";
+import type { BlogPost } from "@/lib/blogs";
 
-type BlogPost = {
-  id: number;
-  image: string;
-  authorName: string;
-  date: string;
-  title: string;
-  description: string;
-  slug: string;
-};
-
-const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    image: "/home/blog/blog1.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-1",
-  },
-  {
-    id: 2,
-    image: "/home/blog/blog2.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-2",
-  },
-  {
-    id: 3,
-    image: "/home/blog/blog3.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-3",
-  },
-];
+const blogPosts: BlogPost[] = BLOG_POSTS;
 
 type BlogCardProps = {
   post: BlogPost;
