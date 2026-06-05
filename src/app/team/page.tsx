@@ -1,8 +1,9 @@
 import ProfileHero from '@/components/team/ProfileHero';
 import TeamMemberCard from '@/components/team/TeamMemberCard';
+import { fetchTeamMembers } from '@/lib/firestore-actions';
+import { TeamMember } from '@/types/database';
 
-
-const teamData = {
+const staticTeamData = {
   founder: {
     name: "Muhammad Junaid Makhani",
     role: "Founder",
@@ -47,7 +48,41 @@ const teamData = {
   ]
 };
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const dbMembers = await fetchTeamMembers();
+
+  let teamData = staticTeamData;
+
+  if (dbMembers && dbMembers.length > 0) {
+    const founder = dbMembers.find(m => m.category === 'founder') || staticTeamData.founder;
+    const ceo = dbMembers.find(m => m.category === 'ceo') || staticTeamData.ceo;
+    const boardOfTrustees = dbMembers.filter(m => m.category === 'trustee');
+    const departmentHeads = dbMembers.filter(m => m.category === 'head');
+    const ambassadors = dbMembers.filter(m => m.category === 'ambassador');
+    const youthLeaders = dbMembers.filter(m => m.category === 'leader');
+    const partners = dbMembers.filter(m => m.category === 'partner');
+
+    teamData = {
+      founder: {
+        name: founder.name,
+        role: founder.role,
+        image: founder.image,
+        description: founder.description || []
+      },
+      ceo: {
+        name: ceo.name,
+        role: ceo.role,
+        image: ceo.image,
+        description: ceo.description || []
+      },
+      boardOfTrustees: boardOfTrustees.length > 0 ? boardOfTrustees : staticTeamData.boardOfTrustees,
+      departmentHeads: departmentHeads.length > 0 ? departmentHeads : staticTeamData.departmentHeads,
+      ambassadors: ambassadors.length > 0 ? ambassadors : staticTeamData.ambassadors,
+      youthLeaders: youthLeaders.length > 0 ? youthLeaders : staticTeamData.youthLeaders,
+      partners: partners.length > 0 ? partners : staticTeamData.partners
+    };
+  }
+
   return (
     <main className="min-h-screen bg-white font-sans">
 
@@ -55,7 +90,7 @@ export default function TeamPage() {
       <section className="bg-gray-50 py-20 overflow-hidden relative">
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="flex flex-col items-center justify-center">
-             <h1 className="text-7xl md:text-9xl font-black text-navy opacity-10 absolute -top-10 left-1/2 -translate-x-1/2 select-none">
+            <h1 className="text-7xl md:text-9xl font-black text-navy opacity-10 absolute -top-10 left-1/2 -translate-x-1/2 select-none">
               TEAM
             </h1>
             <h1 className="text-5xl md:text-7xl font-extrabold text-navy mb-6 tracking-tight">
@@ -71,7 +106,7 @@ export default function TeamPage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
-        
+
         {/* Founder & CEO */}
         <div className="space-y-12">
           <section id="founder">
@@ -145,3 +180,4 @@ function SectionGrid({ title, members }: { title: string, members: any[] }) {
     </section>
   );
 }
+

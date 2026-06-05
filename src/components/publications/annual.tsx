@@ -1,45 +1,43 @@
 "use client";
 
-type Report = {
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-    viewUrl: string;
-    downloadUrl: string;
-};
+import { useEffect, useState } from "react";
+import { fetchAnnualReports } from "@/lib/firestore-actions";
+import { AnnualReport } from "@/types/database";
 
-const REPORTS: Report[] = [
+const REPORTS: AnnualReport[] = [
     {
-        id: 1,
+        id: "1",
         title: "Annual Report 2022",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
         image: "/publications/pub1.png",
         viewUrl: "#",
         downloadUrl: "#",
+        order: 1
     },
     {
-        id: 2,
+        id: "2",
         title: "Annual Report 2021",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
         image: "/publications/pub1.png",
         viewUrl: "#",
         downloadUrl: "#",
+        order: 2
     },
     {
-        id: 3,
+        id: "3",
         title: "Annual Report 2020",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
         image: "/publications/pub1.png",
         viewUrl: "#",
         downloadUrl: "#",
+        order: 3
     },
 ];
 
-function ReportCard({ report }: { report: Report }) {
+function ReportCard({ report }: { report: AnnualReport }) {
     return (
         <div className="w-full bg-white rounded-2xl shadow-xl flex flex-col min-[500px]:flex-row overflow-hidden h-auto min-[500px]:h-[350px] items-center md:p-6 p-4 gap-4 min-[500px]:gap-0">
             {/* Image */}
@@ -93,6 +91,22 @@ function ReportCard({ report }: { report: Report }) {
 }
 
 export default function AnnualReports() {
+    const [reports, setReports] = useState<AnnualReport[]>(REPORTS);
+
+    useEffect(() => {
+        let active = true;
+        const loadReports = async () => {
+            const data = await fetchAnnualReports();
+            if (active && data && data.length > 0) {
+                setReports(data);
+            }
+        };
+        loadReports();
+        return () => {
+            active = false;
+        };
+    }, []);
+
     return (
         <section id="annual-reports" className="w-full px-4 sm:px-8 lg:px-14 py-12">
             {/* Heading */}
@@ -104,10 +118,10 @@ export default function AnnualReports() {
 
             {/* Cards */}
             <div className="flex flex-col gap-5">
-                {REPORTS.map((report) => (
-                    <ReportCard key={report.id} report={report} />
+                {reports.map((report) => (
+                    <ReportCard key={report.id || report.title} report={report} />
                 ))}
             </div>
         </section>
     );
-}
+}

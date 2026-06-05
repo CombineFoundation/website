@@ -1,36 +1,34 @@
 "use client";
 
 import Image from "next/image";
-
-interface Certificate {
-    id: number;
-    title: string;
-    image: string;
-    imageAlt: string;
-    url: string;
-}
+import { useEffect, useState } from "react";
+import { fetchCertificates } from "@/lib/firestore-actions";
+import { Certificate } from "@/types/database";
 
 const certificates: Certificate[] = [
     {
-        id: 1,
+        id: "1",
         title: "Tax Certificate for the year 2024",
         image: "/publications/pub1.png",
         imageAlt: "Tax Certificate 2024",
         url: "/certificates/tax-2024",
+        order: 1
     },
     {
-        id: 2,
+        id: "2",
         title: "Tax Certificate for the year 2023",
         image: "/publications/pub1.png",
         imageAlt: "Tax Certificate 2023",
         url: "/certificates/tax-2023",
+        order: 2
     },
     {
-        id: 3,
+        id: "3",
         title: "Tax Certificate for the year 2022",
         image: "/publications/pub1.png",
         imageAlt: "Tax Certificate 2022",
         url: "/certificates/tax-2022",
+        order: 3
     },
 ];
 
@@ -87,6 +85,22 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
 };
 
 const TaxShariaCertificates = () => {
+    const [certs, setCerts] = useState<Certificate[]>(certificates);
+
+    useEffect(() => {
+        let active = true;
+        const loadCerts = async () => {
+            const data = await fetchCertificates();
+            if (active && data && data.length > 0) {
+                setCerts(data);
+            }
+        };
+        loadCerts();
+        return () => {
+            active = false;
+        };
+    }, []);
+
     return (
         <section className="bg-white py-12 px-4">
             <div className="max-w-full mx-auto">
@@ -100,8 +114,8 @@ const TaxShariaCertificates = () => {
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-5">
-                    {certificates.map((cert) => (
-                        <CertificateCard key={cert.id} cert={cert} />
+                    {certs.map((cert) => (
+                        <CertificateCard key={cert.id || cert.title} cert={cert} />
                     ))}
                 </div>
 
@@ -110,4 +124,4 @@ const TaxShariaCertificates = () => {
     );
 };
 
-export default TaxShariaCertificates;
+export default TaxShariaCertificates;

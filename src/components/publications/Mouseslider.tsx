@@ -1,19 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-
-interface MOU {
-    id: number;
-    title: string;
-    paragraphs: string[];
-    image: string;
-    imageAlt: string;
-}
+import { useEffect, useState } from "react";
+import { fetchMOUs } from "@/lib/firestore-actions";
+import { MOU } from "@/types/database";
 
 const mous: MOU[] = [
     {
-        id: 1,
+        id: "1",
         title: "Hammad Foundation X Combine Foundation MOU",
         paragraphs: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.",
@@ -21,9 +15,10 @@ const mous: MOU[] = [
         ],
         image: "/publications/pub1.png",
         imageAlt: "MOU signing between Hammad Foundation and Combine Foundation",
+        order: 1
     },
     {
-        id: 2,
+        id: "2",
         title: "Hammad Foundation X Green Earth MOU",
         paragraphs: [
             "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
@@ -31,28 +26,45 @@ const mous: MOU[] = [
         ],
         image: "/publications/pub1.png",
         imageAlt: "MOU signing between Hammad Foundation and Green Earth",
+        order: 2
     },
     {
-        id: 3,
+        id: "3",
         title: "Hammad Foundation X Education Trust MOU",
         paragraphs: [
-            "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
-            "Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
+          "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
+          "Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio."
         ],
         image: "/publications/pub1.png",
         imageAlt: "MOU signing between Hammad Foundation and Education Trust",
+        order: 3
     },
 ];
 
 const MOUSlider = () => {
+    const [mousData, setMousData] = useState<MOU[]>(mous);
     const [current, setCurrent] = useState(0);
 
-    const handlePrev = () =>
-        setCurrent((c) => (c === 0 ? mous.length - 1 : c - 1));
-    const handleNext = () =>
-        setCurrent((c) => (c === mous.length - 1 ? 0 : c + 1));
+    useEffect(() => {
+        let active = true;
+        const loadMOUs = async () => {
+            const data = await fetchMOUs();
+            if (active && data && data.length > 0) {
+                setMousData(data);
+            }
+        };
+        loadMOUs();
+        return () => {
+            active = false;
+        };
+    }, []);
 
-    const mou = mous[current];
+    const handlePrev = () =>
+        setCurrent((c) => (c === 0 ? mousData.length - 1 : c - 1));
+    const handleNext = () =>
+        setCurrent((c) => (c === mousData.length - 1 ? 0 : c + 1));
+
+    const mou = mousData[current] || mousData[0] || mous[0];
 
     return (
         <section className="bg-white px-4 md:px-10">
@@ -137,4 +149,4 @@ const MOUSlider = () => {
     );
 };
 
-export default MOUSlider;
+export default MOUSlider;
