@@ -28,6 +28,13 @@ const auth: Auth | undefined = app ? getAuth(app) : undefined;
 const db: Firestore | undefined = app ? getFirestore(app) : undefined;
 const storage: FirebaseStorage | undefined = app ? getStorage(app) : undefined;
 
+export const getDb = (): Firestore => {
+  if (!db) {
+    throw new Error("Firestore is not initialized. Check your Firebase configuration.");
+  }
+  return db;
+};
+
 // Initialize Analytics (only in client-side)
 let analytics;
 if (typeof window !== "undefined") {
