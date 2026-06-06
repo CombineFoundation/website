@@ -89,8 +89,8 @@ export default function BlogSection() {
           description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10 justify-items-center">
-          {blogPosts.map((post) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">
+          {blogPosts.slice(0, 3).map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>
