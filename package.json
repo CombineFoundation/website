@@ -14,7 +14,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "@vnedyalk0v/react19-simple-maps": "^2.0.7",
     "clsx": "^2.1.1",
-    "firebase": "^12.12.1",
+    "firebase": "^12.13.0",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "postcss": "^8.5.12",

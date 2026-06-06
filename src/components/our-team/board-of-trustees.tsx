@@ -41,9 +41,6 @@ export default function BoardOfTrustees() {
           >
             {/* Arrow + Image */}
             <div className="flex items-start justify-center sm:justify-start gap-2 flex-shrink-0">
-              {/* Arrow indicator */}
-              <span className="text-black text-lg leading-none mt-2">&#8250;</span>
-
               {/* Portrait Image */}
               <div className="relative w-[60vw] sm:w-48 md:w-56 aspect-square overflow-hidden rounded-2xl flex-shrink-0">
                 <Image

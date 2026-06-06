@@ -44,7 +44,6 @@ function MemberCard({ member }: { member: Member }) {
     <div className="flex flex-col items-center text-center">
       {/* Arrow + Image row */}
       <div className="flex items-start gap-1 w-full justify-center mb-3">
-        <span className="text-black text-2xl leading-none mt-1">&#8250;</span>
         <div className="relative w-48 h-48 overflow-hidden rounded-2xl flex-shrink-0">
           <Image
             src={member.image}
