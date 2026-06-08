@@ -156,12 +156,12 @@ export default function EventsView() {
     }
   };
 
-  const handleSaveEdit = (data: { name: string; description: string; location: string; date: string; price: string }) => {
+  const handleSaveEdit = (data: { name: string; description: string; location: string; date: string; price: string; registrationLink: string }) => {
     if (!editEvent) return;
     setEvents((prev) =>
       prev.map((e) =>
         e.id === editEvent.id
-          ? { ...e, name: data.name, description: data.description, location: data.location, dateTime: toDisplayDate(data.date), price: data.price }
+          ? { ...e, name: data.name, description: data.description, location: data.location, dateTime: toDisplayDate(data.date), price: data.price, registrationLink: data.registrationLink }
           : e
       )
     );
@@ -169,7 +169,7 @@ export default function EventsView() {
     setSelectedIds(new Set());
   };
 
-  const handleAdd = (data: { name: string; description: string; location: string; date: string; price: string }) => {
+  const handleAdd = (data: { name: string; description: string; location: string; date: string; price: string; registrationLink: string }) => {
     const newId = events.length > 0 ? Math.max(...events.map((e) => e.id)) + 1 : 1;
     const newEvent: Event = {
       id: newId,
@@ -178,7 +178,7 @@ export default function EventsView() {
       dateTime: toDisplayDate(data.date),
       location: data.location,
       price: data.price,
-      registrationLink: "#",
+      registrationLink: data.registrationLink,
     };
     setEvents((prev) => [...prev, newEvent]);
     setShowAddModal(false);

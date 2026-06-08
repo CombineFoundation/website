@@ -44,20 +44,12 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-20 bg-black/40 md:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-screen bg-[#0f172a] flex flex-col
+          bg-[#0f172a] flex flex-col flex-shrink-0 self-stretch
           transition-all duration-300 ease-in-out
-          ${isOpen ? "w-56" : "w-0 overflow-hidden md:w-16"}
+          ${isOpen ? "w-56" : "w-16 overflow-visible"}
         `}
       >
         {/* Logo / Top area */}
@@ -76,9 +68,13 @@ export default function Sidebar({
               </button>
             </>
           ) : (
-            <span className="text-white font-bold text-lg tracking-wide mx-auto">
-              A
-            </span>
+            <button
+              onClick={() => setIsOpen(true)}
+              className="text-white hover:text-slate-300 transition-colors mx-auto cursor-pointer"
+              aria-label="Open sidebar"
+            >
+              <ChevronRight size={20} />
+            </button>
           )}
         </div>
 
@@ -137,17 +133,6 @@ export default function Sidebar({
           })}
         </nav>
       </aside>
-
-      {/* Toggle button when sidebar is closed */}
-      {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed top-4 left-4 z-40 bg-[#0f172a] text-white p-2 rounded-lg shadow-lg hover:bg-slate-700 transition-colors md:left-[4.5rem] cursor-pointer"
-          aria-label="Open sidebar"
-        >
-          <ChevronRight size={20} />
-        </button>
-      )}
     </>
   );
 }

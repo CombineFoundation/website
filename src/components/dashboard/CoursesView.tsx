@@ -8,7 +8,18 @@ import AddCourseModal from "./AddCourseModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import allCourses from "@/data/courses.json";
 
-interface Course {
+export interface CourseModule {
+  title: string;
+  bullets: string[];
+}
+
+export interface SuccessStory {
+  studentName: string;
+  testimonial: string;
+  videoUrl: string;
+}
+
+export interface Course {
   id: number;
   name: string;
   instructor: string;
@@ -16,6 +27,15 @@ interface Course {
   classesLeft: number;
   price: string;
   status: "Ongoing" | "Completed";
+  description: string;
+  heroImage1: string;
+  heroImage2: string;
+  lessons: number;
+  duration: string;
+  enrollmentLink: string;
+  guidelineFile: string;
+  modules: CourseModule[];
+  successStories: SuccessStory[];
 }
 
 const PAGE_SIZE = 10;
@@ -111,13 +131,13 @@ export default function CoursesView() {
     }
   };
 
-  const handleSaveEdit = (data: { name: string; instructor: string; classesTaken: number; classesLeft: number; price: string; status: "Ongoing" | "Completed" }) => {
+  const handleSaveEdit = (data: Omit<Course, "id">) => {
     if (!editCourse) return;
     const status = data.classesTaken >= data.classesLeft ? "Completed" : data.status;
     setCourses((prev) =>
       prev.map((c) =>
         c.id === editCourse.id
-          ? { ...c, name: data.name, instructor: data.instructor, classesTaken: data.classesTaken, classesLeft: data.classesLeft, price: data.price, status }
+          ? { ...data, id: editCourse.id, status }
           : c
       )
     );
@@ -125,19 +145,11 @@ export default function CoursesView() {
     setSelectedIds(new Set());
   };
 
-  const handleAdd = (data: { name: string; instructor: string; classesTaken: number; classesLeft: number; price: string; status: "Ongoing" | "Completed" }) => {
+  const handleAdd = (data: Omit<Course, "id">) => {
     const maxId = courses.length > 0 ? Math.max(...courses.map((c) => c.id)) : 3440;
     const newId = maxId + 1;
     const status = data.classesTaken >= data.classesLeft ? "Completed" : data.status;
-    const newCourse: Course = {
-      id: newId,
-      name: data.name,
-      instructor: data.instructor,
-      classesTaken: data.classesTaken,
-      classesLeft: data.classesLeft,
-      price: data.price,
-      status,
-    };
+    const newCourse: Course = { ...data, id: newId, status };
     setCourses((prev) => [...prev, newCourse]);
     setShowAddModal(false);
     setCurrentPage(Math.ceil((courses.length + 1) / PAGE_SIZE));

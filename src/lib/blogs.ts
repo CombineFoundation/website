@@ -10,7 +10,8 @@ export interface CommentData {
 
 export interface BlogPost {
   id: number;
-  image: string;
+  heroImage1: string;
+  heroImage2: string;
   authorName: string;
   date: string;
   title: string;
@@ -18,7 +19,7 @@ export interface BlogPost {
   slug: string;
   status: "Published" | "Draft" | "Under Review";
   content: string[];
-  images: string[];
+  conclusion: string;
   likes: number;
   comments: number;
   commentList: CommentData[];

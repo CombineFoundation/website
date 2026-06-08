@@ -9,6 +9,7 @@ interface EventFormData {
   location: string;
   date: string;
   price: string;
+  registrationLink: string;
 }
 
 interface EditEventModalProps {
@@ -18,6 +19,7 @@ interface EditEventModalProps {
     dateTime: string;
     location: string;
     price: string;
+    registrationLink: string;
   };
   onCancel: () => void;
   onSave: (data: EventFormData) => void;
@@ -49,6 +51,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     location: event.location,
     date: toDatetimeLocal(event.dateTime),
     price: event.price,
+    registrationLink: event.registrationLink || "",
   });
 
   const handleChange = (
@@ -57,7 +60,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const isValid = form.name.trim() && form.description.trim() && form.location.trim() && form.date.trim() && form.price.trim();
+  const isValid = form.name.trim() && form.description.trim() && form.location.trim() && form.date.trim() && form.price.trim() && form.registrationLink.trim();
 
   const handleSave = () => {
     if (!isValid) return;
@@ -66,7 +69,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 p-6">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-semibold text-gray-900">Edit Event</h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">
@@ -112,7 +115,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
           />
         </div>
 
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 mb-4">
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Date</label>
             <input
@@ -135,6 +138,18 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-sm text-gray-600 mb-1">Registration Link</label>
+          <input
+            type="url"
+            name="registrationLink"
+            value={form.registrationLink}
+            onChange={handleChange}
+            placeholder="https://example.com/register"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
 
         <div className="flex justify-end gap-3">

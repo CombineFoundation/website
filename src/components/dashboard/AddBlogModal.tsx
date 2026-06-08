@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Upload } from "lucide-react";
 
 interface BlogFormData {
   name: string;
@@ -9,11 +9,23 @@ interface BlogFormData {
   date: string;
   status: "Published" | "Draft" | "Under Review";
   description: string;
+  conclusion: string;
+  heroImage1: string;
+  heroImage2: string;
 }
 
 interface AddBlogModalProps {
   onCancel: () => void;
   onSave: (data: BlogFormData) => void;
+}
+
+function readFileAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
@@ -23,6 +35,9 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     date: "",
     status: "Draft",
     description: "",
+    conclusion: "",
+    heroImage1: "",
+    heroImage2: "",
   });
 
   const handleChange = (
@@ -31,11 +46,20 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleImageUpload = async (field: "heroImage1" | "heroImage2", e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const dataUrl = await readFileAsDataURL(file);
+    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+  };
+
   const isValid =
     form.name.trim() &&
     form.authorName.trim() &&
     form.date.trim() &&
-    form.description.trim();
+    form.description.trim() &&
+    form.heroImage1.trim() &&
+    form.heroImage2.trim();
 
   const handleSave = () => {
     if (!isValid) return;
@@ -44,7 +68,7 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 p-6">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-semibold text-gray-900">Add Blog</h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">
@@ -104,7 +128,7 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
           </select>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">Description</label>
           <textarea
             name="description"
@@ -114,6 +138,58 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
             rows={3}
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
           />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Conclusion</label>
+          <textarea
+            name="conclusion"
+            value={form.conclusion}
+            onChange={handleChange}
+            placeholder="Summarize the key takeaways of the blog post..."
+            rows={3}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          />
+        </div>
+
+        <hr className="my-5 border-gray-200" />
+        <p className="text-sm font-medium text-gray-700 mb-4">Images</p>
+
+        <div className="flex gap-4 mb-6">
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Image 1</label>
+            {form.heroImage1 ? (
+              <div className="relative">
+                <img src={form.heroImage1} alt="Blog image 1 preview" className="w-full h-28 object-cover rounded-md border border-gray-200" />
+                <button onClick={() => setForm((prev) => ({ ...prev, heroImage1: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
+                  <X size={14} />
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center h-28 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+                <Upload size={18} className="text-gray-400" />
+                <span className="text-xs text-gray-400 mt-1">Upload Image</span>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload("heroImage1", e)} className="hidden" />
+              </label>
+            )}
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Image 2</label>
+            {form.heroImage2 ? (
+              <div className="relative">
+                <img src={form.heroImage2} alt="Blog image 2 preview" className="w-full h-28 object-cover rounded-md border border-gray-200" />
+                <button onClick={() => setForm((prev) => ({ ...prev, heroImage2: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
+                  <X size={14} />
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center h-28 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+                <Upload size={18} className="text-gray-400" />
+                <span className="text-xs text-gray-400 mt-1">Upload Image</span>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload("heroImage2", e)} className="hidden" />
+              </label>
+            )}
+          </div>
         </div>
 
         <div className="flex justify-end gap-3">

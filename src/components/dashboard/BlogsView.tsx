@@ -15,6 +15,9 @@ interface Blog {
   date: string;
   status: "Published" | "Draft" | "Under Review";
   description: string;
+  conclusion: string;
+  heroImage1: string;
+  heroImage2: string;
 }
 
 const PAGE_SIZE = 10;
@@ -63,13 +66,16 @@ export default function BlogsView() {
         if (saved) return JSON.parse(saved) as Blog[];
       } catch {}
     }
-    return (allBlogs as Array<{ id: number; title: string; authorName: string; date: string; status: string; description: string }>).map((b) => ({
+    return (allBlogs as Array<{ id: number; title: string; authorName: string; date: string; status: string; description: string; conclusion: string; heroImage1: string; heroImage2: string }>).map((b) => ({
       id: b.id,
       name: b.title,
       authorName: b.authorName,
       date: b.date,
       status: b.status as "Published" | "Draft" | "Under Review",
       description: b.description,
+      conclusion: b.conclusion || "",
+      heroImage1: b.heroImage1 || "",
+      heroImage2: b.heroImage2 || "",
     }));
   });
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -158,12 +164,12 @@ export default function BlogsView() {
     }
   };
 
-  const handleSaveEdit = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string }) => {
+  const handleSaveEdit = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
     if (!editBlog) return;
     setBlogs((prev) =>
       prev.map((b) =>
         b.id === editBlog.id
-          ? { ...b, name: data.name, authorName: data.authorName, date: toStorageDate(data.date), status: data.status, description: data.description }
+          ? { ...b, name: data.name, authorName: data.authorName, date: toStorageDate(data.date), status: data.status, description: data.description, conclusion: data.conclusion, heroImage1: data.heroImage1, heroImage2: data.heroImage2 }
           : b
       )
     );
@@ -171,7 +177,7 @@ export default function BlogsView() {
     setSelectedIds(new Set());
   };
 
-  const handleAdd = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string }) => {
+  const handleAdd = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
     const newId = blogs.length > 0 ? Math.max(...blogs.map((b) => b.id)) + 1 : 1;
     const newBlog: Blog = {
       id: newId,
@@ -180,6 +186,9 @@ export default function BlogsView() {
       date: toStorageDate(data.date),
       status: data.status,
       description: data.description,
+      conclusion: data.conclusion,
+      heroImage1: data.heroImage1,
+      heroImage2: data.heroImage2,
     };
     setBlogs((prev) => [...prev, newBlog]);
     setShowAddModal(false);
