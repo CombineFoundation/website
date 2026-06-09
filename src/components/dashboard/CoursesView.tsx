@@ -23,10 +23,8 @@ export interface Course {
   id: number;
   name: string;
   instructor: string;
-  classesTaken: number;
-  classesLeft: number;
   price: string;
-  status: "Ongoing" | "Completed";
+  status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
@@ -133,11 +131,10 @@ export default function CoursesView() {
 
   const handleSaveEdit = (data: Omit<Course, "id">) => {
     if (!editCourse) return;
-    const status = data.classesTaken >= data.classesLeft ? "Completed" : data.status;
     setCourses((prev) =>
       prev.map((c) =>
         c.id === editCourse.id
-          ? { ...data, id: editCourse.id, status }
+          ? { ...data, id: editCourse.id }
           : c
       )
     );
@@ -148,8 +145,7 @@ export default function CoursesView() {
   const handleAdd = (data: Omit<Course, "id">) => {
     const maxId = courses.length > 0 ? Math.max(...courses.map((c) => c.id)) : 3440;
     const newId = maxId + 1;
-    const status = data.classesTaken >= data.classesLeft ? "Completed" : data.status;
-    const newCourse: Course = { ...data, id: newId, status };
+    const newCourse: Course = { ...data, id: newId };
     setCourses((prev) => [...prev, newCourse]);
     setShowAddModal(false);
     setCurrentPage(Math.ceil((courses.length + 1) / PAGE_SIZE));
@@ -172,7 +168,7 @@ export default function CoursesView() {
         onSearchChange={setSearch}
         filterValue={filter}
         onFilterChange={setFilter}
-        filterOptions={["Ongoing", "Completed"]}
+        filterOptions={["Ongoing", "Completed", "Launch"]}
         canEdit={canEdit}
         canDelete={canDelete}
         onEdit={handleEdit}
@@ -194,7 +190,6 @@ export default function CoursesView() {
               </th>
               <th className="py-3 text-left font-medium text-gray-500">Course Name / ID</th>
               <th className="py-3 text-left font-medium text-gray-500 w-44">Instructor</th>
-              <th className="py-3 text-left font-medium text-gray-500 w-40">Classes Taken / Left</th>
               <th className="py-3 text-left font-medium text-gray-500 w-28">Price</th>
               <th className="py-3 text-left font-medium text-gray-500 w-28">Status</th>
             </tr>
@@ -220,13 +215,12 @@ export default function CoursesView() {
                     <p className="text-gray-400 text-xs mt-0.5">ID: {course.id}</p>
                   </td>
                   <td className="py-3.5 text-gray-600">{course.instructor}</td>
-                  <td className="py-3.5 text-gray-600">{course.classesTaken} / {course.classesLeft}</td>
                   <td className="py-3.5 text-gray-600">{course.price}</td>
                   <td className="py-3.5">
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold text-white ${
-                      course.classesTaken >= course.classesLeft ? "bg-blue-500" : "bg-orange-500"
+                      course.status === "Completed" ? "bg-blue-500" : course.status === "Launch" ? "bg-green-500" : "bg-orange-500"
                     }`}>
-                      {course.classesTaken >= course.classesLeft ? "Completed" : "Ongoing"}
+                      {course.status}
                     </span>
                   </td>
                 </tr>

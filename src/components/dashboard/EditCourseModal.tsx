@@ -17,10 +17,8 @@ interface SuccessStory {
 interface CourseFormData {
   name: string;
   instructor: string;
-  classesTaken: number;
-  classesLeft: number;
   price: string;
-  status: "Ongoing" | "Completed";
+  status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
@@ -51,8 +49,6 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
   const [form, setForm] = useState<CourseFormData>({
     name: course.name,
     instructor: course.instructor,
-    classesTaken: course.classesTaken,
-    classesLeft: course.classesLeft,
     price: course.price,
     status: course.status,
     description: course.description || "",
@@ -74,13 +70,7 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const val = e.target.type === "number" ? Number(e.target.value) : e.target.value;
-    setForm((prev) => {
-      const updated = { ...prev, [e.target.name]: val };
-      if (e.target.name === "classesTaken" && updated.classesTaken >= updated.classesLeft) {
-        updated.status = "Completed";
-      }
-      return updated;
-    });
+    setForm((prev) => ({ ...prev, [e.target.name]: val }));
   };
 
   const handleImageUpload = async (field: "heroImage1" | "heroImage2", e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,9 +145,11 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     form.lessons > 0 &&
     form.duration.trim() &&
     form.enrollmentLink.trim() &&
-    form.classesTaken > 0 &&
-    form.classesLeft > 0 &&
-    form.classesTaken <= form.classesLeft;
+    form.heroImage1.trim() &&
+    form.heroImage2.trim() &&
+    form.guidelineFile.trim() &&
+    form.modules.length > 0 &&
+    form.modules.every(m => m.title.trim() && m.bullets.some(b => b.trim()));
 
   const handleSave = () => {
     if (!isValid) return;
@@ -253,41 +245,6 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
 
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Classes Taken</label>
-            <input
-              type="number"
-              name="classesTaken"
-              value={form.classesTaken || ""}
-              onChange={handleChange}
-              placeholder="4"
-              min="1"
-              max={form.classesLeft}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Total Classes</label>
-            <input
-              type="number"
-              name="classesLeft"
-              value={form.classesLeft || ""}
-              onChange={(e) => {
-                const total = Number(e.target.value);
-                setForm((prev) => ({
-                  ...prev,
-                  classesLeft: total,
-                  classesTaken: Math.min(prev.classesTaken, total),
-                }));
-              }}
-              placeholder="20"
-              min="1"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-4 mb-4">
-          <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Status</label>
             <select
               name="status"
@@ -297,6 +254,7 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
             >
               <option value="Ongoing">Ongoing</option>
               <option value="Completed">Completed</option>
+              <option value="Launch">Launch</option>
             </select>
           </div>
           <div className="flex-1">

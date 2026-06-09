@@ -8,7 +8,6 @@ interface EventFormData {
   description: string;
   location: string;
   date: string;
-  price: string;
   registrationLink: string;
 }
 
@@ -18,7 +17,6 @@ interface EditEventModalProps {
     description: string;
     dateTime: string;
     location: string;
-    price: string;
     registrationLink: string;
   };
   onCancel: () => void;
@@ -50,7 +48,6 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     description: event.description,
     location: event.location,
     date: toDatetimeLocal(event.dateTime),
-    price: event.price,
     registrationLink: event.registrationLink || "",
   });
 
@@ -60,7 +57,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const isValid = form.name.trim() && form.description.trim() && form.location.trim() && form.date.trim() && form.price.trim() && form.registrationLink.trim();
+  const isValid = form.name.trim() && form.description.trim() && form.location.trim() && form.date.trim() && form.registrationLink.trim();
 
   const handleSave = () => {
     if (!isValid) return;
@@ -115,29 +112,15 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
           />
         </div>
 
-        <div className="flex gap-4 mb-4">
-          <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Date</label>
-            <input
-              type="datetime-local"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-
-          <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Event Price</label>
-            <input
-              type="text"
-              name="price"
-              value={form.price}
-              onChange={handleChange}
-              placeholder="Enter price"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Date</label>
+          <input
+            type="datetime-local"
+            name="date"
+            value={form.date}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
 
         <div className="mb-6">

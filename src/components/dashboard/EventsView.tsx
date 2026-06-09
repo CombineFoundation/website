@@ -14,7 +14,6 @@ interface Event {
   description: string;
   dateTime: string;
   location: string;
-  price: string;
   registrationLink: string;
 }
 
@@ -156,12 +155,12 @@ export default function EventsView() {
     }
   };
 
-  const handleSaveEdit = (data: { name: string; description: string; location: string; date: string; price: string; registrationLink: string }) => {
+  const handleSaveEdit = (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
     if (!editEvent) return;
     setEvents((prev) =>
       prev.map((e) =>
         e.id === editEvent.id
-          ? { ...e, name: data.name, description: data.description, location: data.location, dateTime: toDisplayDate(data.date), price: data.price, registrationLink: data.registrationLink }
+          ? { ...e, name: data.name, description: data.description, location: data.location, dateTime: toDisplayDate(data.date), registrationLink: data.registrationLink }
           : e
       )
     );
@@ -169,7 +168,7 @@ export default function EventsView() {
     setSelectedIds(new Set());
   };
 
-  const handleAdd = (data: { name: string; description: string; location: string; date: string; price: string; registrationLink: string }) => {
+  const handleAdd = (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
     const newId = events.length > 0 ? Math.max(...events.map((e) => e.id)) + 1 : 1;
     const newEvent: Event = {
       id: newId,
@@ -177,7 +176,6 @@ export default function EventsView() {
       description: data.description,
       dateTime: toDisplayDate(data.date),
       location: data.location,
-      price: data.price,
       registrationLink: data.registrationLink,
     };
     setEvents((prev) => [...prev, newEvent]);
@@ -230,10 +228,10 @@ export default function EventsView() {
               <th className="py-3 text-left font-medium text-gray-500 w-44">
                 Date / Time
               </th>
-              <th className="py-3 text-left font-medium text-gray-500 w-48">
+              <th className="py-3 text-left font-medium text-gray-500 w-56">
                 Location
               </th>
-              <th className="py-3 text-left font-medium text-gray-500 w-56">
+              <th className="py-3 text-left font-medium text-gray-500 w-64">
                 Registration Link
               </th>
             </tr>
@@ -258,8 +256,8 @@ export default function EventsView() {
                     {event.name}
                   </td>
                   <td className="py-3.5 text-gray-600">{event.dateTime}</td>
-                  <td className="py-3.5 text-gray-600">{event.location}</td>
-                  <td className="py-3.5 text-blue-500 truncate max-w-[200px]">
+                  <td className="py-3.5 text-gray-600 min-w-0 max-w-0 truncate">{event.location}</td>
+                  <td className="py-3.5 text-blue-500 truncate max-w-[220px]">
                     <a
                       href={event.registrationLink}
                       target="_blank"

@@ -5,10 +5,10 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Redirect old /dashboard to protected /admin/dashboard
-  if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
-    const adminUrl = new URL('/admin/dashboard', request.url);
-    return NextResponse.redirect(adminUrl);
-  }
+  // if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
+  //   const adminUrl = new URL('/admin/dashboard', request.url);
+  //   return NextResponse.redirect(adminUrl);
+  // }
 
   // Protect all /admin routes
   // if (pathname.startsWith('/admin')) {
@@ -23,6 +23,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: ['/admin/:path*', '/dashboard/:path*'],
-};
+// export const config = {
+//   matcher: ['/admin/:path*', '/dashboard/:path*'],
+// };
