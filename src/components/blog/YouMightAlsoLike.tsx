@@ -21,7 +21,7 @@ export default function YouMightAlsoLike() {
     id: p.id,
     title: p.title,
     excerpt: p.description,
-    image: p.image,
+    image: p.heroImage1,
     tags: ["Health", "Wellness", "Healthy Living"].slice(0, (p.id % 3) + 1),
     href: `/blog/${p.slug}`,
   }));

@@ -4,21 +4,25 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect all /admin routes
-  if (pathname.startsWith('/admin')) {
-    const session = request.cookies.get('session');
+  // Redirect old /dashboard to protected /admin/dashboard
+  // if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
+  //   const adminUrl = new URL('/admin/dashboard', request.url);
+  //   return NextResponse.redirect(adminUrl);
+  // }
 
-    if (!session) {
-      // Redirect unauthenticated users to /login (which now lives in (auth) group)
-      const loginUrl = new URL('/login', request.url);
-      return NextResponse.redirect(loginUrl);
-    }
-  }
+  // Protect all /admin routes
+  // if (pathname.startsWith('/admin')) {
+  //   const session = request.cookies.get('session');
+
+  //   if (!session) {
+  //     const loginUrl = new URL('/login', request.url);
+  //     return NextResponse.redirect(loginUrl);
+  //   }
+  // }
 
   return NextResponse.next();
 }
 
-// Matching Paths
-export const config = {
-  matcher: ['/admin/:path*'],
-};
+// export const config = {
+//   matcher: ['/admin/:path*', '/dashboard/:path*'],
+// };

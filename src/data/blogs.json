@@ -1,0 +1,484 @@
+[
+  {
+    "id": 1,
+    "heroImage1": "/home/blog/blog1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "Muhammad Shamsi",
+    "date": "13/25/2001",
+    "title": "Mental health awareness for students",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
+    "slug": "mental-health-awareness-for-students",
+    "status": "Published",
+    "content": [
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.Lorem hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa miquam in hendrerit urna. Pellentesque sit amet sapien."
+    ],
+    "conclusion": "Mental health awareness is crucial for student success and well-being. By fostering supportive environments and reducing stigma, we can help students thrive both academically and personally.",
+    "likes": 22,
+    "comments": 5,
+    "commentList": [
+      { "id": 1, "name": "Arsalan Sheikh", "date": "10 feb 2022", "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa miquam in hendrerit urna. Pellentesque sit amet sapien.", "avatar": "/home/founder/person.png" },
+      { "id": 2, "name": "Sarah Ahmed", "date": "12 feb 2022", "text": "Consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla.", "avatar": "/events/eventsperson.png" }
+    ]
+  },
+  {
+    "id": 2,
+    "heroImage1": "/home/blog/blog2.png",
+    "heroImage2": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
+    "authorName": "Sarah Thompson",
+    "date": "01/15/2022",
+    "title": "Innovative teaching methods for remote learning",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
+    "slug": "innovative-teaching-methods-for-remote-learning",
+    "status": "Draft",
+    "content": [
+      "Consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla.",
+      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel.",
+      "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.",
+      "Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a."
+    ],
+    "conclusion": "Remote learning presents unique challenges and opportunities. By embracing innovative teaching methods, educators can create engaging and effective learning experiences for students everywhere.",
+    "likes": 18,
+    "comments": 3,
+    "commentList": [
+      { "id": 1, "name": "Usman Tariq", "date": "5 mar 2022", "text": "Praesent sapien massa convallis a pellentesque nec egestas non nisi. Curabitur arcu erat accumsan.", "avatar": "/about/founder/founder.png" },
+      { "id": 2, "name": "Ayesha Khan", "date": "8 mar 2022", "text": "Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit eget tincidunt nibh pulvinar a.", "avatar": "/volunteer/vol1.png" }
+    ]
+  },
+  {
+    "id": 3,
+    "heroImage1": "/home/blog/blog3.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "Emily Chen",
+    "date": "07/22/2023",
+    "title": "The impact of social media on youth",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
+    "slug": "the-impact-of-social-media-on-youth",
+    "status": "Under Review",
+    "content": [
+      "Aliquam in hendrerit urna. Pellentesque sit amet sapien. Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi.",
+      "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.",
+      "Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id.",
+      "Praesent lorem orci, mattis non efficitur id, Curabitur pellentesque nibh nibh. Lorem ipsum dolor sit amet consectetur."
+    ],
+    "conclusion": "Social media's impact on youth is complex and multifaceted. By promoting digital literacy and mindful usage, we can help young people navigate the online world safely and productively.",
+    "likes": 31,
+    "comments": 8,
+    "commentList": [
+      { "id": 1, "name": "Ali Raza", "date": "15 jan 2022", "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna pellentesque.", "avatar": "/volunteer/vol2.png" },
+      { "id": 2, "name": "Fatima Noor", "date": "18 jan 2022", "text": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec velit neque.", "avatar": "/donation/df1.png" }
+    ]
+  },
+  {
+    "id": 4,
+    "heroImage1": "/home/impact/impact1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "Jordan Lee",
+    "date": "09/10/2020",
+    "title": "Sustainable practices in everyday life",
+    "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.",
+    "slug": "sustainable-practices-in-everyday-life",
+    "status": "Published",
+    "content": [
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo.",
+      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+      "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt.",
+      "Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur."
+    ],
+    "conclusion": "Sustainable living doesn't require drastic changes. Small, consistent choices in our daily routines can collectively make a significant positive impact on our planet.",
+    "likes": 15,
+    "comments": 4,
+    "commentList": [
+      { "id": 1, "name": "Hassan Ali", "date": "12 feb 2022", "text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.", "avatar": "/projects/projecthero.png" },
+      { "id": 2, "name": "Zara Malik", "date": "14 feb 2022", "text": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur.", "avatar": "/donation/donation.png" }
+    ]
+  },
+  {
+    "id": 5,
+    "heroImage1": "/home/impact/impact4.png",
+    "heroImage2": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
+    "authorName": "Aisha Patel",
+    "date": "04/05/2021",
+    "title": "Exploring the benefits of meditation",
+    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.",
+    "slug": "exploring-the-benefits-of-meditation",
+    "status": "Published",
+    "content": [
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.",
+      "Similique sunt in culpa qui officia deserunt mollitia animi id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
+      "Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus omnis voluptas assumenda est.",
+      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae."
+    ],
+    "conclusion": "Meditation offers profound benefits for mental clarity, emotional balance, and overall well-being. Even a few minutes of daily practice can transform your quality of life.",
+    "likes": 27,
+    "comments": 6,
+    "commentList": [
+      { "id": 1, "name": "Bilal Ahmed", "date": "7 mar 2022", "text": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.", "avatar": "/home/impact/impact5.png" },
+      { "id": 2, "name": "Sana Tariq", "date": "9 mar 2022", "text": "Similique sunt in culpa qui officia deserunt mollitia animi id est laborum et dolorum fuga.", "avatar": "/home/impact/impact6.png" }
+    ]
+  },
+  {
+    "id": 6,
+    "heroImage1": "/home/impact/impact6.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "David Kim",
+    "date": "11/30/2022",
+    "title": "The future of renewable energy",
+    "description": "Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio cumque.",
+    "slug": "the-future-of-renewable-energy",
+    "status": "Published",
+    "content": [
+      "Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.",
+      "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident."
+    ],
+    "conclusion": "Renewable energy is not just an environmental imperative but an economic opportunity. The transition to clean energy is accelerating, and its benefits are becoming increasingly clear.",
+    "likes": 19,
+    "comments": 7,
+    "commentList": [
+      { "id": 1, "name": "Omar Farooq", "date": "20 apr 2022", "text": "Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis.", "avatar": "/home/blog/blog1.png" },
+      { "id": 2, "name": "Hira Batool", "date": "22 apr 2022", "text": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.", "avatar": "/home/blog/blog2.png" }
+    ]
+  },
+  {
+    "id": 7,
+    "heroImage1": "/projects/projecthero.png",
+    "heroImage2": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
+    "authorName": "Jessica Moore",
+    "date": "02/18/2023",
+    "title": "Understanding mental health stigma",
+    "description": "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum sed ut perspiciatis.",
+    "slug": "understanding-mental-health-stigma",
+    "status": "Draft",
+    "content": [
+      "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum sed ut perspiciatis unde omnis iste natus error.",
+      "Nemo enim ipsam voluptatem quia voluptas sit Aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+      "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore.",
+      "Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur quis autem vel eum."
+    ],
+    "conclusion": "Breaking the stigma around mental health requires open conversations, education, and compassion. Every voice that speaks up helps create a more understanding and supportive society.",
+    "likes": 34,
+    "comments": 9,
+    "commentList": [
+      { "id": 1, "name": "Tariq Jamil", "date": "4 may 2022", "text": "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id.", "avatar": "/home/impact/impact1.png" },
+      { "id": 2, "name": "Amina Khan", "date": "6 may 2022", "text": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur.", "avatar": "/home/impact/impact4.png" },
+      { "id": 3, "name": "Rayan Shah", "date": "8 may 2022", "text": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit.", "avatar": "/home/impact/impact5.png" }
+    ]
+  },
+  {
+    "id": 8,
+    "heroImage1": "/home/impact/impact5.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "Michael Johnson",
+    "date": "03/12/2023",
+    "title": "Advancements in artificial intelligence",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.",
+    "slug": "advancements-in-artificial-intelligence",
+    "status": "Published",
+    "content": [
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud.",
+      "Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
+      "Nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum sed perspiciatis unde omnis.",
+      "Iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae."
+    ],
+    "conclusion": "AI is transforming every sector of society. By approaching its development thoughtfully and ethically, we can harness its potential to solve humanity's greatest challenges.",
+    "likes": 25,
+    "comments": 5,
+    "commentList": [
+      { "id": 1, "name": "Danish Ali", "date": "17 jun 2022", "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.", "avatar": "/projects/projecthero.png" },
+      { "id": 2, "name": "Mahnoor Sheikh", "date": "19 jun 2022", "text": "Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.", "avatar": "/home/founder/person.png" }
+    ]
+  },
+  {
+    "id": 9,
+    "heroImage1": "/home/blog/blog1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
+    "authorName": "Olivia Brown",
+    "date": "08/25/2021",
+    "title": "Nutrition and its role in mental wellness",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
+    "slug": "nutrition-and-its-role-in-mental-wellness",
+    "status": "Under Review",
+    "content": [
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.Lorem hendrerit urna. Pellentesque sit amet sapien.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa miquam in hendrerit urna. Pellentesque sit amet sapien."
+    ],
+    "conclusion": "The connection between nutrition and mental wellness is powerful. A balanced diet rich in essential nutrients can significantly improve mood, cognitive function, and overall mental health.",
+    "likes": 28,
+    "comments": 6,
+    "commentList": [
+      { "id": 1, "name": "Arsalan Sheikh", "date": "10 feb 2022", "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa miquam in hendrerit urna. Pellentesque sit amet sapien.", "avatar": "/home/founder/person.png" },
+      { "id": 2, "name": "Sarah Ahmed", "date": "12 feb 2022", "text": "Consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla.", "avatar": "/events/eventsperson.png" }
+    ]
+  },
+  {
+    "id": 10,
+    "heroImage1": "/home/blog/blog2.png",
+    "heroImage2": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    "authorName": "Daniel Garcia",
+    "date": "05/07/2023",
+    "title": "The role of community in personal growth",
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
+    "slug": "the-role-of-community-in-personal-growth",
+    "status": "Draft",
+    "content": [
+      "Consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla.",
+      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel.",
+      "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.",
+      "Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a."
+    ],
+    "conclusion": "Community plays an indispensable role in personal development. By engaging with others, sharing experiences, and supporting one another, we grow stronger together.",
+    "likes": 20,
+    "comments": 4,
+    "commentList": [
+      { "id": 1, "name": "Usman Tariq", "date": "5 mar 2022", "text": "Praesent sapien massa convallis a pellentesque nec egestas non nisi. Curabitur arcu erat accumsan.", "avatar": "/about/founder/founder.png" },
+      { "id": 2, "name": "Ayesha Khan", "date": "8 mar 2022", "text": "Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit eget tincidunt nibh pulvinar a.", "avatar": "/volunteer/vol1.png" }
+    ]
+  },
+  {
+    "id": 11,
+    "heroImage1": "/home/blog/blog3.png",
+    "heroImage2": "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
+    "authorName": "Fatima Zahra",
+    "date": "06/14/2023",
+    "title": "Building resilient communities through volunteer work",
+    "description": "Discover how grassroots volunteer initiatives are strengthening communities and creating lasting social impact across different regions.",
+    "slug": "building-resilient-communities-through-volunteer-work",
+    "status": "Published",
+    "content": [
+      "Volunteer work has long been the backbone of community development. From neighborhood clean-ups to mentoring programs, the impact of collective action cannot be overstated.",
+      "When individuals come together for a common cause, they create ripples of change that extend far beyond the immediate task at hand. Communities become more connected, more resilient, and better equipped to face challenges.",
+      "Research shows that communities with high volunteer participation rates experience lower crime rates, better educational outcomes, and improved mental health among residents.",
+      "Whether it's a few hours a month or a dedicated weekly commitment, every act of service contributes to the fabric of a stronger society."
+    ],
+    "conclusion": "Volunteer work strengthens the fabric of our communities. Every contribution, no matter how small, creates ripples of positive change that extend far beyond the immediate act of service.",
+    "likes": 32,
+    "comments": 7,
+    "commentList": [
+      { "id": 1, "name": "Amir Khan", "date": "17 jun 2023", "text": "This is exactly what our neighborhood needs. Inspiring read!", "avatar": "/home/impact/impact1.png" },
+      { "id": 2, "name": "Sana Mahmood", "date": "19 jun 2023", "text": "I started volunteering after reading this. Thank you for the motivation.", "avatar": "/home/impact/impact4.png" }
+    ]
+  },
+  {
+    "id": 12,
+    "heroImage1": "/home/impact/impact6.png",
+    "heroImage2": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    "authorName": "Dr. Usman Tariq",
+    "date": "04/22/2022",
+    "title": "The importance of early childhood education in Pakistan",
+    "description": "Exploring the challenges and opportunities in early childhood education and why investing in the early years yields the highest returns.",
+    "slug": "the-importance-of-early-childhood-education-in-pakistan",
+    "status": "Published",
+    "content": [
+      "Early childhood education lays the foundation for lifelong learning and development. In Pakistan, access to quality early education remains a significant challenge for many communities.",
+      "Studies consistently show that children who receive quality early education are more likely to succeed academically, have better social skills, and earn higher incomes as adults.",
+      "Despite the clear benefits, less than 40% of children in Pakistan have access to any form of organized early learning program before the age of five.",
+      "Addressing this gap requires a concerted effort from government, private sector, and civil society to expand access and improve the quality of early childhood education across the country."
+    ],
+    "conclusion": "Investing in early childhood education yields the highest returns for society. By prioritizing the early years, we can break cycles of poverty and build a brighter future for all children.",
+    "likes": 45,
+    "comments": 12,
+    "commentList": [
+      { "id": 1, "name": "Prof. Ahmed Raza", "date": "25 apr 2022", "text": "Well-researched and thought-provoking. We need more awareness on this topic.", "avatar": "/home/founder/person.png" },
+      { "id": 2, "name": "Nadia Hussain", "date": "28 apr 2022", "text": "As a teacher, I see the difference early education makes every day.", "avatar": "/events/eventsperson.png" }
+    ]
+  },
+  {
+    "id": 13,
+    "heroImage1": "/home/impact/impact5.png",
+    "heroImage2": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    "authorName": "Zara Iqbal",
+    "date": "09/08/2023",
+    "title": "Digital literacy: Bridging the technology gap in rural areas",
+    "description": "How digital literacy programs are empowering rural communities and opening new opportunities for economic growth and social connection.",
+    "slug": "digital-literacy-bridging-the-technology-gap-in-rural-areas",
+    "status": "Under Review",
+    "content": [
+      "In an increasingly digital world, the ability to use technology effectively is no longer a luxury but a necessity. Yet millions in rural areas remain disconnected.",
+      "Digital literacy programs are working to change this by providing basic computer skills, internet navigation, and online safety training to underserved communities.",
+      "The benefits extend beyond individual empowerment. Communities with higher digital literacy attract more investment, create more jobs, and have better access to healthcare and educational resources.",
+      "Bridging the digital divide requires not just infrastructure but also sustained training and support to ensure that technology adoption is meaningful and lasting."
+    ],
+    "conclusion": "Digital literacy is a fundamental right in the modern world. By bridging the technology gap, we can unlock opportunities for millions and create a more equitable society for all.",
+    "likes": 28,
+    "comments": 6,
+    "commentList": [
+      { "id": 1, "name": "Bilal Ahmed", "date": "11 sep 2023", "text": "Great piece! Digital literacy is the key to economic empowerment.", "avatar": "/projects/projecthero.png" },
+      { "id": 2, "name": "Maria Khan", "date": "14 sep 2023", "text": "I run a digital literacy program and this article captures the challenges perfectly.", "avatar": "/donation/donation.png" }
+    ]
+  },
+  {
+    "id": 14,
+    "heroImage1": "/home/blog/blog1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80",
+    "authorName": "Hassan Ali",
+    "date": "11/05/2022",
+    "title": "Sustainable agriculture practices for small-scale farmers",
+    "description": "Practical sustainable farming techniques that small-scale farmers can adopt to improve yields while protecting the environment.",
+    "slug": "sustainable-agriculture-practices-for-small-scale-farmers",
+    "status": "Draft",
+    "content": [
+      "Small-scale farmers face numerous challenges, from climate change to market volatility. Sustainable agriculture offers a path forward that benefits both farmers and the environment.",
+      "Techniques such as crop rotation, natural pest control, and water conservation can significantly improve yields while reducing costs and environmental impact.",
+      "Community-based training programs have shown remarkable success in helping farmers transition to sustainable practices, with participants reporting 30-40% increases in crop yields.",
+      "Support from government agencies and NGOs is crucial to provide the initial training and resources needed for farmers to make the transition successfully."
+    ],
+    "conclusion": "Sustainable agriculture is key to food security and environmental protection. By supporting small-scale farmers with knowledge and resources, we can build a more resilient food system.",
+    "likes": 17,
+    "comments": 4,
+    "commentList": [
+      { "id": 1, "name": "Rashid Mehmood", "date": "8 nov 2022", "text": "Very practical advice. I've shared this with our farming cooperative.", "avatar": "/home/impact/impact5.png" },
+      { "id": 2, "name": "Lubna Faisal", "date": "10 nov 2022", "text": "Would love to see more case studies from different regions.", "avatar": "/home/impact/impact6.png" }
+    ]
+  },
+  {
+    "id": 15,
+    "heroImage1": "/home/blog/blog2.png",
+    "heroImage2": "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80",
+    "authorName": "Amina Sheikh",
+    "date": "02/19/2023",
+    "title": "Women in STEM: Breaking barriers and building futures",
+    "description": "Celebrating the achievements of women in science, technology, engineering, and mathematics and the initiatives supporting their success.",
+    "slug": "women-in-stem-breaking-barriers-and-building-futures",
+    "status": "Published",
+    "content": [
+      "Women have been making significant contributions to STEM fields for centuries, yet they remain underrepresented in many disciplines. The tide is slowly turning.",
+      "Mentorship programs, scholarships, and inclusive workplace policies are helping to create pathways for women to enter and thrive in STEM careers.",
+      "Representation matters. When young girls see women succeeding in science and technology, they are more likely to pursue these fields themselves.",
+      "Organizations across Pakistan are working to close the gender gap in STEM through targeted programs that provide training, mentorship, and networking opportunities."
+    ],
+    "conclusion": "Empowering women in STEM is not just about equality — it's about unlocking the full potential of human ingenuity to solve the world's most pressing challenges.",
+    "likes": 52,
+    "comments": 14,
+    "commentList": [
+      { "id": 1, "name": "Dr. Samina Khalid", "date": "22 feb 2023", "text": "As a woman in engineering, this article resonates deeply with me.", "avatar": "/home/blog/blog1.png" },
+      { "id": 2, "name": "Farah Nadeem", "date": "25 feb 2023", "text": "We need more articles like this to inspire the next generation.", "avatar": "/home/blog/blog2.png" },
+      { "id": 3, "name": "Areeba Ansari", "date": "27 feb 2023", "text": "Shared this with my students. Thank you!", "avatar": "/about/founder/founder.png" }
+    ]
+  },
+  {
+    "id": 16,
+    "heroImage1": "/home/impact/impact1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&q=80",
+    "authorName": "Omar Farooq",
+    "date": "07/30/2023",
+    "title": "Affordable healthcare initiatives transforming rural Pakistan",
+    "description": "An overview of innovative healthcare programs that are bringing quality medical services to remote areas at affordable costs.",
+    "slug": "affordable-healthcare-initiatives-transforming-rural-pakistan",
+    "status": "Published",
+    "content": [
+      "Access to quality healthcare remains a major challenge in rural Pakistan, where medical facilities are often scarce and far apart.",
+      "Innovative initiatives such as mobile health clinics, telemedicine services, and community health worker programs are helping to bridge this gap.",
+      "These programs have demonstrated remarkable success, with some mobile clinic initiatives serving over 100,000 patients annually in areas that previously had no access to regular medical care.",
+      "Telemedicine, in particular, has emerged as a powerful tool, allowing patients in remote areas to consult with specialists in urban centers without the need for costly travel."
+    ],
+    "conclusion": "Affordable healthcare initiatives are transforming lives in rural Pakistan. With continued innovation and investment, we can ensure that quality healthcare is accessible to every citizen.",
+    "likes": 39,
+    "comments": 9,
+    "commentList": [
+      { "id": 1, "name": "Dr. Imran Ali", "date": "2 aug 2023", "text": "Telemedicine is a game-changer for rural healthcare access.", "avatar": "/volunteer/vol2.png" },
+      { "id": 2, "name": "Saima Batool", "date": "5 aug 2023", "text": "I benefited from a mobile clinic last year. These services are vital.", "avatar": "/donation/df1.png" }
+    ]
+  },
+  {
+    "id": 17,
+    "heroImage1": "/projects/projecthero.png",
+    "heroImage2": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80",
+    "authorName": "Rayan Shah",
+    "date": "01/12/2023",
+    "title": "Youth leadership programs: Shaping tomorrow's changemakers",
+    "description": "How youth leadership development programs are equipping young people with the skills and confidence to become community leaders.",
+    "slug": "youth-leadership-programs-shaping-tomorrows-changemakers",
+    "status": "Draft",
+    "content": [
+      "Young people represent immense potential for positive change. Youth leadership programs help unlock this potential by building critical skills and confidence.",
+      "Participants in these programs develop communication, problem-solving, and project management skills that serve them throughout their lives.",
+      "Many program alumni go on to start their own community initiatives, create social enterprises, or pursue careers in public service and advocacy.",
+      "Investing in youth leadership is one of the most effective ways to create lasting positive change in communities, as young leaders bring fresh perspectives and boundless energy."
+    ],
+    "conclusion": "Youth leadership programs are investments in our collective future. By empowering young people today, we are building the foundation for a more just, innovative, and compassionate tomorrow.",
+    "likes": 23,
+    "comments": 5,
+    "commentList": [
+      { "id": 1, "name": "Kashif Khan", "date": "15 jan 2023", "text": "I'm a product of a youth leadership program and it changed my life.", "avatar": "/home/impact/impact1.png" },
+      { "id": 2, "name": "Zainab Ali", "date": "18 jan 2023", "text": "Every community should invest in youth leadership programs.", "avatar": "/home/impact/impact4.png" }
+    ]
+  },
+  {
+    "id": 18,
+    "heroImage1": "/home/impact/impact4.png",
+    "heroImage2": "https://images.unsplash.com/photo-1470071459604-7b8ec44ffd5a?w=800&q=80",
+    "authorName": "Sara Khan",
+    "date": "10/03/2022",
+    "title": "Environmental conservation: Community-led efforts making a difference",
+    "description": "Highlighting community-driven environmental conservation projects that are protecting natural resources and promoting sustainability.",
+    "slug": "environmental-conservation-community-led-efforts",
+    "status": "Under Review",
+    "content": [
+      "Around the world, communities are taking environmental conservation into their own hands, implementing projects that protect local ecosystems and promote sustainable living.",
+      "From tree plantation drives to waste management programs, these grassroots initiatives demonstrate the power of collective action in addressing environmental challenges.",
+      "Community-led conservation efforts have several advantages: they are tailored to local needs, enjoy strong community support, and can be implemented more quickly than top-down approaches.",
+      "Success stories from across Pakistan show that when communities are empowered to protect their environment, the results are both impactful and sustainable."
+    ],
+    "conclusion": "Community-led environmental conservation proves that collective action can create lasting change. When people come together to protect their natural heritage, the benefits are felt for generations.",
+    "likes": 35,
+    "comments": 8,
+    "commentList": [
+      { "id": 1, "name": "Ahmed Nawaz", "date": "5 oct 2022", "text": "Our community started a similar program. The impact has been incredible.", "avatar": "/home/impact/impact5.png" },
+      { "id": 2, "name": "Rabia Tariq", "date": "8 oct 2022", "text": "Great read! Small actions add up to big changes.", "avatar": "/home/impact/impact6.png" }
+    ]
+  },
+  {
+    "id": 19,
+    "heroImage1": "/home/blog/blog1.png",
+    "heroImage2": "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&q=80",
+    "authorName": "Tariq Jamil",
+    "date": "08/17/2023",
+    "title": "The power of mentorship in professional development",
+    "description": "Exploring how mentorship programs are helping young professionals navigate their careers and achieve their full potential.",
+    "slug": "the-power-of-mentorship-in-professional-development",
+    "status": "Published",
+    "content": [
+      "Mentorship has long been recognized as a powerful tool for professional development, providing guidance, support, and opportunities for growth.",
+      "Effective mentorship relationships go beyond simple advice-giving. They involve active listening, goal-setting, and creating networks of support that benefit both mentor and mentee.",
+      "Organizations with strong mentorship programs report higher employee satisfaction, better retention rates, and faster career progression for participants.",
+      "In today's rapidly changing job market, having a mentor can make the difference between stagnation and meaningful career growth."
+    ],
+    "conclusion": "Mentorship is a powerful force for professional and personal growth. By investing in mentorship relationships, we create a cycle of learning and development that benefits individuals and organizations alike.",
+    "likes": 30,
+    "comments": 7,
+    "commentList": [
+      { "id": 1, "name": "Naveed Ahmed", "date": "20 aug 2023", "text": "My mentor changed the trajectory of my career. Everyone needs one.", "avatar": "/home/founder/person.png" },
+      { "id": 2, "name": "Hina Rizvi", "date": "23 aug 2023", "text": "I'm now mentoring others thanks to programs like these.", "avatar": "/events/eventsperson.png" }
+    ]
+  },
+  {
+    "id": 20,
+    "heroImage1": "/home/blog/blog2.png",
+    "heroImage2": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
+    "authorName": "Samina Khalid",
+    "date": "12/05/2023",
+    "title": "Financial literacy for young adults: Building a secure future",
+    "description": "Essential financial literacy concepts every young adult should know to make informed decisions and build long-term financial security.",
+    "slug": "financial-literacy-for-young-adults-building-a-secure-future",
+    "status": "Draft",
+    "content": [
+      "Financial literacy is a critical life skill that is rarely taught in schools. Understanding basic concepts like budgeting, saving, and investing is essential for long-term financial well-being.",
+      "Young adults who develop good financial habits early are better positioned to achieve their goals, whether that's buying a home, starting a business, or saving for retirement.",
+      "Workshops and online resources are making financial education more accessible than ever, helping young people take control of their financial futures.",
+      "The key is to start early, stay consistent, and seek out reliable information from trustworthy sources."
+    ],
+    "conclusion": "Financial literacy is the foundation of economic empowerment. By equipping young adults with the knowledge and skills to manage money effectively, we set them up for a lifetime of success.",
+    "likes": 26,
+    "comments": 6,
+    "commentList": [
+      { "id": 1, "name": "Fahad Malik", "date": "8 dec 2023", "text": "Wish I had learned these concepts earlier. Great article!", "avatar": "/projects/projecthero.png" },
+      { "id": 2, "name": "Mariam Aslam", "date": "10 dec 2023", "text": "Sharing this with my younger siblings. Financial literacy is so important.", "avatar": "/donation/donation.png" }
+    ]
+  }
+]
