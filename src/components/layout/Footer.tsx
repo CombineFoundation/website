@@ -14,33 +14,35 @@ const Footer = () => {
         </div>
 
         {/* Column 2: Quick Links */}
+        {/* Column 2: Quick Links */}
         <div>
-          <h4 className="text-orange font-bold text-lg mb-6">Quick Links</h4>
-          <ul className="flex flex-col gap-3 text-sm">
-            <li><Link href="/about" className="hover:text-orange transition-colors">About Us</Link></li>
-            <li><Link href="/team" className="hover:text-orange transition-colors">Our Team</Link></li>
-            <li><Link href="/programs" className="hover:text-orange transition-colors">Programs</Link></li>
-            <li><Link href="/contact" className="hover:text-orange transition-colors">Contact</Link></li>
+          <h4 className="text-orange font-black text-lg mb-6">Quick Links</h4>
+          <ul className="flex flex-col gap-3 text-lg">
+            <li><Link href="/projects" className="font-black hover:text-orange transition-colors">Projects</Link></li>
+            <li><Link href="/courses" className="font-black hover:text-orange transition-colors">Free Courses</Link></li>
+            <li><Link href="/volunteer-program" className="font-black hover:text-orange transition-colors">Volunteer Program</Link></li>
+            <li><Link href="/careers" className="font-black hover:text-orange transition-colors">Careers</Link></li>
           </ul>
         </div>
 
         {/* Column 3: Donate */}
         <div>
-          <h4 className="text-orange font-bold text-lg mb-6">Donate</h4>
-          <ul className="flex flex-col gap-3 text-sm">
-            <li><Link href="/donate" className="hover:text-orange transition-colors">Tax Benefits</Link></li>
-            <li><Link href="/donate" className="hover:text-orange transition-colors">Sponsorship</Link></li>
-            <li><Link href="/donate" className="hover:text-orange transition-colors">Volunteer</Link></li>
+          <h4 className="text-orange font-black text-lg mb-6">Donate</h4>
+          <ul className="flex flex-col gap-3 text-lg">
+            <li><Link href="/donations" className="font-black hover:text-orange transition-colors">Donate Now</Link></li>
+            <li><Link href="/events#calendar" className="font-black hover:text-orange transition-colors">Events Calendar</Link></li>
+            <li><Link href="/publications" className="font-black hover:text-orange transition-colors">Publications</Link></li>
           </ul>
         </div>
 
         {/* Column 4: Support */}
         <div>
-          <h4 className="text-orange font-bold text-lg mb-6">Support</h4>
-          <ul className="flex flex-col gap-3 text-sm">
-            <li><Link href="/help" className="hover:text-orange transition-colors">Help Center</Link></li>
-            <li><Link href="/privacy" className="hover:text-orange transition-colors">Privacy Policy</Link></li>
-            <li><Link href="/terms" className="hover:text-orange transition-colors">Terms of Service</Link></li>
+          <h4 className="text-orange font-black text-lg mb-6">Support</h4>
+          <ul className="flex flex-col gap-3 text-lg">
+            <li><Link href="/contact" className="font-black hover:text-orange transition-colors">Contact Us</Link></li>
+            <li><Link href="/privacy" className="font-black hover:text-orange transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/terms" className="font-black hover:text-orange transition-colors">Terms of Service</Link></li>
+            <li><Link href="/publications#annual-reports" className="font-black hover:text-orange transition-colors">Annual Reports</Link></li>
           </ul>
         </div>
       </div>

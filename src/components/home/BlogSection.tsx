@@ -3,49 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/UI/SectionHeader";
+import { BLOG_POSTS } from "@/lib/blogs";
+import type { BlogPost } from "@/lib/blogs";
 
-type BlogPost = {
-  id: number;
-  image: string;
-  authorName: string;
-  date: string;
-  title: string;
-  description: string;
-  slug: string;
-};
-
-const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    image: "/home/blog/blog1.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-1",
-  },
-  {
-    id: 2,
-    image: "/home/blog/blog2.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-2",
-  },
-  {
-    id: 3,
-    image: "/home/blog/blog3.png",
-    authorName: "Person's Name",
-    date: "Jan 20",
-    title: "Name of the blog",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.Lorem ipsum dolor sit amet consectetur adipiscing elit Ut",
-    slug: "blog-post-3",
-  },
-];
+const blogPosts: BlogPost[] = BLOG_POSTS;
 
 type BlogCardProps = {
   post: BlogPost;
@@ -59,7 +20,7 @@ function BlogCard({ post }: BlogCardProps) {
         style={{ height: "320px" }}
       >
         <Image
-          src={post.image}
+          src={post.heroImage1}
           alt={post.title}
           fill
           className="object-cover"
@@ -128,8 +89,8 @@ export default function BlogSection() {
           description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10 justify-items-center">
-          {blogPosts.map((post) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">
+          {blogPosts.slice(0, 3).map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>

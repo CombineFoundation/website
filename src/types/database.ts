@@ -21,3 +21,16 @@ export interface Message {
   message: string;
   createdAt: any;
 }
+
+export interface Donation {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  city: string;
+  amount: number;
+  paymentMethod: string;
+  createdAt: any;
+}
