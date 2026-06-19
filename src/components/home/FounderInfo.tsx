@@ -27,7 +27,7 @@ export default function QuoteSection() {
 
         <div className="relative rounded-2xl w-full"
           style={{
-            background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 43.27%, var(--primary-500) 65.87%, var(--secondary-600) 89.9%)",
+            background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 43.27%, #0061C3 65.87%, #0F3D6B 89.9%)",
           }}
         >
           <div className=" px-8 py-6 md:px-12 md:py-14 lg:pr-[250px] xl:pr-[300px] w-full lg:w-full min-[856px]:w-[80%] ">

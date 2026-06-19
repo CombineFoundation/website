@@ -11,7 +11,7 @@ type FounderContent = {
 };
 
 const founderContent: FounderContent = {
-    title: "Meet the Founder / The Vision Behind Combine Foundation",
+    title: "The Vision Behind Combine Foundation",
     image: "/about/founder/founder.png",
     imageAlt: "About the founder meeting",
     description:

@@ -17,11 +17,11 @@ export default function FounderProfile() {
             Founder & Board of Director
           </p>
 
-          <p className="text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
             Mr. Muhammad Amin Nathani is a visionary leader and board member of Combine Foundation, an organization dedicated to educating and empowering youth to become the leaders of tomorrow. As the founder, his focus is on creating lasting pathways for young people to develop essential skills, leadership qualities, and the confidence needed to drive meaningful change in their communities.
           </p>
 
-          <p className="text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
             His passion lies in designing programs and initiatives that equip the next generation with the tools to succeed. Through Combine Foundation, Mr. Amin Nathani continues to champion youth empowerment, skill development, and leadership training, ensuring that young individuals are prepared to thrive and make a positive impact in Pakistan and beyond.
           </p>
         </div>

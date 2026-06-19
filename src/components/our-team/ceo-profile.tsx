@@ -25,12 +25,12 @@ export default function CeoProfile() {
             Chief Executive Officer & Board of Director
           </p>
 
-          <p className="text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
-            Ashfaq Nathani serves as the Chief Executive Officer and board member at Combine Foundation, responsible for managing the operations and youth development programs. He is deeply committed to developing young people into leaders and innovators of the future through effective leadership training programs. He guides the organization&apos;s strategy, operational plans, and youth development initiatives, focusing on empowering youth through leadership development, technology training, innovation, and applied learning opportunities.
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
+            Ashfaq Nathani serves as the Chief Executive Officer and board member at Combine Foundation, responsible for managing operations and youth development programs. He is deeply committed to developing young people into future leaders through effective leadership training, technology education, innovation, and applied learning opportunities.
           </p>
 
-          <p className="text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
-            He is highly concerned about developing young people into leaders and innovators of the future through effective leadership training programs. Sustainable development has been the prime focus as he believes that quality education, healthcare, leadership, and accountability are the keys to the development of stronger communities and a positive impact in Pakistan. Under his leadership, Combine Foundation seeks to inspire and prepare the next generation of leaders, innovators, and problem solvers to compete globally.
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
+            Sustainable development is a key focus, believing that quality education, healthcare, leadership, and accountability are essential for stronger communities. Under his leadership, Combine Foundation prepares the next generation to compete globally and drive positive change in Pakistan.
           </p>
         </div>
       </div>

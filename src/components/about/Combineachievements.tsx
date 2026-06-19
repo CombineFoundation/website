@@ -137,7 +137,7 @@ export default function CombineAchievements() {
             <SectionHeader title="Combine Foundation Impact & Achievements" />
 
             <div
-                className="rounded-2xl border border-gray-200 bg-[#F9F9F9] p-6 md:p-8 flex flex-col md:flex-row gap-8 overflow-hidden justify-center items-center"
+                className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8 flex flex-col md:flex-row gap-8 overflow-hidden justify-center items-center"
                 style={{
                     opacity: sliding ? 0 : 1,
                     transform: sliding

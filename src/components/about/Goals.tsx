@@ -88,7 +88,7 @@ export default function Goals() {
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
-            <SectionHeader title="What We Aim to Achieve / Our Strategic Goals" />
+            <SectionHeader title="What We Aim to Achieve" />
 
             <div className="flex border-b border-gray-200 mb-6 mt-15">
                 {goalTabs.map((tab) => {
