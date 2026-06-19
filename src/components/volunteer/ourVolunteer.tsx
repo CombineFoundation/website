@@ -5,24 +5,17 @@ import Image from "next/image";
 
 const TESTIMONIALS = [
     {
-        name: "Faysal Aziz Khan",
-        role: "Youth Leader | Combine Foundation",
+        name: "Manal Kafeel",
+        role: "Volunteer — Content Writer",
         quote:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.",
+            "My six-month journey as a Content Writer team member at Combine Foundation has been one of the most helpful and meaningful experiences in my content writing journey. This is where I truly learned how to research properly, structure content, and write with clarity and purpose. Working on education and health-related topics felt very close to my heart, which motivated me to give my best. The team and coordinators were extremely supportive, patient, and understanding, especially during deadlines or delays, which created a positive and stress-free working environment. Being part of such a cooperative and respectful team helped me grow not only as a writer but also as a responsible team member. Overall, this experience strengthened my confidence, improved my skills, and made me more passionate about purpose-driven content writing.",
         image: "/volunteer/vol2.png",
     },
     {
-        name: "Sarah Ahmed",
-        role: "Community Lead | Combine Foundation",
+        name: "Sadain Zafar",
+        role: "Volunteer",
         quote:
-            "Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.",
-        image: "/volunteer/vol2.png",
-    },
-    {
-        name: "Omar Farooq",
-        role: "Program Officer | Combine Foundation",
-        quote:
-            "Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Maecenas vitae mattis tellus. Nullam quis imperdiet augue vestibulum.",
+            "Joining Combine Foundation was a great learning experience for me. Through this volunteer program, I improved my communication, teamwork, and professional skills while working on real-world projects. The environment is very supportive, peaceful, and motivating for students and young professionals. I also got the opportunity to connect with talented people, learn from industry professionals, and gain practical experience that helped strengthen my confidence and career growth. I highly recommend this volunteer program to anyone who wants to create positive impact while building their future.",
         image: "/volunteer/vol2.png",
     },
 ];
@@ -82,15 +75,15 @@ export default function HearFromVolunteers() {
     const t = TESTIMONIALS[current];
 
     return (
-        <section className="w-full py-16 md:py-24 bg-[#F7FBFF]">
+        <section className="w-full py-16 md:py-24">
             <div className="w-full px-6 md:px-12">
 
                 {/* Title */}
                 <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
-                    Hear from our Volunteers
+                    What Volunteers Love About Us
                 </h2>
                 {/* Full-width divider */}
-                <div className="w-full h-px bg-gray-200 mb-12" />
+                <div className="w-full h-1 bg-gray-300 mb-12" />
 
                 {/* Content row with transition */}
                 <div 
@@ -124,7 +117,7 @@ export default function HearFromVolunteers() {
                     </div>
 
                     {/* ── Right: image ── */}
-                    <div className="relative shrink-0 w-full min-[550px]:w-48 h-[280px] min-[550px]:h-60">
+                    <div className="relative shrink-0 w-full min-[550px]:w-72 h-[320px] min-[550px]:h-72">
                         <div className="relative w-full h-full rounded-2xl overflow-hidden z-10">
                             <Image
                                 src={t.image}
@@ -143,8 +136,8 @@ export default function HearFromVolunteers() {
                     <button
                         onClick={handlePrev}
                         aria-label="Previous"
-                        className="w-10 h-10 rounded-full bg-[#0f2d5c] flex items-center justify-center
-                       transition-all duration-200 hover:bg-[#0f2d5c]/80 hover:scale-105 active:scale-95"
+                        className="w-10 h-10 rounded-full bg-secondary-700 flex items-center justify-center
+                       transition-all duration-200 hover:brightness-90 hover:scale-105 active:scale-95"
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M10 12L6 8l4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -153,8 +146,8 @@ export default function HearFromVolunteers() {
                     <button
                         onClick={handleNext}
                         aria-label="Next"
-                        className="w-10 h-10 rounded-full bg-[#0f2d5c] flex items-center justify-center
-                       transition-all duration-200 hover:bg-[#0f2d5c]/80 hover:scale-105 active:scale-95"
+                        className="w-10 h-10 rounded-full bg-secondary-700 flex items-center justify-center
+                       transition-all duration-200 hover:brightness-90 hover:scale-105 active:scale-95"
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M6 4l4 4-4 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

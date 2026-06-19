@@ -93,7 +93,7 @@ function AdminHeader() {
     <header
       className="w-full flex items-center justify-between px-4 sm:px-6"
       style={{
-        backgroundColor: "#0f1b3d",
+        backgroundColor: "var(--primary-900)",
         height: "64px",
         minHeight: "64px",
       }}
@@ -185,7 +185,7 @@ function AdminHeader() {
               style={{
                 width: "30px",
                 height: "30px",
-                backgroundColor: "#2563eb",
+                backgroundColor: "var(--primary-500)",
                 fontSize: "13px",
               }}
             >

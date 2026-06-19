@@ -182,7 +182,7 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="/team" className="hover:text-[#134981] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#134981] hover:after:w-full after:transition-all">
+            <Link href="/our-team" className="hover:text-[#134981] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#134981] hover:after:w-full after:transition-all">
               Our Team
             </Link>
             <Link href="/publications" className="hover:text-[#134981] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#134981] hover:after:w-full after:transition-all">
@@ -259,7 +259,7 @@ export default function Header() {
                 ))}
               </div>
 
-              <Link href="/team" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Our Team</Link>
+              <Link href="/our-team" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Our Team</Link>
               <Link href="/publications" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Publications</Link>
             </div>
 

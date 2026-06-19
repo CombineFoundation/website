@@ -10,37 +10,41 @@ interface Instructor {
 const INSTRUCTORS: Instructor[] = [
   {
     id: 1,
-    name: "Faysal Aziz Khan",
-    title: "President | BOL Media Group",
-    image: "/home/founder/person.png",
+    name: "Syeda Maliha Naz",
+    title: "Web Development Instructor",
+    image: "/home/image1.avif",
   },
   {
     id: 2,
-    name: "Sarah Ahmed",
-    title: "Director | Digital Learning",
-    image: "/events/eventsperson.png",
+    name: "Esha",
+    title: "Python & AI Mentor | Lead Developer",
+    image: "/home/image1.avif",
   },
   {
     id: 3,
-    name: "Usman Tariq",
-    title: "Lead Instructor | Tech Education",
-    image: "/about/founder/founder.png",
+    name: "Muhammad Umar",
+    title: "Digital Empowerment Course Instructor",
+    image: "/home/image1.avif",
+  },
+  {
+    id: 4,
+    name: "Rida Fatima",
+    title: "Quantitative Finance Course Instructor",
+    image: "/home/image1.avif",
   },
 ];
 
 export default function MeetInstructors() {
   return (
     <section className="w-full mx-auto px-9 py-8 max-sm:px-6">
-      {/* Heading */}
-      <div className=" pb-3">
+      <div className="pb-3">
         <h2 className="text-2xl md:text-4xl xl:text-5xl font-bold text-gray-900">
-          Meet Our Instructors
+          Your Learning Mentors
         </h2>
       </div>
-        <hr className="w-[95vw] text-gray-500 m-auto mb-10" />
+      <hr className="w-[95vw] text-gray-500 m-auto mb-10" />
 
-      {/* Instructor grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {INSTRUCTORS.map((inst) => (
           <div key={inst.id} className="flex flex-col items-center text-center gap-3">
             <div
@@ -61,7 +65,6 @@ export default function MeetInstructors() {
           </div>
         ))}
       </div>
-
     </section>
   );
 }

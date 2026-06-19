@@ -97,7 +97,7 @@ const MOUSlider = () => {
                     <button
                         onClick={handlePrev}
                         aria-label="Previous MOU"
-                        className="w-11 h-11 rounded-full bg-[#1a2f5a] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg
                             width="18"
@@ -115,7 +115,7 @@ const MOUSlider = () => {
                     <button
                         onClick={handleNext}
                         aria-label="Next MOU"
-                        className="w-11 h-11 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg
                             width="18"

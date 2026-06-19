@@ -13,10 +13,10 @@ type Achievement = {
 const achievements: Achievement[] = [
     {
         id: 1,
-        title: "Title of the Achievement",
+        title: "3,000+ Lives Impacted Through Meaningful Programs",
         paragraphs: [
-            "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id, Curabitur pellentesque",
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "The Combine Foundation has brought positive change into the lives of more than 3,000 people. Our programs aim to provide students, professionals, and communities with the necessary skills, knowledge, and opportunities for growth and development.",
+            "By providing free webinars, skill-building training sessions, and high-demand Information Technology training programs at up to 95% scholarships, Combine Foundation impacted 3,000+ lives and made them capable of leading their lives.",
         ],
         images: [
             "/about/achievements/achievements.png",
@@ -27,10 +27,52 @@ const achievements: Achievement[] = [
     },
     {
         id: 2,
-        title: "Second Achievement",
+        title: "204+ Students Trained in Technology & Professional Skills",
         paragraphs: [
-            "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.",
-            "Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.",
+            "By providing training through our technology and development programs, 204+ students have been empowered with the skills and confidence required to develop careers in the IT sector. This was achieved through the provision of 95% scholarship that we provide, which made high-quality IT education available to highly talented people who would not have received it under original price.",
+            "Today, these students are earning good amounts of income, paying for their education, providing for their families, and making full-time careers within the technology sector. These are just some examples that demonstrate the positive effects of access to education, skill development, and making a difference by creating opportunities.",
+        ],
+        images: [
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+        ],
+    },
+    {
+        id: 3,
+        title: "Growing a Network of Dedicated 40+ Youth Leaders and 250+ Volunteers",
+        paragraphs: [
+            "With 40+ youth leaders and 250+ volunteers, we are giving young people of Pakistan the opportunity to develop important qualities such as leadership and decision-making apart from traditional academics. With our community projects, social causes, and various experiences, the young generation involved can gain enough confidence and exposure to develop themselves as good leaders and responsible citizens.",
+            "For those volunteers who are interested in contributing to a better society, our organization offers special volunteer programs related to sustainability, environmental awareness, and other social causes. These programs give volunteers the opportunity to make a difference, help others in their community, and spread what they know among people.",
+        ],
+        images: [
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+        ],
+    },
+    {
+        id: 4,
+        title: "Shaping Futures Through 9 Professional Courses",
+        paragraphs: [
+            "By means of 9+ professional and industry-specific courses, we are training young people to equip themselves with relevant skills that will enable them to survive in the modern economy. Some of the professional training courses offered include web development, Meta ads mastery, quantitative finance, Python programming, AI automation, among others.",
+            "To ensure that lack of finances does not become a barrier for any bright learner from taking these courses, we offer up to 95% scholarship grants to deserving candidates. Many of the students that enroll in these courses have become financially independent and are either self-employed or employed, making positive contributions in their lives and career paths.",
+        ],
+        images: [
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+            "/about/achievements/achievements.png",
+        ],
+    },
+    {
+        id: 5,
+        title: "Building Healthier and Greener Society",
+        paragraphs: [
+            "Through strategic collaborations with educational institutions and other community organizations, we have been able to provide opportunities to learn and collaborate and positively contribute to society.",
+            "Through various health-awareness and sustainability campaigns, we have made communities aware of key social, environmental, and health concerns and encouraged changes in their lifestyles. Additionally, our plantation and kitchen gardening programs ensure sustainability and responsibility for the environment.",
         ],
         images: [
             "/about/achievements/achievements.png",
@@ -92,7 +134,7 @@ export default function CombineAchievements() {
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
-            <SectionHeader title="Combine&apos;s Achievements" />
+            <SectionHeader title="Combine Foundation Impact & Achievements" />
 
             <div
                 className="rounded-2xl border border-gray-200 bg-[#F9F9F9] p-6 md:p-8 flex flex-col md:flex-row gap-8 overflow-hidden justify-center items-center"
@@ -141,7 +183,7 @@ export default function CombineAchievements() {
                 <button
                     onClick={handlePrev}
                     aria-label="Previous achievement"
-                    className="w-11 h-11 rounded-full bg-[#1a3a7c] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                    className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                 >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="15 18 9 12 15 6" />
@@ -150,7 +192,7 @@ export default function CombineAchievements() {
                 <button
                     onClick={handleNext}
                     aria-label="Next achievement"
-                    className="w-11 h-11 rounded-full bg-[#1a3a7c] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                    className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                 >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="9 18 15 12 9 6" />

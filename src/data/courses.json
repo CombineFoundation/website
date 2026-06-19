@@ -1,32 +1,367 @@
 [
-  { "id": 3421, "name": "Quantum Computing Workshop", "instructor": "Ali Raza", "price": "40", "status": "Ongoing", "description": "A practical introduction to quantum computing, covering qubits, quantum gates, and basic algorithms.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact1.png", "lessons": 16, "duration": "8 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Foundations of quantum mechanics and qubit theory"]}, {"title": "Module 2", "bullets": ["Quantum gates, circuits, and basic algorithms"]}, {"title": "Module 3", "bullets": ["Quantum error correction and real-world applications"]}], "successStories": [] },
-  { "id": 3422, "name": "AI and Machine Learning Symposium", "instructor": "Maria Lopez", "price": "50", "status": "Completed", "description": "An intensive symposium exploring cutting-edge AI and machine learning techniques and real-world applications.", "heroImage1": "/home/blog/blog1.png", "heroImage2": "/home/blog/blog2.png", "lessons": 25, "duration": "5 days", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Supervised and unsupervised learning fundamentals"]}, {"title": "Module 2", "bullets": ["Deep learning architectures and neural networks"]}, {"title": "Module 3", "bullets": ["AI ethics, deployment, and industry case studies"]}], "successStories": [] },
-  { "id": 3423, "name": "Blockchain Development Bootcamp", "instructor": "John Smith", "price": "30", "status": "Completed", "description": "Learn to build decentralized applications and smart contracts on blockchain platforms.", "heroImage1": "/home/impact/impact4.png", "heroImage2": "/home/impact/impact5.png", "lessons": 15, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Blockchain fundamentals and cryptography"]}, {"title": "Module 2", "bullets": ["Smart contract development with Solidity"]}, {"title": "Module 3", "bullets": ["DApp deployment and Web3 integration"]}], "successStories": [] },
-  { "id": 3424, "name": "UX Design Fundamentals", "instructor": "Diana Kim", "price": "20", "status": "Completed", "description": "Master user-centered design principles, wireframing, prototyping, and usability testing.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 12, "duration": "2 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["User research and design thinking"]}, {"title": "Module 2", "bullets": ["Wireframing, prototyping, and visual design"]}, {"title": "Module 3", "bullets": ["Usability testing and design systems"]}], "successStories": [] },
-  { "id": 3425, "name": "Data Science for Beginners", "instructor": "Raj Patel", "price": "35", "status": "Ongoing", "description": "A beginner-friendly introduction to data science using Python, pandas, and visualization tools.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 14, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Python fundamentals for data analysis"]}, {"title": "Module 2", "bullets": ["Data cleaning, transformation, and visualization"]}, {"title": "Module 3", "bullets": ["Introduction to machine learning with scikit-learn"]}], "successStories": [] },
-  { "id": 3426, "name": "Web Development Essentials", "instructor": "Sofia Chen", "price": "60", "status": "Ongoing", "description": "Build responsive websites and web applications using HTML, CSS, JavaScript, and modern frameworks.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact6.png", "lessons": 13, "duration": "6 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["HTML, CSS, and responsive design"]}, {"title": "Module 2", "bullets": ["JavaScript fundamentals and DOM manipulation"]}, {"title": "Module 3", "bullets": ["React basics and API integration"]}], "successStories": [] },
-  { "id": 3427, "name": "Cybersecurity Awareness Training", "instructor": "Tom Johnson", "price": "15", "status": "Ongoing", "description": "Essential cybersecurity practices for individuals and organizations to protect against common threats.", "heroImage1": "/home/blog/blog3.png", "heroImage2": "/home/impact/impact4.png", "lessons": 11, "duration": "1 week", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Understanding cyber threats and attack vectors"]}, {"title": "Module 2", "bullets": ["Security best practices and password management"]}, {"title": "Module 3", "bullets": ["Incident response and security tools"]}], "successStories": [] },
-  { "id": 3428, "name": "Digital Marketing Strategies", "instructor": "Emily Wong", "price": "55", "status": "Ongoing", "description": "Comprehensive digital marketing covering SEO, social media, email marketing, and paid advertising.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 11, "duration": "5 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["SEO and content marketing fundamentals"]}, {"title": "Module 2", "bullets": ["Social media strategy and paid advertising"]}, {"title": "Module 3", "bullets": ["Analytics, conversion optimization, and reporting"]}], "successStories": [] },
-  { "id": 3429, "name": "Cloud Computing Basics", "instructor": "Mike Brown", "price": "45", "status": "Ongoing", "description": "Introduction to cloud computing concepts, major providers, and hands-on deployment skills.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 12, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Cloud computing models and architecture"]}, {"title": "Module 2", "bullets": ["AWS, Azure, and GCP fundamentals"]}, {"title": "Module 3", "bullets": ["Cloud deployment, monitoring, and cost management"]}], "successStories": [] },
-  { "id": 3430, "name": "Mobile App Development with Flutter", "instructor": "Aisha Khan", "price": "25", "status": "Completed", "description": "Build cross-platform mobile applications using Flutter and Dart from scratch.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact1.png", "lessons": 12, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Dart programming and Flutter widgets"]}, {"title": "Module 2", "bullets": ["State management and navigation"]}, {"title": "Module 3", "bullets": ["API integration and app deployment"]}], "successStories": [] },
-  { "id": 3431, "name": "Python for Data Analysis", "instructor": "Carlos Gomez", "price": "40", "status": "Completed", "description": "Learn Python programming focused on data analysis, visualization, and statistical computing.", "heroImage1": "/home/blog/blog1.png", "heroImage2": "/home/blog/blog2.png", "lessons": 14, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Python basics and data structures"]}, {"title": "Module 2", "bullets": ["NumPy, pandas, and data manipulation"]}, {"title": "Module 3", "bullets": ["Data visualization with Matplotlib and Seaborn"]}], "successStories": [] },
-  { "id": 3432, "name": "React Native Crash Course", "instructor": "Linda Chen", "price": "20", "status": "Ongoing", "description": "An accelerated course to build production-ready mobile apps with React Native.", "heroImage1": "/home/impact/impact4.png", "heroImage2": "/home/impact/impact5.png", "lessons": 8, "duration": "2 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["React Native fundamentals and components"]}, {"title": "Module 2", "bullets": ["Navigation and state management"]}, {"title": "Module 3", "bullets": ["Native modules and app store deployment"]}], "successStories": [] },
-  { "id": 3433, "name": "DevOps Engineering Fundamentals", "instructor": "James Wilson", "price": "50", "status": "Ongoing", "description": "Master CI/CD pipelines, containerization, infrastructure as code, and monitoring.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 17, "duration": "5 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Version control and CI/CD principles"]}, {"title": "Module 2", "bullets": ["Docker and Kubernetes containerization"]}, {"title": "Module 3", "bullets": ["Infrastructure as code and monitoring tools"]}], "successStories": [] },
-  { "id": 3434, "name": "Graphic Design Masterclass", "instructor": "Sarah Ahmed", "price": "35", "status": "Completed", "description": "Develop professional graphic design skills covering typography, color theory, and brand identity.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 16, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Design principles and typography"]}, {"title": "Module 2", "bullets": ["Color theory and composition"]}, {"title": "Module 3", "bullets": ["Brand identity and portfolio development"]}], "successStories": [] },
-  { "id": 3435, "name": "SQL and Database Management", "instructor": "David Park", "price": "30", "status": "Completed", "description": "Learn SQL, database design, and data management skills for relational and NoSQL databases.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact6.png", "lessons": 14, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["SQL queries and relational database design"]}, {"title": "Module 2", "bullets": ["Advanced SQL, joins, and indexing"]}, {"title": "Module 3", "bullets": ["NoSQL databases and data modeling"]}], "successStories": [] },
-  { "id": 3436, "name": "JavaScript Advanced Concepts", "instructor": "Nina Patel", "price": "45", "status": "Ongoing", "description": "Deep dive into closures, prototypes, async patterns, and modern JavaScript features.", "heroImage1": "/home/blog/blog3.png", "heroImage2": "/home/impact/impact4.png", "lessons": 17, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Closures, scope, and prototypes"]}, {"title": "Module 2", "bullets": ["Async patterns and event loop"]}, {"title": "Module 3", "bullets": ["ES6+ features and performance optimization"]}], "successStories": [] },
-  { "id": 3437, "name": "Ethical Hacking Workshop", "instructor": "Omar Farooq", "price": "25", "status": "Ongoing", "description": "Hands-on ethical hacking workshop covering penetration testing, vulnerability assessment, and security tools.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 10, "duration": "2 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Network scanning and reconnaissance"]}, {"title": "Module 2", "bullets": ["Web application penetration testing"]}, {"title": "Module 3", "bullets": ["Reporting and remediation strategies"]}], "successStories": [] },
-  { "id": 3438, "name": "Content Writing for Digital Media", "instructor": "Emma Roberts", "price": "30", "status": "Completed", "description": "Master content writing for blogs, social media, and digital marketing with storytelling techniques.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 12, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Writing fundamentals and audience analysis"]}, {"title": "Module 2", "bullets": ["SEO writing and content strategy"]}, {"title": "Module 3", "bullets": ["Social media content and portfolio building"]}], "successStories": [] },
-  { "id": 3439, "name": "AWS Solutions Architecture", "instructor": "Raj Kumar", "price": "55", "status": "Ongoing", "description": "Design and deploy scalable, secure, and cost-effective solutions on AWS cloud platform.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact1.png", "lessons": 20, "duration": "6 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["AWS core services and architecture"]}, {"title": "Module 2", "bullets": ["Security, networking, and storage design"]}, {"title": "Module 3", "bullets": ["Cost optimization and migration strategies"]}], "successStories": [] },
-  { "id": 3440, "name": "Agile Project Management", "instructor": "Lisa Wang", "price": "25", "status": "Completed", "description": "Learn Agile methodologies, Scrum framework, and project management best practices.", "heroImage1": "/home/blog/blog1.png", "heroImage2": "/home/blog/blog2.png", "lessons": 15, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Agile principles and Scrum framework"]}, {"title": "Module 2", "bullets": ["Sprint planning, execution, and review"]}, {"title": "Module 3", "bullets": ["Agile tools and team leadership"]}], "successStories": [] },
-  { "id": 3441, "name": "Docker and Kubernetes Essentials", "instructor": "Alex Turner", "price": "45", "status": "Ongoing", "description": "Containerization with Docker and orchestration with Kubernetes for modern application deployment.", "heroImage1": "/home/impact/impact4.png", "heroImage2": "/home/impact/impact5.png", "lessons": 16, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Docker fundamentals and container management"]}, {"title": "Module 2", "bullets": ["Kubernetes architecture and pod management"]}, {"title": "Module 3", "bullets": ["Production deployment and monitoring"]}], "successStories": [] },
-  { "id": 3442, "name": "Social Media Analytics", "instructor": "Maya Singh", "price": "20", "status": "Completed", "description": "Analyze social media data to derive actionable insights for marketing and brand strategy.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 8, "duration": "2 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Social media metrics and KPIs"]}, {"title": "Module 2", "bullets": ["Data collection and analysis tools"]}, {"title": "Module 3", "bullets": ["Reporting and strategy optimization"]}], "successStories": [] },
-  { "id": 3443, "name": "Game Development with Unity", "instructor": "Kevin Brown", "price": "50", "status": "Ongoing", "description": "Create 2D and 3D games using Unity engine with C# programming and game design principles.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 20, "duration": "8 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Unity basics and C# scripting"]}, {"title": "Module 2", "bullets": ["2D and 3D game mechanics"]}, {"title": "Module 3", "bullets": ["Animation, audio, and game publishing"]}], "successStories": [] },
-  { "id": 3444, "name": "Robotics and Automation Basics", "instructor": "Fatima Ali", "price": "35", "status": "Ongoing", "description": "Introduction to robotics, automation technologies, and control systems with hands-on projects.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact6.png", "lessons": 15, "duration": "5 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Robotics fundamentals and kinematics"]}, {"title": "Module 2", "bullets": ["Sensors, actuators, and control systems"]}, {"title": "Module 3", "bullets": ["Automation programming and project work"]}], "successStories": [] },
-  { "id": 3445, "name": "Financial Modeling with Excel", "instructor": "Robert Kim", "price": "40", "status": "Completed", "description": "Build complex financial models using Excel for valuation, budgeting, and investment analysis.", "heroImage1": "/home/blog/blog3.png", "heroImage2": "/home/impact/impact4.png", "lessons": 16, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Excel functions and data management"]}, {"title": "Module 2", "bullets": ["Financial statements and valuation models"]}, {"title": "Module 3", "bullets": ["Scenario analysis and investment modeling"]}], "successStories": [] },
-  { "id": 3446, "name": "Video Editing and Post-Production", "instructor": "Hannah Lee", "price": "25", "status": "Completed", "description": "Learn professional video editing techniques using industry-standard tools and workflows.", "heroImage1": "/donation/donation.png", "heroImage2": "/events/eventsperson.png", "lessons": 10, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Video editing fundamentals and tools"]}, {"title": "Module 2", "bullets": ["Color grading, effects, and transitions"]}, {"title": "Module 3", "bullets": ["Audio editing and final delivery"]}], "successStories": [] },
-  { "id": 3447, "name": "Internet of Things (IoT) Workshop", "instructor": "Zain Malik", "price": "40", "status": "Ongoing", "description": "Build connected IoT devices using microcontrollers, sensors, and cloud platforms.", "heroImage1": "/volunteer/vol1.png", "heroImage2": "/volunteer/vol2.png", "lessons": 14, "duration": "4 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["IoT architecture and microcontroller programming"]}, {"title": "Module 2", "bullets": ["Sensor integration and data collection"]}, {"title": "Module 3", "bullets": ["Cloud connectivity and IoT dashboards"]}], "successStories": [] },
-  { "id": 3448, "name": "Business Intelligence with Power BI", "instructor": "Sophia Garcia", "price": "30", "status": "Completed", "description": "Transform data into actionable insights using Power BI dashboards, DAX, and data modeling.", "heroImage1": "/projects/projecthero.png", "heroImage2": "/home/impact/impact1.png", "lessons": 14, "duration": "3 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Power BI basics and data import"]}, {"title": "Module 2", "bullets": ["DAX formulas and data modeling"]}, {"title": "Module 3", "bullets": ["Dashboard design and report publishing"]}], "successStories": [] },
-  { "id": 3449, "name": "Natural Language Processing", "instructor": "Daniel Kim", "price": "45", "status": "Ongoing", "description": "Explore NLP techniques for text analysis, sentiment analysis, chatbots, and language models.", "heroImage1": "/home/blog/blog1.png", "heroImage2": "/home/blog/blog2.png", "lessons": 18, "duration": "6 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["Text preprocessing and linguistic fundamentals"]}, {"title": "Module 2", "bullets": ["Classification, sentiment analysis, and NER"]}, {"title": "Module 3", "bullets": ["Transformers, BERT, and LLM applications"]}], "successStories": [] },
-  { "id": 3450, "name": "Full Stack Web Development Bootcamp", "instructor": "Ayesha Khan", "price": "65", "status": "Ongoing", "description": "A comprehensive bootcamp covering frontend, backend, and deployment for full stack development.", "heroImage1": "/home/impact/impact4.png", "heroImage2": "/home/impact/impact5.png", "lessons": 24, "duration": "12 weeks", "enrollmentLink": "", "guidelineFile": "", "modules": [{"title": "Module 1", "bullets": ["HTML, CSS, JavaScript, and React"]}, {"title": "Module 2", "bullets": ["Node.js, Express, and database design"]}, {"title": "Module 3", "bullets": ["DevOps, testing, and production deployment"]}], "successStories": [] }
+  {
+    "id": 1,
+    "name": "Artificial Intelligence & Python Program",
+    "instructor": "Esha",
+    "price": "1000",
+    "originalPrice": 15000,
+    "status": "Ongoing",
+    "description": "Learn Python the smart way with this complete, beginner-friendly course which is specially designed to take you from zero coding knowledge to building real-world projects. This course covers core programming concepts, data structures, problem-solving, and practical applications including automation and AI basics. It is Perfect for students, beginners, and anyone looking to start a career in programming.",
+    "heroImage1": "/home/image1.avif",
+    "heroImage2": "/home/image1.avif",
+    "lessons": 3,
+    "duration": "8 Hours 30 Minutes",
+    "requirements": "Simple Requirements: Laptop + Internet Access",
+    "guidelineCta": "Want to Master Python? Download the Complete Course Guideline Now!",
+    "enrollmentLink": "",
+    "guidelineFile": "",
+    "modules": [
+      {
+        "title": "Module 1 – Python Basics: Variables, Control Flow & First Programs",
+        "bullets": [
+          "Introduction to Python",
+          "What is Python & Features",
+          "Why Learn Python & Applications",
+          "Installing Python & IDEs",
+          "First Python Program",
+          "Comments in Python",
+          "Python Versatility & Real-world Uses",
+          "Python in AI & Automation",
+          "Input & Output Operations",
+          "Variables and Data Types",
+          "Arithmetic Operators",
+          "Conditional Statements (if-else)",
+          "Loops (for loop, while loop)",
+          "Indentation Rules & Best Practices",
+          "Beginner Python Exercises & Practice"
+        ]
+      },
+      {
+        "title": "Module 2 – Functions, Data Structures & AI Tools",
+        "bullets": [
+          "Functions in Python",
+          "Function Arguments & Return Values",
+          "Lists, Tuples & Dictionaries",
+          "Sets & Set Operations",
+          "Strings & String Methods",
+          "Type Casting & Dynamic Typing",
+          "Control Flow & Logic Building",
+          "Exception Handling (try, except, finally)",
+          "File Handling Basics",
+          "Introduction to Artificial Intelligence",
+          "Chatbot Basics",
+          "Prompt Engineering",
+          "LMS AI Tools Exploration",
+          "Streamlit Basics for UI Development",
+          "GitHub Introduction & Deployment",
+          "Practice Activities & Mini Tasks"
+        ]
+      },
+      {
+        "title": "Module 3 – Automation, Mini Projects & Career Path",
+        "bullets": [
+          "Python Time Module",
+          "Countdown Timer Application",
+          "pyautogui Basics",
+          "Automation Scripts with Python",
+          "Project Planning & App Logic",
+          "Logic Testing & Debugging",
+          "User Interface Improvements",
+          "Mini Projects & Hands-on Practice",
+          "Project Showcase & Presentation",
+          "GitHub Project Submission",
+          "Final Practice & Revision",
+          "Career Guidance & Learning Path"
+        ]
+      }
+    ],
+    "successStories": [
+      {
+        "studentName": "Rahib Khan",
+        "testimonial": "Assalamu Alaikum Sir, you taught and guided us in an excellent way, patiently clearing all our doubts and helping us fully understand each concept. You explained everything from the basics to advanced topics and showed us how to explore further in the field. You provided us with a clear pathway for learning, which I will never forget in my life. Thank you so much for this opportunity and for helping me evolve my IT skills in the world of computers.",
+        "videoUrl": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Web Development Course",
+    "instructor": "Syeda Maliha Naz",
+    "price": "1000",
+    "originalPrice": 15000,
+    "status": "Ongoing",
+    "description": "Start your journey into the web development world with this easy and practical course which is made for beginners specifically. In this course you will learn how to create real websites using HTML, CSS, Tailwind CSS, and JavaScript step by step. Build your own projects, design a personal portfolio, and publish your website live. This course helps you gain real skills, confidence, and a strong start for freelancing and a tech career.",
+    "heroImage1": "/home/image1.avif",
+    "heroImage2": "/home/image1.avif",
+    "lessons": 18,
+    "duration": "1.5 Month",
+    "requirements": "All You Need: A Laptop and Internet Connection",
+    "guidelineCta": "Ready to Build Websites? Download the Course Guideline",
+    "enrollmentLink": "",
+    "guidelineFile": "",
+    "modules": [
+      {
+        "title": "Module 1 – HTML & CSS: Styling, Layout & Responsive Design",
+        "bullets": [
+          "Introduction to Web Development",
+          "Understanding Websites (static vs dynamic, frontend vs backend)",
+          "Setting Up VS Code & Development Environment",
+          "Creating Your First HTML File",
+          "HTML Basics (headings, paragraphs, images, links, lists)",
+          "Forms, Tables & Semantic HTML",
+          "Introduction to CSS (inline, internal, external)",
+          "Styling with Colors, Fonts & Text Properties",
+          "CSS Box Model (margin, padding, borders)",
+          "Layouts using Flexbox",
+          "Responsive Web Design with Media Queries"
+        ]
+      },
+      {
+        "title": "Module 2 – Tailwind CSS, GitHub & JavaScript Fundamentals",
+        "bullets": [
+          "Tailwind CSS Basics & Utility-First Styling",
+          "Converting CSS Projects into Tailwind",
+          "Version Control with GitHub",
+          "Uploading Projects & Managing Repositories",
+          "Understanding Commits & Code Management",
+          "Website Deployment using GitHub Pages & Netlify",
+          "JavaScript Introduction (console, variables, data types)",
+          "Conditionals & Functions (if/else, logic building)",
+          "Arrays & Loops (for loop, while loop)"
+        ]
+      },
+      {
+        "title": "Module 3 – DOM, Interactive Projects & Freelancing Prep",
+        "bullets": [
+          "DOM Manipulation (getElementById, querySelector, innerText)",
+          "Event Handling (click, hover, submit events)",
+          "Building Interactive Features",
+          "Mini Projects (To-Do List, Quiz App)",
+          "Designing Personal Portfolio Website",
+          "Structuring Pages (About, Skills, Projects, Contact)",
+          "Adding Styling with Tailwind/CSS",
+          "Adding Interactivity using JavaScript",
+          "Testing & Optimizing for Mobile and Desktop",
+          "Deploying Live Website (GitHub Pages, Netlify)",
+          "Creating GitHub Portfolio Repository",
+          "Freelancing Basics (Fiverr, Upwork)",
+          "Building Resume & Sharing Projects on LinkedIn"
+        ]
+      }
+    ],
+    "successStories": [
+      {
+        "studentName": "Ali Sohail",
+        "testimonial": "I want to sincerely thank combine foundation teachers of combine foundation, who worked with great efforts and dedication to teach the children. They guided them well through without any difficulties and challenges they faced in their studies and explained things so effectively that our children where they are able to do coding today.",
+        "videoUrl": ""
+      },
+      {
+        "studentName": "Ali Sohail",
+        "testimonial": "Assalam o alaikum, my name is Ali Sohail. Under combine foundation I am doing a web development course. When I started this course, I only knew a few basics of computer but today I am pro at coding and all of these made possible by my teachers' mentors and sir. As they support me in every step and make me capable of doing coding. All the queries that I had they always solved them. Today just because of them I can do coding.",
+        "videoUrl": ""
+      },
+      {
+        "studentName": "Eshal Subhan",
+        "testimonial": "Assalam o alaikum. This is me, Eshal Subhan. Today I am going to tell you guys about the experience of the course that I have learned. So, the course's name is web development. In which I have learned how to use the website, how it works, and how to generate that. For this course I already knew about html and CSS. I just got to know JavaScript. It was very interesting journey it was very fun to learn now after learning a course I can confidently make the web pages websites many more even though I am very proud of myself that I have learned these things and thankyou to the teachers and combine foundations for this amazing course jazak Allah.",
+        "videoUrl": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Quantitative Finance Course",
+    "instructor": "Rida Fatima",
+    "price": "1000",
+    "originalPrice": 15000,
+    "status": "Ongoing",
+    "description": "Enter into the world of finance and data analysis with this beginner-friendly Quantitative Finance Course. In this course, you will be going to learn the basics of analytical finance, financial data interpretation, and modern quantitative techniques used in today's financial industry. You will also get an introduction to Python in Finance and understand how technology is transforming the finance world. This course is designed to help students and professionals build practical financial and analytical skills for future career growth.",
+    "heroImage1": "/home/image1.avif",
+    "heroImage2": "/home/image1.avif",
+    "lessons": 13,
+    "duration": "1–2 Months",
+    "requirements": "All You Need: A Laptop and Internet Connection",
+    "guidelineCta": "Want to Master This Course? Download the Complete Course Guideline Now!",
+    "enrollmentLink": "",
+    "guidelineFile": "",
+    "modules": [
+      {
+        "title": "Module 1 – Foundations of Quantitative Finance",
+        "bullets": [
+          "Introduction to Quantitative Finance",
+          "Career Paths in Finance, FinTech & Data Science",
+          "Basics of Time Value of Money",
+          "Understanding NPV (Net Present Value)",
+          "Understanding IRR (Internal Rate of Return)",
+          "Discounting Future Cash Flows",
+          "Cash Flow Modeling Techniques",
+          "Building Financial Calculators in Excel/Python",
+          "Introduction to Financial Risk Management",
+          "CAPM (Capital Asset Pricing Model)",
+          "Beta & Market Volatility Analysis",
+          "Value at Risk (VaR) Concepts & Methods",
+          "Historical Simulation for VaR in Excel"
+        ]
+      },
+      {
+        "title": "Module 2 – Financial Modeling & Portfolio Analytics",
+        "bullets": [
+          "Introduction to Derivatives (Futures & Forwards)",
+          "Hedging & Speculation Strategies",
+          "Basics of Options Trading (Call & Put Options)",
+          "Intrinsic Value vs Time Value",
+          "Black-Scholes Option Pricing Model",
+          "Implementing Black-Scholes in Python/Excel",
+          "Modern Portfolio Theory (MPT)",
+          "Risk-Return Tradeoff & Diversification",
+          "Correlation & Covariance Matrices",
+          "Efficient Frontier Concept",
+          "Portfolio Optimization using Excel Solver/Python",
+          "Introduction to Time Series Analysis",
+          "ARIMA Model for Forecasting",
+          "GARCH Model for Volatility Forecasting",
+          "Applications in Algorithmic Trading & Forecasting"
+        ]
+      },
+      {
+        "title": "Module 3 – Business Analytics & Career Development",
+        "bullets": [
+          "Introduction to Business Analytics",
+          "E-Commerce Metrics (CAC, LTV, Churn, Conversion Rate)",
+          "Data Visualization & Storytelling",
+          "Building Dashboards with Google Sheets & Power BI",
+          "Google Analytics-Style Reporting",
+          "Credit Risk & Credit Scoring Concepts",
+          "Probability of Default & Loss Given Default",
+          "Logistic Regression for Credit Scoring",
+          "Feature Engineering from Financial Data",
+          "Building Credit Scoring Models in Excel/Python",
+          "Final Portfolio Development",
+          "Creating LinkedIn & GitHub Portfolios",
+          "Resume Building for Quant & Analytics Roles",
+          "Student Project Presentations",
+          "Career Guidance & Next Steps"
+        ]
+      }
+    ],
+    "successStories": [
+      {
+        "studentName": "Hussain Naqvi",
+        "testimonial": "My journey with the Quantitative Finance & Business Analytics Bootcamp 2025 by Combine Foundation has been very rewarding. In the very first session, I was able to build a Financial Calculator (NPV & IRR) in Python on Google Collab, which calculates values and provides investment recommendations. The hands-on approach makes learning both practical and impactful. I'm excited to continue exploring upcoming topics like Risk, Derivatives, and Portfolio Optimization.",
+        "videoUrl": ""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Digital Empowerment Course",
+    "instructor": "Muhammad Umar",
+    "price": "1000",
+    "originalPrice": 15000,
+    "status": "Ongoing",
+    "mode": "Onsite",
+    "description": "Want to step into the digital world with confidence? Join this beginner-friendly Digital Empowerment Course. Learn essential computer skills, digital tools, and productivity platforms that are important for education, freelancing, and everyday professional work. This course is designed for beginners who want to improve their digital knowledge, build confidence, and become comfortable using modern technology. You will also get an introduction to AI tools and learn how to communicate confidently on camera.",
+    "heroImage1": "/home/image1.avif",
+    "heroImage2": "/home/image1.avif",
+    "lessons": 5,
+    "duration": "1 Month",
+    "requirements": "All You Need: A Laptop and Willingness to Learn",
+    "guidelineCta": "Want to Master This Course? Download the Complete Course Guideline Now!",
+    "enrollmentLink": "",
+    "guidelineFile": "",
+    "modules": [
+      {
+        "title": "Module 1 – Digital Literacy & Productivity Tools",
+        "bullets": [
+          "Introduction to System and Software",
+          "MS Office (Word & Excel)",
+          "Google Classroom Introduction",
+          "Introduction to AI",
+          "How to Face Camera with Confidence"
+        ]
+      }
+    ],
+    "successStories": [
+      {
+        "studentName": "Rahib Khan",
+        "testimonial": "Assalamu Alaikum Sir, you taught and guided us in an excellent way, patiently clearing all our doubts and helping us fully understand each concept. You explained everything from the basics to advanced topics and showed us how to explore further in the field. You provided us with a clear pathway for learning, which I will never forget in my life. Thank you so much for this opportunity and for helping me evolve my IT skills in the world of computers.",
+        "videoUrl": ""
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Meta Ads Mastery Program",
+    "instructor": "Combine Foundation",
+    "price": "1000",
+    "originalPrice": 15000,
+    "status": "Ongoing",
+    "description": "Want to become a pro at Facebook & Instagram Ads? So, our Facebook & Instagram Ads Mastery Program is a complete beginner-to-advanced training designed for aspiring digital marketers, students, freelancers, business owners, and agency professionals. Learn Meta Ads, audience targeting, creative strategies, tracking systems, automation, catalog ads, and campaign scaling using real-world business case studies and practical implementations. Master Facebook & Instagram advertising with hands-on learning and becoming a professional ads master. By learning these high-income digital marketing skills, you can also start freelancing, manage international clients, run your own agency, and generate online income from anywhere in the world.",
+    "heroImage1": "/home/image1.avif",
+    "heroImage2": "/home/image1.avif",
+    "lessons": 3,
+    "duration": "2 Months",
+    "requirements": "Simple Requirements: Laptop + Internet Access",
+    "guidelineCta": "Want to Master This Course? Download the Complete Course Guideline Now!",
+    "enrollmentLink": "",
+    "guidelineFile": "",
+    "modules": [
+      {
+        "title": "Module 1 – Meta Ads Foundations & Creative Strategy",
+        "bullets": [
+          "Introduction to Facebook & Instagram Advertising",
+          "Understanding Meta Algorithm & Ad Delivery",
+          "The Auction System, Rankings & Learning Phase",
+          "Understanding CPM, Quality Scores & Total Value",
+          "Why Ads Fail & Common Delivery Mistakes",
+          "Ad Creative Psychology & Consumer Behavior",
+          "AIDA, PAS & Emotional Trigger Frameworks",
+          "Image Ads vs Video Ads vs UGC Ads",
+          "Creating High-Converting Video Ads",
+          "Creative Strategy for Drop shipping & Brands",
+          "Creating Professional Ads with Simple Tools",
+          "Building Scroll-Stopping Ad Creatives"
+        ]
+      },
+      {
+        "title": "Module 2 – Ads Manager, Tracking & Automation",
+        "bullets": [
+          "Business Page Creation & Professional Settings",
+          "Meta Business Suite & Customer Management",
+          "Messenger & Instagram Automation Setup",
+          "Introduction to Ads Manager Interface",
+          "Campaign Objectives Explained",
+          "Awareness, Traffic, Leads & Sales Campaigns",
+          "Automated Rules & Campaign Scaling",
+          "Advantage Campaign Budget (ACB) Strategy",
+          "Placement Strategy (Manual vs Advantage+)",
+          "Meta Pixel & Conversion Tracking",
+          "Events Manager & CAPI Integration",
+          "Shopify & WordPress Pixel Setup",
+          "Custom Conversions & Offline Events",
+          "Tracking Diagnostics & Attribution Setup"
+        ]
+      },
+      {
+        "title": "Module 3 – Advanced Scaling, Targeting & Freelancing",
+        "bullets": [
+          "Commerce Manager & Catalog Ads",
+          "Dynamic Retargeting Strategies",
+          "Cross-Selling & Upselling Techniques",
+          "Facebook Shop & WooCommerce Catalog Setup",
+          "Audience Engineering & Funnel Strategy",
+          "Custom Audiences & Lookalike Audiences",
+          "Advantage+ Audience Strategy",
+          "Interest-Based Audience Research",
+          "Identifying Profitable Ad sets",
+          "Business Manager & Security Setup",
+          "Managing Users, Accounts & Data Sources",
+          "Avoiding Restrictions & Protecting Client Assets",
+          "Scaling Campaigns Scientifically with Data",
+          "Getting Freelancing Clients Locally & Internationally",
+          "Starting Your Own Agency or Digital Marketing Business"
+        ]
+      }
+    ],
+    "successStories": []
+  }
 ]

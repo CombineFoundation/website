@@ -57,7 +57,7 @@ function BlogCard({ post }: BlogCardProps) {
           className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-opacity duration-200 mt-1 hover:opacity-90"
           style={{
             // background: "linear-gradient(180deg, #2e86d4 0%, #1057b0 50%, #0a3d8f 100%)",
-            background: "linear-gradient(90deg, #0F3D6B 0%, #0061C3 50%, #0061C3 75%, #0F3D6B 100%)",
+            background: "linear-gradient(90deg, var(--secondary-600) 0%, var(--primary-500) 50%, var(--primary-500) 75%, var(--secondary-600) 100%)",
           }}
           aria-label={`Read ${post.title}`}
         >
@@ -86,7 +86,7 @@ export default function BlogSection() {
       <div className="max-w-6xl mx-auto">
         <SectionHeader
           title="Blog"
-          description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
+          description="Stay updated with our latest news"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">

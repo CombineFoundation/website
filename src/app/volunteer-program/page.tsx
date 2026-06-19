@@ -4,7 +4,7 @@ import WhyJoinUs from "@/components/volunteer/Whyjoinus"
 import Filltheform from "@/components/volunteer/Filltheform"
 import CtaSection from "@/components/UI/CtaSection";
 import HearFromVolunteers from "@/components/volunteer/ourVolunteer";
-import FAQs from "@/components/home/FaqSection"
+import VolunteerFAQ from "@/components/volunteer/VolunteerFAQ";
 
 
 export default function VolunteerPage() {
@@ -20,9 +20,9 @@ export default function VolunteerPage() {
             <HowItWorks />
             <WhyJoinUs />
             <Filltheform />
-            <CtaSection text="Ready to Contribute for Good ?" buttonText="Apply Now" url="/contact" />
+            <CtaSection text="More Than Volunteering — A Career Journey" buttonText="Join Today" url="/contact" />
             <HearFromVolunteers />
-            <FAQs />
+            <VolunteerFAQ />
         </div>
     );
 }

@@ -167,7 +167,7 @@ function EventCard({ event }: { event: Event }) {
                         <Link
                             href={event.registerLink}
                             className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
-                            style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
                         >
                             Register Now
                         </Link>
@@ -241,7 +241,7 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
                     <Link
                         href={event.registerLink}
                         className="px-5 py-2 rounded-full text-white text-sm font-semibold"
-                        style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
                     >
                         Register Now
                     </Link>
@@ -356,7 +356,7 @@ function CalendarView() {
                                                         key={ev.id}
                                                         onClick={() => setSelectedEvent(ev)}
                                                         className="w-full text-left text-white text-xs font-semibold rounded-md px-1.5 py-1 leading-tight mb-0.5 truncate transition-opacity hover:opacity-90 cursor-pointer"
-                                                        style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
                                                         title={ev.title}
                                                     >
                                                         {ev.title}
@@ -400,7 +400,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "calendar" ? "#fff" : "transparent",
-                            color: view === "calendar" ? "#1a3a7c" : "#6b7280",
+                            color: view === "calendar" ? "var(--primary-700)" : "#6b7280",
                             boxShadow: view === "calendar" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="Calendar view"
@@ -412,7 +412,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "list" ? "#fff" : "transparent",
-                            color: view === "list" ? "#1a3a7c" : "#6b7280",
+                            color: view === "list" ? "var(--primary-700)" : "#6b7280",
                             boxShadow: view === "list" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="List view"
