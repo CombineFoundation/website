@@ -26,6 +26,14 @@ export interface Course {
   originalPrice: number | string;
   image: string;
   imageBack: string;
+  heroImage1?: string;
+  heroImage2?: string;
+  mode?: string;
+  requirements?: string;
+  guidelineCta?: string;
+  guidelineFile?: string;
+  status?: string;
+  successStories?: any[];
   modules: Module[];
   instructor?: string;
   enrollmentLink?: string;
