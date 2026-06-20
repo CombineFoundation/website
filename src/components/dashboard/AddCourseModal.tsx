@@ -18,12 +18,16 @@ interface CourseFormData {
   name: string;
   instructor: string;
   price: string;
+  originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
   duration: string;
+  requirements: string;
+  guidelineCta: string;
+  mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
   modules: CourseModule[];
@@ -49,12 +53,16 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     name: "",
     instructor: "",
     price: "",
+    originalPrice: 0,
     status: "Ongoing",
     description: "",
     heroImage1: "",
     heroImage2: "",
     lessons: 0,
     duration: "",
+    requirements: "",
+    guidelineCta: "",
+    mode: "",
     enrollmentLink: "",
     guidelineFile: "",
     modules: [
@@ -140,9 +148,12 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     form.name.trim() &&
     form.instructor.trim() &&
     form.price.trim() &&
+    form.originalPrice > 0 &&
     form.description.trim() &&
     form.lessons > 0 &&
     form.duration.trim() &&
+    form.requirements.trim() &&
+    form.guidelineCta.trim() &&
     form.enrollmentLink.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim() &&
@@ -240,6 +251,18 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Original Price</label>
+            <input
+              type="number"
+              name="originalPrice"
+              value={form.originalPrice || ""}
+              onChange={handleChange}
+              placeholder="15000"
+              min="0"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
         </div>
 
         <div className="flex gap-4 mb-4">
@@ -267,6 +290,43 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+        </div>
+
+        <div className="flex gap-4 mb-4">
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Requirements</label>
+            <input
+              type="text"
+              name="requirements"
+              value={form.requirements}
+              onChange={handleChange}
+              placeholder="Laptop + Internet Access"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Mode</label>
+            <input
+              type="text"
+              name="mode"
+              value={form.mode}
+              onChange={handleChange}
+              placeholder="e.g. Onsite, Online"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Guideline CTA</label>
+          <input
+            type="text"
+            name="guidelineCta"
+            value={form.guidelineCta}
+            onChange={handleChange}
+            placeholder="Want to Master This Course? Download the Complete Course Guideline Now!"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
 
         <hr className="my-5 border-gray-200" />
@@ -427,7 +487,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
             disabled={!isValid}
             className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
               isValid
-                ? "bg-gradient-to-r from-[#0f3d6b] via-[#0162c3] to-[#0f3d6b] hover:brightness-110"
+                ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >

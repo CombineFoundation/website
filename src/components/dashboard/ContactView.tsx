@@ -201,7 +201,7 @@ export default function ContactView() {
                     <button
                       onClick={() => setViewContact(contact)}
                       className="px-4 py-1.5 rounded-md text-xs font-medium text-white hover:brightness-110 transition-all cursor-pointer"
-                      style={{ backgroundColor: "#1E5EFF" }}
+                      style={{ backgroundColor: "var(--primary-500)" }}
                     >
                       View Message
                     </button>

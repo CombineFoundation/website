@@ -72,7 +72,7 @@ function ReportCard({ report }: { report: Report }) {
                         w-full
                         min-[830px]:w-[350px] h-[42px] rounded-full text-white font-semibold text-sm flex items-center justify-center hover:opacity-90 transition-opacity "
                         style={{
-                            background: "linear-gradient(90deg, #0C2D63 0%, #1560C0 100%)",
+                            background: "linear-gradient(90deg, var(--secondary-700) 0%, var(--primary-500) 100%)",
                         }}
                     >
                         View

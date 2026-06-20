@@ -11,10 +11,11 @@ const AboutPage = () => {
         <>
             <AboutHero
                 text1="ABOUT"
-                text2="COMBINE"
+                text2="FOUNDATION"
                 image1="/about/hero/hero1.png"
                 image2="/about/hero/hero2.jpg"
                 text1Size="big"
+                text2Size="small"
                 mobileTitle="About"
             />
             <OurStory />

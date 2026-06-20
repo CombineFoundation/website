@@ -229,8 +229,7 @@ const ContactForm = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[#0F3D6B] via-[#0061C3] to-[#0F3D6B]
-hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
+                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[var(--secondary-600)] via-[var(--primary-500)] to-[var(--secondary-600)] hover:brightness-110
                                        text-white text-sm lg:text-base xl:text-lg
                                        font-semibold tracking-wide transition-all duration-200
                                        disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"

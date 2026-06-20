@@ -11,13 +11,13 @@ const items: MissionVisionItem[] = [
     id: 1,
     title: "Mission",
     description:
-      "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+      "Reducing inequality and helping communities grow stronger through education, leadership, and sustainable growth.",
   },
   {
     id: 2,
     title: "Vision",
     description:
-      "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+      "Building a stronger Pakistan and the next generation of leaders by empowering 1 million youth through leadership, digital education, sustainability, and community development.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function Missionvision() {
               {item.title}
             </h3>
 
-            <div className="w-full h-1 bg-[#e8511a] mb-5" />
+            <div className="w-full h-1 bg-accent-orange mb-5" />
             <p className="text-black text-sm leading-7">
               {item.description}
             </p>

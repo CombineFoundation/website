@@ -1,203 +1,30 @@
-"use client";
-
-import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { Course, COURSES } from "@/lib/freeCourses";
-
-const HOVER_GRADIENT =
-  "linear-gradient(145deg, #081649 0%, #0e2d82 28%, #1556c8 52%, #0d2878 76%, #081649 100%)";
-
-// ── Individual Card ──────────────────────────────────────────────────────────
-function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string) => void }) {
-  const [hovered, setHovered] = useState(false);
-
+export default function AboutCourses() {
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      // h-full makes the card stretch to fill the grid cell (equal heights per row)
-      className={`
-        relative flex flex-col h-full
-        rounded-2xl border overflow-hidden cursor-pointer select-none
-        transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-        ${hovered
-          ? "border-transparent shadow-2xl shadow-blue-950/60 scale-[1.03]"
-          : "border-gray-200 shadow-sm hover:shadow-md"
-        }
-      `}
-      style={{
-        background: hovered ? HOVER_GRADIENT : "#ffffff",
-        minHeight: "260px",
-      }}
-    >
-      {/* Centre radial shimmer */}
-      <div
-        className="absolute inset-0 pointer-events-none rounded-2xl"
-        style={{
-          opacity: hovered ? 1 : 0,
-          transition: "opacity 0.5s",
-          background:
-            "radial-gradient(ellipse at 50% 42%, rgba(55,115,255,0.25) 0%, transparent 62%)",
-        }}
-      />
-
-      {/* ── Card body — flex-col fills height, button always at bottom ── */}
-      <div className="relative z-10 flex flex-col flex-1 p-4">
-        {/* Title */}
-        <h3
-          className={`text-sm md:text-base lg:text-lg font-bold mb-2.5 leading-tight transition-colors duration-300 ${hovered ? "text-white" : "text-black"
-            }`}
-        >
-          {course.title}
-        </h3>
-
-        {/* Bullets — flex-1 pushes button to bottom */}
-        <ul className="flex-1 space-y-1.5">
-          {course.bullets.map((b, i) => (
-            <li
-              key={i}
-              className={`flex items-start gap-1.5 text-[11px] sm:text-xs lg:text-sm leading-snug transition-colors duration-300 ${hovered ? "text-white" : "text-black"
-                }`}
-            >
-              <span
-                className={`mt-[5px] shrink-0 rounded-full transition-colors duration-300 ${hovered ? "bg-white" : "bg-black"
-                  }`}
-                style={{ width: 4, height: 4 }}
-              />
-              {b}
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA Button — always pinned to bottom */}
-        <button
-          onClick={() => onOpen(course.slug)}
-          className={`
-            mt-4 w-full rounded-full py-2 text-xs md:text-sm lg:text-base font-semibold
-            transition-all cursor-pointer duration-300 active:scale-95
-            ${hovered
-              ? "bg-white text-[#0e2d82] hover:bg-gray-100 shadow-lg"
-              : "bg-[#F0632E] text-white hover:bg-[#d9541f] shadow-md"
-            }
-          `}
-        >
-          View Course
-        </button>
+    <section className="w-full mx-auto px-4 py-8 font-sans">
+      <div className="border-b border-gray-300 pb-3 mb-5">
+        <h2 className="text-2xl md:text-5xl font-bold text-black tracking-tight">
+          About Combine&rsquo;s Courses
+        </h2>
       </div>
-    </div>
-  );
-}
-
-// ── Main Component ───────────────────────────────────────────────────────────
-export default function CoursesOffered() {
-  const [search, setSearch] = useState("");
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
-  const openCourse = (slug: string) => {
-    router.push(`/free-courses/${slug}`);
-  };
-
-  const filtered = COURSES.filter((c) =>
-    c.title.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <>
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(14px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .card-enter {
-          animation: fadeUp 0.42s cubic-bezier(0.34,1.56,0.64,1) both;
-        }
-      `}</style>
-
-      <section className="w-full mx-auto px-4 py-8 font-sans">
-        {/* Heading */}
-        <div className="border-b border-gray-300 pb-3 mb-5">
-          <h2 className="text-2xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Courses Offered
-          </h2>
-        </div>
-
-        {/* Search bar */}
-        <div className="flex items-center gap-2 mb-5">
-          <div className="flex-1 flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2 shadow-sm focus-within:border-gray-400 transition-colors">
-            <svg
-              className="w-4 h-4 text-gray-400 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none"
-            />
-          </div>
-
-          {/* Filter icon */}
-          <button className="p-2 rounded-lg border border-gray-200 bg-white shadow-sm hover:bg-gray-50 transition-colors">
-            <svg
-              className="w-4 h-4 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M4 6h16M7 12h10M10 18h4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Scrollable grid */}
-        <div
-          ref={scrollRef}
-          className="overflow-y-auto overflow-x-hidden"
-          style={{ maxHeight: "600px", scrollBehavior: "smooth" }}
-        >
-          {/*
-            Responsive columns:
-              - Default (< sm):  1 column
-              - sm (≥ 640px):    2 columns
-              - md (≥ 768px):    3 columns
-
-            grid-rows uses auto rows but `items-stretch` + h-full on cards
-            makes every card in a row share the same height naturally.
-            px-2 gives cards room to scale without clipping their shadow.
-          */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pb-2 px-2 items-stretch">
-            {filtered.map((course, idx) => (
-              <div
-                key={course.id}
-                
-                className="card-enter flex flex-col h-full"
-                style={{ animationDelay: `${idx * 55}ms` }}
-              >
-                <CourseCard course={course} onOpen={openCourse} />
-              </div>
-            ))}
-
-            {filtered.length === 0 && (
-              <p className="col-span-full py-16 text-center text-gray-400 text-sm">
-                No courses match your search.
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
-    </>
+      <div className="max-w-5xl space-y-4 text-sm md:text-base leading-relaxed text-black">
+        <p>
+          The Combine Foundation believes that good education should be affordable
+          and accessible for any brilliant and passionate individual. That&rsquo;s
+          why we provide the most in demand courses related to IT that include up
+          to 95% scholarships for the students. The training courses are structured
+          that follow recent trends and requirements of the market as well as the
+          upcoming technologies.
+        </p>
+        <p>
+          At Combine Foundation, it is our goal to provide the skills and knowledge
+          that is necessary to become proficient and secure a highly paid job, which
+          will ultimately contribute towards the development of the country. All our
+          training courses are offered by industry experts who not only have extensive
+          technical knowledge, but who also share valuable career insights, job-winning
+          strategies, and the secrets to succeed in today&rsquo;s competitive job
+          market.
+        </p>
+      </div>
+    </section>
   );
 }

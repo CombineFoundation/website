@@ -77,7 +77,7 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
                 <a
                     href={cert.url}
                     aria-label={`Open ${cert.title}`}
-                    className="ml-3 flex-shrink-0 w-8 h-8 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                    className="ml-3 flex-shrink-0 w-8 h-8 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                 >
                     <ArrowIcon />
                 </a>
