@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/UI/SectionHeader";
-import { BLOG_POSTS } from "@/lib/blogs";
-import type { BlogPost } from "@/lib/blogs";
 
-const blogPosts: BlogPost[] = BLOG_POSTS;
 
 type BlogCardProps = {
   post: BlogPost;
@@ -80,7 +77,9 @@ function BlogCard({ post }: BlogCardProps) {
   );
 }
 
-export default function BlogSection() {
+import type { BlogPost } from "@/lib/blogs";
+
+export default function BlogSection({ blogs }: { blogs: BlogPost[] }) {
   return (
     <section className="w-full px-6 py-14 font-sans">
       <div className="max-w-6xl mx-auto">
@@ -90,7 +89,7 @@ export default function BlogSection() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">
-          {blogPosts.slice(0, 3).map((post) => (
+          {blogs.slice(0, 3).map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>

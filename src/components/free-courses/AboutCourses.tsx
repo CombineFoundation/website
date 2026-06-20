@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Course, COURSES } from "@/lib/freeCourses";
+import { Course } from "@/lib/freeCourses";
 
 const HOVER_GRADIENT =
   "linear-gradient(145deg, #081649 0%, #0e2d82 28%, #1556c8 52%, #0d2878 76%, #081649 100%)";
@@ -89,7 +89,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
 }
 
 // ── Main Component ───────────────────────────────────────────────────────────
-export default function CoursesOffered() {
+export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const [search, setSearch] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -98,7 +98,7 @@ export default function CoursesOffered() {
     router.push(`/free-courses/${slug}`);
   };
 
-  const filtered = COURSES.filter((c) =>
+  const filtered = courses.filter((c) =>
     c.title.toLowerCase().includes(search.toLowerCase())
   );
 

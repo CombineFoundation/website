@@ -181,7 +181,8 @@ export default function DonationForm() {
 
         setLoading(true);
         try {
-            const payload: Omit<Donation, "id"> = {
+            const payload = {
+                name: `${sanitise(form.firstName)} ${sanitise(form.lastName)}`.trim(),
                 firstName: sanitise(form.firstName),
                 lastName: sanitise(form.lastName),
                 email: sanitise(form.email),

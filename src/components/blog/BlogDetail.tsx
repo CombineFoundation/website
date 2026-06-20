@@ -8,9 +8,10 @@ import YouMightAlsoLike from "@/components/blog/YouMightAlsoLike";
 
 interface BlogDetailProps {
   post: BlogPost;
+  blogs: BlogPost[];
 }
 
-export default function BlogDetail({ post }: BlogDetailProps) {
+export default function BlogDetail({ post, blogs }: BlogDetailProps) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes);
 
@@ -119,7 +120,7 @@ export default function BlogDetail({ post }: BlogDetailProps) {
       )}
       <AuthorCard name={post.authorName} />
       <Comments initialComments={post.commentList} />
-      <YouMightAlsoLike />
+      <YouMightAlsoLike blogs={blogs} />
     </article>
   );
 }

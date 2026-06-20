@@ -4,7 +4,12 @@ import OurProject from "@/components/home/OurProject";
 import FounderInfo from "@/components/home/FounderInfo";
 import FaqSection from "@/components/home/FaqSection"; 
 import BlogSection from "@/components/home/BlogSection";
-export default function Home() {
+import { getAllBlogs } from "@/lib/blogs";
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const blogs = await getAllBlogs();
   return (
     <div>
       <Hero />
@@ -14,7 +19,7 @@ export default function Home() {
       <FaqSection
       description = "Find answers to common questions about our mission, projects, and how you can get involved."
       />
-      <BlogSection />
+      <BlogSection blogs={blogs} />
     </div>
   );
 }

@@ -1,7 +1,155 @@
 import { getDb } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, getDocs, deleteDoc } from "firebase/firestore";
 import { Program, Application, Message, Job } from "./collections";
 
+// Import JSON data
+import eventsData from "@/data/events.json";
+import coursesData from "@/data/courses.json";
+import blogsData from "@/data/blogs.json";
+import contactsData from "@/data/contacts.json";
+import donationsData from "@/data/donations.json";
+
+// Helper: clear a collection before seeding
+async function clearCollection(collectionName: string) {
+  const db = getDb();
+  const snap = await getDocs(collection(db, collectionName));
+  const deletes = snap.docs.map((d) => deleteDoc(d.ref));
+  await Promise.all(deletes);
+  console.log(`Cleared ${snap.docs.length} docs from "${collectionName}"`);
+}
+
+// ─── Seed Events ─────────────────────────────────────────────────────
+export async function seedEvents() {
+  const db = getDb();
+  await clearCollection("events");
+  for (const event of eventsData as any[]) {
+    // Parse "24 Jun 26 / 4:00 PM"
+    let dateStr = "2026-06-24";
+    let startStr = "4:00 PM";
+    let endStr = "6:00 PM";
+    try {
+      if (event.dateTime && event.dateTime.includes(" / ")) {
+        const [d, t] = event.dateTime.split(" / ");
+        dateStr = d;
+        startStr = t;
+      }
+    } catch (e) {}
+
+    await addDoc(collection(db, "events"), {
+      title: event.name || event.title || "",
+      description: event.description || "",
+      bulletPoints: event.description ? [event.description] : ["Join us for this event.", "Learn new skills.", "Meet the community."],
+      date: dateStr,
+      startTime: startStr,
+      endTime: endStr,
+      location: event.location || "",
+      registerLink: event.registrationLink || "",
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${eventsData.length} events`);
+}
+
+// ─── Seed Courses ────────────────────────────────────────────────────
+export async function seedCourses() {
+  const db = getDb();
+  await clearCollection("courses");
+  for (const course of coursesData as any[]) {
+    await addDoc(collection(db, "courses"), {
+      title: course.name || course.title,
+      name: course.name,
+      slug: course.slug || course.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
+      instructor: course.instructor,
+      price: course.price,
+      status: course.status,
+      description: course.description || "",
+      heroImage1: course.heroImage1 || "",
+      heroImage2: course.heroImage2 || "",
+      lessons: course.lessons || 0,
+      duration: course.duration || "",
+      level: course.level || "Beginner",
+      enrollmentLink: course.enrollmentLink || "",
+      guidelineFile: course.guidelineFile || "",
+      modules: course.modules || [],
+      successStories: course.successStories || [],
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${coursesData.length} courses`);
+}
+
+// ─── Seed Blogs ──────────────────────────────────────────────────────
+export async function seedBlogs() {
+  const db = getDb();
+  await clearCollection("blogs");
+  for (const blog of blogsData as any[]) {
+    await addDoc(collection(db, "blogs"), {
+      title: blog.title || blog.name || "",
+      name: blog.title || blog.name || "",
+      slug: blog.slug || (blog.title || blog.name || "").toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
+      authorName: blog.authorName || "",
+      date: blog.date || "",
+      status: blog.status || "Published",
+      description: blog.description || "",
+      content: blog.content || [],
+      conclusion: blog.conclusion || "",
+      likes: blog.likes || 0,
+      comments: blog.comments || 0,
+      commentList: blog.commentList || [],
+      heroImage1: blog.heroImage1 || "",
+      heroImage2: blog.heroImage2 || "",
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${blogsData.length} blogs`);
+}
+
+// ─── Seed Contacts ───────────────────────────────────────────────────
+export async function seedContacts() {
+  const db = getDb();
+  await clearCollection("contacts");
+  for (const contact of contactsData as any[]) {
+    await addDoc(collection(db, "contacts"), {
+      name: contact.name,
+      email: contact.email,
+      timestamp: contact.timestamp,
+      subject: contact.subject,
+      message: contact.message,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${contactsData.length} contacts`);
+}
+
+// ─── Seed Donations ──────────────────────────────────────────────────
+export async function seedDonations() {
+  const db = getDb();
+  await clearCollection("donations");
+  for (const donation of donationsData as any[]) {
+    await addDoc(collection(db, "donations"), {
+      name: donation.name,
+      email: donation.email,
+      phone: donation.phone,
+      amount: donation.amount,
+      paymentMethod: donation.paymentMethod,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${donationsData.length} donations`);
+}
+
+// ─── Seed All Collections ────────────────────────────────────────────
+export async function seedAllCollections() {
+  console.log("Starting full database seed...");
+  await seedEvents();
+  await seedCourses();
+  await seedBlogs();
+  await seedContacts();
+  await seedDonations();
+  console.log("All collections seeded successfully!");
+}
+
+// ─── Original seed (programs, applications, messages, jobs) ──────────
 export const seedDatabase = async () => {
   try {
     console.log("Starting database seeding...");
@@ -120,7 +268,7 @@ export const seedDatabase = async () => {
           "Creative eye for branding and design layouts",
           "Ability to deliver projects within deadlines"
         ],
-        active: false, // inactive job for testing
+        active: false,
         createdAt: serverTimestamp(),
       }
     ];
