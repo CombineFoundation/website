@@ -47,7 +47,7 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside
         className={`
-          bg-primary-900 flex flex-col flex-shrink-0 self-stretch
+          bg-[#0f172a] flex flex-col flex-shrink-0 self-stretch
           transition-all duration-300 ease-in-out
           ${isOpen ? "w-56" : "w-16 overflow-visible"}
         `}
