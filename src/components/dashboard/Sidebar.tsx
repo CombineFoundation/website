@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Users,
   Star,
+  FolderKanban,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -16,7 +17,8 @@ export type SectionId =
   | "courses"
   | "blogs"
   | "contact"
-  | "donations";
+  | "donations"
+  | "projects";
 
 interface NavItem {
   id: SectionId;
@@ -31,6 +33,7 @@ const navItems: NavItem[] = [
   { id: "blogs", label: "Blogs", icon: LayoutDashboard, badge: null },
   { id: "contact", label: "Contact", icon: Users, badge: null },
   { id: "donations", label: "Donations", icon: Star, badge: null },
+  { id: "projects", label: "Projects", icon: FolderKanban, badge: null },
 ];
 
 export default function Sidebar({
