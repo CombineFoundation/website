@@ -10,7 +10,12 @@ import {
 } from "@vnedyalk0v/react19-simple-maps";
 import GEO_DATA from "@/data/pakistan-provinces.json";
 
-// ─── Ring-winding helpers ─────────────────────────────────────────────────────
+interface ProjectPin {
+    id: number;
+    coordinates: [number, number];
+    label: string;
+}
+
 function ringArea(ring: number[][]): number {
     let area = 0;
     for (let i = 0, len = ring.length, j = len - 1; i < len; j = i++) {
@@ -40,26 +45,6 @@ function rewindGeoJSON(geojson: any): any {
     return g;
 }
 
-// ─── Types & Data ─────────────────────────────────────────────────────────────
-type Achievement = {
-    id: number;
-    city: string;
-    coordinates: [number, number];
-    label: string;
-};
-
-const ACHIEVEMENTS: Achievement[] = [
-    { id: 1, city: "Karachi", coordinates: [67.0104, 24.8608], label: "Ramadan Bachat Camp With Hammad Foundation" },
-    { id: 2, city: "Lahore", coordinates: [74.3294, 31.5820], label: "Free Education Drive Lahore" },
-    { id: 3, city: "Islamabad", coordinates: [73.0433, 33.7215], label: "Youth Leadership Program" },
-    { id: 4, city: "Peshawar", coordinates: [71.5785, 34.0080], label: "Health Camp Peshawar" },
-    { id: 5, city: "Quetta", coordinates: [67.0014, 30.1841], label: "Clean Water Initiative" },
-    { id: 6, city: "Multan", coordinates: [71.4782, 30.1968], label: "Skills Development Workshop" },
-    { id: 7, city: "Faisalabad", coordinates: [73.0897, 31.4155], label: "Community Health Drive" },
-    { id: 8, city: "Rawalpindi", coordinates: [73.0479, 33.5973], label: "School Renovation Project" },
-    { id: 9, city: "Gilgit", coordinates: [74.3083, 35.9208], label: "Mountain Communities Support" },
-];
-
 const GEO_STYLE = {
     default: { outline: "none" },
     hover: { outline: "none" },
@@ -69,41 +54,64 @@ const GEO_STYLE = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GeoType = any;
 
-/** Returns true when the viewport is lg (≥ 1024 px) */
 const isLg = () => typeof window !== "undefined" && window.innerWidth >= 1024;
 
-/** Extracts tooltip position from any element event */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const posFromEvent = (e: any) => {
     const rect = (e.currentTarget as Element).getBoundingClientRect();
     return { x: rect.left + rect.width / 2, y: rect.top - 100 };
 };
 
-export default function AchievementsMap() {
-    const [activeId, setActiveId] = useState<number | null>(null);
+interface AchievementsMapProps {
+    projects: Array<{
+        id: number;
+        title: string;
+        location: string;
+        coordinates: string;
+    }>;
+    activeId: number | null;
+    onSelect: (id: number) => void;
+}
+
+export default function AchievementsMap({ projects, activeId, onSelect }: AchievementsMapProps) {
+    const [hoveredId, setHoveredId] = useState<number | null>(null);
     const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
     const geoData = useMemo(() => rewindGeoJSON(GEO_DATA), []);
 
-    // ── Click: only fires on < lg screens ────────────────────────────────────
+    const pins: ProjectPin[] = useMemo(() => {
+        return projects
+            .filter((p) => p.coordinates)
+            .map((p) => {
+                const parts = p.coordinates.split(",").map(Number);
+                if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) return null;
+                return {
+                    id: p.id,
+                    coordinates: [parts[1], parts[0]] as [number, number],
+                    label: p.title,
+                };
+            })
+            .filter((p): p is ProjectPin => p !== null);
+    }, [projects]);
+
+    const displayId = hoveredId ?? activeId;
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleMarkerClick = (a: Achievement, e: any) => {
-        if (isLg()) return;
+    const handleMarkerClick = (pin: ProjectPin, e: any) => {
         e.stopPropagation();
-        setActiveId(prev => (prev === a.id ? null : a.id));
+        onSelect(pin.id);
         setTooltipPos(posFromEvent(e));
     };
 
-    // ── Hover: only fires on lg+ screens ─────────────────────────────────────
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleMarkerEnter = (a: Achievement, e: any) => {
+    const handleMarkerEnter = (pin: ProjectPin, e: any) => {
         if (!isLg()) return;
-        setActiveId(a.id);
+        setHoveredId(pin.id);
         setTooltipPos(posFromEvent(e));
     };
 
     const handleMarkerLeave = () => {
         if (!isLg()) return;
-        setActiveId(null);
+        setHoveredId(null);
         setTooltipPos(null);
     };
 
@@ -112,7 +120,7 @@ export default function AchievementsMap() {
             className="w-full mx-auto px-6 py-10 md:py-16 flex flex-col justify-center"
             onClick={() => {
                 if (!isLg()) {
-                    setActiveId(null);
+                    setHoveredId(null);
                     setTooltipPos(null);
                 }
                 const el = document.activeElement as HTMLElement | null;
@@ -187,19 +195,19 @@ export default function AchievementsMap() {
                         </Geographies>
 
                         {/* ── Markers ── */}
-                        {ACHIEVEMENTS.map(a => (
+                        {pins.map((pin) => (
                             <Marker
-                                key={a.id}
-                                coordinates={createCoordinates(a.coordinates[0], a.coordinates[1])}
+                                key={pin.id}
+                                coordinates={createCoordinates(pin.coordinates[0], pin.coordinates[1])}
                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                onClick={(e: any) => handleMarkerClick(a, e)}
+                                onClick={(e: any) => handleMarkerClick(pin, e)}
                             >
                                 <g
                                     transform="translate(-12, -28)"
                                     style={{ cursor: "pointer", userSelect: "none", outline: "none" }}
                                     tabIndex={-1}
                                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    onMouseEnter={(e: any) => handleMarkerEnter(a, e)}
+                                    onMouseEnter={(e: any) => handleMarkerEnter(pin, e)}
                                     onMouseLeave={handleMarkerLeave}
                                 >
                                     {/* Drop shadow */}
@@ -210,7 +218,7 @@ export default function AchievementsMap() {
                                     {/* Pin body — teardrop, tip at (12,28) */}
                                     <path
                                         d="M 12 28 C 6 22, 4 16, 4 10 A 8 8 0 1 1 20 10 C 20 16, 18 22, 12 28 Z"
-                                        fill={a.id === activeId ? "#b91c1c" : "#ef4444"}
+                                        fill={pin.id === displayId ? "#b91c1c" : "#ef4444"}
                                         stroke="#fff"
                                         strokeWidth={1.5}
                                     />
@@ -228,7 +236,7 @@ export default function AchievementsMap() {
             </div>
 
             {/* ── Tooltip (rendered outside the map so it's never clipped) ── */}
-            {activeId !== null && tooltipPos && (
+            {displayId !== null && tooltipPos && (
                 <div
                     className="fixed pointer-events-none z-50"
                     style={{
@@ -239,7 +247,7 @@ export default function AchievementsMap() {
                 >
                     <div className="bg-secondary-600 text-white rounded-lg px-4 py-3 shadow-xl min-w-max whitespace-nowrap border-2 border-secondary-700">
                         <p className="text-sm font-semibold text-center">
-                            {ACHIEVEMENTS.find(a => a.id === activeId)?.label}
+                            {pins.find((p) => p.id === displayId)?.label}
                         </p>
                     </div>
                     {/* Arrow */}
