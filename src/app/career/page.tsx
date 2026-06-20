@@ -67,21 +67,6 @@ export default function CareerPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans flex flex-col">
-      {/* Hero Header */}
-      <section className="relative bg-gradient-to-r from-[#134981] via-[#0061C3] to-[#134981] text-white py-16 md:py-24 px-4 overflow-hidden">
-        {/* Decorative Circles */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
-        
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-            Careers
-          </h1>
-          <p className="text-blue-100 mt-4 text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-            Join Combine Foundation in making a positive, lasting impact in education, technology, and community development.
-          </p>
-        </div>
-      </section>
 
       {/* Main Content Area */}
       <section className="flex-grow max-w-7xl w-full mx-auto px-4 md:px-8 py-16">
@@ -102,7 +87,7 @@ export default function CareerPage() {
           /* No Jobs State (Currently Not Hiring) */
           <div className="max-w-2xl mx-auto bg-white rounded-[2rem] shadow-xl border border-gray-100/80 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-500">
             {/* Accent colored line */}
-            <div className="h-2 bg-gradient-to-r from-[#134981] via-[#F97316] to-[#134981]"></div>
+            <div className="h-2 bg-gradient-to-r from-[#134981] via-[#38BDF8] to-[#134981]"></div>
             
             <div className="p-8 md:p-12 text-center flex flex-col items-center">
               <div className="w-20 h-20 bg-blue-50 text-[#134981] rounded-full flex items-center justify-center mb-6 shadow-inner">
@@ -123,7 +108,7 @@ export default function CareerPage() {
                   className="bg-gradient-to-r from-[#134981] to-[#1d67bc] hover:from-[#0f3c6d] hover:to-[#175298] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base flex items-center gap-2 group"
                 >
                   <span>Apply as Volunteer</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#F97316]" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
                 </Link>
                 
                 <Link 
@@ -188,7 +173,7 @@ export default function CareerPage() {
                       {/* Location & Job Type Row */}
                       <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 font-semibold mb-4">
                         <div className="flex items-center gap-1.5">
-                          <MapPin className="w-4 h-4 text-orange-500" />
+                          <MapPin className="w-4 h-4 text-sky-400" />
                           <span>{job.location}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
