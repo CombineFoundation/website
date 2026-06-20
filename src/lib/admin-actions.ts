@@ -80,7 +80,16 @@ export async function fetchEvents(): Promise<FirestoreEvent[]> {
   const snap = await getDocs(
     query(collection(getDb(), "events"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreEvent));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      name: data.name || data.title || "",
+      dateTime: data.dateTime || data.date || "",
+      registrationLink: data.registrationLink || data.registerLink || "",
+    } as FirestoreEvent;
+  });
 }
 
 export async function addEvent(
@@ -111,7 +120,16 @@ export async function fetchCourses(): Promise<FirestoreCourse[]> {
   const snap = await getDocs(
     query(collection(getDb(), "courses"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreCourse));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      name: data.name || data.title || "",
+      status: data.status || "Ongoing",
+      instructor: data.instructor || "Unknown",
+    } as FirestoreCourse;
+  });
 }
 
 export async function addCourse(
@@ -142,7 +160,15 @@ export async function fetchBlogs(): Promise<FirestoreBlog[]> {
   const snap = await getDocs(
     query(collection(getDb(), "blogs"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreBlog));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      name: data.name || data.title || "",
+      date: data.date || data.timestamp || "",
+    } as FirestoreBlog;
+  });
 }
 
 export async function addBlog(
