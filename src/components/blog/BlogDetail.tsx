@@ -41,7 +41,7 @@ export default function BlogDetail({ post }: BlogDetailProps) {
       {/* Hero Image */}
       <div className="rounded-2xl overflow-hidden mb-4 bg-gray-100">
         <img
-          src={post.images[0]}
+          src={post.heroImage1}
           alt={post.title}
           className="w-full h-56 md:h-80 object-cover"
         />
@@ -97,10 +97,10 @@ export default function BlogDetail({ post }: BlogDetailProps) {
       <div className="space-y-4 text-sm md:text-base lg:text-xl text-gray-800 leading-relaxed">
         {post.content.map((para, i) => (
           <div key={i}>
-            {i === post.content.length - 1 && post.images[1] && (
+            {i === post.content.length - 1 && post.heroImage2 && (
               <div className="rounded-2xl overflow-hidden mb-4 bg-gray-100">
                 <img
-                  src={post.images[1]}
+                  src={post.heroImage2}
                   alt="Blog content"
                   className="w-full h-56 md:h-80 object-cover"
                 />
@@ -111,6 +111,12 @@ export default function BlogDetail({ post }: BlogDetailProps) {
         ))}
       </div>
 
+      {post.conclusion && (
+        <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
+          <h2 className="text-lg font-bold text-gray-900 mb-2">Conclusion</h2>
+          <p className="text-sm md:text-base lg:text-xl text-gray-800 leading-relaxed">{post.conclusion}</p>
+        </div>
+      )}
       <AuthorCard name={post.authorName} />
       <Comments initialComments={post.commentList} />
       <YouMightAlsoLike />

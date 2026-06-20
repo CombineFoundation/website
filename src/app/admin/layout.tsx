@@ -1,0 +1,244 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+const BellIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+  </svg>
+);
+
+const ChevronDownIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
+const CombineLogo = () => (
+  <div className="flex-shrink-0 w-[42px] h-[42px] rounded-[6px] overflow-hidden flex items-center justify-center">
+    <Image
+      src="/combinelogo.png"
+      alt="Combine Foundation"
+      width={38}
+      height={38}
+      className="object-contain"
+    />
+  </div>
+);
+
+const notifications = [
+  { id: 1, type: "event", text: "New event: Iftar Drive added", time: "2 min ago" },
+  { id: 2, type: "course", text: "New course: Quantum Computing Workshop", time: "15 min ago" },
+  { id: 3, type: "blog", text: "New blog: Education for All published", time: "1 hr ago" },
+  { id: 4, type: "contact", text: "New message received from Sarah Ahmed", time: "3 hrs ago" },
+  { id: 5, type: "course", text: "New course: AI & Machine Learning", time: "5 hrs ago" },
+  { id: 6, type: "event", text: "New event: Charity Gala created", time: "1 day ago" },
+];
+
+const iconMap: Record<string, React.ReactNode> = {
+  blog: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
+  event: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+  course: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
+  contact: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+};
+
+const colorMap: Record<string, string> = {
+  blog: "bg-blue-500",
+  event: "bg-orange-500",
+  course: "bg-purple-500",
+  contact: "bg-green-500",
+};
+
+function AdminHeader() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const notifRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (notifOpen && notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifOpen(false);
+      }
+      if (dropdownOpen && userRef.current && !userRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [notifOpen, dropdownOpen]);
+
+  return (
+    <header
+      className="w-full flex items-center justify-between px-4 sm:px-6"
+      style={{
+        backgroundColor: "#0f1b3d",
+        height: "64px",
+        minHeight: "64px",
+      }}
+    >
+      <div className="flex items-center gap-3">
+        <div className="leading-tight">
+          <p
+            className="font-bold text-white m-0 p-0"
+            style={{ fontSize: "11px", lineHeight: "1.3", whiteSpace: "nowrap" }}
+          >
+            Combine
+          </p>
+          <p
+            className="font-bold text-white m-0 p-0"
+            style={{ fontSize: "11px", lineHeight: "1.3", whiteSpace: "nowrap" }}
+          >
+            Foundation
+          </p>
+          <p
+            className="font-bold text-white m-0 p-0"
+            style={{ fontSize: "11px", lineHeight: "1.3", whiteSpace: "nowrap" }}
+          >
+            Dashboard
+          </p>
+        </div>
+        <CombineLogo />
+      </div>
+
+      <div className="flex items-center gap-3 sm:gap-4">
+        <div className="relative" ref={notifRef}>
+          <button
+            onClick={() => setNotifOpen((prev) => !prev)}
+            className="relative flex items-center justify-center cursor-pointer bg-transparent border-none outline-none focus:outline-none"
+            aria-label="Notifications"
+          >
+            <span className="text-white opacity-80 hover:opacity-100 transition-opacity">
+              <BellIcon />
+            </span>
+            <span
+              className="absolute flex items-center justify-center rounded-full bg-red-500 text-white font-bold"
+              style={{
+                top: "-6px",
+                right: "-6px",
+                width: "15px",
+                height: "15px",
+                fontSize: "8px",
+                lineHeight: 1,
+              }}
+            >
+              {notifications.length}
+            </span>
+          </button>
+
+          {notifOpen && (
+            <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+              <div className="px-4 py-3 border-b border-gray-100">
+                <p className="text-sm font-semibold text-gray-800">Notifications</p>
+              </div>
+              <div className="max-h-80 overflow-y-auto">
+                {notifications.map((n) => (
+                  <div key={n.id} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                    <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-white flex-shrink-0 ${colorMap[n.type]}`}>
+                      {iconMap[n.type]}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm text-gray-700 leading-snug">{n.text}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{n.time}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div
+          className="hidden sm:block h-6 w-px opacity-20"
+          style={{ backgroundColor: "#ffffff" }}
+        />
+
+        <div className="relative" ref={userRef}>
+          <button
+            onClick={() => setDropdownOpen((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer bg-transparent border-none outline-none focus:outline-none"
+            aria-label="User menu"
+          >
+            <div
+              className="flex items-center justify-center rounded-full text-white font-bold flex-shrink-0"
+              style={{
+                width: "30px",
+                height: "30px",
+                backgroundColor: "#2563eb",
+                fontSize: "13px",
+              }}
+            >
+              A
+            </div>
+            <span
+              className="hidden sm:inline text-white font-medium"
+              style={{ fontSize: "13px", whiteSpace: "nowrap" }}
+            >
+              Ali Imran
+            </span>
+            <span
+              className="text-white opacity-70"
+              style={{
+                transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.2s ease",
+              }}
+            >
+              <ChevronDownIcon />
+            </span>
+          </button>
+
+          {dropdownOpen && (
+            <div className="absolute right-0 top-full mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+              <Link
+                href="/"
+                onClick={() => setDropdownOpen(false)}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Logout
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="w-full overflow-x-hidden">
+      <AdminHeader />
+      {children}
+    </div>
+  );
+}
