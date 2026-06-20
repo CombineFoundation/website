@@ -105,7 +105,7 @@ function AchievementItem({
                 rounded-2xl overflow-hidden border
                 transition-all duration-500 ease-in-out
                 ${open
-                    ? "bg-[#0F3D6B] border-[#0F3D6B] shadow-2xl shadow-blue-950/20"
+                    ? "bg-secondary-600 border-secondary-600 shadow-2xl shadow-blue-950/20"
                     : "bg-white border-gray-200 hover:border-gray-300"}
             `}
         >

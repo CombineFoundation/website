@@ -2,18 +2,18 @@
 
 const STEPS = [
   {
-    title: "Fill the Form",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    title: "Fill Out the Application Form",
+    desc: "Search for the \"Combine Foundation Volunteer Program\" and complete the volunteer application form. Enter your basic details and select the skills you want to improve or work on through real-world projects. Choose your area of interest, preferred volunteering role, available days, and how many hours you can dedicate to volunteer work each week.",
     number: 1,
   },
   {
-    title: "Fill the Form",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    title: "Application Review & Portal Access",
+    desc: "After submitting your form, our team will send you a confirmation email that your application has been received. If you are selected, you will receive access through email to Pakistan's first volunteer portal, where you can access different paid courses for free, receive assigned tasks and volunteer opportunities, and manage your volunteer activities. You will also be able to download your official volunteer ID card directly from the portal.",
     number: 2,
   },
   {
-    title: "Fill the Form",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    title: "Start Learning, Working & Growing",
+    desc: "Once you get portal access, you can start participating in real-world volunteer projects, complete assigned tasks, and gain practical experience in different fields. You will also get free access to professional courses that help you build valuable career skills, improve your CV or resume, and prepare for future opportunities. Connect with industry professionals, receive mentorship, and grow in a safe, supportive environment.",
     number: 3,
   },
 ];
@@ -33,16 +33,16 @@ function DocIcon() {
 
 export default function ProcessOfJoining() {
   return (
-    <section className="w-full py-16 md:py-24 bg-[#F7FBFF]">
-      <div className="px-6 md:px-12 max-w-full  mx-auto">
+    <section className="w-full py-16 md:py-24">
+      <div className="px-6 md:px-12 max-w-full mx-auto">
 
         {/* Title */}
         <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
-          Process Of Joining
+          Steps to Become a Volunteer
         </h2>
 
         {/* Full-width divider below title */}
-        <div className="w-full h-px bg-gray-200 mb-10" />
+        <div className="w-full h-1 bg-gray-300 mb-10" />
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -55,15 +55,15 @@ export default function ProcessOfJoining() {
                 cursor-pointer overflow-hidden
                 transition-all duration-300 ease-out
                 hover:-translate-y-1.5
-                hover:shadow-lg hover:shadow-[#0f2d5c]/10
-                hover:border-[#0f2d5c]/20
+                hover:shadow-lg hover:shadow-secondary-700/10
+                hover:border-secondary-700/20
               "
             >
               {/* Icon + heading row */}
               <div className="flex items-center gap-4">
                 <div
                   className="
-                    w-11 h-11 rounded-xl bg-[#0f2d5c] flex items-center justify-center shrink-0
+                    w-11 h-11 rounded-xl bg-secondary-700 flex items-center justify-center shrink-0
                     transition-all duration-300
                     group-hover:scale-110 group-hover:rounded-2xl
                   "
@@ -74,7 +74,7 @@ export default function ProcessOfJoining() {
                   className="
                     text-lg font-bold text-gray-900 leading-snug
                     transition-colors duration-300
-                    group-hover:text-[#0f2d5c]
+                    group-hover:text-secondary-700
                   "
                 >
                   {step.title}
@@ -86,7 +86,7 @@ export default function ProcessOfJoining() {
                 className="
                   h-px bg-gray-100
                   transition-colors duration-300
-                  group-hover:bg-[#0f2d5c]/15
+                  group-hover:bg-secondary-700/15
                 "
               />
 
@@ -117,7 +117,7 @@ export default function ProcessOfJoining() {
               <div
                 className="
                   absolute bottom-0 left-0 right-0 h-[3px]
-                  bg-[#0f2d5c] rounded-b-2xl
+                  bg-secondary-700 rounded-b-2xl
                   scale-x-0 group-hover:scale-x-100
                   transition-transform duration-300 ease-out origin-left
                 "

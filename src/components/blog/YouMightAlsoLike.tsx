@@ -5,9 +5,9 @@ import Link from "next/link";
 import type { BlogPost } from "@/lib/blogs";
 
 const TAG_COLORS: Record<string, string> = {
-  Health: "#F0632E",
-  Wellness: "#F0632E",
-  "Healthy Living": "#F0632E",
+  Health: "var(--accent-orange)",
+  Wellness: "var(--accent-orange)",
+  "Healthy Living": "var(--accent-orange)",
 };
 
 export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
@@ -103,7 +103,7 @@ export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
                     <span
                       key={tag}
                       className="px-2.5 py-0.5 rounded-full text-white text-[10px] md:text-xs lg:text-sm font-semibold"
-                      style={{ background: TAG_COLORS[tag] ?? "#F0632E" }}
+                      style={{ background: TAG_COLORS[tag] ?? "var(--accent-orange)" }}
                     >
                       {tag}
                     </span>

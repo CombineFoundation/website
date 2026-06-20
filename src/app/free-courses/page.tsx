@@ -1,5 +1,6 @@
 import Hero from "@/components/UI/hero";
-import AboutCourses from "@/components/free-courses/AboutCourses"; 
+import AboutCourses from "@/components/free-courses/AboutCourses";
+import CoursesOffered from "@/components/free-courses/CoursesOffered";
 import SuccessStories from "@/components/free-courses/SuccessStories";
 import FaqSection from "@/components/home/FaqSection";
 import { getAllCourses } from "@/lib/freeCourses";
@@ -15,7 +16,8 @@ export default async function Home() {
     mobileTitle="Free Courses" text1Size = "big"
     text2Size="big"
     />
-    <AboutCourses courses={courses} />
+    <AboutCourses />
+    <CoursesOffered courses={courses} />
     <SuccessStories />
     <FaqSection />
 

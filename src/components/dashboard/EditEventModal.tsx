@@ -147,7 +147,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
             disabled={!isValid}
             className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
               isValid
-                ? "bg-gradient-to-r from-[#0f3d6b] via-[#0162c3] to-[#0f3d6b] hover:brightness-110"
+                ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >

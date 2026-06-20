@@ -251,7 +251,7 @@ export default function DonationForm() {
 
                 {/* Title */}
                 <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-3">
-                    Donation form
+                    Donation Form / <span className="text-accent-orange">Small Donations, Big Impact</span>
                 </h1>
                 <hr className="border-t border-[#b0bec5] mb-8" />
 
@@ -407,7 +407,7 @@ export default function DonationForm() {
                             disabled={loading}
                             className="mt-4 w-full py-3.5 rounded-full text-white font-bold text-base transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
                             style={{
-                                background: "linear-gradient(135deg, #0F3D6B 0%, #0061C3 33% ,#0061C3 66%, #0F3D6B 100%)",
+                                background: "linear-gradient(135deg, var(--secondary-600) 0%, var(--primary-500) 33%, var(--primary-500) 66%, var(--secondary-600) 100%)",
                                 boxShadow: "0 4px 14px rgba(13,59,122,0.35)",
                             }}
                         >
@@ -418,10 +418,10 @@ export default function DonationForm() {
                     {/* ── RIGHT: Next Goal ── */}
                     <div className="flex flex-col items-center w-full">
                         <h2 className="text-2xl md:text-[1.65rem] font-bold text-black mb-2 text-center">
-                            Next Goal
+                            Turning Donations into Change
                         </h2>
                         <p className="text-sm text-gray-600 text-center leading-relaxed mb-6 ">
-                            Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.
+                            Empowering communities through education, technology, welfare support, sustainability, youth leadership initiatives and to help youth become self-dependent, skilled, and capable of building their own future.
                         </p>
 
                         {/* Overlapping images */}
@@ -459,7 +459,7 @@ export default function DonationForm() {
                             <div className="w-full h-2.5 bg-gray-300 rounded-full overflow-hidden">
                                 <div
                                     className="h-full w-3/4 rounded-full"
-                                    style={{ background: "linear-gradient(90deg, #e8390e, #f97316)" }}
+                                    style={{ background: "linear-gradient(90deg, var(--accent-orange), var(--color-orange))" }}
                                 />
                             </div>
                         </div>

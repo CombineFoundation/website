@@ -31,12 +31,16 @@ export interface Course {
   name: string;
   instructor: string;
   price: string;
+  originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
   duration: string;
+  requirements: string;
+  guidelineCta: string;
+  mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
   modules: CourseModule[];
@@ -173,7 +177,7 @@ export default function CoursesView() {
         <h1 className="text-2xl font-bold text-gray-900">Courses</h1>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#0C3155] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-secondary-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
         >
           <span className="text-lg leading-none">+</span> Add Course
         </button>

@@ -237,7 +237,7 @@ export default function AchievementsMap() {
                         transform: "translateX(-50%)",
                     }}
                 >
-                    <div className="bg-[#0f3d6b] text-white rounded-lg px-4 py-3 shadow-xl min-w-max whitespace-nowrap border-2 border-[#0a2540]">
+                    <div className="bg-secondary-600 text-white rounded-lg px-4 py-3 shadow-xl min-w-max whitespace-nowrap border-2 border-secondary-700">
                         <p className="text-sm font-semibold text-center">
                             {ACHIEVEMENTS.find(a => a.id === activeId)?.label}
                         </p>
@@ -249,7 +249,7 @@ export default function AchievementsMap() {
                             bottom: -10,
                             borderLeft: "10px solid transparent",
                             borderRight: "10px solid transparent",
-                            borderTop: "10px solid #0f3d6b",
+                            borderTop: "10px solid var(--secondary-600)",
                         }}
                     />
                 </div>

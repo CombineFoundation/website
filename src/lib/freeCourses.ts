@@ -7,14 +7,20 @@ export interface Module {
   bullets: string[];
 }
 
+export interface SuccessStory {
+  studentName: string;
+  testimonial: string;
+  videoUrl: string;
+}
+
 export interface Course {
   id: string;
+  name?: string;
   title: string;
   slug: string;
   bullets: string[];
   description: string;
   duration: string;
-  level: string;
   lessons: number;
   price: number | string;
   originalPrice: number | string;
@@ -79,3 +85,22 @@ export async function getAllCourseSlugs() {
     course: course.slug && course.slug !== course.id ? course.slug : generateSlug(course.title) 
   }));
 }
+
+export function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+import rawCourses from "@/data/courses.json";
+
+export const COURSES: Course[] = (rawCourses as any[]).map((c) => ({
+  ...c,
+  price: Number(c.price),
+  modules: c.modules.map((m: any, i: number) => ({
+    ...m,
+    id: i + 1,
+  })),
+}));

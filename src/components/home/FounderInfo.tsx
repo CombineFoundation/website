@@ -21,7 +21,7 @@ export default function QuoteSection() {
     <div className="relative w-full overflow-hidden">
       <SectionHeader
         title="Founder Info"
-        description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
+        description="A vision to combine efforts, uplift communities, and inspire hope"
       />
       <section className="relative px-6 w-full md:w-[95%] lg:w-[85%] xl:w-[87%] max-w-7xl mx-auto">
 

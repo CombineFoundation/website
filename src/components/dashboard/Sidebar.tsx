@@ -47,7 +47,7 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside
         className={`
-          bg-[#0f172a] flex flex-col flex-shrink-0 self-stretch
+          bg-primary-900 flex flex-col flex-shrink-0 self-stretch
           transition-all duration-300 ease-in-out
           ${isOpen ? "w-56" : "w-16 overflow-visible"}
         `}
@@ -91,7 +91,7 @@ export default function Sidebar({
                   transition-all duration-200 relative min-w-max cursor-pointer
                   ${
                     isActive
-                      ? "bg-orange-500 text-white"
+                      ? "bg-orange text-white"
                       : "text-slate-300 hover:bg-slate-700/60 hover:text-white"
                   }
                 `}
@@ -110,13 +110,13 @@ export default function Sidebar({
                 )}
 
                 {badge && isOpen && (
-                  <span className="ml-auto bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                  <span className="ml-auto bg-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                     {badge}
                   </span>
                 )}
 
                 {badge && !isOpen && (
-                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full leading-none">
+                  <span className="absolute -top-1 -right-1 bg-orange text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full leading-none">
                     {badge}
                   </span>
                 )}
