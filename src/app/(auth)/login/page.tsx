@@ -38,11 +38,9 @@ export default function LoginPage() {
       
       router.push("/admin/dashboard");
     } catch (err: any) {
-      console.error(err);
-
       // FALLBACK: If login fails and it's our admin email, try to create it automatically
       // This helps if the user hasn't run the setup yet.
-      if (email === "admin@combinefoundation.com" && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
+      if ((email === "admin@combinefoundation.com" || email === "admin2@combinefoundation.com") && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
         try {
           const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
           if (!newUserCredential.user) {
@@ -57,6 +55,8 @@ export default function LoginPage() {
           console.error("Auto-creation failed", createErr);
         }
       }
+
+      console.error(err);
 
       // Friendly error messages as requested
       switch (err.code) {
@@ -130,7 +130,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="block w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-gray-900 focus:ring-0 focus:border-orange transition-all outline-none font-medium"
-                    placeholder="admin@combinefoundation.com"
+                    placeholder="admin2@combinefoundation.com"
                     required
                   />
                 </div>

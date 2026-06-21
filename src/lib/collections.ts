@@ -1,4 +1,4 @@
-import { Timestamp, FieldValue } from "firebase/firestore";
+import { Timestamp, FieldValue } from "firebase/firestore/lite";
 
 export interface Program {
   id?: string;

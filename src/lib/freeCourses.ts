@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
+import { collection, getDocs, query, where, limit } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 
 export interface Module {

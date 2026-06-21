@@ -8,7 +8,7 @@ import {
   query,
   orderBy,
   serverTimestamp,
-} from "firebase/firestore";
+} from "firebase/firestore/lite";
 import { getDb } from "./firebase";
 
 // ─── Types ───────────────────────────────────────────────────────────

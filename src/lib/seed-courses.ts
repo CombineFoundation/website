@@ -1,5 +1,5 @@
 import { getDb } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import coursesData from "@/data/courses.json";
 
 export interface CourseDocument {

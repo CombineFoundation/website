@@ -1,5 +1,5 @@
 import { getDb } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, getDocs, deleteDoc } from "firebase/firestore/lite";
 import { Program, Application, Message, Job } from "./collections";
 
 // Import JSON data
