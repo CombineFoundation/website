@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import type { Donation } from "@/types/database";
 
@@ -181,7 +181,8 @@ export default function DonationForm() {
 
         setLoading(true);
         try {
-            const payload: Omit<Donation, "id"> = {
+            const payload = {
+                name: `${sanitise(form.firstName)} ${sanitise(form.lastName)}`.trim(),
                 firstName: sanitise(form.firstName),
                 lastName: sanitise(form.lastName),
                 email: sanitise(form.email),

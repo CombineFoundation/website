@@ -24,7 +24,7 @@ export default function Comments({ initialComments }: CommentsProps) {
     setComments((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: Date.now().toString(),
         name: "You",
         date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
         text: trimmed,

@@ -6,16 +6,14 @@ import Pagination from "./Pagination";
 import EditEventModal from "./EditEventModal";
 import AddEventModal from "./AddEventModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import allEvents from "@/data/events.json";
-
-interface Event {
-  id: number;
-  name: string;
-  description: string;
-  dateTime: string;
-  location: string;
-  registrationLink: string;
-}
+import {
+  fetchEvents,
+  addEvent,
+  updateEvent,
+  deleteEvents,
+  type FirestoreEvent,
+} from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -39,51 +37,32 @@ function toDisplayDate(dateStr: string): string {
   }
 }
 
-function toDatetimeLocal(dateStr: string): string {
-  if (!dateStr || !dateStr.includes(" / ")) return dateStr;
-  try {
-    const [dayMonthYear, timePart] = dateStr.split(" / ");
-    const [dayStr, monthStr, yearStr] = dayMonthYear.split(" ");
-    const month = months.indexOf(monthStr);
-    const year = 2000 + parseInt(yearStr);
-    const [time, meridian] = timePart.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
-    if (meridian === "PM" && hours !== 12) hours += 12;
-    if (meridian === "AM" && hours === 12) hours = 0;
-    const d = new Date(year, month, parseInt(dayStr), hours, minutes);
-    if (isNaN(d.getTime())) return dateStr;
-    const y = d.getFullYear();
-    const mo = String(d.getMonth() + 1).padStart(2, "0");
-    const da = String(d.getDate()).padStart(2, "0");
-    const h = String(d.getHours()).padStart(2, "0");
-    const mi = String(d.getMinutes()).padStart(2, "0");
-    return `${y}-${mo}-${da}T${h}:${mi}`;
-  } catch {
-    return dateStr;
-  }
-}
-
 export default function EventsView() {
-  const [events, setEvents] = useState<Event[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-events");
-        if (saved) return JSON.parse(saved) as Event[];
-      } catch {}
-    }
-    return allEvents as Event[];
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [events, setEvents] = useState<FirestoreEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [editEvent, setEditEvent] = useState<Event | null>(null);
+  const [editEvent, setEditEvent] = useState<FirestoreEvent | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadEvents = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchEvents();
+      setEvents(data);
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-events", JSON.stringify(events));
-  }, [events]);
+    loadEvents();
+  }, []);
 
   const filtered = useMemo(() => {
     let result = events;
@@ -103,8 +82,8 @@ export default function EventsView() {
   );
 
   const allChecked =
-    paginated.length > 0 && paginated.every((e) => selectedIds.has(e.id));
-  const someChecked = paginated.some((e) => selectedIds.has(e.id));
+    paginated.length > 0 && paginated.every((e) => selectedIds.has(e.id!));
+  const someChecked = paginated.some((e) => selectedIds.has(e.id!));
 
   const canEdit = selectedIds.size === 1;
   const canDelete = selectedIds.size > 0;
@@ -113,19 +92,19 @@ export default function EventsView() {
     if (allChecked) {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((e) => next.delete(e.id));
+        paginated.forEach((e) => next.delete(e.id!));
         return next;
       });
     } else {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((e) => next.add(e.id));
+        paginated.forEach((e) => next.add(e.id!));
         return next;
       });
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -145,43 +124,53 @@ export default function EventsView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setEvents((prev) => prev.filter((e) => !selectedIds.has(e.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteEvents(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadEvents();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
-  const handleSaveEdit = (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
-    if (!editEvent) return;
-    setEvents((prev) =>
-      prev.map((e) =>
-        e.id === editEvent.id
-          ? { ...e, name: data.name, description: data.description, location: data.location, dateTime: toDisplayDate(data.date), registrationLink: data.registrationLink }
-          : e
-      )
-    );
+  const handleSaveEdit = async (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
+    if (!editEvent?.id) return;
+    await updateEvent(editEvent.id, {
+      name: data.name,
+      description: data.description,
+      location: data.location,
+      dateTime: toDisplayDate(data.date),
+      registrationLink: data.registrationLink,
+    });
     setEditEvent(null);
     setSelectedIds(new Set());
+    await loadEvents();
   };
 
-  const handleAdd = (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
-    const newId = events.length > 0 ? Math.max(...events.map((e) => e.id)) + 1 : 1;
-    const newEvent: Event = {
-      id: newId,
+  const handleAdd = async (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
+    await addEvent({
       name: data.name,
       description: data.description,
       dateTime: toDisplayDate(data.date),
       location: data.location,
       registrationLink: data.registrationLink,
-    };
-    setEvents((prev) => [...prev, newEvent]);
+    });
     setShowAddModal(false);
+    await loadEvents();
     setCurrentPage(Math.ceil((events.length + 1) / PAGE_SIZE));
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading events...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -189,7 +178,7 @@ export default function EventsView() {
         <h1 className="text-2xl font-bold text-gray-900">Events</h1>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-secondary-700 text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-[#0f1b3d] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
         >
           <span className="text-lg leading-none">+</span> Add Events
         </button>
@@ -238,7 +227,7 @@ export default function EventsView() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginated.map((event) => {
-              const isChecked = selectedIds.has(event.id);
+              const isChecked = selectedIds.has(event.id!);
               return (
                 <tr
                   key={event.id}
@@ -248,7 +237,7 @@ export default function EventsView() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => toggleOne(event.id)}
+                      onChange={() => toggleOne(event.id!)}
                       className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                     />
                   </td>

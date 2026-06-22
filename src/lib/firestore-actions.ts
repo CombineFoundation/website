@@ -5,7 +5,7 @@ import {
   getDocs, 
   query, 
   where 
-} from "firebase/firestore";
+} from "firebase/firestore/lite";
 import { getDb } from "./firebase";
 import { Program, Application, Message } from "@/types/database";
 

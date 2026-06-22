@@ -7,13 +7,13 @@ interface CourseHeroProps {
 }
 
 export default function CourseHero({ course }: CourseHeroProps) {
-  const shortTitle = course.name.replace(/ Course$/i, "");
+  const shortTitle = (course.title || course.name || "").replace(/ Course$/i, "");
 
   return (
     <>
       <div className="w-full pl-17 pr-10 py-8 max-sm:px-6 max-sm:py-6">
         <div className="text-[12.5px] lg:text-sm xl:text-base text-gray-500 mb-7">
-          Free Courses&nbsp;/&nbsp;<span className="text-gray-500">{course.name}</span>
+          Free Courses&nbsp;/&nbsp;<span className="text-gray-500">{course.title || course.name}</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-start">
@@ -58,8 +58,8 @@ export default function CourseHero({ course }: CourseHeroProps) {
                 </span>
                 <span className="font-medium text-gray-600">Price :&nbsp;</span>
                 <span className="text-gray-900">{course.price.toLocaleString()} PKR</span>
-                {course.originalPrice > 0 && (
-                  <span className="text-[12px] lg:text-sm xl:text-base text-gray-400 ml-1">(Originally {course.originalPrice.toLocaleString()} PKR)</span>
+                {Number(course.originalPrice) > 0 && (
+                  <span className="text-[12px] lg:text-sm xl:text-base text-gray-400 ml-1">(Originally {Number(course.originalPrice).toLocaleString()} PKR)</span>
                 )}
               </li>
 
@@ -111,7 +111,7 @@ export default function CourseHero({ course }: CourseHeroProps) {
             >
               <img
                 src={course.heroImage2}
-                alt={course.name}
+                alt={course.title || course.name || ""}
                 className="w-full h-full object-cover object-top rounded-[10px]"
                 onError={(e) => {
                   const t = e.currentTarget;

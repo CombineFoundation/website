@@ -1,7 +1,7 @@
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getAuth, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
+import { getFirestore, Firestore } from "firebase/firestore/lite";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -16,8 +16,10 @@ const firebaseConfig = {
 
 // Initialize Firebase only if API key is present
 let app: FirebaseApp | undefined = undefined;
+let isAppAlreadyInitialized = false;
 if (firebaseConfig.apiKey) {
-  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  isAppAlreadyInitialized = getApps().length > 0;
+  app = isAppAlreadyInitialized ? getApp() : initializeApp(firebaseConfig);
 } else {
   // During build time or if env vars are missing
   console.warn("Firebase API Key is missing. Firebase services will not be initialized.");
@@ -25,7 +27,12 @@ if (firebaseConfig.apiKey) {
 
 // Initialize services with safety checks
 const auth: Auth | undefined = app ? getAuth(app) : undefined;
-const db: Firestore | undefined = app ? getFirestore(app) : undefined;
+
+let db: Firestore | undefined = undefined;
+if (app) {
+  db = getFirestore(app);
+}
+
 const storage: FirebaseStorage | undefined = app ? getStorage(app) : undefined;
 
 export const getDb = (): Firestore => {

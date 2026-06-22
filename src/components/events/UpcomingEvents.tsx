@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { db } from "@/lib/firebase";
+import { Loader2 } from "lucide-react";
 
 type Event = {
-    id: number;
+    id: string;
     title: string;
     bulletPoints: string[];
     date: string;
@@ -14,52 +17,8 @@ type Event = {
     registerLink: string;
 };
 
-const events: Event[] = [
-    {
-        id: 1,
-        title: "Hammad Foundation Iftar Drive",
-        bulletPoints: [
-            'Proficiency in Figma, Adobe XD, and Photoshop.',
-            'Complete one "End-to-End" case study to show recruiters',
-            "Learn the ability to explain why a button is placed where it is.",
-            "Design Thinking",
-        ],
-        date: "22 June 2026",
-        startTime: "3:00 PM",
-        endTime: "5:00 PM",
-        location: "House 23 , Street 3 Block 13D , Gulshan - e -Iqbal",
-        registerLink: "/events/1/register",
-    },
-    {
-        id: 2,
-        title: "Community Health Camp",
-        bulletPoints: [
-            "Free medical checkups for all attendees.",
-            "Consultations with qualified doctors.",
-            "Medicines distributed to those in need.",
-        ],
-        date: "15 July 2026",
-        startTime: "10:00 AM",
-        endTime: "2:00 PM",
-        location: "Karachi Central Park, Block 5, Clifton",
-        registerLink: "/events/2/register",
-    },
-];
-
-
 function parseEventDate(dateStr: string): Date {
     return new Date(dateStr);
-}
-
-function eventsOnDay(year: number, month: number, day: number): Event[] {
-    return events.filter((e) => {
-        const d = parseEventDate(e.date);
-        return (
-            d.getFullYear() === year &&
-            d.getMonth() === month &&
-            d.getDate() === day
-        );
-    });
 }
 
 function buildMonthGrid(year: number, month: number): number[][] {
@@ -83,19 +42,6 @@ const MONTH_NAMES = [
     "July", "August", "September", "October", "November", "December",
 ];
 const WEEK_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-
-
-function getInitialMonth() {
-    if (events.length === 0) {
-        const today = new Date();
-        return { year: today.getFullYear(), month: today.getMonth() };
-    }
-    const sorted = [...events].sort(
-        (a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
-    );
-    const first = parseEventDate(sorted[0].date);
-    return { year: first.getFullYear(), month: first.getMonth() };
-}
 
 
 function CalendarIcon({ size = 18 }: { size?: number }) {
@@ -148,7 +94,6 @@ function buildCalendarUrl(event: Event): string {
     return `${base}&text=${title}&details=${details}&location=${location}`;
 }
 
-
 function EventCard({ event }: { event: Event }) {
     return (
         <div className="rounded-2xl border border-gray-200 bg-white px-6 py-6">
@@ -165,7 +110,7 @@ function EventCard({ event }: { event: Event }) {
                     </ul>
                     <div className="flex flex-wrap gap-3">
                         <Link
-                            href={event.registerLink}
+                            href={event.registerLink || "#"}
                             className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
                             style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
                         >
@@ -239,7 +184,7 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
                 <div className="flex flex-wrap gap-3">
                     <Link
-                        href={event.registerLink}
+                        href={event.registerLink || "#"}
                         className="px-5 py-2 rounded-full text-white text-sm font-semibold"
                                                         style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
                     >
@@ -261,7 +206,30 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
 // ─── Calendar View ────────────────────────────────────────────────────────────
 
-function CalendarView() {
+function CalendarView({ events }: { events: Event[] }) {
+    function getInitialMonth() {
+        if (events.length === 0) {
+            const today = new Date();
+            return { year: today.getFullYear(), month: today.getMonth() };
+        }
+        const sorted = [...events].sort(
+            (a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
+        );
+        const first = parseEventDate(sorted[0].date);
+        return { year: first.getFullYear(), month: first.getMonth() };
+    }
+
+    function eventsOnDay(year: number, month: number, day: number): Event[] {
+        return events.filter((e) => {
+            const d = parseEventDate(e.date);
+            return (
+                d.getFullYear() === year &&
+                d.getMonth() === month &&
+                d.getDate() === day
+            );
+        });
+    }
+
     const initial = getInitialMonth();
     const [year, setYear] = useState(initial.year);
     const [month, setMonth] = useState(initial.month);
@@ -385,6 +353,55 @@ type ViewMode = "list" | "calendar";
 
 export default function UpcomingEvents() {
     const [view, setView] = useState<ViewMode>("calendar");
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchEvents() {
+            try {
+                if (!db) return;
+                const snap = await getDocs(collection(db, "events"));
+                const data = snap.docs.map(doc => {
+                    const d = doc.data();
+                    
+                    // The dashboard formats dateTime as e.g. "2026-06-22T15:00"
+                    // Or if it was seeded from JSON, it might have date, startTime, endTime separately.
+                    // Let's handle both. The admin dashboard saves "dateTime" and "endTime" (string).
+                    let dateStr = "";
+                    let startStr = "";
+                    let endStr = "";
+                    
+                    if (d.dateTime) {
+                        const dt = new Date(d.dateTime);
+                        dateStr = dt.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
+                        startStr = dt.toLocaleTimeString("en-US", { hour: 'numeric', minute: '2-digit' });
+                        endStr = d.endTime || "";
+                    } else if (d.date) {
+                        dateStr = d.date;
+                        startStr = d.startTime;
+                        endStr = d.endTime;
+                    }
+
+                    return {
+                        id: doc.id,
+                        title: d.title || "",
+                        bulletPoints: d.bulletPoints || [],
+                        date: dateStr,
+                        startTime: startStr,
+                        endTime: endStr,
+                        location: d.location || "",
+                        registerLink: d.registerLink || "",
+                    } as Event;
+                });
+                setEvents(data);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchEvents();
+    }, []);
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
@@ -422,15 +439,21 @@ export default function UpcomingEvents() {
                 </div>
             </div>
 
-            {view === "list" && (
+            {loading ? (
+                <div className="flex justify-center items-center py-20">
+                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                </div>
+            ) : events.length === 0 ? (
+                <p className="text-center text-gray-500 py-10">No upcoming events found.</p>
+            ) : view === "list" ? (
                 <div className="space-y-4">
                     {events.map((event) => (
                         <EventCard key={event.id} event={event} />
                     ))}
                 </div>
+            ) : (
+                <CalendarView events={events} />
             )}
-
-            {view === "calendar" && <CalendarView />}
         </section>
     );
 }

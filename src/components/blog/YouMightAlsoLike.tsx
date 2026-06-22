@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { BLOG_POSTS } from "@/lib/blogs";
+import type { BlogPost } from "@/lib/blogs";
 
 const TAG_COLORS: Record<string, string> = {
   Health: "var(--accent-orange)",
@@ -10,19 +10,19 @@ const TAG_COLORS: Record<string, string> = {
   "Healthy Living": "var(--accent-orange)",
 };
 
-export default function YouMightAlsoLike() {
+export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const [dragged, setDragged] = useState(false);
 
-  const related = BLOG_POSTS.slice(0, 5).map((p) => ({
-    id: p.id,
+  const related = blogs.slice(0, 5).map((p, index) => ({
+    id: p.id || index.toString(),
     title: p.title,
     excerpt: p.description,
     image: p.heroImage1,
-    tags: ["Health", "Wellness", "Healthy Living"].slice(0, (p.id % 3) + 1),
+    tags: ["Health", "Wellness", "Healthy Living"].slice(0, ((index) % 3) + 1),
     href: `/blog/${p.slug}`,
   }));
 

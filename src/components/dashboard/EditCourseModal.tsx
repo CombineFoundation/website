@@ -35,7 +35,7 @@ interface CourseFormData {
 }
 
 interface EditCourseModalProps {
-  course: CourseFormData & { id: number };
+  course: CourseFormData & { id: string };
   onCancel: () => void;
   onSave: (data: CourseFormData) => void;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import type { Message } from "@/lib/collections";
 
@@ -101,13 +101,15 @@ const ContactForm = () => {
 
         setLoading(true);
         try {
-            const payload: Omit<Message, "id"> = {
+            const payload = {
                 name: sanitise(form.name),
                 email: sanitise(form.email),
+                subject: "Website Contact",
                 message: sanitise(form.message),
-                sentAt: serverTimestamp(),
+                timestamp: new Date().toLocaleString(),
+                createdAt: serverTimestamp(),
             };
-            await addDoc(collection(db, "messages"), payload);
+            await addDoc(collection(db, "contacts"), payload);
             setSuccess(true);
             setForm({ name: "", email: "", message: "" });
             setErrors(EMPTY_ERRORS);

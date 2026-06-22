@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Course, COURSES, slugify } from "@/lib/freeCourses";
+import { Course, slugify } from "@/lib/freeCourses";
 
 const HOVER_GRADIENT =
   "linear-gradient(145deg, var(--secondary-800) 0%, var(--primary-700) 28%, var(--primary-500) 52%, var(--primary-700) 76%, var(--secondary-800) 100%)";
@@ -44,7 +44,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
           className={`text-sm md:text-base lg:text-lg font-bold mb-2.5 leading-tight transition-colors duration-300 ${hovered ? "text-white" : "text-black"
             }`}
         >
-          {course.name}
+          {course.title || course.name}
         </h3>
 
         <ul className="flex-1 space-y-1.5">
@@ -68,7 +68,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
         </ul>
 
         <button
-          onClick={() => onOpen(slugify(course.name))}
+          onClick={() => onOpen(course.slug || slugify(course.title || course.name || ""))}
           className={`
             mt-4 w-full rounded-full py-2 text-xs md:text-sm lg:text-base font-semibold
             transition-all cursor-pointer duration-300 active:scale-95
@@ -86,7 +86,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
 }
 
 // ── Main Component ───────────────────────────────────────────────────────────
-export default function CoursesOffered() {
+export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const [search, setSearch] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -95,8 +95,8 @@ export default function CoursesOffered() {
     router.push(`/free-courses/${slug}`);
   };
 
-  const filtered = COURSES.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
+  const filtered = courses.filter((c) =>
+    (c.title || c.name || "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (

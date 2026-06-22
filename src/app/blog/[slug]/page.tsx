@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getBlogBySlug, getAllBlogSlugs } from "@/lib/blogs";
+import { getBlogBySlug, getAllBlogSlugs, getAllBlogs } from "@/lib/blogs";
 import BlogDetail from "@/components/blog/BlogDetail";
 
 interface PageProps {
@@ -12,13 +12,16 @@ export async function generateStaticParams() {
   return getAllBlogSlugs();
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function BlogPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogBySlug(slug);
+  const blogs = await getAllBlogs();
 
   if (!post) {
     return notFound();
   }
 
-  return <BlogDetail post={post} />;
+  return <BlogDetail post={post} blogs={blogs} />;
 }

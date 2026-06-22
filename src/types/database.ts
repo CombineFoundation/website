@@ -22,6 +22,18 @@ export interface Message {
   createdAt: any;
 }
 
+export interface Job {
+  id?: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string; // e.g. 'Full-time', 'Part-time', 'Internship', 'Volunteer'
+  description: string;
+  requirements: string[];
+  active: boolean;
+  createdAt: any;
+}
+
 export interface Donation {
   id?: string;
   firstName: string;

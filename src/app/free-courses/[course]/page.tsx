@@ -15,10 +15,11 @@ interface CoursePageProps {
 export function generateStaticParams() {
   return getAllCourseSlugs();
 }
+export const dynamic = "force-dynamic";
 
 export default async function CoursePage({ params }: CoursePageProps) {
   const { course: slug } = await params;
-  const course = getCourseBySlug(slug);
+  const course = await getCourseBySlug(slug);
 
   if (!course) {
     return notFound();
