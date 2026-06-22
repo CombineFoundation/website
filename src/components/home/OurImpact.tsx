@@ -59,7 +59,15 @@ const impactItems: ImpactItem[] = [
     title: "Courses Completed",
     image: "/home/impact/impact6.png",
     description:
-      "Combine Foundation has successfully conducted 9 professional and skill development courses designed to prepare students and professionals for careers in technology, freelancing, digital marketing, and personal growth.",
+      "Combine Foundation has successfully conducted 9 professional and skill development courses designed to prepare students and professionals for careers in technology, freelancing, digital marketing, and personal growth. Our courses include Quantitative Finance, Meta Ads Marketing, Python with AI Development, and Web Development, helping learners gain modern digital skills so they can earn from home, build freelancing careers, and increase their side income with confidence and practical knowledge.",
+  },
+  {
+    id: 7,
+    stat: "30+",
+    title: "Webinars & Awareness Sessions",
+    image: "/home/impact/impact6.png",
+    description:
+      "We have organized 30+ webinars and awareness sessions covering AI, technology, medical awareness, cybersecurity, leadership, sustainability, scholarships, freelancing, self-grooming, and personal development. These sessions have inspired and educated countless individuals to learn, grow, and move toward a brighter future.",
   },
 ];
 type ImpactCardProps = {
@@ -114,7 +122,7 @@ function ImpactCard({ item }: ImpactCardProps) {
 
 export default function OurImpact() {
   return (
-    <section className="py-16 px-6 mx-auto max-w-[1400px]">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16">
       <SectionHeader title="OUR IMPACT" description="At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need." />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center justify-items-center">

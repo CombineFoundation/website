@@ -55,8 +55,8 @@ const MOUSlider = () => {
     const mou = mous[current];
 
     return (
-        <section className="bg-white px-4 md:px-10">
-            <div className="max-w-full mx-">
+        <section className="bg-white">
+            <div className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8">
 
                 {/* Section Header */}
                 <div className="mb-2">

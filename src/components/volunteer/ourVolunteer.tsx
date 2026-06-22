@@ -75,8 +75,8 @@ export default function HearFromVolunteers() {
     const t = TESTIMONIALS[current];
 
     return (
-        <section className="w-full py-16 md:py-24">
-            <div className="w-full px-6 md:px-12">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+            <div>
 
                 {/* Title */}
                 <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">

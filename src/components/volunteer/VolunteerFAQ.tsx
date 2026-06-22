@@ -85,7 +85,7 @@ export default function VolunteerFAQ() {
   };
 
   return (
-    <section className="px-6 py-16 w-full lg:w-[90%] mx-auto">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16">
       <h2 className="text-4xl md:text-5xl font-bold text-gray-900 border-b-4 border-gray-300 pb-4">
         Frequently Asked Questions
       </h2>

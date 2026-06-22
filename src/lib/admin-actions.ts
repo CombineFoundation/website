@@ -220,3 +220,126 @@ export async function deleteDonations(ids: string[]): Promise<void> {
   const db = getDb();
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "donations", id))));
 }
+
+// ─── Annual Reports ──────────────────────────────────────────────────
+
+export interface FirestoreAnnualReport {
+  id?: string;
+  title: string;
+  description: string;
+  image: string;
+  viewUrl: string;
+  downloadUrl: string;
+  createdAt?: any;
+}
+
+export async function fetchAnnualReports(): Promise<FirestoreAnnualReport[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "annualReports"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreAnnualReport));
+}
+
+export async function addAnnualReport(
+  data: Omit<FirestoreAnnualReport, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "annualReports"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updateAnnualReport(
+  id: string,
+  data: Partial<Omit<FirestoreAnnualReport, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "annualReports", id), { ...data });
+}
+
+export async function deleteAnnualReports(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "annualReports", id))));
+}
+
+// ─── MOUs ────────────────────────────────────────────────────────────
+
+export interface FirestoreMOU {
+  id?: string;
+  title: string;
+  paragraphs: string[];
+  image: string;
+  imageAlt: string;
+  createdAt?: any;
+}
+
+export async function fetchMOUs(): Promise<FirestoreMOU[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "mous"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreMOU));
+}
+
+export async function addMOU(
+  data: Omit<FirestoreMOU, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "mous"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updateMOU(
+  id: string,
+  data: Partial<Omit<FirestoreMOU, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "mous", id), { ...data });
+}
+
+export async function deleteMOUs(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "mous", id))));
+}
+
+// ─── Jobs ────────────────────────────────────────────────────────────
+
+export interface FirestoreJob {
+  id?: string;
+  title: string;
+  location: string;
+  type: string;
+  description: string;
+  requirements: string[];
+  active: boolean;
+  createdAt?: any;
+}
+
+export async function fetchJobs(): Promise<FirestoreJob[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "jobs"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreJob));
+}
+
+export async function addJob(
+  data: Omit<FirestoreJob, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "jobs"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updateJob(
+  id: string,
+  data: Partial<Omit<FirestoreJob, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "jobs", id), { ...data });
+}
+
+export async function deleteJobs(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "jobs", id))));
+}

@@ -94,7 +94,7 @@ function ReportCard({ report }: { report: Report }) {
 
 export default function AnnualReports() {
     return (
-        <section id="annual-reports" className="w-full px-4 sm:px-8 lg:px-14 py-12">
+        <section id="annual-reports" className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-12">
             {/* Heading */}
             <div className="mb-8 border-b border-gray-300 pb-4">
                 <h1 className="text-3xl md:text-4xl font-extrabold text-black">

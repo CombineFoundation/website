@@ -34,7 +34,7 @@ const Locations = () => {
     const activeLocation = LOCATIONS.find((l) => l.id === activeId)!;
 
     return (
-        <section className=" py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
             <div className="w-full">
 
                 {/* Header */}

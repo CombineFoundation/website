@@ -97,7 +97,7 @@ function MembersSection({ section }: { section: GroupSection }) {
 
 export default function LeadershipSections() {
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
       {sections.map((section) => (
         <MembersSection key={section.heading} section={section} />
       ))}

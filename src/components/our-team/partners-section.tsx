@@ -66,7 +66,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
 
 export default function PartnersSection() {
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
         Our Partners
       </h2>

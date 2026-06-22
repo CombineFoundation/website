@@ -7,6 +7,8 @@ import BlogsView from "./BlogsView";
 import ContactView from "./ContactView";
 import DonationsView from "./DonationsView";
 import ProjectsView from "./ProjectsView";
+import PublicationsView from "./PublicationsView";
+import JobsView from "./JobsView";
 
 export default function DashboardContent({
   section,
@@ -26,6 +28,10 @@ export default function DashboardContent({
       return <DonationsView />;
     case "projects":
       return <ProjectsView />;
+    case "publications":
+      return <PublicationsView />;
+    case "jobs":
+      return <JobsView />;
     default:
       return (
         <div className="space-y-6">
@@ -60,6 +66,8 @@ const sectionTitles: Record<SectionId, string> = {
   contact: "Contact Messages",
   donations: "Donations",
   projects: "Projects",
+  publications: "Publications",
+  jobs: "Jobs",
 };
 
 const sectionDescriptions: Record<SectionId, string> = {
@@ -69,4 +77,6 @@ const sectionDescriptions: Record<SectionId, string> = {
   contact: "View contact form submissions.",
   donations: "Manage donations here.",
   projects: "Manage your projects here.",
+  publications: "Manage annual reports and MOUs.",
+  jobs: "Manage job openings.",
 };

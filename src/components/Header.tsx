@@ -79,7 +79,7 @@ export default function Header() {
     <header className="w-full sticky top-0 z-[100] bg-white">
       {/* Top Bar */}
       <div className="bg-[#134981] text-white py-2 px-4 md:px-8 text-xs font-medium">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-[1500px] mx-auto flex justify-between items-center">
           {/* Social Icons */}
           <div className="flex items-center space-x-4">
             <Link 
@@ -130,7 +130,7 @@ export default function Header() {
 
       {/* Main Header */}
       <div className="bg-white border-b border-gray-100 shadow-sm px-4 md:px-8 py-4 relative">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-[1500px] mx-auto flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <div className="relative overflow-hidden">

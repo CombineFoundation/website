@@ -111,7 +111,7 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
         }
       `}</style>
 
-      <section className="w-full mx-auto px-4 py-8 font-sans">
+      <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-8 font-sans">
         <div className="border-b border-gray-300 pb-3 mb-5">
           <h2 className="text-2xl md:text-5xl font-bold text-black tracking-tight">
             Courses Offered
