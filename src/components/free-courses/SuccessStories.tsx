@@ -116,7 +116,7 @@ export default function SuccessStories() {
         .dot { transition: width 0.3s ease, background 0.3s ease; }
       `}</style>
 
-      <section className="ss-section w-full mx-auto px-9 py-8 max-sm:px-6">
+      <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div className="border-b border-gray-300 pb-3 mb-5">
           <h2 className="ss-title text-2xl md:text-5xl font-bold text-secondary-500 tracking-tight">
             Our Success Stories & Achievements

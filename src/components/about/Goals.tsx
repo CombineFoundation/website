@@ -88,7 +88,7 @@ export default function Goals() {
     const activeTab = goalTabs.find((t) => t.key === activeKey)!;
 
     return (
-        <section className="w-full mx-auto px-6 py-10 md:py-14">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
             <SectionHeader title="What We Aim to Achieve" />
 
             <div className="flex border-b border-gray-200 mb-6 mt-15">

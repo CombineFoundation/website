@@ -133,7 +133,7 @@ const ContactForm = () => {
         `${baseInput} ${err ? "border-red-400 focus:ring-red-400" : "border-gray-300"}`;
 
     return (
-        <section className=" py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
             <div className="w-full">
                 {/* Header */}
                 <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-secondary-500 mb-2">

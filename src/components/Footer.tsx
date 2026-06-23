@@ -23,7 +23,7 @@ export default function Footer() {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+      <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
         {/* Left Column (Logo and Text) */}
         <div className="md:col-span-5 flex flex-col pr-4">
           <div className="bg-white inline-flex items-center justify-center p-5 rounded-md w-max mb-6">
@@ -46,7 +46,7 @@ export default function Footer() {
             <Link href="/projects" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Projects</Link>
             <Link href="/free-courses" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Free Courses</Link>
             <Link href="/volunteer-program" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Volunteer Program</Link>
-            <Link href="/careers" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Careers</Link>
+            <Link href="/career" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Careers</Link>
           </div>
 
           {/* Donate */}

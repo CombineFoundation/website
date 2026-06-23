@@ -89,11 +89,16 @@ export default function WhyJoinUs() {
   };
 
   return (
-    <section className="w-full py-16 md:py-24 overflow-hidden">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 
       {/* Title */}
+<<<<<<< HEAD
       <div className="px-6 md:px-12 mx-auto mb-12">
         <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
+=======
+      <div className="mb-12">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
+>>>>>>> updated-home-page
           Why Volunteers Love Working with Us
         </h2>
         <div className="w-full h-1 bg-gray-300 mb-8" />
@@ -202,7 +207,7 @@ export default function WhyJoinUs() {
       </div>
 
       {/* Progress bar */}
-      <div className="px-6 md:px-12 max-w-7xl mx-auto mt-12">
+      <div className="px-6 md:px-12 max-w-[1500px] mx-auto mt-12">
         <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
           <div
             className="h-full bg-secondary-500 rounded-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"

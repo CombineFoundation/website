@@ -23,7 +23,7 @@ export default function QuoteSection() {
         title="Founder Info"
         description="A vision to combine efforts, uplift communities, and inspire hope"
       />
-      <section className="relative px-6 w-full md:w-[95%] lg:w-[85%] xl:w-[87%] max-w-7xl mx-auto">
+      <section className="relative max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8">
 
         <div className="relative rounded-2xl w-6xl bg-linear-to-r from-[#FF6900] to-[#b14a01] p-1"
           // style={{
@@ -39,7 +39,9 @@ export default function QuoteSection() {
               {quoteData.quote}
             </p>
 
+
             <div className="hidden min-[856px]:block absolute bottom-0  right-[-15%] w-[450px] lg:w-[500px] h-[380px] pointer-events-none">
+
               <Image
                 src={quoteData.image}
                 alt={quoteData.name}
