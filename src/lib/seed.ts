@@ -8,6 +8,7 @@ import coursesData from "@/data/courses.json";
 import blogsData from "@/data/blogs.json";
 import contactsData from "@/data/contacts.json";
 import donationsData from "@/data/donations.json";
+import projectsData from "@/data/projects.json";
 
 // Helper: clear a collection before seeding
 async function clearCollection(collectionName: string) {
@@ -138,6 +139,29 @@ export async function seedDonations() {
   console.log(`Seeded ${donationsData.length} donations`);
 }
 
+// ─── Seed Projects ───────────────────────────────────────────────────
+export async function seedProjects() {
+  const db = getDb();
+  await clearCollection("projects");
+  for (const project of projectsData as any[]) {
+    await addDoc(collection(db, "projects"), {
+      title: project.title,
+      images: project.images || [],
+      description: project.description || "",
+      goal: project.goal || "",
+      stats: project.stats || [],
+      beforeImage: project.beforeImage || "",
+      afterImage: project.afterImage || "",
+      futurePlans: project.futurePlans || "",
+      partners: project.partners || [],
+      location: project.location || "",
+      coordinates: project.coordinates || "",
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${projectsData.length} projects`);
+}
+
 // ─── Seed All Collections ────────────────────────────────────────────
 export async function seedAllCollections() {
   console.log("Starting full database seed...");
@@ -146,6 +170,7 @@ export async function seedAllCollections() {
   await seedBlogs();
   await seedContacts();
   await seedDonations();
+  await seedProjects();
   console.log("All collections seeded successfully!");
 }
 

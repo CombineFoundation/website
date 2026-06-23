@@ -1,31 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import PageHeroMobile from "@/components/UI/Pageheromobile";
 import AchievementsList from "@/components/projects/Achievementslist ";
-import projectsData from "@/data/projects.json";
+import { getAllProjects, type Project } from "@/lib/projects";
+import { Loader2 } from "lucide-react";
 
 const AchievementsMap = dynamic(() => import("@/components/projects/map"), { ssr: false });
 
 export default function Projects() {
-  const [activeId, setActiveId] = useState<number | null>(null);
-  const projects = projectsData as Array<{
-    id: number;
-    title: string;
-    images: string[];
-    description: string;
-    goal: string;
-    stats: { value: string; label: string }[];
-    beforeImage: string;
-    afterImage: string;
-    futurePlans: string;
-    partners: string[];
-    location: string;
-    coordinates: string;
-  }>;
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleMapSelect = (id: number) => {
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await getAllProjects();
+        setProjects(data);
+      } catch (err) {
+        console.error("Error loading projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
+
+  const handleMapSelect = (id: string) => {
     setActiveId(id);
     setTimeout(() => {
       const el = document.getElementById(`project-card-${id}`);
@@ -33,9 +36,18 @@ export default function Projects() {
     }, 150);
   };
 
-  const handleCardToggle = (id: number) => {
+  const handleCardToggle = (id: string) => {
     setActiveId((prev) => (prev === id ? null : id));
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-20">
+        <Loader2 className="w-10 h-10 text-orange animate-spin" />
+        <span className="mt-4 text-gray-600 font-medium">Loading projects...</span>
+      </div>
+    );
+  }
 
   return (
     <>

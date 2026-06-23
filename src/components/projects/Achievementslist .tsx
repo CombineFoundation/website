@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 interface ProjectItem {
-    id: number;
+    id: string;
     title: string;
     images: string[];
     description: string;
@@ -17,8 +17,8 @@ interface ProjectItem {
 
 interface AchievementsListProps {
     projects: ProjectItem[];
-    activeId: number | null;
-    onToggle: (id: number) => void;
+    activeId: string | null;
+    onToggle: (id: string) => void;
 }
 
 function AchievementItem({
