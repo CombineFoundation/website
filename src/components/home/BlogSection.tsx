@@ -54,7 +54,7 @@ function BlogCard({ post }: BlogCardProps) {
           className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-opacity duration-200 mt-1 hover:opacity-90"
           style={{
             // background: "linear-gradient(180deg, #2e86d4 0%, #1057b0 50%, #0a3d8f 100%)",
-            background: "linear-gradient(90deg, var(--secondary-600) 0%, var(--primary-500) 50%, var(--primary-500) 75%, var(--secondary-600) 100%)",
+            background: "linear-gradient(90deg, var(--secondary-600) 0%, var(--secondary-500) 50%, var(--secondary-500) 75%, var(--secondary-600) 100%)",
           }}
           aria-label={`Read ${post.title}`}
         >

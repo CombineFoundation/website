@@ -405,7 +405,7 @@ export default function UpcomingEvents() {
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
-            <h2 className="text-primary-900 font-bold text-3xl md:text-4xl mb-3">
+            <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>
             <div className="w-full h-px bg-gray-300 mb-5" />
