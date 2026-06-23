@@ -361,5 +361,35 @@ export async function updateJob(
 export async function deleteJobs(ids: string[]): Promise<void> {
   const db = getDb();
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "jobs", id))));
+}
 
+// ─── Projects ────────────────────────────────────────────────────────
+
+export async function fetchProjects(): Promise<FirestoreProject[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "projects"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreProject));
+}
+
+export async function addProject(
+  data: Omit<FirestoreProject, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "projects"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updateProject(
+  id: string,
+  data: Partial<Omit<FirestoreProject, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "projects", id), { ...data });
+}
+
+export async function deleteProjects(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "projects", id))));
 }
