@@ -6,7 +6,14 @@ import Pagination from "./Pagination";
 import AddProjectModal from "./AddProjectModal";
 import EditProjectModal from "./EditProjectModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import allProjects from "@/data/projects.json";
+import {
+  fetchProjects,
+  addProject,
+  updateProject,
+  deleteProjects,
+  type FirestoreProject,
+} from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 interface ProjectStat {
   value: string;
@@ -14,7 +21,7 @@ interface ProjectStat {
 }
 
 export interface Project {
-  id: number;
+  id: string;
   title: string;
   images: string[];
   description: string;
@@ -31,21 +38,9 @@ export interface Project {
 const PAGE_SIZE = 10;
 
 export default function ProjectsView() {
-  const [projects, setProjects] = useState<Project[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-projects");
-        if (saved) {
-          const parsed = JSON.parse(saved) as Project[];
-          const seedIds = new Set((allProjects as Project[]).map((p) => p.id));
-          const userAdded = parsed.filter((p) => !seedIds.has(p.id));
-          return [...(allProjects as Project[]), ...userAdded];
-        }
-      } catch {}
-    }
-    return allProjects as Project[];
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,9 +48,21 @@ export default function ProjectsView() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadProjects = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchProjects();
+      setProjects(data.map((d) => ({ ...d, id: d.id! })) as Project[]);
+    } catch (err) {
+      console.error("Error fetching projects:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-projects", JSON.stringify(projects));
-  }, [projects]);
+    loadProjects();
+  }, []);
 
   const filtered = useMemo(() => {
     let result = projects;
@@ -97,7 +104,7 @@ export default function ProjectsView() {
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -117,37 +124,41 @@ export default function ProjectsView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setProjects((prev) => prev.filter((p) => !selectedIds.has(p.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteProjects(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadProjects();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
-  const handleSaveEdit = (data: Omit<Project, "id">) => {
+  const handleSaveEdit = async (data: Omit<Project, "id">) => {
     if (!editProject) return;
-    setProjects((prev) =>
-      prev.map((p) =>
-        p.id === editProject.id
-          ? { ...data, id: editProject.id }
-          : p
-      )
-    );
+    await updateProject(editProject.id, data);
     setEditProject(null);
     setSelectedIds(new Set());
+    await loadProjects();
   };
 
-  const handleAdd = (data: Omit<Project, "id">) => {
-    const maxId = projects.length > 0 ? Math.max(...projects.map((p) => p.id)) : 0;
-    const newId = maxId + 1;
-    const newProject: Project = { ...data, id: newId };
-    setProjects((prev) => [...prev, newProject]);
+  const handleAdd = async (data: Omit<Project, "id">) => {
+    await addProject(data);
     setShowAddModal(false);
+    await loadProjects();
     setCurrentPage(Math.ceil((projects.length + 1) / PAGE_SIZE));
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading projects...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -214,8 +225,9 @@ export default function ProjectsView() {
                       className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                     />
                   </td>
-                  <td className="py-3.5 text-gray-800 font-medium pr-4">
-                    {project.title}
+                  <td className="py-3.5 pr-4">
+                    <p className="text-gray-800 font-medium">{project.title}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">ID: {project.id.slice(0, 8)}...</p>
                   </td>
                   <td className="py-3.5 text-gray-600">{project.location}</td>
                   <td className="py-3.5 text-gray-500 text-xs">{project.coordinates}</td>

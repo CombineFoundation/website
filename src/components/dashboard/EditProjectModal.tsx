@@ -23,7 +23,7 @@ interface ProjectFormData {
 }
 
 interface EditProjectModalProps {
-  project: ProjectFormData & { id: number };
+  project: ProjectFormData & { id: string };
   onCancel: () => void;
   onSave: (data: ProjectFormData) => void;
 }

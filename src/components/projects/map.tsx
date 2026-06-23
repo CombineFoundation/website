@@ -11,7 +11,7 @@ import {
 import GEO_DATA from "@/data/pakistan-provinces.json";
 
 interface ProjectPin {
-    id: number;
+    id: string;
     coordinates: [number, number];
     label: string;
 }
@@ -64,17 +64,17 @@ const posFromEvent = (e: any) => {
 
 interface AchievementsMapProps {
     projects: Array<{
-        id: number;
+        id: string;
         title: string;
         location: string;
         coordinates: string;
     }>;
-    activeId: number | null;
-    onSelect: (id: number) => void;
+    activeId: string | null;
+    onSelect: (id: string) => void;
 }
 
 export default function AchievementsMap({ projects, activeId, onSelect }: AchievementsMapProps) {
-    const [hoveredId, setHoveredId] = useState<number | null>(null);
+    const [hoveredId, setHoveredId] = useState<string | null>(null);
     const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
     const geoData = useMemo(() => rewindGeoJSON(GEO_DATA), []);
 
