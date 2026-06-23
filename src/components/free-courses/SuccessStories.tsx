@@ -118,20 +118,20 @@ export default function SuccessStories() {
 
       <section className="ss-section w-full mx-auto px-9 py-8 max-sm:px-6">
         <div className="border-b border-gray-300 pb-3 mb-5">
-          <h2 className="ss-title text-2xl md:text-5xl font-bold text-black tracking-tight">
+          <h2 className="ss-title text-2xl md:text-5xl font-bold text-secondary-500 tracking-tight">
             Our Success Stories & Achievements
           </h2>
         </div>
 
         <div style={{ margin: "0 20px" }}>
-          <div className="rounded-2xl overflow-visible" style={{ background: "#dce6f0" }}>
+          <div className="rounded-2xl overflow-visible" style={{ background: "#FF6900" }}>
             <div className="relative">
               <button
                 onClick={() => navigate("left")}
                 aria-label="Previous"
                 className="nav-btn absolute z-20 flex items-center justify-center rounded-full w-10 h-10 lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px]"
                 style={{
-                  background: "var(--primary-700)",
+                  background: "var(--secondary-500)",
                   border: "none",
                   cursor: "pointer",
                   left: -22,
@@ -149,7 +149,7 @@ export default function SuccessStories() {
                 aria-label="Next"
                 className="nav-btn absolute z-20 flex items-center justify-center rounded-full w-10 h-10 lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px]"
                 style={{
-                  background: "var(--primary-700)",
+                  background: "var(--secondary-500)",
                   border: "none",
                   cursor: "pointer",
                   right: -22,
@@ -186,7 +186,7 @@ export default function SuccessStories() {
                     style={{
                       width: 56,
                       height: 56,
-                      background: "rgba(10,10,10,0.82)",
+                      background: "var(--secondary-500)",
                       border: "none",
                       cursor: "pointer",
                     }}
@@ -209,7 +209,7 @@ export default function SuccessStories() {
                   ? direction === "right" ? "slide-exit-left" : "slide-exit-right"
                   : "slide-enter-right"
               }`}
-              style={{ background: "var(--primary-700)" }}
+              style={{ background: "var(--secondary-500)" }}
             >
               <p
                 className="ss-title font-bold text-white mb-1.5"

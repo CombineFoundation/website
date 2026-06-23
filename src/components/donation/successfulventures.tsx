@@ -181,7 +181,7 @@ export default function SuccessfulVentures() {
         <div className="min-h-screen px-4 py-10 md:px-8 md:py-14">
             <div className="w-full mx-auto">
 
-                <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-2">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-secondary-500 tracking-tight mb-2">
                     Our Impactful Journey
                 </h1>
                 <p className="text-base text-gray-600 mb-8">Successful Ventures</p>
@@ -189,14 +189,14 @@ export default function SuccessfulVentures() {
                 <div className="flex flex-col gap-12">
                     {VENTURES.map((venture) => (
                         <div key={venture.id}>
-                            <p className="text-base md:text-lg lg:text-xl font-semibold text-black mb-4 leading-snug">
+                            <p className="text-base md:text-lg lg:text-xl font-semibold text-secondary-500 mb-4 leading-snug">
                                 {venture.heading}
                             </p>
                             <hr className="border-t border-gray-300 mb-5" />
 
                             <DragSlider images={venture.images} />
 
-                            <p className="text-sm lg:text-lg text-black leading-relaxed mt-5">
+                            <p className="text-sm lg:text-lg text-gray-600 leading-relaxed mt-5">
                                 {venture.description}
                             </p>
                         </div>

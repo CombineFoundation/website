@@ -93,7 +93,7 @@ export default function WhyJoinUs() {
 
       {/* Title */}
       <div className="px-6 md:px-12 mx-auto mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
           Why Volunteers Love Working with Us
         </h2>
         <div className="w-full h-1 bg-gray-300 mb-8" />
@@ -187,10 +187,10 @@ export default function WhyJoinUs() {
                       • mobile  → below image, grows to fill remaining height
                       • desktop → left side, fixed 48 % width  */}
                   <div className="flex flex-col justify-center gap-2 px-4 py-4 bg-white z-10 flex-1 overflow-hidden lg:w-[48%] lg:flex-none lg:order-1">
-                    <h3 className="text-xs sm:text-sm lg:text-lg xl:text-xl font-bold text-black leading-snug">
+                    <h3 className="text-xs sm:text-sm lg:text-lg xl:text-xl font-bold text-primary-500 leading-snug">
                       {panel.heading}
                     </h3>
-                    <p className="text-xs text-gray-500 line-clamp-4 lg:line-clamp-5 lg:text-base xl:text-lg">
+                    <p className="text-xs text-primary-800 line-clamp-4 lg:line-clamp-5 lg:text-base xl:text-lg">
                       {panel.desc}
                     </p>
                   </div>
@@ -205,7 +205,7 @@ export default function WhyJoinUs() {
       <div className="px-6 md:px-12 max-w-7xl mx-auto mt-12">
         <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-secondary-700 rounded-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
+            className="h-full bg-secondary-500 rounded-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
             style={{ width: `${progress}%` }}
           />
         </div>

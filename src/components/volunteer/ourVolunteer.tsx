@@ -79,7 +79,7 @@ export default function HearFromVolunteers() {
             <div className="w-full px-6 md:px-12">
 
                 {/* Title */}
-                <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
                     What Volunteers Love About Us
                 </h2>
                 {/* Full-width divider */}
@@ -102,16 +102,16 @@ export default function HearFromVolunteers() {
                     {/* ── Left: text ── */}
                     <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center justify-center min-[550px]:justify-start gap-x-3 gap-y-1 mb-4">
-                            <span className="text-lg md:text-xl font-bold text-gray-900 whitespace-nowrap">
+                            <span className="text-lg md:text-xl font-bold text-secondary-500 whitespace-nowrap">
                                 {t.name}
                             </span>
-                            <span className="text-gray-400 font-light text-lg select-none">—</span>
-                            <span className="text-sm md:text-base text-gray-500 font-medium">
+                            <span className="text-primary-700 font-light text-lg select-none">—</span>
+                            <span className="text-sm md:text-base text-primary-800 font-medium">
                                 {t.role}
                             </span>
                         </div>
 
-                        <p className="text-sm md:text-base text-gray-600 leading-relaxed text-center min-[550px]:text-left">
+                        <p className="text-sm md:text-base text-primary-800 leading-relaxed text-center min-[550px]:text-left">
                             {t.quote}
                         </p>
                     </div>
@@ -136,7 +136,7 @@ export default function HearFromVolunteers() {
                     <button
                         onClick={handlePrev}
                         aria-label="Previous"
-                        className="w-10 h-10 rounded-full bg-secondary-700 flex items-center justify-center
+                        className="w-10 h-10 rounded-full bg-secondary-500 flex items-center justify-center
                        transition-all duration-200 hover:brightness-90 hover:scale-105 active:scale-95"
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -146,7 +146,7 @@ export default function HearFromVolunteers() {
                     <button
                         onClick={handleNext}
                         aria-label="Next"
-                        className="w-10 h-10 rounded-full bg-secondary-700 flex items-center justify-center
+                        className="w-10 h-10 rounded-full bg-secondary-500 flex items-center justify-center
                        transition-all duration-200 hover:brightness-90 hover:scale-105 active:scale-95"
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

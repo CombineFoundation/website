@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 
 const SLICES = [
     {
@@ -22,7 +22,7 @@ const SLICES = [
         label: "Community Welfare & Relief Programs",
         percent: "10%",
         value: 10,
-        color: "var(--accent-orange)",
+        color: "var(--color-orange)",
         desc: "Your contribution brings hope to struggling families through food support, emergency relief, and care during difficult times.",
     },
     {
@@ -54,7 +54,7 @@ export default function DonationUsage() {
             <div className="w-full max-w-[1280px]">
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-3">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-secondary-500 tracking-tight mb-3">
                     See How Your Donation Helps
                 </h1>
                 <hr className="border-t border-[#b0bec5] mb-10" />
@@ -82,6 +82,19 @@ export default function DonationUsage() {
                                             <Cell key={i} fill={slice.color} />
                                         ))}
                                     </Pie>
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: "#fff",
+                                            border: "1px solid #ccc",
+                                            borderRadius: "4px",
+                                            padding: "8px",
+                                            color: "#000",
+                                        }}
+                                        formatter={(value, name, props) => [
+                                            `${props.payload.label}`,
+                                            `${props.payload.percent}`,
+                                        ]}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>

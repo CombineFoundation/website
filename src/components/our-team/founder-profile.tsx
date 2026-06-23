@@ -3,17 +3,17 @@
 export default function FounderProfile() {
   return (
     <section className="w-full px-6 py-10 lg:px-12 mx-auto">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Our Founder & Mentor
       </h2>
 
       <div className="flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
         
         <div className="flex-1 order-1 mt-3">
-          <h3 className="text-xl lg:text-3xl font-bold text-black uppercase tracking-wide mb-1">
+          <h3 className="text-xl lg:text-3xl font-bold text-primary-600 uppercase tracking-wide mb-1">
             Mr. Amin Nathani
           </h3>
-          <p className="text-sm md:text-base text-gray-600 mb-5">
+          <p className="text-sm md:text-base text-primary-800 mb-5">
             Founder & Board of Director
           </p>
 

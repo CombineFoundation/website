@@ -39,14 +39,20 @@ const partners: Partner[] = [
 ];
 
 function PartnerCard({ partner }: { partner: Partner }) {
+  const [firstWord, ...remainingWords] = partner.name.split(" ");
+  const remainingName = remainingWords.join(" ");
+
   return (
     <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden">
       {/* Text */}
       <div className="md:col-span-3 flex flex-col justify-center p-8 md:p-10 lg:p-12">
-        <h3 className="text-xl md:text-2xl font-bold text-[#1a1a2e] mb-6">
-          {partner.name}
+        <h3 className="text-xl md:text-2xl font-bold mb-6">
+          <span className="text-primary-600">{firstWord}</span>
+          {remainingName && (
+            <span className="text-secondary-500"> {remainingName}</span>
+          )}
         </h3>
-        <p className="text-sm md:text-base text-gray-500 leading-relaxed">
+        <p className="text-sm md:text-base text-primary-800 leading-relaxed">
           {partner.description}
         </p>
       </div>
@@ -67,7 +73,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
 export default function PartnersSection() {
   return (
     <section className="w-full px-6 py-10 md:px-12 lg:px-16">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Our Partners
       </h2>
 

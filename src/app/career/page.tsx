@@ -87,13 +87,13 @@ export default function CareerPage() {
           /* No Jobs State (Currently Not Hiring) */
           <div className="max-w-2xl mx-auto bg-white rounded-[2rem] shadow-xl border border-gray-100/80 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-500">
             {/* Accent colored line */}
-            <div className="h-2 bg-gradient-to-r from-[#134981] via-[#38BDF8] to-[#134981]"></div>
+            <div className="h-2 bg-gradient-to-r from-secondary-800 via-secondary-500 to-secondary-800"></div>
             
             <div className="p-8 md:p-12 text-center flex flex-col items-center">
-              <div className="w-20 h-20 bg-blue-50 text-[#134981] rounded-full flex items-center justify-center mb-6 shadow-inner">
+              <div className="w-20 h-20 bg-blue-50 text-secondary-500 rounded-full flex items-center justify-center mb-6 shadow-inner">
                 <Briefcase className="w-10 h-10" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-[#134981]">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-secondary-500">
                 Currently Not Hiring
               </h2>
               <p className="text-gray-500 mt-4 font-semibold text-sm md:text-base leading-relaxed max-w-lg">
@@ -105,15 +105,15 @@ export default function CareerPage() {
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
                 <Link 
                   href="/volunteer-program" 
-                  className="bg-gradient-to-r from-[#134981] to-[#1d67bc] hover:from-[#0f3c6d] hover:to-[#175298] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base flex items-center gap-2 group"
+                  className="bg-gradient-to-r from-secondary-800 to-secondary-500 hover:from-secondary-600 hover:to-secondary-400 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base flex items-center gap-2 group"
                 >
                   <span>Apply as Volunteer</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-secondary-500" />
                 </Link>
                 
                 <Link 
                   href="/contact" 
-                  className="border-2 border-gray-200 text-gray-600 hover:border-[#134981] hover:text-[#134981] font-bold px-8 py-4 rounded-full transition-all text-sm md:text-base"
+                  className="border-2 border-gray-200 text-gray-600 hover:border-secondary-500 hover:text-secondary-500 font-bold px-8 py-4 rounded-full transition-all text-sm md:text-base"
                 >
                   Contact Us
                 </Link>
@@ -127,7 +127,7 @@ export default function CareerPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                 Open Positions
               </h2>
-              <span className="bg-[#134981] text-white text-xs md:text-sm font-bold px-4 py-1.5 rounded-full">
+              <span className="bg-secondary-500 text-white text-xs md:text-sm font-bold px-4 py-1.5 rounded-full">
                 {jobs.length} Available
               </span>
             </div>
@@ -144,17 +144,17 @@ export default function CareerPage() {
                       <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
                         <div>
                           {/* Department Badge */}
-                          <span className="inline-block bg-blue-50 text-[#134981] text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                          <span className="inline-block bg-blue-50 text-secondary-500 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
                             {job.department}
                           </span>
-                          <h3 className="text-xl md:text-2xl font-bold text-[#134981] mt-2">
+                          <h3 className="text-xl md:text-2xl font-bold text-secondary-500 mt-2">
                             {job.title}
                           </h3>
                         </div>
                         
                         <button
                           onClick={() => job.id && toggleExpand(job.id)}
-                          className="flex items-center gap-1.5 text-sm font-bold text-[#134981] hover:text-blue-800 transition-colors bg-blue-50/50 hover:bg-blue-50 px-4 py-2 rounded-xl"
+                          className="flex items-center gap-1.5 text-sm font-bold text-secondary-500 hover:text-blue-800 transition-colors bg-blue-50/50 hover:bg-blue-50 px-4 py-2 rounded-xl"
                         >
                           {isExpanded ? (
                             <>
@@ -206,8 +206,8 @@ export default function CareerPage() {
 
                           {/* How to Apply Banner */}
                           <div className="bg-blue-50/70 border border-blue-100 rounded-2xl p-6 flex flex-col md:flex-row items-start gap-4">
-                            <div className="w-12 h-12 bg-white text-[#134981] border border-blue-100 rounded-full flex items-center justify-center shrink-0 shadow-sm">
-                              <Mail className="w-6 h-6 text-[#134981]" />
+                            <div className="w-12 h-12 bg-white text-secondary-500 border border-blue-100 rounded-full flex items-center justify-center shrink-0 shadow-sm">
+                              <Mail className="w-6 h-6 text-secondary-500" />
                             </div>
                             <div>
                               <h4 className="font-bold text-gray-900 text-base">
@@ -217,7 +217,7 @@ export default function CareerPage() {
                                 Please send your updated resume / CV to{" "}
                                 <a 
                                   href={`mailto:combinegroup@gmail.com?subject=Job Application - ${job.title}`}
-                                  className="text-[#134981] hover:underline font-bold"
+                                  className="text-secondary-500 hover:underline font-bold"
                                 >
                                   combinegroup@gmail.com
                                 </a>

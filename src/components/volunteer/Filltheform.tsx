@@ -37,7 +37,7 @@ export default function ProcessOfJoining() {
       <div className="px-6 md:px-12 max-w-full mx-auto">
 
         {/* Title */}
-        <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
           Steps to Become a Volunteer
         </h2>
 
@@ -63,7 +63,7 @@ export default function ProcessOfJoining() {
               <div className="flex items-center gap-4">
                 <div
                   className="
-                    w-11 h-11 rounded-xl bg-secondary-700 flex items-center justify-center shrink-0
+                    w-11 h-11 rounded-xl bg-primary-500 flex items-center justify-center shrink-0
                     transition-all duration-300
                     group-hover:scale-110 group-hover:rounded-2xl
                   "
@@ -117,7 +117,7 @@ export default function ProcessOfJoining() {
               <div
                 className="
                   absolute bottom-0 left-0 right-0 h-[3px]
-                  bg-secondary-700 rounded-b-2xl
+                  bg-secondary-500 rounded-b-2xl
                   scale-x-0 group-hover:scale-x-100
                   transition-transform duration-300 ease-out origin-left
                 "

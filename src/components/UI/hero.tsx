@@ -40,7 +40,7 @@ export default function AboutHero({
 
                 {/* TOP LEFT - ABOUT TEXT */}
                 <div className="bg-[#F7FBFF] rounded-br-3xl flex items-center justify-center z-2">
-                    <h1 className={`${text1Style} font-extrabold text-black`}>
+                    <h1 className={`${text1Style} font-extrabold text-primary-900`}>
                         {text1}
                     </h1>
                 </div>
@@ -69,7 +69,7 @@ export default function AboutHero({
 
                 {/* BOTTOM RIGHT - TEXT */}
                 <div className="bg-[#F7FBFF] rounded-tl-3xl flex items-center justify-center z-2 ">
-                    <h1 className={`${text2Style} font-extrabold text-black`}>
+                    <h1 className={`${text2Style} font-extrabold text-primary-900`}>
                         {text2}
                     </h1>
                 </div>

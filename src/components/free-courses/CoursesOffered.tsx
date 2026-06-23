@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Course, slugify } from "@/lib/freeCourses";
 
 const HOVER_GRADIENT =
-  "linear-gradient(145deg, var(--secondary-800) 0%, var(--primary-700) 28%, var(--primary-500) 52%, var(--primary-700) 76%, var(--secondary-800) 100%)";
+  "linear-gradient(145deg, var(--secondary-800) 0%, var(--secondary-700) 28%, var(--secondary-500) 52%, var(--secondary-700) 76%, var(--secondary-800) 100%)";
 
 // ── Individual Card ──────────────────────────────────────────────────────────
 function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string) => void }) {
@@ -20,7 +20,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
         rounded-2xl border overflow-hidden cursor-pointer select-none
         transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
         ${hovered
-          ? "border-transparent shadow-2xl shadow-blue-950/60 scale-[1.03]"
+          ? "border-transparent shadow-2xl shadow-secondary-900/60 scale-[1.03]"
           : "border-gray-200 shadow-sm hover:shadow-md"
         }
       `}
@@ -74,7 +74,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
             transition-all cursor-pointer duration-300 active:scale-95
             ${hovered
               ? "bg-white text-black hover:bg-gray-100 shadow-lg"
-              : "bg-accent-orange text-white hover:brightness-90 shadow-md"
+              : "bg-secondary-500 text-white hover:brightness-90 shadow-md"
             }
           `}
         >
@@ -113,7 +113,7 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
 
       <section className="w-full mx-auto px-4 py-8 font-sans">
         <div className="border-b border-gray-300 pb-3 mb-5">
-          <h2 className="text-2xl md:text-5xl font-bold text-black tracking-tight">
+          <h2 className="text-2xl md:text-5xl font-bold text-secondary-500 tracking-tight">
             Courses Offered
           </h2>
         </div>
@@ -139,7 +139,7 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
             />
           </div>
 
-          <button className="p-2 rounded-lg border border-gray-200 bg-white shadow-sm hover:bg-gray-50 transition-colors">
+          <button className="p-2 rounded-lg border border-gray-200 bg-background shadow-sm hover:bg-gray-50 transition-colors">
             <svg
               className="w-4 h-4 text-gray-500"
               fill="none"

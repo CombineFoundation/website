@@ -2,11 +2,11 @@ export default function AboutCourses() {
   return (
     <section className="w-full mx-auto px-4 py-8 font-sans">
       <div className="border-b border-gray-300 pb-3 mb-5">
-        <h2 className="text-2xl md:text-5xl font-bold text-black tracking-tight">
+        <h2 className="text-2xl md:text-5xl font-bold text-secondary-500 tracking-tight">
           About Combine&rsquo;s Courses
         </h2>
       </div>
-      <div className="max-w-5xl space-y-4 text-sm md:text-base leading-relaxed text-black">
+      <div className="max-w-5xl space-y-4 text-sm md:text-base leading-relaxed text-gray-800">
         <p>
           The Combine Foundation believes that good education should be affordable
           and accessible for any brilliant and passionate individual. That&rsquo;s

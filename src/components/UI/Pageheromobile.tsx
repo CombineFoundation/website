@@ -23,7 +23,7 @@ export default function PageHeroMobile({
     return (
         <div className={`w-full pt-20 relative ${styles ?? ""}`}>
             <h2
-                className={`text-black absolute text-center z-2 w-full !text-5xl !top-[50px] sm:!top-[20px] sm:!text-8xl font-semibold ${mobileStyles ?? ""}`}
+                className={`text-orange absolute text-center z-2 w-full !text-5xl !top-[50px] sm:!top-[20px] sm:!text-8xl font-semibold ${mobileStyles ?? ""}`}
             >
                 {title}
             </h2>
