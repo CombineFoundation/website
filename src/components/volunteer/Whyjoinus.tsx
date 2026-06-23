@@ -92,13 +92,10 @@ export default function WhyJoinUs() {
     <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 
       {/* Title */}
-<<<<<<< HEAD
-      <div className="px-6 md:px-12 mx-auto mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
-=======
+
       <div className="mb-12">
         <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
->>>>>>> updated-home-page
+
           Why Volunteers Love Working with Us
         </h2>
         <div className="w-full h-1 bg-gray-300 mb-8" />

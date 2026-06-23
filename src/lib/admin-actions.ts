@@ -237,21 +237,7 @@ export async function deleteDonations(ids: string[]): Promise<void> {
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "donations", id))));
 }
 
-<<<<<<< HEAD
-// ─── Projects ────────────────────────────────────────────────────────
 
-export async function fetchProjects(): Promise<FirestoreProject[]> {
-  const snap = await getDocs(
-    query(collection(getDb(), "projects"), orderBy("createdAt", "desc"))
-  );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreProject));
-}
-
-export async function addProject(
-  data: Omit<FirestoreProject, "id" | "createdAt">
-): Promise<string> {
-  const ref = await addDoc(collection(getDb(), "projects"), {
-=======
 // ─── Annual Reports ──────────────────────────────────────────────────
 
 export interface FirestoreAnnualReport {
@@ -275,25 +261,14 @@ export async function addAnnualReport(
   data: Omit<FirestoreAnnualReport, "id" | "createdAt">
 ): Promise<string> {
   const ref = await addDoc(collection(getDb(), "annualReports"), {
->>>>>>> updated-home-page
+
     ...data,
     createdAt: serverTimestamp(),
   });
   return ref.id;
 }
 
-<<<<<<< HEAD
-export async function updateProject(
-  id: string,
-  data: Partial<Omit<FirestoreProject, "id" | "createdAt">>
-): Promise<void> {
-  await updateDoc(doc(getDb(), "projects", id), { ...data });
-}
 
-export async function deleteProjects(ids: string[]): Promise<void> {
-  const db = getDb();
-  await Promise.all(ids.map((id) => deleteDoc(doc(db, "projects", id))));
-=======
 export async function updateAnnualReport(
   id: string,
   data: Partial<Omit<FirestoreAnnualReport, "id" | "createdAt">>
@@ -386,5 +361,5 @@ export async function updateJob(
 export async function deleteJobs(ids: string[]): Promise<void> {
   const db = getDb();
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "jobs", id))));
->>>>>>> updated-home-page
+
 }
