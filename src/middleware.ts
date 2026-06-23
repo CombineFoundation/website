@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Redirect old /dashboard to protected /admin/dashboard
+
   if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
     const adminUrl = new URL('/admin/dashboard', request.url);
     return NextResponse.redirect(adminUrl);
@@ -18,6 +18,8 @@ export function middleware(request: NextRequest) {
       const loginUrl = new URL('/login', request.url);
       return NextResponse.redirect(loginUrl);
     }
+
+
   }
 
   return NextResponse.next();
