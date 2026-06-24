@@ -31,12 +31,8 @@ const speakers: Speaker[] = [
 function SpeakerCard({ speaker }: { speaker: Speaker }) {
     return (
         <div className="flex flex-col items-center text-center">
-
-            <div className="relative w-36 h-36 mb-4">
-
-
-
-                <div className="absolute top-0 w-36 h-32 rounded-2xl overflow-hidden z-10 border-2 border-white shadow-sm">
+            <div className="w-36 h-32 mb-4">
+                <div className="w-36 h-32 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
                     <img
                         src={speaker.image}
                         alt={speaker.name}
@@ -44,11 +40,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
                     />
                 </div>
             </div>
-
-
             <p className="text-gray-900 font-bold text-sm mt-1">{speaker.name}</p>
-
-
             <p className="text-gray-500 text-sm leading-snug mt-0.5 max-w-[140px]">
                 {speaker.role}
             </p>
@@ -58,9 +50,8 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
 
 export default function MeetOurSpeakers() {
     return (
-        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
-
-            <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
+            <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
                 Meet Our Speakers
             </h2>
             <div className="w-full h-px bg-gray-300 mb-10" />

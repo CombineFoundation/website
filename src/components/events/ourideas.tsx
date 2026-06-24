@@ -1,7 +1,7 @@
 
 export default function OurIdeaAboutEvents() {
     return (
-        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
+        <section className="max-w-full mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
             <h2 className="text-gray-900 font-semibold text-2xl md:text-3xl mb-3">
                 About Our Events
             </h2>

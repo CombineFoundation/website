@@ -66,7 +66,7 @@ function ValueCard({ value }: ValueCardProps) {
         <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative overflow-hidden rounded-2xl flex items-center justify-center text-center px-6 py-10 cursor-pointer bg-secondary-600"
+            className="relative overflow-hidden rounded-2xl flex items-center justify-center min-w-[300px] xl:min-w-[450px] text-center px-6 py-10 cursor-pointer bg-secondary-600"
             style={{ minHeight: "290px" }}
         >
             {/* DEFAULT STATE */}
