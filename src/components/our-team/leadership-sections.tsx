@@ -64,8 +64,8 @@ function MemberCard({ member }: { member: Member }) {
           />
         </div>
       </div>
-      <p className="text-lg font-bold text-black">{member.name}</p>
-      <p className="text-base text-black mt-1 leading-snug">{member.title}</p>
+      <p className="text-lg font-bold text-primary-600">{member.name}</p>
+      <p className="text-base text-primary-800 mt-1 leading-snug">{member.title}</p>
     </div>
   );
 }
@@ -80,7 +80,7 @@ function MembersSection({ section }: { section: GroupSection }) {
 
   return (
     <div className="mb-12">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         {section.heading}
       </h2>
       

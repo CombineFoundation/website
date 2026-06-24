@@ -22,7 +22,7 @@ const trustees: Trustee[] = [
 export default function BoardOfTrustees() {
   return (
     <section className="w-full px-6 py-10 md:px-12 lg:px-16">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Board of Directors
       </h2>
 
@@ -44,10 +44,10 @@ export default function BoardOfTrustees() {
             </div>
 
             <div className="flex-1">
-              <h3 className="text-lg md:text-xl font-bold text-black mb-1">
+              <h3 className="text-lg md:text-xl font-bold text-primary-600 mb-1">
                 {trustee.name}
               </h3>
-              <p className="text-sm md:text-base text-gray-500 font-medium mb-3">
+              <p className="text-sm md:text-base text-primary-800 font-medium mb-3">
                 {trustee.role}
               </p>
               <p className="text-sm md:text-base lg:text-lg text-black leading-relaxed">

@@ -114,7 +114,7 @@ function EventCard({ event }: { event: Event }) {
                         <Link
                             href={event.registerLink || "#"}
                             className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
-                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
+                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                         >
                             Register Now
                         </Link>
@@ -156,7 +156,7 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-gray-900 font-bold text-lg leading-tight">{event.title}</h3>
+                    <h3 className="text-secondary-500 font-bold text-lg leading-tight">{event.title}</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-600 ml-3 text-xl leading-none">&times;</button>
                 </div>
 
@@ -188,7 +188,7 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
                     <Link
                         href={event.registerLink || "#"}
                         className="px-5 py-2 rounded-full text-white text-sm font-semibold"
-                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                     >
                         Register Now
                     </Link>
@@ -314,7 +314,7 @@ function CalendarView({ events }: { events: Event[] }) {
                                                     className={`
                                                         self-start w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 cursor-pointer
                                                         ${isToday(day)
-                                                            ? "bg-blue-600 text-white font-bold"
+                                                            ? "bg-secondary-500 text-white font-bold"
                                                             : "text-gray-600"
                                                         }
                                                     `}
@@ -328,7 +328,7 @@ function CalendarView({ events }: { events: Event[] }) {
                                                         key={ev.id}
                                                         onClick={() => setSelectedEvent(ev)}
                                                         className="w-full text-left text-white text-xs font-semibold rounded-md px-1.5 py-1 leading-tight mb-0.5 truncate transition-opacity hover:opacity-90 cursor-pointer"
-                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--primary-500) 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                                                         title={ev.title}
                                                     >
                                                         {ev.title}
@@ -409,7 +409,7 @@ export default function UpcomingEvents() {
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
-            <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
+            <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>
             <div className="w-full h-px bg-gray-300 mb-5" />
@@ -421,7 +421,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "calendar" ? "#fff" : "transparent",
-                            color: view === "calendar" ? "var(--primary-700)" : "#6b7280",
+                            color: view === "calendar" ? "var(--secondary-500)" : "#6b7280",
                             boxShadow: view === "calendar" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="Calendar view"
@@ -433,7 +433,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "list" ? "#fff" : "transparent",
-                            color: view === "list" ? "var(--primary-700)" : "#6b7280",
+                            color: view === "list" ? "var(--secondary-500)" : "#6b7280",
                             boxShadow: view === "list" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="List view"
@@ -445,7 +445,7 @@ export default function UpcomingEvents() {
 
             {loading ? (
                 <div className="flex justify-center items-center py-20">
-                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                    <Loader2 className="w-8 h-8 text-secondary-600 animate-spin" />
                 </div>
             ) : events.length === 0 ? (
                 <p className="text-center text-gray-500 py-10">No upcoming events found.</p>

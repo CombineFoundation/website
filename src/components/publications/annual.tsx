@@ -53,11 +53,11 @@ function ReportCard({ report }: { report: Report }) {
 
             {/* Content */}
             <div className="flex-1 min-w-0 pl-0 min-[500px]:pl-5 py-2 min-[500px]:py-5 flex flex-col h-full justify-center w-full">
-                <h2 className="text-xl lg:text-4xl font-bold text-black leading-snug">
+                <h2 className="text-xl lg:text-4xl font-bold text-secondary-500 leading-snug">
                     {report.title}
                 </h2>
 
-                <p className="mt-2 text-gray-500 text-sm md:text-xs lg:text-base leading-relaxed">
+                <p className="mt-2 text-primary-800 text-sm md:text-xs lg:text-base leading-relaxed">
                     {report.description}
                 </p>
 
@@ -72,7 +72,7 @@ function ReportCard({ report }: { report: Report }) {
                         w-full
                         min-[830px]:w-[350px] h-[42px] rounded-full text-white font-semibold text-sm flex items-center justify-center hover:opacity-90 transition-opacity "
                         style={{
-                            background: "linear-gradient(90deg, var(--secondary-700) 0%, var(--primary-500) 100%)",
+                            background: "linear-gradient(90deg, var(--secondary-700) 0%, var(--secondary-500) 100%)",
                         }}
                     >
                         View
@@ -97,7 +97,7 @@ export default function AnnualReports() {
         <section id="annual-reports" className="w-full px-4 sm:px-8 lg:px-14 py-12">
             {/* Heading */}
             <div className="mb-8 border-b border-gray-300 pb-4">
-                <h1 className="text-3xl md:text-4xl font-extrabold text-black">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-secondary-500">
                     Annual Reports
                 </h1>
             </div>

@@ -54,7 +54,7 @@ export default function HowItWorks() {
                         <div className="flex flex-col gap-8 min-[450px]:hidden">
                             {steps.map((step) => (
                                 <div key={step.id} className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                         {step.id}
                                     </div>
                                     <div>
@@ -94,7 +94,7 @@ export default function HowItWorks() {
                                     className={`absolute ${step.left} ${step.top} flex items-start gap-10`}
                                 >
                                     <div className="relative z-20 flex-shrink-0">
-                                        <div className="w-20 h-20 rounded-full bg-primary-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+                                        <div className="w-20 h-20 rounded-full bg-secondary-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
                                             {step.id}
                                         </div>
                                     </div>

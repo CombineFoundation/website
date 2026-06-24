@@ -3,7 +3,7 @@
 export default function CeoProfile() {
   return (
     <section className="w-full px-6 py-10 lg:px-12 mx-auto">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Our CEO
       </h2>
 
@@ -18,10 +18,10 @@ export default function CeoProfile() {
         </div>
 
         <div className="flex-1 order-1 md:order-2 mt-3">
-          <h3 className="text-xl lg:text-3xl font-bold text-black uppercase tracking-wide mb-1">
+          <h3 className="text-xl lg:text-3xl font-bold text-primary-600 uppercase tracking-wide mb-1">
             Mr. Ashfaq Nathani
           </h3>
-          <p className="text-sm md:text-base text-gray-600 mb-5">
+          <p className="text-sm md:text-base text-primary-800 mb-5">
             Chief Executive Officer & Board of Director
           </p>
 

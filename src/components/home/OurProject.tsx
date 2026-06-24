@@ -147,8 +147,8 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
         description="Explore our initiatives creating lasting impact across Pakistan."
       />
 
-      <div className="absolute left-1 sm:left-3 top-1/2 w-1.5 h-[30%] translate-y-[-35%] rounded-full bg-secondary-700" />
-      <div className="absolute right-1 sm:right-3 translate-y-[-35%] top-1/2 w-1.5 h-[30%] rounded-full bg-secondary-700" />
+      <div className="absolute left-1 sm:left-3 top-1/2 w-1.5 h-[30%] translate-y-[-35%] rounded-full bg-primary-700" />
+      <div className="absolute right-1 sm:right-3 translate-y-[-35%] top-1/2 w-1.5 h-[30%] rounded-full bg-primary-700" />
 
       <div
         className="relative w-full rounded-2xl overflow-hidden"
@@ -192,7 +192,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
           </p>
           <Link
             href={project.link}
-            className="inline-flex items-center justify-center w-fit px-7 py-3 rounded-full bg-accent-orange hover:brightness-90 text-white font-semibold text-base transition-all duration-200"
+            className="inline-flex items-center justify-center w-fit px-7 py-3 rounded-full bg-navy hover:brightness-90 text-white font-semibold text-base transition-all duration-200"
           >
             Learn More
           </Link>
@@ -203,7 +203,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
         <button
           onClick={handlePrev}
           aria-label="Previous project"
-          className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
         >
           <svg
             width="18"
@@ -221,7 +221,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
         <button
           onClick={handleNext}
           aria-label="Next project"
-          className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
         >
           <svg
             width="18"

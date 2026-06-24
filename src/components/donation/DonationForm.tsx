@@ -251,7 +251,7 @@ export default function DonationForm() {
 
                 {/* Title */}
                 <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-3">
-                    Donation Form / <span className="text-accent-orange">Small Donations, Big Impact</span>
+                    <span className="text-accent-orange">Small Donations, Big Impact</span>
                 </h1>
                 <hr className="border-t border-[#b0bec5] mb-8" />
 
@@ -407,7 +407,7 @@ export default function DonationForm() {
                             disabled={loading}
                             className="mt-4 w-full py-3.5 rounded-full text-white font-bold text-base transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
                             style={{
-                                background: "linear-gradient(135deg, var(--secondary-600) 0%, var(--primary-500) 33%, var(--primary-500) 66%, var(--secondary-600) 100%)",
+                                background: "linear-gradient(135deg, var(--secondary-600) 0%, var(--secondary-500) 33%, var(--secondary-500) 66%, var(--secondary-600) 100%)",
                                 boxShadow: "0 4px 14px rgba(13,59,122,0.35)",
                             }}
                         >
@@ -417,10 +417,10 @@ export default function DonationForm() {
 
                     {/* ── RIGHT: Next Goal ── */}
                     <div className="flex flex-col items-center w-full">
-                        <h2 className="text-2xl md:text-[1.65rem] font-bold text-black mb-2 text-center">
+                        <h2 className="text-2xl md:text-[1.65rem] font-bold text-secondary-500 mb-2 text-center">
                             Turning Donations into Change
                         </h2>
-                        <p className="text-sm text-gray-600 text-center leading-relaxed mb-6 ">
+                        <p className="text-sm text-primary-800 text-center leading-relaxed mb-6 ">
                             Empowering communities through education, technology, welfare support, sustainability, youth leadership initiatives and to help youth become self-dependent, skilled, and capable of building their own future.
                         </p>
 

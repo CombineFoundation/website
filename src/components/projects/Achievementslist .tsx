@@ -37,7 +37,7 @@ function AchievementItem({
                 rounded-2xl overflow-hidden border
                 transition-all duration-500 ease-in-out
                 ${open
-                    ? "bg-secondary-600 border-secondary-600 shadow-2xl shadow-blue-950/20"
+                    ? "bg-secondary-500 border-gray-600 "
                     : "bg-white border-gray-200 hover:border-gray-300"}
             `}
         >

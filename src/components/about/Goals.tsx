@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SectionHeader from "../UI/SectionHeader";
+import { Dot } from "lucide-react";
 
 type GoalItem = {
     id: number;
@@ -99,7 +100,7 @@ export default function Goals() {
                             onClick={() => setActiveKey(tab.key)}
                             className="flex-1 pb-3 text-sm md:text-base font-bold tracking-widest text-center cursor-pointer transition-colors duration-200"
                             style={{
-                                color: isActive ? "#111" : "#9ca3af",
+                                color: isActive ? "#FF6900" : "#9ca3af",
                                 borderBottom: isActive ? "3px solid var(--accent-orange)" : "3px solid transparent",
                                 marginBottom: "-1px",
                             }}
@@ -114,7 +115,7 @@ export default function Goals() {
                 {activeTab.items.map((item, i) => (
                     <div key={item.id}>
                         <div className="flex items-start gap-3 py-5">
-                            <span className="text-black mt-1 text-xs shrink-0">•</span>
+                            <span className="text-black mt-1"><Dot/></span>
                             <p className="text-black text-sm md:text-base leading-7">
                                 {item.text}
                             </p>

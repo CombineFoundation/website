@@ -90,7 +90,7 @@ function ImpactCard({ item }: ImpactCardProps) {
       </div>
 
       <div className="p-5 overflow-hidden" style={{ height: hovered ? "300px " : "210px", transition: "height 0.5s ease" }}>
-        <p className="text-3xl md:text-4xl font-bold text-gray-900 leading-none mb-1">
+        <p className="text-3xl md:text-4xl font-bold text-secondary-500 leading-none mb-1">
           {item.stat}
         </p>
         <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2.5">
