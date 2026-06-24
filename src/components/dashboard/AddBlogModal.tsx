@@ -12,6 +12,7 @@ interface BlogFormData {
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  content: string;
 }
 
 interface AddBlogModalProps {
@@ -38,6 +39,7 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     conclusion: "",
     heroImage1: "",
     heroImage2: "",
+    content: "",
   });
 
   const handleChange = (
@@ -58,6 +60,7 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     form.authorName.trim() &&
     form.date.trim() &&
     form.description.trim() &&
+    form.content.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim();
 
@@ -137,6 +140,18 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
             placeholder="Brief description of the blog post..."
             rows={3}
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Body Content (Use blank lines to separate paragraphs)</label>
+          <textarea
+            name="content"
+            value={form.content}
+            onChange={handleChange}
+            placeholder="Write the full blog post paragraphs here..."
+            rows={6}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 

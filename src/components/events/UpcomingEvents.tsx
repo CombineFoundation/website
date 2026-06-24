@@ -17,8 +17,10 @@ type Event = {
     registerLink: string;
 };
 
-function parseEventDate(dateStr: string): Date {
-    return new Date(dateStr);
+function parseEventDate(dateStr: string): Date | null {
+    if (!dateStr || dateStr.toLowerCase().includes("to be announced")) return null;
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? null : d;
 }
 
 function buildMonthGrid(year: number, month: number): number[][] {
@@ -208,20 +210,22 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
 function CalendarView({ events }: { events: Event[] }) {
     function getInitialMonth() {
-        if (events.length === 0) {
+        const validEvents = events.filter(e => parseEventDate(e.date) !== null);
+        if (validEvents.length === 0) {
             const today = new Date();
             return { year: today.getFullYear(), month: today.getMonth() };
         }
-        const sorted = [...events].sort(
-            (a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
+        const sorted = [...validEvents].sort(
+            (a, b) => (parseEventDate(a.date) as Date).getTime() - (parseEventDate(b.date) as Date).getTime()
         );
-        const first = parseEventDate(sorted[0].date);
+        const first = parseEventDate(sorted[0].date) as Date;
         return { year: first.getFullYear(), month: first.getMonth() };
     }
 
     function eventsOnDay(year: number, month: number, day: number): Event[] {
         return events.filter((e) => {
             const d = parseEventDate(e.date);
+            if (!d) return false;
             return (
                 d.getFullYear() === year &&
                 d.getMonth() === month &&
