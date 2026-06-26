@@ -9,10 +9,10 @@ interface ProjectItem {
     description: string;
     goal: string;
     stats: { value: string; label: string }[];
-    beforeImage: string;
-    afterImage: string;
-    futurePlans: string;
-    partners: string[];
+    beforeImage?: string;
+    afterImage?: string;
+    futurePlans?: string;
+    partners?: string[];
 }
 
 interface AchievementsListProps {
@@ -164,77 +164,83 @@ function AchievementItem({
                     </div>
 
                     {/* Before After */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-                        <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
-                                <Image
-                                    src={item.beforeImage}
-                                    alt="Before"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            <p className="text-white text-center font-bold">
-                                Before
-                            </p>
-                        </div>
-
-                        <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
-                                <Image
-                                    src={item.afterImage}
-                                    alt="After"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            <p className="text-white text-center font-bold">
-                                After
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Future Plans */}
-                    <div>
-                        <h4 className="text-white font-bold text-base mb-2">
-                            Future Plans
-                        </h4>
-
-                        <p className="text-white/85 text-sm leading-6">
-                            {item.futurePlans}
-                        </p>
-                    </div>
-
-                    {/* Partners */}
-                    <div>
-                        <h4 className="text-white font-bold text-base mb-4">
-                            Project Partners
-                        </h4>
-
-                        <div
-                            className="flex gap-3 overflow-x-auto pb-2"
-                            style={{ scrollbarWidth: "none" }}
-                        >
-                            {item.partners.map((src, i) => (
-                                <div
-                                    key={i}
-                                    className="
-                                        relative rounded-xl overflow-hidden
-                                        shrink-0 w-[200px] h-[200px]
-                                    "
-                                >
+                    {item.beforeImage && item.afterImage && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+                            <div>
+                                <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
                                     <Image
-                                        src={src}
-                                        alt={`Partner ${i + 1}`}
+                                        src={item.beforeImage}
+                                        alt="Before"
                                         fill
-                                        className="object-contain p-4"
+                                        className="object-cover"
                                     />
                                 </div>
-                            ))}
+
+                                <p className="text-white text-center font-bold">
+                                    Before
+                                </p>
+                            </div>
+
+                            <div>
+                                <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
+                                    <Image
+                                        src={item.afterImage}
+                                        alt="After"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+
+                                <p className="text-white text-center font-bold">
+                                    After
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    {/* Future Plans */}
+                    {item.futurePlans && (
+                        <div>
+                            <h4 className="text-white font-bold text-base mb-2">
+                                Future Plans
+                            </h4>
+
+                            <p className="text-white/85 text-sm leading-6">
+                                {item.futurePlans}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Partners */}
+                    {item.partners && item.partners.length > 0 && (
+                        <div>
+                            <h4 className="text-white font-bold text-base mb-4">
+                                Project Partners
+                            </h4>
+
+                            <div
+                                className="flex gap-3 overflow-x-auto pb-2"
+                                style={{ scrollbarWidth: "none" }}
+                            >
+                                {item.partners.map((src, i) => (
+                                    <div
+                                        key={i}
+                                        className="
+                                            relative rounded-xl overflow-hidden
+                                            shrink-0 w-[200px] h-[200px]
+                                        "
+                                    >
+                                        <Image
+                                            src={src}
+                                            alt={`Partner ${i + 1}`}
+                                            fill
+                                            className="object-contain p-4"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             </div>

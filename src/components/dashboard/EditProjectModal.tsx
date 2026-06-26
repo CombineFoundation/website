@@ -123,11 +123,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
     form.location.trim() &&
     form.coordinates.trim() &&
     form.goal.trim() &&
-    form.futurePlans.trim() &&
-    form.images.length > 0 &&
-    form.beforeImage.trim() &&
-    form.afterImage.trim() &&
-    form.partners.length > 0 &&
+    form.images.length >= 4 &&
     form.stats.some((s) => s.value.trim() && s.label.trim());
 
   const handleSave = () => {
@@ -243,7 +239,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
         ))}
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 recommended)</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 required)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.images.map((src, i) => (
@@ -265,7 +261,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
 
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Before Image</label>
+            <label className="block text-sm text-gray-600 mb-1">Before Image (Optional)</label>
             {form.beforeImage ? (
               <div className="relative">
                 <img src={form.beforeImage} alt="Before" className="w-full h-32 object-cover rounded-md border border-gray-200" />
@@ -282,7 +278,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
             )}
           </div>
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">After Image</label>
+            <label className="block text-sm text-gray-600 mb-1">After Image (Optional)</label>
             {form.afterImage ? (
               <div className="relative">
                 <img src={form.afterImage} alt="After" className="w-full h-32 object-cover rounded-md border border-gray-200" />
@@ -301,7 +297,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans (Optional)</p>
 
         <div className="mb-4">
           <textarea
@@ -315,7 +311,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners (Optional)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.partners.map((src, i) => (
