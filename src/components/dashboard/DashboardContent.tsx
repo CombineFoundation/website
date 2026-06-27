@@ -9,6 +9,8 @@ import DonationsView from "./DonationsView";
 import ProjectsView from "./ProjectsView";
 import PublicationsView from "./PublicationsView";
 import JobsView from "./JobsView";
+import TeamView from "./TeamView";
+import SplashView from "./SplashView";
 
 export default function DashboardContent({
   section,
@@ -32,6 +34,10 @@ export default function DashboardContent({
       return <PublicationsView />;
     case "jobs":
       return <JobsView />;
+    case "team":
+      return <TeamView />;
+    case "splash":
+      return <SplashView />;
     default:
       return (
         <div className="space-y-6">
@@ -68,6 +74,8 @@ const sectionTitles: Record<SectionId, string> = {
   projects: "Projects",
   publications: "Publications",
   jobs: "Jobs",
+  team: "Team",
+  splash: "Splash Banners",
 };
 
 const sectionDescriptions: Record<SectionId, string> = {
@@ -79,4 +87,6 @@ const sectionDescriptions: Record<SectionId, string> = {
   projects: "Manage your projects here.",
   publications: "Manage annual reports and MOUs.",
   jobs: "Manage job openings.",
+  team: "Manage team members and partners.",
+  splash: "Manage splash banners shown on the home page.",
 };

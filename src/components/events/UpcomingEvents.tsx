@@ -17,8 +17,11 @@ type Event = {
     registerLink: string;
 };
 
-function parseEventDate(dateStr: string): Date {
-    return new Date(dateStr);
+function parseEventDate(dateStr: string): Date | null {
+    if (!dateStr || dateStr.toLowerCase().includes("to be announced")) return null;
+    const cleaned = dateStr.replace(/(\d+)(st|nd|rd|th)/g, "$1");
+    const d = new Date(cleaned);
+    return isNaN(d.getTime()) ? null : d;
 }
 
 function buildMonthGrid(year: number, month: number): number[][] {
@@ -208,20 +211,22 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
 function CalendarView({ events }: { events: Event[] }) {
     function getInitialMonth() {
-        if (events.length === 0) {
+        const validEvents = events.filter(e => parseEventDate(e.date) !== null);
+        if (validEvents.length === 0) {
             const today = new Date();
             return { year: today.getFullYear(), month: today.getMonth() };
         }
-        const sorted = [...events].sort(
-            (a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
+        const sorted = [...validEvents].sort(
+            (a, b) => (parseEventDate(a.date) as Date).getTime() - (parseEventDate(b.date) as Date).getTime()
         );
-        const first = parseEventDate(sorted[0].date);
+        const first = parseEventDate(sorted[0].date) as Date;
         return { year: first.getFullYear(), month: first.getMonth() };
     }
 
     function eventsOnDay(year: number, month: number, day: number): Event[] {
         return events.filter((e) => {
             const d = parseEventDate(e.date);
+            if (!d) return false;
             return (
                 d.getFullYear() === year &&
                 d.getMonth() === month &&
@@ -404,9 +409,8 @@ export default function UpcomingEvents() {
     }, []);
 
     return (
-
-        <section className="w-full mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
-            <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
+            <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>
             <div className="w-full h-px bg-gray-300 mb-5" />

@@ -18,7 +18,7 @@ const quoteData: QuoteData = {
 
 export default function QuoteSection() {
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full max-w-[1500px] mx-auto flex flex-row justify-center overflow-hidden">
       <SectionHeader
         title="Founder Info"
         description="A vision to combine efforts, uplift communities, and inspire hope"

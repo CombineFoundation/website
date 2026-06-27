@@ -1,25 +1,6 @@
 [
   {
     "id": 1,
-    "title": "Ramadan Bachat Camp With Hammad Foundation",
-    "images": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
-    "description": "A community relief initiative providing subsidized food essentials to low-income families during Ramadan. Over 800 families received quality fruits and grocery items at 60% below market rates.",
-    "goal": "To ensure that no family goes hungry during Ramadan by providing affordable access to nutritious food supplies.",
-    "stats": [
-      { "value": "800+", "label": "Fruits Distributed" },
-      { "value": "1200+", "label": "People Helped" },
-      { "value": "75+", "label": "Volunteers" },
-      { "value": "10+", "label": "Cities Covered" }
-    ],
-    "beforeImage": "/home/image1.avif",
-    "afterImage": "/home/image1.avif",
-    "futurePlans": "We aim to expand the Bachat Camp to 15 cities next year, introduce an online ordering system, and partner with more local farms to further reduce costs.",
-    "partners": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
-    "location": "Karachi",
-    "coordinates": "24.8608, 67.0104"
-  },
-  {
-    "id": 2,
     "title": "Free Education Drive Lahore",
     "images": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
     "description": "A six-month educational program offering free tutoring and school supplies to underprivileged children in Lahore's low-income areas. Focused on literacy, numeracy, and STEM fundamentals.",
@@ -38,7 +19,7 @@
     "coordinates": "31.5820, 74.3294"
   },
   {
-    "id": 3,
+    "id": 2,
     "title": "Health Camp & Free Check-Up Peshawar",
     "images": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
     "description": "A week-long free medical camp providing basic health check-ups, eye tests, and free medicine distribution to over 1,500 residents in rural Peshawar.",
@@ -57,7 +38,7 @@
     "coordinates": "34.0080, 71.5785"
   },
   {
-    "id": 4,
+    "id": 3,
     "title": "Women Entrepreneurship Program",
     "images": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
     "description": "A three-month skill development and business mentorship program for women in Karachi, covering tailoring, handicrafts, digital marketing, and financial literacy.",
@@ -76,7 +57,7 @@
     "coordinates": "24.8608, 67.0104"
   },
   {
-    "id": 5,
+    "id": 4,
     "title": "Clean Water Initiative Quetta",
     "images": ["/home/image1.avif", "/home/image1.avif", "/home/image1.avif", "/home/image1.avif", "/home/image1.avif"],
     "description": "Installation of water filtration plants in five drought-affected villages in Balochistan, providing clean drinking water to over 3,000 residents and reducing waterborne diseases.",

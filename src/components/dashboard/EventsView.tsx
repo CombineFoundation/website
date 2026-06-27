@@ -264,15 +264,17 @@ export default function EventsView() {
         </table>
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalResults={totalResults}
-        onPageChange={(p) => {
-          setCurrentPage(p);
-          setSelectedIds(new Set());
-        }}
-      />
+      {totalResults > PAGE_SIZE && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalResults={totalResults}
+          onPageChange={(p) => {
+            setCurrentPage(p);
+            setSelectedIds(new Set());
+          }}
+        />
+      )}
 
       {editEvent && (
         <EditEventModal

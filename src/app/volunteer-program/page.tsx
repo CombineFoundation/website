@@ -1,7 +1,6 @@
 import Hero from "@/components/UI/hero"
 import HowItWorks from "@/components/volunteer/Howitworks"
 import WhyJoinUs from "@/components/volunteer/Whyjoinus"
-import Filltheform from "@/components/volunteer/Filltheform"
 import CtaSection from "@/components/UI/CtaSection";
 import HearFromVolunteers from "@/components/volunteer/ourVolunteer";
 import VolunteerFAQ from "@/components/volunteer/VolunteerFAQ";
@@ -19,8 +18,7 @@ export default function VolunteerPage() {
             />
             <HowItWorks />
             <WhyJoinUs />
-            <Filltheform />
-            <CtaSection text="More Than Volunteering — A Career Journey" buttonText="Join Today" url="/contact" />
+            <CtaSection text="More Than Volunteering — A Career Journey" buttonText="Join Today" url="https://www.combinefoundationportal.com/volunteer/apply" />
             <HearFromVolunteers />
             <VolunteerFAQ />
         </div>

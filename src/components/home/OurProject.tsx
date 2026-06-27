@@ -18,7 +18,7 @@ const DEFAULT_PROJECTS: Project[] = [
     id: "1",
     name: "RAISE",
     description:
-      "RAISE (Rising Ambitions in Skills & Education) is a project of the Combine Foundation that aims to empower students as well as employees with all the information, skills, and opportunities to excel in today's fast-paced environment. The aim of this project is to connect learners to practical training modules relevant to the industries which can help them secure their future employment. The RAISE project offers a variety of courses like Python with AI, Web Development, Basic Computer Skills, Quantitative Finance, Meta Ads Marketing, as well as programs designed to foster growth in personal qualities of learners. With a focus on building digital literacy, innovation, and a passion for learning, this project can help learners pursue freelancing jobs and improve their income and self-reliance.",
+      "RAISE (Rising Ambitions in Skills & Education) is a project of the Combine Foundation that aims to empower students and employees with the information, skills, and opportunities to excel in today's fast-paced environment. The project connects learners to practical training modules relevant to industries, helping them secure future employment. RAISE offers courses like Web Development (coding fundamentals, responsive design, freelancing skills — 2 successful batches), Quantitative Finance (financial literacy, data analysis, market concepts — batches 1 & 2 completed, batch 3 upcoming), Python with AI Development (AI development, automation, coding — batch 1 completed, batch 2 in progress), Basic Computer Skills (MS Office, typing, digital platforms for beginners), and Meta Ads Marketing (Facebook & Instagram ads, audience targeting, freelancing skills). With a focus on digital literacy, innovation, and lifelong learning, this project helps learners pursue freelancing and improve their income and self-reliance.",
     image: "/home/project/project.png",
     link: "/projects",
   },
@@ -26,40 +26,32 @@ const DEFAULT_PROJECTS: Project[] = [
     id: "2",
     name: "Scholarship & Career Support",
     description:
-      "The Scholarship & Career Support Projects by Combine Foundation are designed to help students achieve their educational and professional goals through financial assistance, career guidance, and skill development opportunities. These initiatives support deserving students by creating pathways for education, digital learning, online earning, and future career growth. The CSC Scholarship Program provides financial assistance and academic support to deserving students unable to study due to financial reasons. Additionally, Freelancing & Online Earning Awareness sessions teach students and freelancers how to start earning online through digital skills, freelancing platforms, and practical career guidance.",
-    image: "/home/project/project.png",
+      "The Scholarship & Career Support Projects by Combine Foundation are designed to help students achieve their educational and professional goals through financial assistance, career guidance, and skill development opportunities. The CSC Scholarship Program was launched to support deserving and talented students facing financial hardships, providing financial assistance and academic support so they can continue their studies with confidence. Currently, many deserving students are studying and growing under this program. Additionally, Freelancing & Online Earning Awareness sessions teach students and freelancers how to start earning online through digital skills and freelancing platforms, covering online marketplaces, career opportunities, and how to get clients through inbound and outbound leads.",
+    image: "/home/projects/1.svg",
     link: "/projects",
   },
   {
     id: "3",
     name: "Volunteer & Youth Leadership",
     description:
-      "The Volunteer and Youth Leadership Programs by Combine Foundation are specifically designed to help students and young individuals who want to develop leadership, communication, teamwork, and practical professional skills through real-world projects, community involvement, and social initiatives beyond academics. The Volunteer Program provides opportunities to work on real-world projects across different niches, developing skills like leadership, teamwork, responsibility, and communication. The Youth Leadership Program is a 6-month leadership development program that empowers young individuals through activities, real-world projects, teamwork, and social initiatives, helping them build confidence, personal growth, and strong community engagement skills.",
-    image: "/home/project/project.png",
+      "The Volunteer and Youth Leadership Programs by Combine Foundation are designed to help students and young individuals develop leadership, communication, teamwork, and professional skills through real-world projects, community involvement, and social initiatives beyond academics. The Volunteer Program provides opportunities to work across different niches, building leadership, teamwork, responsibility, and communication skills while contributing to social and educational initiatives. The Youth Leadership Program is a 6-month leadership development program that empowers young individuals to become confident and responsible future leaders through activities, real-world projects, teamwork, decision-making, and strategic thinking. We have a strong network of youth from various universities participating as youth leaders and volunteers.",
+    image: "/home/projects/4.svg",
     link: "/projects",
   },
   {
     id: "4",
-    name: "Ramadan Reset Challenge",
+    name: "Health & Environmental Sustainability",
     description:
-      "The Ramadan Reset Challenge by Combine Foundation is a spiritual and personal development program designed to help students and Muslim individuals to reconnect with Islamic values during the holy month of Ramadan. Through daily learning, reflection, and positive habit-building activities, this program encourages youth to strengthen their faith, improve character, and develop a more disciplined and meaningful lifestyle. This program also helps youth and students to build strong faith and create a sense of good habits through small actions from daily life.",
-    image: "/home/project/project.png",
+      "The Health Awareness & Environmental Sustainability Initiatives by Combine Foundation focus on promoting wellness, healthy living, and environmental awareness within communities. The Healthy Lifestyle Awareness Program guides individuals on balanced nutrition, physical activity, disciplined routines, and mindful living through interactive sessions. Our One Follower One Plant plantation drive promotes environmental sustainability by planting a tree for every new supporter to improve air quality and combat climate impact. The Kitchen Garden Festival Camp educates families on organic lifestyles, home-grown food, and reducing processed food consumption. The Packet Palto Phir Kharido awareness campaign encourages smarter food choices by teaching people to read product labels, avoid harmful ingredients, and choose healthier alternatives.",
+    image: "/home/projects/2.svg",
     link: "/projects",
   },
   {
     id: "5",
-    name: "Health & Environmental Sustainability",
-    description:
-      "The Health Awareness & Environmental Sustainability Initiatives by Combine Foundation focus on promoting wellness, healthy living, and environmental sustainability within communities. Through the Healthy Lifestyle Awareness Program, we guide individuals on balanced nutrition, physical activity, and mindful living. Our One Follower One Plant plantation drive promotes environmental sustainability by planting a tree for every new supporter. The Kitchen Garden Festival Camp educates families on organic lifestyles and home-grown food. The Packet Palto Phir Kharido campaign encourages smarter food choices by reading product labels. Together, these initiatives encourage every individual to adopt positive habits and contribute toward a cleaner, healthier future.",
-    image: "/home/project/project.png",
-    link: "/projects",
-  },
-  {
-    id: "6",
     name: "Community Welfare & Support",
     description:
-      "The Community Welfare & Support Initiatives by Combine Foundation are focused on helping deserving families and supporting communities during difficult times. Through Disaster Relief & Emergency camps, we provide immediate help to communities affected by floods and natural disasters, distributing essential supplies with compassion. The Winter Relief & Community Support Drives provide warm clothing, blankets, and essential supplies to vulnerable families in remote areas like Balochistan. The Ramadan Food Support & Relief Program distributes essential food packages to deserving households during Ramadan, ensuring dignity and privacy for all recipients.",
-    image: "/home/project/project.png",
+      "The Community Welfare & Support Initiatives by Combine Foundation are focused on helping deserving families and supporting communities during difficult times. Through Disaster Relief & Emergency camps, we provide immediate help to communities affected by floods and natural disasters, distributing essential supplies including food, clean water, and daily necessities with compassion and respect. The Winter Relief & Community Support Drives provide warm clothing, blankets, bedding, and essential supplies to vulnerable families and students in remote areas like Balochistan. The Ramadan Food Support & Relief Program distributes essential food packages to deserving households during Ramadan, ensuring dignity and complete privacy by keeping recipients' identity anonymous with no video recording.",
+    image: "/home/projects/3.svg",
     link: "/projects",
   },
 ];
@@ -174,7 +166,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
             priority
           />
 
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/35" />
         </div>
 
         <div

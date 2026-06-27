@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
-import type { Message } from "@/lib/collections";
+// import type { Message } from "@/lib/collections";
 
 // ── Strict validators (work regardless of input type) ──────────────────────
 const EMAIL_RE =
@@ -133,7 +133,7 @@ const ContactForm = () => {
         `${baseInput} ${err ? "border-red-400 focus:ring-red-400" : "border-gray-300"}`;
 
     return (
-        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
+        <section className="max-w-[1500px] w-full mx-auto px-4 md:px-6 lg:px-8 py-10">
             <div className="w-full">
                 {/* Header */}
                 <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-secondary-500 mb-2">

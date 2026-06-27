@@ -321,6 +321,85 @@ export async function deleteMOUs(ids: string[]): Promise<void> {
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "mous", id))));
 }
 
+// ─── Team Members ────────────────────────────────────────────────────
+
+export interface FirestoreTeamMember {
+  id?: string;
+  name: string;
+  role: string;
+  section: string;
+  image: string;
+  createdAt?: any;
+}
+
+export async function fetchTeamMembers(): Promise<FirestoreTeamMember[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "teamMembers"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreTeamMember));
+}
+
+export async function addTeamMember(
+  data: Omit<FirestoreTeamMember, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "teamMembers"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updateTeamMember(
+  id: string,
+  data: Partial<Omit<FirestoreTeamMember, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "teamMembers", id), { ...data });
+}
+
+export async function deleteTeamMembers(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "teamMembers", id))));
+}
+
+// ─── Partners ────────────────────────────────────────────────────────
+
+export interface FirestorePartner {
+  id?: string;
+  name: string;
+  description: string;
+  image: string;
+  createdAt?: any;
+}
+
+export async function fetchPartners(): Promise<FirestorePartner[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "partners"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestorePartner));
+}
+
+export async function addPartner(
+  data: Omit<FirestorePartner, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "partners"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function updatePartner(
+  id: string,
+  data: Partial<Omit<FirestorePartner, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "partners", id), { ...data });
+}
+
+export async function deletePartners(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "partners", id))));
+}
+
 // ─── Jobs ────────────────────────────────────────────────────────────
 
 export interface FirestoreJob {
@@ -361,6 +440,38 @@ export async function updateJob(
 export async function deleteJobs(ids: string[]): Promise<void> {
   const db = getDb();
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "jobs", id))));
+}
+
+// ─── Splash Banners ──────────────────────────────────────────────────
+
+export interface FirestoreSplash {
+  id?: string;
+  image: string;
+  linkUrl: string;
+  alt: string;
+  createdAt?: any;
+}
+
+export async function fetchSplashBanners(): Promise<FirestoreSplash[]> {
+  const snap = await getDocs(
+    query(collection(getDb(), "splashBanners"), orderBy("createdAt", "desc"))
+  );
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreSplash));
+}
+
+export async function addSplashBanner(
+  data: Omit<FirestoreSplash, "id" | "createdAt">
+): Promise<string> {
+  const ref = await addDoc(collection(getDb(), "splashBanners"), {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function deleteSplashBanners(ids: string[]): Promise<void> {
+  const db = getDb();
+  await Promise.all(ids.map((id) => deleteDoc(doc(db, "splashBanners", id))));
 }
 
 // ─── Projects ────────────────────────────────────────────────────────

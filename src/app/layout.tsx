@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} h-full w-full antialiased overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col overflow-x-hidden">
+      <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
         {!isAdminPage && <Header />}
         <main className="flex-grow flex flex-col overflow-x-hidden">
           {children}

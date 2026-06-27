@@ -344,12 +344,14 @@ export default function PublicationsView() {
             </tbody>
           </table>
         </div>
-        <Pagination
-          currentPage={reportsPage}
-          totalPages={reportsTotalPages}
-          totalResults={filteredReports.length}
-          onPageChange={(p) => { setReportsPage(p); setReportsSelected(new Set()); }}
-        />
+        {filteredReports.length > PAGE_SIZE && (
+          <Pagination
+            currentPage={reportsPage}
+            totalPages={reportsTotalPages}
+            totalResults={filteredReports.length}
+            onPageChange={(p) => { setReportsPage(p); setReportsSelected(new Set()); }}
+          />
+        )}
       </>
     );
   };
@@ -417,12 +419,14 @@ export default function PublicationsView() {
             </tbody>
           </table>
         </div>
-        <Pagination
-          currentPage={mousPage}
-          totalPages={mousTotalPages}
-          totalResults={filteredMous.length}
-          onPageChange={(p) => { setMousPage(p); setMousSelected(new Set()); }}
-        />
+        {filteredMous.length > PAGE_SIZE && (
+          <Pagination
+            currentPage={mousPage}
+            totalPages={mousTotalPages}
+            totalResults={filteredMous.length}
+            onPageChange={(p) => { setMousPage(p); setMousSelected(new Set()); }}
+          />
+        )}
       </>
     );
   };
