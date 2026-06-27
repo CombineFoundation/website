@@ -16,6 +16,8 @@ const STEPS = [
     desc: "Once you get portal access, you can start participating in real-world volunteer projects, complete assigned tasks, and gain practical experience in different fields. You will also get free access to professional courses that help you build valuable career skills, improve your CV or resume, and prepare for future opportunities. Connect with industry professionals, receive mentorship, and grow in a safe, supportive environment.",
     number: 3,
   },
+
+  
 ];
 
 function DocIcon() {
