@@ -66,7 +66,7 @@ function ValueCard({ value }: ValueCardProps) {
         <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative overflow-hidden rounded-2xl flex items-center justify-center text-center px-6 py-10 cursor-pointer bg-secondary-600"
+            className="relative overflow-hidden rounded-2xl flex items-center justify-center min-w-[300px] xl:min-w-[450px] text-center px-6 py-10 cursor-pointer bg-secondary-600"
             style={{ minHeight: "290px" }}
         >
             {/* DEFAULT STATE */}
@@ -106,7 +106,7 @@ function ValueCard({ value }: ValueCardProps) {
 
 export default function OurValues() {
     return (
-        <section className="w-full mx-auto px-6 py-10 md:py-14">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
 
             <SectionHeader title="Our Values" />
 

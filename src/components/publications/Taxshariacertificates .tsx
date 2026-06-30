@@ -88,8 +88,8 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
 
 const TaxShariaCertificates = () => {
     return (
-        <section className="bg-white py-12 px-4">
-            <div className="max-w-full mx-auto">
+        <section className="bg-white py-12">
+            <div className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8">
 
                 <div className="mb-2">
                     <h2 className="text-2xl font-bold text-secondary-500">

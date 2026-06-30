@@ -4,19 +4,19 @@ import OurProject from "@/components/home/OurProject";
 import FounderInfo from "@/components/home/FounderInfo";
 import FaqSection from "@/components/home/FaqSection"; 
 import BlogSection from "@/components/home/BlogSection";
+import SplashBanner from "@/components/UI/SplashBanner";
 import { getAllBlogs } from "@/lib/blogs";
-import { getAllProjects } from "@/lib/projects";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const blogs = await getAllBlogs();
-  const projects = await getAllProjects();
   return (
     <div>
+      <SplashBanner />
       <Hero />
       <OurImpact />
-      <OurProject projects={projects} />
+      <OurProject />
       <FounderInfo />
       <FaqSection
       description = "Find answers to common questions about our mission, projects, and how you can get involved."
