@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2 } from "lucide-react";
+import { X, Upload, Plus, Trash2, Loader2 } from "lucide-react";
+import { compressImage } from "@/lib/image-compress";
 
 interface ProjectStat {
   value: string;
@@ -25,7 +26,7 @@ interface ProjectFormData {
 interface EditProjectModalProps {
   project: ProjectFormData & { id: string };
   onCancel: () => void;
-  onSave: (data: ProjectFormData) => void;
+  onSave: (data: ProjectFormData) => Promise<void> | void;
 }
 
 function readFileAsDataURL(file: File): Promise<string> {
@@ -38,12 +39,14 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 export default function EditProjectModal({ project, onCancel, onSave }: EditProjectModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState<ProjectFormData>({
-    title: project.title,
-    description: project.description,
-    location: project.location,
-    coordinates: project.coordinates,
-    goal: project.goal,
+    title: project.title || "",
+    description: project.description || "",
+    location: project.location || "",
+    coordinates: project.coordinates || "",
+    goal: project.goal || "",
     stats: project.stats?.length > 0 ? project.stats : [
       { value: "", label: "" },
       { value: "", label: "" },
@@ -67,7 +70,8 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
     const files = _e.target.files;
     if (!files) return;
     const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, images: [...prev.images, ...dataUrls] }));
+    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...compressedDataUrls] }));
   };
 
   const removeImage = (index: number) => {
@@ -81,14 +85,16 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
     const file = e.target.files?.[0];
     if (!file) return;
     const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    const compressedDataUrl = await compressImage(dataUrl);
+    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
   };
 
   const handlePartnerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
     const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...dataUrls] }));
+    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
+    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...compressedDataUrls] }));
   };
 
   const removePartner = (index: number) => {
@@ -118,17 +124,30 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
   };
 
   const isValid =
-    form.title.trim() &&
-    form.description.trim() &&
-    form.location.trim() &&
-    form.coordinates.trim() &&
-    form.goal.trim() &&
-    form.images.length >= 4 &&
-    form.stats.some((s) => s.value.trim() && s.label.trim());
+    !!(form.title?.trim() &&
+    form.description?.trim() &&
+    form.location?.trim() &&
+    form.coordinates?.trim() &&
+    form.goal?.trim() &&
+    form.images?.length >= 1 &&
+    form.stats?.some((s) => s.value?.trim() && s.label?.trim()));
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isValid) return;
-    onSave(form);
+    setSaving(true);
+    setError("");
+    try {
+      const cleanedStats = form.stats.filter((s) => s.value?.trim() && s.label?.trim());
+      await onSave({
+        ...form,
+        stats: cleanedStats,
+      });
+    } catch (err: any) {
+      console.error("Save project error:", err);
+      setError(err.message || "Failed to save project. Ensure you are signed in and images are not too large (limit is 1MB).");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -329,23 +348,31 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
           </label>
         </div>
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

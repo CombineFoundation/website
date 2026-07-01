@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2, GripVertical } from "lucide-react";
+import { X, Upload, Plus, Trash2, GripVertical, Loader2 } from "lucide-react";
+import { compressImage } from "@/lib/image-compress";
 
 interface CourseModule {
   title: string;
@@ -36,7 +37,7 @@ interface CourseFormData {
 
 interface AddCourseModalProps {
   onCancel: () => void;
-  onSave: (data: CourseFormData) => void;
+  onSave: (data: CourseFormData) => Promise<void> | void;
 }
 
 function readFileAsDataURL(file: File): Promise<string> {
@@ -49,6 +50,8 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState<CourseFormData>({
     name: "",
     instructor: "",
@@ -84,7 +87,8 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     const file = e.target.files?.[0];
     if (!file) return;
     const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    const compressedDataUrl = await compressImage(dataUrl);
+    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
   };
 
   const handleGuidelineUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,9 +165,18 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     form.modules.length > 0 &&
     form.modules.every(m => m.title.trim() && m.bullets.some(b => b.trim()));
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isValid) return;
-    onSave(form);
+    setSaving(true);
+    setError("");
+    try {
+      await onSave(form);
+    } catch (err: any) {
+      console.error("Save course error:", err);
+      setError(err.message || "Failed to save course. Ensure you are signed in and images are not too large.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -475,23 +488,31 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
           </div>
         ))}
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>
