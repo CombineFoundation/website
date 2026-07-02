@@ -1,42 +1,39 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { Search, Trash2, ChevronDown } from "lucide-react";
+import { Search, Trash2 } from "lucide-react";
 import Pagination from "./Pagination";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import ViewMessageModal from "./ViewMessageModal";
-import allContacts from "@/data/contacts.json";
-
-interface Contact {
-  id: number;
-  name: string;
-  email: string;
-  timestamp: string;
-  subject: string;
-  message: string;
-}
+import { fetchContacts, deleteContacts, type FirestoreContact } from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
 export default function ContactView() {
-  const [contacts, setContacts] = useState<Contact[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-contacts");
-        if (saved) return JSON.parse(saved) as Contact[];
-      } catch {}
-    }
-    return allContacts as Contact[];
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [contacts, setContacts] = useState<FirestoreContact[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [viewContact, setViewContact] = useState<Contact | null>(null);
+  const [viewContact, setViewContact] = useState<FirestoreContact | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadContacts = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchContacts();
+      setContacts(data);
+    } catch (err) {
+      console.error("Error fetching contacts:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-contacts", JSON.stringify(contacts));
-  }, [contacts]);
+    loadContacts();
+  }, []);
 
   const filtered = useMemo(() => {
     let result = contacts;
@@ -58,8 +55,8 @@ export default function ContactView() {
   );
 
   const allChecked =
-    paginated.length > 0 && paginated.every((c) => selectedIds.has(c.id));
-  const someChecked = paginated.some((c) => selectedIds.has(c.id));
+    paginated.length > 0 && paginated.every((c) => selectedIds.has(c.id!));
+  const someChecked = paginated.some((c) => selectedIds.has(c.id!));
 
   const canDelete = selectedIds.size > 0;
 
@@ -67,19 +64,19 @@ export default function ContactView() {
     if (allChecked) {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((c) => next.delete(c.id));
+        paginated.forEach((c) => next.delete(c.id!));
         return next;
       });
     } else {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((c) => next.add(c.id));
+        paginated.forEach((c) => next.add(c.id!));
         return next;
       });
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -92,17 +89,20 @@ export default function ContactView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setContacts((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteContacts(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadContacts();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
   const formatTimestamp = (ts: string) => {
+    if (!ts) return "";
     const parts = ts.split(":");
     if (parts.length === 2) {
       const [datePart, time] = parts;
@@ -110,6 +110,15 @@ export default function ContactView() {
     }
     return ts;
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading messages...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -178,7 +187,7 @@ export default function ContactView() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginated.map((contact) => {
-              const isChecked = selectedIds.has(contact.id);
+              const isChecked = selectedIds.has(contact.id!);
               return (
                 <tr
                   key={contact.id}
@@ -188,7 +197,7 @@ export default function ContactView() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => toggleOne(contact.id)}
+                      onChange={() => toggleOne(contact.id!)}
                       className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                     />
                   </td>
@@ -201,7 +210,7 @@ export default function ContactView() {
                     <button
                       onClick={() => setViewContact(contact)}
                       className="px-4 py-1.5 rounded-md text-xs font-medium text-white hover:brightness-110 transition-all cursor-pointer"
-                      style={{ backgroundColor: "#1E5EFF" }}
+                      style={{ backgroundColor: "var(--primary-500)" }}
                     >
                       View Message
                     </button>
@@ -227,7 +236,7 @@ export default function ContactView() {
 
       {viewContact && (
         <ViewMessageModal
-          contact={viewContact}
+          contact={viewContact as any}
           onClose={() => setViewContact(null)}
         />
       )}

@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0b2848] text-white relative overflow-hidden py-16 px-4 md:px-8 mt-auto">
+    <footer className="bg-secondary-600 text-white relative overflow-hidden py-16 px-4 md:px-8 mt-auto">
       {/* Huge Vertical COMBINE text on the right */}
       <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <span
-          className="font-normal text-transparent"
+          className="font-normal text-primary-600"
           style={{
             writingMode: "vertical-rl",
             // textOrientation: "upright",
@@ -15,7 +15,7 @@ export default function Footer() {
             fontSize: "clamp(5.5rem, 5vh, 18rem)",
             letterSpacing: "0.01em",
             textTransform: "uppercase",
-            color:"#0C3155",
+            color: "var(--secondary-700)",
             // transform: "rotate(180deg)",
           }}
         >
@@ -42,7 +42,7 @@ export default function Footer() {
         <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 pt-4">
           {/* Quick Links */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-black text-lg mb-2">Quick Links</h3>
+            <h3 className="text-orange font-black text-lg mb-2">Quick Links</h3>
             <Link href="/projects" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Projects</Link>
             <Link href="/free-courses" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Free Courses</Link>
             <Link href="/volunteer-program" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Volunteer Program</Link>
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Donate */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-black text-lg mb-2">Donate</h3>
+            <h3 className="text-orange font-black text-lg mb-2">Donate</h3>
             <Link href="/donations" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Donate Now</Link>
             <Link href="/events" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Events Calender</Link>
             <Link href="/publications" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Publications</Link>
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Support */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-[#eb5829] font-black text-lg mb-2">Support</h3>
+            <h3 className="text-orange font-black text-lg mb-2">Support</h3>
             <Link href="/contact" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Contact Us</Link>
             <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Terms of Service</Link>

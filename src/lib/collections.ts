@@ -1,4 +1,4 @@
-import { Timestamp, FieldValue } from "firebase/firestore";
+import { Timestamp, FieldValue } from "firebase/firestore/lite";
 
 export interface Program {
   id?: string;
@@ -23,3 +23,16 @@ export interface Message {
   message: string;
   sentAt: Timestamp | Date | FieldValue;
 }
+
+export interface Job {
+  id?: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  description: string;
+  requirements: string[];
+  active: boolean;
+  createdAt: Timestamp | Date | FieldValue;
+}
+

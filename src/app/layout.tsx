@@ -12,6 +12,7 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   variable: "--font-montserrat",
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -27,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} h-full w-full antialiased overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col font-[var(--font-montserrat)] overflow-x-hidden">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         {!isAdminPage && <Header />}
         <main className="flex-grow flex flex-col overflow-x-hidden">
           {children}

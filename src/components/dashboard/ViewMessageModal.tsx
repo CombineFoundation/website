@@ -66,7 +66,7 @@ export default function ViewMessageModal({ contact, onClose }: ViewMessageModalP
         <div className="flex justify-end mt-6">
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-[#0f3d6b] via-[#0162c3] to-[#0f3d6b] hover:brightness-110 transition-all cursor-pointer"
+            className="px-5 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110 transition-all cursor-pointer"
           >
             Close
           </button>

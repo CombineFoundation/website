@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { db } from "@/lib/firebase";
+import { Loader2 } from "lucide-react";
 
 type Event = {
-    id: number;
+    id: string;
     title: string;
     bulletPoints: string[];
     date: string;
@@ -14,52 +17,10 @@ type Event = {
     registerLink: string;
 };
 
-const events: Event[] = [
-    {
-        id: 1,
-        title: "Hammad Foundation Iftar Drive",
-        bulletPoints: [
-            'Proficiency in Figma, Adobe XD, and Photoshop.',
-            'Complete one "End-to-End" case study to show recruiters',
-            "Learn the ability to explain why a button is placed where it is.",
-            "Design Thinking",
-        ],
-        date: "22 June 2026",
-        startTime: "3:00 PM",
-        endTime: "5:00 PM",
-        location: "House 23 , Street 3 Block 13D , Gulshan - e -Iqbal",
-        registerLink: "/events/1/register",
-    },
-    {
-        id: 2,
-        title: "Community Health Camp",
-        bulletPoints: [
-            "Free medical checkups for all attendees.",
-            "Consultations with qualified doctors.",
-            "Medicines distributed to those in need.",
-        ],
-        date: "15 July 2026",
-        startTime: "10:00 AM",
-        endTime: "2:00 PM",
-        location: "Karachi Central Park, Block 5, Clifton",
-        registerLink: "/events/2/register",
-    },
-];
-
-
-function parseEventDate(dateStr: string): Date {
-    return new Date(dateStr);
-}
-
-function eventsOnDay(year: number, month: number, day: number): Event[] {
-    return events.filter((e) => {
-        const d = parseEventDate(e.date);
-        return (
-            d.getFullYear() === year &&
-            d.getMonth() === month &&
-            d.getDate() === day
-        );
-    });
+function parseEventDate(dateStr: string): Date | null {
+    if (!dateStr || dateStr.toLowerCase().includes("to be announced")) return null;
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? null : d;
 }
 
 function buildMonthGrid(year: number, month: number): number[][] {
@@ -83,19 +44,6 @@ const MONTH_NAMES = [
     "July", "August", "September", "October", "November", "December",
 ];
 const WEEK_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-
-
-function getInitialMonth() {
-    if (events.length === 0) {
-        const today = new Date();
-        return { year: today.getFullYear(), month: today.getMonth() };
-    }
-    const sorted = [...events].sort(
-        (a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
-    );
-    const first = parseEventDate(sorted[0].date);
-    return { year: first.getFullYear(), month: first.getMonth() };
-}
 
 
 function CalendarIcon({ size = 18 }: { size?: number }) {
@@ -148,7 +96,6 @@ function buildCalendarUrl(event: Event): string {
     return `${base}&text=${title}&details=${details}&location=${location}`;
 }
 
-
 function EventCard({ event }: { event: Event }) {
     return (
         <div className="rounded-2xl border border-gray-200 bg-white px-6 py-6">
@@ -165,9 +112,9 @@ function EventCard({ event }: { event: Event }) {
                     </ul>
                     <div className="flex flex-wrap gap-3">
                         <Link
-                            href={event.registerLink}
+                            href={event.registerLink || "#"}
                             className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
-                            style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                         >
                             Register Now
                         </Link>
@@ -209,7 +156,7 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-gray-900 font-bold text-lg leading-tight">{event.title}</h3>
+                    <h3 className="text-secondary-500 font-bold text-lg leading-tight">{event.title}</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-600 ml-3 text-xl leading-none">&times;</button>
                 </div>
 
@@ -239,9 +186,9 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
                 <div className="flex flex-wrap gap-3">
                     <Link
-                        href={event.registerLink}
+                        href={event.registerLink || "#"}
                         className="px-5 py-2 rounded-full text-white text-sm font-semibold"
-                        style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                     >
                         Register Now
                     </Link>
@@ -261,7 +208,32 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
 // ─── Calendar View ────────────────────────────────────────────────────────────
 
-function CalendarView() {
+function CalendarView({ events }: { events: Event[] }) {
+    function getInitialMonth() {
+        const validEvents = events.filter(e => parseEventDate(e.date) !== null);
+        if (validEvents.length === 0) {
+            const today = new Date();
+            return { year: today.getFullYear(), month: today.getMonth() };
+        }
+        const sorted = [...validEvents].sort(
+            (a, b) => (parseEventDate(a.date) as Date).getTime() - (parseEventDate(b.date) as Date).getTime()
+        );
+        const first = parseEventDate(sorted[0].date) as Date;
+        return { year: first.getFullYear(), month: first.getMonth() };
+    }
+
+    function eventsOnDay(year: number, month: number, day: number): Event[] {
+        return events.filter((e) => {
+            const d = parseEventDate(e.date);
+            if (!d) return false;
+            return (
+                d.getFullYear() === year &&
+                d.getMonth() === month &&
+                d.getDate() === day
+            );
+        });
+    }
+
     const initial = getInitialMonth();
     const [year, setYear] = useState(initial.year);
     const [month, setMonth] = useState(initial.month);
@@ -342,7 +314,7 @@ function CalendarView() {
                                                     className={`
                                                         self-start w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 cursor-pointer
                                                         ${isToday(day)
-                                                            ? "bg-blue-600 text-white font-bold"
+                                                            ? "bg-secondary-500 text-white font-bold"
                                                             : "text-gray-600"
                                                         }
                                                     `}
@@ -356,7 +328,7 @@ function CalendarView() {
                                                         key={ev.id}
                                                         onClick={() => setSelectedEvent(ev)}
                                                         className="w-full text-left text-white text-xs font-semibold rounded-md px-1.5 py-1 leading-tight mb-0.5 truncate transition-opacity hover:opacity-90 cursor-pointer"
-                                                        style={{ background: "linear-gradient(97.67deg, #0F3D6B 12.02%, #0061C3 65.87%)" }}
+                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                                                         title={ev.title}
                                                     >
                                                         {ev.title}
@@ -385,10 +357,70 @@ type ViewMode = "list" | "calendar";
 
 export default function UpcomingEvents() {
     const [view, setView] = useState<ViewMode>("calendar");
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchEvents() {
+            try {
+                if (!db) return;
+                const snap = await getDocs(collection(db, "events"));
+                const data = snap.docs.map(doc => {
+                    const d = doc.data();
+                    
+                    // The dashboard formats dateTime as e.g. "2026-06-22T15:00"
+                    // Or if it was seeded from JSON, it might have date, startTime, endTime separately.
+                    // Let's handle both. The admin dashboard saves "dateTime" and "endTime" (string).
+                    let dateStr = "";
+                    let startStr = "";
+                    let endStr = "";
+                    
+                    if (d.dateTime) {
+                        const dt = new Date(d.dateTime);
+                        if (!isNaN(dt.getTime())) {
+                            dateStr = dt.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
+                            startStr = dt.toLocaleTimeString("en-US", { hour: 'numeric', minute: '2-digit' });
+                        } else {
+                            if (d.dateTime.includes(" / ")) {
+                                const [datePart, timePart] = d.dateTime.split(" / ");
+                                dateStr = datePart;
+                                startStr = timePart;
+                            } else {
+                                dateStr = d.dateTime;
+                                startStr = "";
+                            }
+                        }
+                        endStr = d.endTime || "";
+                    } else if (d.date) {
+                        dateStr = d.date;
+                        startStr = d.startTime;
+                        endStr = d.endTime;
+                    }
+
+                    return {
+                        id: doc.id,
+                        title: d.title || "",
+                        bulletPoints: d.bulletPoints || [],
+                        date: dateStr,
+                        startTime: startStr,
+                        endTime: endStr,
+                        location: d.location || "",
+                        registerLink: d.registerLink || "",
+                    } as Event;
+                });
+                setEvents(data);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchEvents();
+    }, []);
 
     return (
         <section className="w-full mx-auto px-6 py-10 md:py-14">
-            <h2 className="text-gray-900 font-bold text-3xl md:text-4xl mb-3">
+            <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>
             <div className="w-full h-px bg-gray-300 mb-5" />
@@ -400,7 +432,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "calendar" ? "#fff" : "transparent",
-                            color: view === "calendar" ? "#1a3a7c" : "#6b7280",
+                            color: view === "calendar" ? "var(--secondary-500)" : "#6b7280",
                             boxShadow: view === "calendar" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="Calendar view"
@@ -412,7 +444,7 @@ export default function UpcomingEvents() {
                         className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "list" ? "#fff" : "transparent",
-                            color: view === "list" ? "#1a3a7c" : "#6b7280",
+                            color: view === "list" ? "var(--secondary-500)" : "#6b7280",
                             boxShadow: view === "list" ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
                         }}
                         aria-label="List view"
@@ -422,15 +454,21 @@ export default function UpcomingEvents() {
                 </div>
             </div>
 
-            {view === "list" && (
+            {loading ? (
+                <div className="flex justify-center items-center py-20">
+                    <Loader2 className="w-8 h-8 text-secondary-600 animate-spin" />
+                </div>
+            ) : events.length === 0 ? (
+                <p className="text-center text-gray-500 py-10">No upcoming events found.</p>
+            ) : view === "list" ? (
                 <div className="space-y-4">
                     {events.map((event) => (
                         <EventCard key={event.id} event={event} />
                     ))}
                 </div>
+            ) : (
+                <CalendarView events={events} />
             )}
-
-            {view === "calendar" && <CalendarView />}
         </section>
     );
 }

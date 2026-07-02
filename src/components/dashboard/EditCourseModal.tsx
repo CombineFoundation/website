@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2, GripVertical } from "lucide-react";
+import { X, Upload, Plus, Trash2, GripVertical, Loader2 } from "lucide-react";
+import { compressImage } from "@/lib/image-compress";
 
 interface CourseModule {
   title: string;
@@ -18,12 +19,16 @@ interface CourseFormData {
   name: string;
   instructor: string;
   price: string;
+  originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
   duration: string;
+  requirements: string;
+  guidelineCta: string;
+  mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
   modules: CourseModule[];
@@ -31,9 +36,9 @@ interface CourseFormData {
 }
 
 interface EditCourseModalProps {
-  course: CourseFormData & { id: number };
+  course: CourseFormData & { id: string };
   onCancel: () => void;
-  onSave: (data: CourseFormData) => void;
+  onSave: (data: CourseFormData) => Promise<void> | void;
 }
 
 function readFileAsDataURL(file: File): Promise<string> {
@@ -46,16 +51,22 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 export default function EditCourseModal({ course, onCancel, onSave }: EditCourseModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState<CourseFormData>({
     name: course.name,
     instructor: course.instructor,
     price: course.price,
+    originalPrice: (course as any).originalPrice || 0,
     status: course.status,
     description: course.description || "",
     heroImage1: course.heroImage1 || "",
     heroImage2: course.heroImage2 || "",
     lessons: course.lessons || 0,
     duration: course.duration || "",
+    requirements: (course as any).requirements || "",
+    guidelineCta: (course as any).guidelineCta || "",
+    mode: (course as any).mode || "",
     enrollmentLink: course.enrollmentLink || "",
     guidelineFile: course.guidelineFile || "",
     modules: course.modules?.length > 0 ? course.modules : [
@@ -77,7 +88,8 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     const file = e.target.files?.[0];
     if (!file) return;
     const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    const compressedDataUrl = await compressImage(dataUrl);
+    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
   };
 
   const handleGuidelineUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,9 +153,12 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     form.name.trim() &&
     form.instructor.trim() &&
     form.price.trim() &&
+    form.originalPrice > 0 &&
     form.description.trim() &&
     form.lessons > 0 &&
     form.duration.trim() &&
+    form.requirements.trim() &&
+    form.guidelineCta.trim() &&
     form.enrollmentLink.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim() &&
@@ -151,9 +166,18 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     form.modules.length > 0 &&
     form.modules.every(m => m.title.trim() && m.bullets.some(b => b.trim()));
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isValid) return;
-    onSave(form);
+    setSaving(true);
+    setError("");
+    try {
+      await onSave(form);
+    } catch (err: any) {
+      console.error("Save course error:", err);
+      setError(err.message || "Failed to save course. Ensure you are signed in and images are not too large.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -241,6 +265,18 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Original Price</label>
+            <input
+              type="number"
+              name="originalPrice"
+              value={form.originalPrice || ""}
+              onChange={handleChange}
+              placeholder="15000"
+              min="0"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
         </div>
 
         <div className="flex gap-4 mb-4">
@@ -268,6 +304,43 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+        </div>
+
+        <div className="flex gap-4 mb-4">
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Requirements</label>
+            <input
+              type="text"
+              name="requirements"
+              value={form.requirements}
+              onChange={handleChange}
+              placeholder="Laptop + Internet Access"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Mode</label>
+            <input
+              type="text"
+              name="mode"
+              value={form.mode}
+              onChange={handleChange}
+              placeholder="e.g. Onsite, Online"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Guideline CTA</label>
+          <input
+            type="text"
+            name="guidelineCta"
+            value={form.guidelineCta}
+            onChange={handleChange}
+            placeholder="Want to Master This Course? Download the Complete Course Guideline Now!"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
 
         <hr className="my-5 border-gray-200" />
@@ -416,23 +489,31 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
           </div>
         ))}
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
-                ? "bg-gradient-to-r from-[#0f3d6b] via-[#0162c3] to-[#0f3d6b] hover:brightness-110"
+            disabled={!isValid || saving}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving
+                ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

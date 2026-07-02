@@ -2,27 +2,27 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { BLOG_POSTS } from "@/lib/blogs";
+import type { BlogPost } from "@/lib/blogs";
 
 const TAG_COLORS: Record<string, string> = {
-  Health: "#F0632E",
-  Wellness: "#F0632E",
-  "Healthy Living": "#F0632E",
+  Health: "var(--accent-orange)",
+  Wellness: "var(--accent-orange)",
+  "Healthy Living": "var(--accent-orange)",
 };
 
-export default function YouMightAlsoLike() {
+export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const [dragged, setDragged] = useState(false);
 
-  const related = BLOG_POSTS.slice(0, 5).map((p) => ({
-    id: p.id,
+  const related = blogs.slice(0, 5).map((p, index) => ({
+    id: p.id || index.toString(),
     title: p.title,
     excerpt: p.description,
     image: p.heroImage1,
-    tags: ["Health", "Wellness", "Healthy Living"].slice(0, (p.id % 3) + 1),
+    tags: ["Health", "Wellness", "Healthy Living"].slice(0, ((index) % 3) + 1),
     href: `/blog/${p.slug}`,
   }));
 
@@ -103,7 +103,7 @@ export default function YouMightAlsoLike() {
                     <span
                       key={tag}
                       className="px-2.5 py-0.5 rounded-full text-white text-[10px] md:text-xs lg:text-sm font-semibold"
-                      style={{ background: TAG_COLORS[tag] ?? "#F0632E" }}
+                      style={{ background: TAG_COLORS[tag] ?? "var(--accent-orange)" }}
                     >
                       {tag}
                     </span>

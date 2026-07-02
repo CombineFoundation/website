@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/UI/SectionHeader";
-import { BLOG_POSTS } from "@/lib/blogs";
-import type { BlogPost } from "@/lib/blogs";
 
-const blogPosts: BlogPost[] = BLOG_POSTS;
 
 type BlogCardProps = {
   post: BlogPost;
@@ -57,7 +54,7 @@ function BlogCard({ post }: BlogCardProps) {
           className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-opacity duration-200 mt-1 hover:opacity-90"
           style={{
             // background: "linear-gradient(180deg, #2e86d4 0%, #1057b0 50%, #0a3d8f 100%)",
-            background: "linear-gradient(90deg, #0F3D6B 0%, #0061C3 50%, #0061C3 75%, #0F3D6B 100%)",
+            background: "linear-gradient(90deg, var(--secondary-600) 0%, var(--secondary-500) 50%, var(--secondary-500) 75%, var(--secondary-600) 100%)",
           }}
           aria-label={`Read ${post.title}`}
         >
@@ -80,17 +77,19 @@ function BlogCard({ post }: BlogCardProps) {
   );
 }
 
-export default function BlogSection() {
+import type { BlogPost } from "@/lib/blogs";
+
+export default function BlogSection({ blogs }: { blogs: BlogPost[] }) {
   return (
     <section className="w-full px-6 py-14 font-sans">
       <div className="max-w-6xl mx-auto">
         <SectionHeader
           title="Blog"
-          description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
+          description="Stay updated with our latest news"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">
-          {blogPosts.slice(0, 3).map((post) => (
+          {blogs.slice(0, 3).map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>

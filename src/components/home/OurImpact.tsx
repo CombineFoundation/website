@@ -15,57 +15,52 @@ type ImpactItem = {
 const impactItems: ImpactItem[] = [
   {
     id: 1,
-    stat: "100+",
-    title: "Schools Built",
-    image: "/home/impact/impact1.png",
+    stat: "3000+",
+    title: "Lives Impacted",
+    image: "/home/impact/impact4.png",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien.",
+      "At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need.",
   },
   {
     id: 2,
-    stat: "500+",
-    title: "Volunteers Trained",
+    stat: "204+",
+    title: "Students Empowered",
     image: "/home/impact/impact2.jpg",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.",
+      "More than 204 students have been trained through technology, digital skills, and professional development programs. These courses help students to gain confidence, build careers, start earning from home and create better futures through education, freelancing, and modern digital skills.",
   },
   {
     id: 3,
-    stat: "50+",
-    title: "Cities Reached",
+    stat: "250+",
+    title: "Passionate Volunteers",
     image: "/home/impact/impact2.jpg",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-
+      "Our 250+ active volunteers are the heart of our community initiatives. From welfare drives to educational campaigns or Youth Leadership Program, they dedicate their time and efforts to serving humanity, supporting communities, and spreading kindness across Pakistan.",
   },
   {
     id: 4,
-    stat: "50+",
-    title: "Cities Reached",
+    stat: "40+",
+    title: "Youth Leaders",
     image: "/home/impact/impact4.png",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-
+      "We have empowered 40+ active youth leaders who are confidently leading projects, social initiatives, and community activities and working as leaders in the Youth Leadership Program of the Combine Foundation.",
   },
   {
     id: 5,
-    stat: "50+",
-    title: "Cities Reached",
+    stat: "20+",
+    title: "Team Members",
     image: "/home/impact/impact5.png",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-
+      "Behind every successful initiative is our Combine Foundation team. We have 20+ committed members working across different departments with passion, teamwork, and a shared vision to create meaningful social impact.",
   },
   {
     id: 6,
-    stat: "50+",
-    title: "Cities Reached",
+    stat: "9+",
+    title: "Courses Completed",
     image: "/home/impact/impact6.png",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur ultrices mauris.",
-
+      "Combine Foundation has successfully conducted 9 professional and skill development courses designed to prepare students and professionals for careers in technology, freelancing, digital marketing, and personal growth.",
   },
-
 ];
 type ImpactCardProps = {
   item: ImpactItem;
@@ -78,7 +73,7 @@ function ImpactCard({ item }: ImpactCardProps) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="rounded-4xl min-[450px]:w-[75%] w-75 sm:w-auto m-auto cursor-pointer duration-300 overflow-hidden p-2 border-2 border-gray-400"
+      className="rounded-4xl min-[450px]:w-[75%] w-[300px] sm:w-auto cursor-pointer duration-300 overflow-hidden p-2 border-2 border-gray-400"
       style={{ height: "370px" }}
     >
       <div
@@ -95,10 +90,10 @@ function ImpactCard({ item }: ImpactCardProps) {
       </div>
 
       <div className="p-5 overflow-hidden" style={{ height: hovered ? "300px " : "210px", transition: "height 0.5s ease" }}>
-        <p className="text-3xl md:text-4xl font-bold text-gray-900 leading-none mb-1">
+        <p className="text-3xl md:text-4xl font-bold text-secondary-500 leading-none mb-1">
           {item.stat}
         </p>
-        <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2.5 font-montserrat">
+        <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2.5">
           {item.title}
         </h3>
         <p
@@ -120,9 +115,9 @@ function ImpactCard({ item }: ImpactCardProps) {
 export default function OurImpact() {
   return (
     <section className="py-16 px-6 mx-auto max-w-[1400px]">
-      <SectionHeader title="OUR IMPACT" description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et." />
+      <SectionHeader title="OUR IMPACT" description="At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need." />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center justify-items-center">
         {impactItems.map((item) => (
           <ImpactCard key={item.id} item={item} />
         ))}

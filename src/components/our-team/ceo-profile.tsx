@@ -3,42 +3,34 @@
 export default function CeoProfile() {
   return (
     <section className="w-full px-6 py-10 lg:px-12 mx-auto">
-      {/* Section Header */}
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
-        CEO Profile
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
+        Our CEO
       </h2>
 
-      {/* Profile Container: Vertically centered on desktop */}
       <div className="flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
         
-        {/* Left Column: Profile Image (appears first on desktop, bottom on mobile) */}
         <div className="w-full md:w-[23rem] lg:w-[32rem] xl:w-[38rem] flex-shrink-0 order-2 md:order-1">
           <img
             src="/about/founder/founder.png"
-            alt="Muhammad Ashfaq"
+            alt="Mr. Ashfaq Nathani"
             className="w-full aspect-[4/3] md:aspect-square object-cover rounded-[2rem] shadow-sm"
           />
         </div>
 
-        {/* Right Column: Biography Content (appears second on desktop, top on mobile) */}
         <div className="flex-1 order-1 md:order-2 mt-3">
-          <h3 className="text-xl lg:text-3xl font-bold text-black uppercase tracking-wide mb-5">
-            Muhammad Ashfaq
+          <h3 className="text-xl lg:text-3xl font-bold text-primary-600 uppercase tracking-wide mb-1">
+            Mr. Ashfaq Nathani
           </h3>
-
-          <p className=" text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa
-            mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien
-            fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-            vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor
-            ornare leo, non suscipit magna interdum eu.
+          <p className="text-sm md:text-base text-primary-800 mb-5">
+            Chief Executive Officer & Board of Director
           </p>
 
-          <p className="text-base sm:text-sm lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
-            Curabitur pellentesque nibh nibh, at maximus ante fermentum sit
-            amet. Pellentesque commodo lacus at sodales sodales. Quisque
-            sagittis orci ut diam condimentum, vel euismod erat placerat. In
-            iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed mb-5">
+            Ashfaq Nathani serves as the Chief Executive Officer and board member at Combine Foundation, responsible for managing operations and youth development programs. He is deeply committed to developing young people into future leaders through effective leadership training, technology education, innovation, and applied learning opportunities.
+          </p>
+
+          <p className="text-xs sm:text-xs lg:text-lg xl:text-xl text-gray-800 leading-relaxed">
+            Sustainable development is a key focus, believing that quality education, healthcare, leadership, and accountability are essential for stronger communities. Under his leadership, Combine Foundation prepares the next generation to compete globally and drive positive change in Pakistan.
           </p>
         </div>
       </div>

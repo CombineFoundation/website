@@ -6,9 +6,9 @@ import { useRef, useState } from "react";
 const VENTURES = [
     {
         id: 1,
-        heading: "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.",
+        heading: "Youth Leadership Program - Developing Future Leaders & Changemakers",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum su. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum",
+            "The Youth Leadership Program that we run is an initiative across the country. It aims to empower youth by preparing and educating them to become competent and responsible future leaders. They get trained in leadership skills, mentoring, volunteering, and community work through various programs to help improve their communication, team-building, and problem-solving abilities for the future.\n\nHundreds of passionate people have participated in this initiative. The objective of this program is to build tomorrow's leaders who will be self-reliant, competent, and able to make a positive difference through their actions.",
         images: [
             "/home/image1.avif",
             "/home/image1.avif",
@@ -19,9 +19,74 @@ const VENTURES = [
     },
     {
         id: 2,
-        heading: "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.",
+        heading: "AI & Technology Education - Empowering Youth Through AI & Technology Education",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum su. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum",
+            "With our AI & Technology Education, students learn how to develop futuristic digital skills such as Python Programming, Artificial Intelligence, Web Development, and latest technology. Students will get the required knowledge and expertise with the help of hands-on training sessions and mentoring programs to excel in the digital era.\n\nOur objective here is to prepare youth for their future careers in the fields of Artificial Intelligence, Technology, and Freelancing. We aim to create proficient and self-reliant individuals who can lead a prosperous life in society.",
+        images: [
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+        ],
+    },
+    {
+        id: 3,
+        heading: "Kitchen Garden Festival - Promoting Sustainable Living Through Kitchen Gardening",
+        description:
+            "Our 'Kitchen Garden' Campaign is a Change Making campaign where we focus on spreading organic living, environmental consciousness, and health-oriented practices among individuals within societies. It involves education programs and participation by people from within communities so that the significance of leading an eco-friendly life can be known.\n\nWe have succeeded in encouraging many families to adopt kitchen gardening and live a healthy lifestyle. Our goal is to make our society more sustainable.",
+        images: [
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+        ],
+    },
+    {
+        id: 4,
+        heading: "Fit Future Pakistan - Building Healthier Communities Through Fitness & Wellness",
+        description:
+            "Fit Future Pakistan is our health initiative that aims to promote physical fitness, awareness about exercise, yoga and other such health-related topics among young and older people. By way of fitness training, awareness programs, and wellness activities, we aim to make people live a healthier lifestyle.\n\nWe have already inspired many individuals and senior citizens to become more physically active through health-related sessions and activities.",
+        images: [
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+        ],
+    },
+    {
+        id: 5,
+        heading: "Plantation Drive - Planting Hope for Future Generations",
+        description:
+            "The Plantation Drive is basically designed to promote environmental sustainability. We conduct plantation drives, environmental awareness seminars, and youth-related activities to motivate people to join us in our efforts towards environmental protection and securing a better future.\n\nThere have been many plantation drives conducted by us, and a lot of volunteers are involved in plantation activities, and in raising awareness about the environment for sustainable living.",
+        images: [
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+        ],
+    },
+    {
+        id: 6,
+        heading: "Beach Cleanup Campaign - Keeping Our Beaches Clean & Green",
+        description:
+            "The beach cleanup drive that was planned with the help of the Hammad foundation was aimed at creating awareness about cleanliness for our surroundings.\n\nThere were many volunteers who took part in this campaign and helped us make our beaches cleaner. This drive would not only help us eliminate waste pollution but would also serve as a means of encouraging the youth to take part in such initiatives.",
+        images: [
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+            "/home/image1.avif",
+        ],
+    },
+    {
+        id: 7,
+        heading: "Ramadan Bachat Camp & Free Rashan Drive - Spreading Hope & Relief During Ramadan",
+        description:
+            "Our Ramadan Bachat Camp & Free Rashan Drive Welfare Scheme is aimed at helping deserving people by giving them rations during the holy month of Ramadan. With the help of food or Rashan, our main intention is to decrease the difficulties of these deserving families by providing them with some comfort.\n\nThere were many volunteers who took part in this drive in order to offer assistance to needy families. The purpose of this campaign is to facilitate food security, help the needy and promote the essence of Ramadan through kindness and community involvement.",
         images: [
             "/home/image1.avif",
             "/home/image1.avif",
@@ -116,21 +181,22 @@ export default function SuccessfulVentures() {
         <div className="min-h-screen px-4 py-10 md:px-8 md:py-14">
             <div className="w-full mx-auto">
 
-                <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-8">
-                    Successful Ventures
+                <h1 className="text-3xl md:text-4xl font-extrabold text-secondary-500 tracking-tight mb-2">
+                    Our Impactful Journey
                 </h1>
+                <p className="text-base text-gray-600 mb-8">Successful Ventures</p>
 
                 <div className="flex flex-col gap-12">
                     {VENTURES.map((venture) => (
                         <div key={venture.id}>
-                            <p className="text-base md:text-lg lg:text-xl font-semibold text-black mb-4 leading-snug">
+                            <p className="text-base md:text-lg lg:text-xl font-semibold text-secondary-500 mb-4 leading-snug">
                                 {venture.heading}
                             </p>
                             <hr className="border-t border-gray-300 mb-5" />
 
                             <DragSlider images={venture.images} />
 
-                            <p className="text-sm lg:text-lg text-black leading-relaxed mt-5">
+                            <p className="text-sm lg:text-lg text-gray-600 leading-relaxed mt-5">
                                 {venture.description}
                             </p>
                         </div>

@@ -24,7 +24,7 @@ export default function Comments({ initialComments }: CommentsProps) {
     setComments((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: Date.now().toString(),
         name: "You",
         date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
         text: trimmed,
@@ -56,7 +56,7 @@ export default function Comments({ initialComments }: CommentsProps) {
         {response.trim() && (
           <button
             onClick={handleSubmit}
-            className="px-5 py-2 rounded-full bg-[#F0632E] text-white text-xs font-semibold hover:bg-[#d9541f] transition-colors active:scale-95"
+            className="px-5 py-2 rounded-full bg-accent-orange text-white text-xs font-semibold hover:brightness-90 transition-all active:scale-95"
           >
             Post Comment
           </button>

@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Users,
   Star,
+  FolderKanban,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -16,7 +17,8 @@ export type SectionId =
   | "courses"
   | "blogs"
   | "contact"
-  | "donations";
+  | "donations"
+  | "projects";
 
 interface NavItem {
   id: SectionId;
@@ -31,6 +33,7 @@ const navItems: NavItem[] = [
   { id: "blogs", label: "Blogs", icon: LayoutDashboard, badge: null },
   { id: "contact", label: "Contact", icon: Users, badge: null },
   { id: "donations", label: "Donations", icon: Star, badge: null },
+  { id: "projects", label: "Projects", icon: FolderKanban, badge: null },
 ];
 
 export default function Sidebar({
@@ -91,7 +94,7 @@ export default function Sidebar({
                   transition-all duration-200 relative min-w-max cursor-pointer
                   ${
                     isActive
-                      ? "bg-orange-500 text-white"
+                      ? "bg-orange text-white"
                       : "text-slate-300 hover:bg-slate-700/60 hover:text-white"
                   }
                 `}
@@ -110,13 +113,13 @@ export default function Sidebar({
                 )}
 
                 {badge && isOpen && (
-                  <span className="ml-auto bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                  <span className="ml-auto bg-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                     {badge}
                   </span>
                 )}
 
                 {badge && !isOpen && (
-                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full leading-none">
+                  <span className="absolute -top-1 -right-1 bg-orange text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full leading-none">
                     {badge}
                   </span>
                 )}

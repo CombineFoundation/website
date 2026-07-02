@@ -60,7 +60,7 @@ const MOUSlider = () => {
 
                 {/* Section Header */}
                 <div className="mb-2">
-                    <h2 className="text-3xl font-bold text-gray-900">MOU&apos;s</h2>
+                    <h2 className="text-3xl font-bold text-secondary-500">MOU&apos;s</h2>
                 </div>
                 <hr className="border-gray-300 mb-8" />
 
@@ -68,14 +68,14 @@ const MOUSlider = () => {
                 <div className="transition-all duration-300">
 
                     {/* Title */}
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-snug">
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary-600 mb-4 leading-snug">
                         {mou.title}
                     </h3>
 
                     {/* Description Paragraphs */}
                     <div className="space-y-4 mb-6">
                         {mou.paragraphs.map((para, idx) => (
-                            <p key={idx} className="text-gray-600 text-sm md:text-base lg:text-lg leading-relaxed">
+                            <p key={idx} className="text-primary-800 text-sm md:text-base lg:text-lg leading-relaxed">
                                 {para}
                             </p>
                         ))}
@@ -97,7 +97,7 @@ const MOUSlider = () => {
                     <button
                         onClick={handlePrev}
                         aria-label="Previous MOU"
-                        className="w-11 h-11 rounded-full bg-[#1a2f5a] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg
                             width="18"
@@ -115,7 +115,7 @@ const MOUSlider = () => {
                     <button
                         onClick={handleNext}
                         aria-label="Next MOU"
-                        className="w-11 h-11 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg
                             width="18"

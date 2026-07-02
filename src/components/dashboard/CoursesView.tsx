@@ -6,7 +6,14 @@ import Pagination from "./Pagination";
 import EditCourseModal from "./EditCourseModal";
 import AddCourseModal from "./AddCourseModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import allCourses from "@/data/courses.json";
+import {
+  fetchCourses,
+  addCourse,
+  updateCourse,
+  deleteCourses,
+  type FirestoreCourse,
+} from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 export interface CourseModule {
   title: string;
@@ -20,16 +27,20 @@ export interface SuccessStory {
 }
 
 export interface Course {
-  id: number;
+  id: string;
   name: string;
   instructor: string;
   price: string;
+  originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
   duration: string;
+  requirements: string;
+  guidelineCta: string;
+  mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
   modules: CourseModule[];
@@ -39,16 +50,9 @@ export interface Course {
 const PAGE_SIZE = 10;
 
 export default function CoursesView() {
-  const [courses, setCourses] = useState<Course[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-courses");
-        if (saved) return JSON.parse(saved) as Course[];
-      } catch {}
-    }
-    return allCourses as Course[];
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,9 +60,21 @@ export default function CoursesView() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadCourses = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchCourses();
+      setCourses(data.map((d) => ({ ...d, id: d.id! })) as Course[]);
+    } catch (err) {
+      console.error("Error fetching courses:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-courses", JSON.stringify(courses));
-  }, [courses]);
+    loadCourses();
+  }, []);
 
   const filtered = useMemo(() => {
     let result = courses;
@@ -99,7 +115,7 @@ export default function CoursesView() {
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -119,37 +135,41 @@ export default function CoursesView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setCourses((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteCourses(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadCourses();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
-  const handleSaveEdit = (data: Omit<Course, "id">) => {
+  const handleSaveEdit = async (data: Omit<Course, "id">) => {
     if (!editCourse) return;
-    setCourses((prev) =>
-      prev.map((c) =>
-        c.id === editCourse.id
-          ? { ...data, id: editCourse.id }
-          : c
-      )
-    );
+    await updateCourse(editCourse.id, data);
     setEditCourse(null);
     setSelectedIds(new Set());
+    await loadCourses();
   };
 
-  const handleAdd = (data: Omit<Course, "id">) => {
-    const maxId = courses.length > 0 ? Math.max(...courses.map((c) => c.id)) : 3440;
-    const newId = maxId + 1;
-    const newCourse: Course = { ...data, id: newId };
-    setCourses((prev) => [...prev, newCourse]);
+  const handleAdd = async (data: Omit<Course, "id">) => {
+    await addCourse(data);
     setShowAddModal(false);
+    await loadCourses();
     setCurrentPage(Math.ceil((courses.length + 1) / PAGE_SIZE));
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading courses...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -157,7 +177,7 @@ export default function CoursesView() {
         <h1 className="text-2xl font-bold text-gray-900">Courses</h1>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#0C3155] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-[#0f1b3d] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
         >
           <span className="text-lg leading-none">+</span> Add Course
         </button>
@@ -212,7 +232,7 @@ export default function CoursesView() {
                   </td>
                   <td className="py-3.5 pr-4">
                     <p className="text-gray-800 font-medium">{course.name}</p>
-                    <p className="text-gray-400 text-xs mt-0.5">ID: {course.id}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">ID: {course.id.slice(0, 8)}...</p>
                   </td>
                   <td className="py-3.5 text-gray-600">{course.instructor}</td>
                   <td className="py-3.5 text-gray-600">{course.price}</td>

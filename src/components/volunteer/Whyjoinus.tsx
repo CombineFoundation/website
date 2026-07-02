@@ -6,33 +6,33 @@ import { useState, useRef } from "react";
 const PANELS = [
   {
     src: "/volunteer/vol2.png",
-    label: "Lorem ipsum dolor",
-    heading: "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et.",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    label: "Skill Development",
+    heading: "Build Valuable Skills & Practical Experience",
+    desc: "Learn new skills, gain practical experience, and build a stronger CV or resume for your future career. Our volunteer program provides a safe, peaceful, and supportive environment where you can grow personally and professionally.",
   },
   {
     src: "/volunteer/vol2.png",
-    label: "Lorem ipsum dolor",
-    heading: "Aliquam in hendrerit urna consectetur adipiscing elit Ut et.",
-    desc: "Pellentesque sit amet sapien fringilla, mattis ligula consectetur. Ut et massa mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit hendrerit urna.",
+    label: "Exposure & Networking",
+    heading: "Expand Your Network & Explore New Fields",
+    desc: "Get exposure to different fields, projects, and real-world experiences while connecting with industry professionals. This helps you discover your interests and build meaningful professional relationships.",
   },
   {
     src: "/volunteer/vol2.png",
-    label: "Lorem ipsum dolor",
-    heading: "Pellentesque sit amet sapien fringilla mattis ligula.",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    label: "Diverse Opportunities",
+    heading: "Find Your Passion Across Multiple Areas",
+    desc: "Whether your interest is in leadership, events, social work, media, management, or creative programs, we support your goals and help you grow in the direction you choose.",
   },
   {
     src: "/volunteer/vol2.png",
-    label: "Lorem ipsum dolor",
-    heading: "Maecenas vitae mattis tellus nullam quis imperdiet augue.",
-    desc: "Ut et massa mi. Aliquam in hendrerit urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    label: "Mentorship & Guidance",
+    heading: "Receive Mentorship & Turn Ideas into Impact",
+    desc: "We value new ideas and provide mentorship, guidance, and opportunities to help you turn your ideas into impactful projects and career-building experiences.",
   },
   {
     src: "/volunteer/vol2.png",
-    label: "Lorem ipsum dolor",
-    heading: "Vestibulum auctor ornare leo non suscipit magna interdum.",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+    label: "Career Building",
+    heading: "Build Your Career with Confidence",
+    desc: "Here, you can learn, grow, contribute to society, and start building your career with confidence. By becoming a volunteer, you invest in your own personal and professional growth while helping the community.",
   },
 ];
 
@@ -73,9 +73,6 @@ export default function WhyJoinUs() {
   };
 
   // ── Touch handlers (scroll-vs-tap detection) ────────────────────────────────
-  // `touch-pan-x` lets the browser handle native scroll, so we don't need to
-  // manually move scrollLeft — we just snapshot the scroll position at the
-  // start of the gesture and compare it at the end to know if the user scrolled.
   const onTouchStart = () => {
     dragMoved.current = false;
     touchScrollStart.current = scrollRef.current?.scrollLeft ?? 0;
@@ -83,9 +80,7 @@ export default function WhyJoinUs() {
 
   const onTouchEnd = () => {
     const delta = Math.abs((scrollRef.current?.scrollLeft ?? 0) - touchScrollStart.current);
-    // If the container scrolled more than 6 px, treat it as a drag, not a tap
     if (delta > 6) dragMoved.current = true;
-    // Reset after the synthetic click has fired (~300 ms)
     setTimeout(() => { dragMoved.current = false; }, 350);
   };
 
@@ -94,14 +89,14 @@ export default function WhyJoinUs() {
   };
 
   return (
-    <section className="w-full py-16 md:py-24 overflow-hidden bg-[#F7FBFF]">
+    <section className="w-full py-16 md:py-24 overflow-hidden">
 
       {/* Title */}
       <div className="px-6 md:px-12 mx-auto mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4">
-          Why Join Us
+        <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">
+          Why Volunteers Love Working with Us
         </h2>
-        <div className="w-20 h-1.5 bg-[#0f2d5c] rounded-full mb-8" />
+        <div className="w-full h-1 bg-gray-300 mb-8" />
       </div>
 
       {/* Accordion strip — drag-scrollable on mouse, native-scroll on touch */}
@@ -119,7 +114,6 @@ export default function WhyJoinUs() {
         <div
           className="flex gap-2 items-stretch w-full"
           style={{
-            // Tall enough on mobile to fit image-on-top + text-below layout
             minHeight: "clamp(300px, 55vw, 420px)",
           }}
         >
@@ -132,7 +126,6 @@ export default function WhyJoinUs() {
                 className="relative rounded-2xl overflow-hidden cursor-pointer shrink-0"
                 style={{
                   flex: isOpen ? "1 1 0%" : "0 0 56px",
-                  // Collapsed: 56 px pill  |  Expanded: up to 85 vw (mobile) or 340 px (lg+)
                   minWidth: isOpen ? "min(85vw, 340px)" : "70px",
                   transition: "all 0.7s cubic-bezier(0.4,0,0.2,1)",
                 }}
@@ -194,10 +187,10 @@ export default function WhyJoinUs() {
                       • mobile  → below image, grows to fill remaining height
                       • desktop → left side, fixed 48 % width  */}
                   <div className="flex flex-col justify-center gap-2 px-4 py-4 bg-white z-10 flex-1 overflow-hidden lg:w-[48%] lg:flex-none lg:order-1">
-                    <h3 className="text-xs sm:text-sm lg:text-lg xl:text-xl font-bold text-black leading-snug">
+                    <h3 className="text-xs sm:text-sm lg:text-lg xl:text-xl font-bold text-primary-500 leading-snug">
                       {panel.heading}
                     </h3>
-                    <p className="text-xs text-gray-500 line-clamp-4 lg:line-clamp-5 lg:text-base xl:text-lg">
+                    <p className="text-xs text-primary-800 line-clamp-4 lg:line-clamp-5 lg:text-base xl:text-lg">
                       {panel.desc}
                     </p>
                   </div>
@@ -212,7 +205,7 @@ export default function WhyJoinUs() {
       <div className="px-6 md:px-12 max-w-7xl mx-auto mt-12">
         <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#0f2d5c] rounded-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
+            className="h-full bg-secondary-500 rounded-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
             style={{ width: `${progress}%` }}
           />
         </div>

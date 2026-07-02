@@ -6,27 +6,44 @@ interface Story {
   id: number;
   name: string;
   description: string;
-  videoThumb?: string; // optional future use
+  course: string;
 }
 
 const STORIES: Story[] = [
   {
     id: 1,
-    name: "Meet Arham Imran",
+    name: "Ali Sohail",
+    course: "Web Development",
     description:
-      "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id, Curabitur pellentesque nibh nibh.",
+      "I want to sincerely thank combine foundation teachers of combine foundation, who worked with great efforts and dedication to teach the children. They guided them well through without any difficulties and challenges they faced in their studies and explained things so effectively that our children where they are able to do coding today.",
   },
   {
     id: 2,
-    name: "Meet Sara Khan",
+    name: "Hussain Naqvi",
+    course: "Quantitative Finance Bootcamp",
     description:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.",
+      "My journey with the Quantitative Finance & Business Analytics Bootcamp 2025 by Combine Foundation has been very rewarding. In the very first session, I was able to build a Financial Calculator (NPV & IRR) in Python on Google Collab, which calculates values and provides investment recommendations. The hands-on approach makes learning both practical and impactful. I'm excited to continue exploring upcoming topics like Risk, Derivatives, and Portfolio Optimization.",
   },
   {
     id: 3,
-    name: "Meet Usman Tariq",
+    name: "Rahib Khan",
+    course: "Basic Computer Fundamental with AI",
     description:
-      "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.",
+      "Assalamu Alaikum Sir, you taught and guided us in an excellent way, patiently clearing all our doubts and helping us fully understand each concept. You explained everything from the basics to advanced topics and showed us how to explore further in the field. You provided us with a clear pathway for learning, which I will never forget in my life. Thank you so much for this opportunity and for helping me evolve my IT skills in the world of computers.",
+  },
+  {
+    id: 4,
+    name: "Ali Sohail",
+    course: "Web Development",
+    description:
+      "Assalam o alaikum, my name is Ali Sohail. Under combine foundation I am doing a web development course. When I started this course, I only knew a few basics of computer but today I am pro at coding and all of these made possible by my teachers' mentors and sir. As they support me in every step and make me capable of doing coding. All the queries that I had they always solved them. Today just because of them I can do coding.",
+  },
+  {
+    id: 5,
+    name: "Eshal Subhan",
+    course: "Web Development",
+    description:
+      "Assalam o alaikum. This is me, Eshal Subhan. Today I am going to tell you guys about the experience of the course that I have learned. So, the course's name is web development. In which I have learned how to use the website, how it works, and how to generate that. For this course I already knew about html and CSS. I just got to know JavaScript. It was very interesting journey it was very fun to learn now after learning a course I can confidently make the web pages websites many more even though I am very proud of myself that I have learned these things and thankyou to the teachers and combine foundations for this amazing course jazak Allah.",
   },
 ];
 
@@ -91,39 +108,30 @@ export default function SuccessStories() {
           transition: background 0.18s ease, transform 0.18s ease;
         }
         .nav-btn:hover {
-          background: #1a3a8a !important;
+          filter: brightness(0.9) !important;
           transform: scale(1.08);
         }
         .nav-btn:active { transform: scale(0.96); }
 
-        /* Dot indicators */
         .dot { transition: width 0.3s ease, background 0.3s ease; }
       `}</style>
 
       <section className="ss-section w-full mx-auto px-9 py-8 max-sm:px-6">
-        {/* Heading */}
-        <div className="border-b border-gray-300 pb-3 mb-6">
-          <h2 className="ss-title text-2xl md:text-4xl xl:text-5xl font-bold text-gray-900">
-            Success Stories
+        <div className="border-b border-gray-300 pb-3 mb-5">
+          <h2 className="ss-title text-2xl md:text-5xl font-bold text-secondary-500 tracking-tight">
+            Our Success Stories & Achievements
           </h2>
         </div>
 
-        {/*
-          Outer wrapper: relative + overflow-visible so the arrows (which are
-          absolutely positioned) can sit half-outside the card on each side.
-        */}
         <div style={{ margin: "0 20px" }}>
-
-          {/* ── Card ── */}
-          <div className="rounded-2xl overflow-visible" style={{ background: "#dce6f0" }}>
+          <div className="rounded-2xl overflow-visible" style={{ background: "#FF6900" }}>
             <div className="relative">
-              {/* ── Left arrow — centred on the video section ── */}
               <button
                 onClick={() => navigate("left")}
                 aria-label="Previous"
                 className="nav-btn absolute z-20 flex items-center justify-center rounded-full w-10 h-10 lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px]"
                 style={{
-                  background: "#1e3a7a",
+                  background: "var(--secondary-500)",
                   border: "none",
                   cursor: "pointer",
                   left: -22,
@@ -136,13 +144,12 @@ export default function SuccessStories() {
                 </svg>
               </button>
 
-              {/* ── Right arrow — centred on the video section ── */}
               <button
                 onClick={() => navigate("right")}
                 aria-label="Next"
                 className="nav-btn absolute z-20 flex items-center justify-center rounded-full w-10 h-10 lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px]"
                 style={{
-                  background: "#1e3a7a",
+                  background: "var(--secondary-500)",
                   border: "none",
                   cursor: "pointer",
                   right: -22,
@@ -155,7 +162,6 @@ export default function SuccessStories() {
                 </svg>
               </button>
 
-              {/* Video — full width */}
               <div
                 className={`w-full relative flex items-center justify-center overflow-hidden rounded-t-2xl ${
                   animating
@@ -164,7 +170,6 @@ export default function SuccessStories() {
                 }`}
                 style={{ background: "#c4cdd6", minHeight: 220, maxHeight: 340, aspectRatio: "16/7" }}
               >
-                {/* Scanline texture */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
@@ -173,7 +178,6 @@ export default function SuccessStories() {
                   }}
                 />
 
-                {/* Play button */}
                 {!playing ? (
                   <button
                     onClick={() => setPlaying(true)}
@@ -182,7 +186,7 @@ export default function SuccessStories() {
                     style={{
                       width: 56,
                       height: 56,
-                      background: "rgba(10,10,10,0.82)",
+                      background: "var(--secondary-500)",
                       border: "none",
                       cursor: "pointer",
                     }}
@@ -197,23 +201,21 @@ export default function SuccessStories() {
                   </div>
                 )}
               </div>
-              {/* end video */}
             </div>
 
-            {/* Info panel */}
             <div
               className={`rounded-b-2xl px-6 py-5 ${
                 animating
                   ? direction === "right" ? "slide-exit-left" : "slide-exit-right"
                   : "slide-enter-right"
               }`}
-              style={{ background: "#1e3a7a" }}
+              style={{ background: "var(--secondary-500)" }}
             >
               <p
                 className="ss-title font-bold text-white mb-1.5"
                 style={{ fontSize: "clamp(14px, 2vw, 17px)" }}
               >
-                {story.name}
+                {story.name} — {story.course}
               </p>
               <p
                 className="text-blue-100 leading-relaxed lg:text-base"
@@ -222,7 +224,6 @@ export default function SuccessStories() {
                 {story.description}
               </p>
 
-              {/* Dot indicators */}
               <div className="flex items-center gap-1.5 mt-3">
                 {STORIES.map((_, i) => (
                   <button
@@ -252,14 +253,8 @@ export default function SuccessStories() {
                 ))}
               </div>
             </div>
-            {/* end info panel */}
-
           </div>
-          {/* end card */}
-
         </div>
-        {/* end outer wrapper */}
-
       </section>
     </>
   );

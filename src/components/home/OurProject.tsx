@@ -1,48 +1,95 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import SectionHeader from "../UI/SectionHeader";
 import Image from "next/image";
 import Link from "next/link";
 
 type Project = {
-  id: number;
+  id: string;
   name: string;
   description: string;
   image: string;
   link: string;
 };
 
-const projects: Project[] = [
+const DEFAULT_PROJECTS: Project[] = [
   {
-    id: 1,
-    name: "PROJECT NAME",
+    id: "1",
+    name: "RAISE",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non",
+      "RAISE (Rising Ambitions in Skills & Education) is a project of Combine Foundation that aims to empower students as well as employees with all the information, skills, and opportunities to excel in today's fast-paced environment. The project offers courses like Python with AI, Web Development, Basic Computer Skills, Quantitative Finance, and Meta Ads Marketing, designed to foster digital literacy and self-reliance.",
     image: "/home/project/project.png",
-    link: "/projects/1",
+    link: "/projects",
   },
   {
-    id: 2,
-    name: "PROJECT TWO",
+    id: "2",
+    name: "Scholarship & Career Support",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue.",
+      "The Scholarship & Career Support Projects by Combine Foundation are designed to help students achieve their educational and professional goals through financial assistance, career guidance, and skill development opportunities. These initiatives support deserving students by creating pathways for education, digital learning, online earning, and future career growth.",
     image: "/home/project/project.png",
-    link: "/projects/2",
+    link: "/projects",
   },
   {
-    id: 3,
-    name: "PROJECT THREE",
+    id: "3",
+    name: "Volunteer & Youth Leadership",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.",
+      "The Volunteer and Youth Leadership Programs by Combine Foundation are designed to help students and young individuals develop leadership, communication, teamwork, and practical professional skills through real-world projects, community involvement, and social initiatives that create positive impact.",
     image: "/home/project/project.png",
-    link: "/projects/3",
+    link: "/projects",
+  },
+  {
+    id: "4",
+    name: "Ramadan Reset Challenge",
+    description:
+      "The Ramadan Reset Challenge by Combine Foundation is a spiritual and personal development program designed to help students and individuals reconnect with Islamic values during the holy month of Ramadan through daily learning, reflection, and positive habit-building activities.",
+    image: "/home/project/project.png",
+    link: "/projects",
+  },
+  {
+    id: "5",
+    name: "Health & Environmental Sustainability",
+    description:
+      "The Health Awareness & Environmental Sustainability Initiatives by Combine Foundation focus on promoting wellness, healthy living, and environmental sustainability awareness within communities through awareness programs, lifestyle education, plantation drives, and sustainability activities for a greener future.",
+    image: "/home/project/project.png",
+    link: "/projects",
+  },
+  {
+    id: "6",
+    name: "Community Welfare & Support",
+    description:
+      "The Community Welfare & Support Initiatives by Combine Foundation are focused on helping deserving families and supporting communities during difficult times through relief camps, social support programs, and community-driven initiatives that restore dignity and improve quality of life.",
+    image: "/home/project/project.png",
+    link: "/projects",
   },
 ];
 
 type Direction = "next" | "prev";
 
-export default function ProjectsSlider() {
+interface ProjectsSliderProps {
+  projects?: Array<{
+    id: string | number;
+    title?: string;
+    name?: string;
+    images?: string[];
+    image?: string;
+    description: string;
+    link?: string;
+  }>;
+}
+
+export default function ProjectsSlider({ projects: initialProjects }: ProjectsSliderProps) {
+  const displayProjects = useMemo(() => {
+    const list = initialProjects && initialProjects.length > 0 ? initialProjects : DEFAULT_PROJECTS;
+    return list.map((p: any) => ({
+      id: String(p.id),
+      name: p.title || p.name || "",
+      description: p.description,
+      image: p.images?.[0] || p.image || "/home/project/project.png",
+      link: p.link || `/projects?id=${p.id}`,
+    }));
+  }, [initialProjects]);
+
   const [current, setCurrent] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("next");
@@ -56,13 +103,13 @@ export default function ProjectsSlider() {
       setTimeout(() => {
         setCurrent((prev) =>
           dir === "next"
-            ? (prev + 1) % projects.length
-            : (prev - 1 + projects.length) % projects.length
+            ? (prev + 1) % displayProjects.length
+            : (prev - 1 + displayProjects.length) % displayProjects.length
         );
         setSliding(false);
       }, 400);
     },
-    [sliding]
+    [sliding, displayProjects.length]
   );
 
   const startTimer = useCallback(() => {
@@ -87,17 +134,21 @@ export default function ProjectsSlider() {
     startTimer();
   };
 
-  const project = projects[current];
+  const project = displayProjects[current];
+
+  if (displayProjects.length === 0) {
+    return null;
+  }
 
   return (
     <section className="relative px-5 sm:px-10 py-4">
       <SectionHeader
         title="Our Projects"
-        description="Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et."
+        description="Explore our initiatives creating lasting impact across Pakistan."
       />
 
-      <div className="absolute left-1 sm:left-3 top-1/2 w-1.5 h-[30%] translate-y-[-35%] rounded-full bg-[#1a2f5a]" />
-      <div className="absolute right-1 sm:right-3 translate-y-[-35%] top-1/2 w-1.5 h-[30%] rounded-full bg-[#1a2f5a]" />
+      <div className="absolute left-1 sm:left-3 top-1/2 w-1.5 h-[30%] translate-y-[-35%] rounded-full bg-primary-700" />
+      <div className="absolute right-1 sm:right-3 translate-y-[-35%] top-1/2 w-1.5 h-[30%] rounded-full bg-primary-700" />
 
       <div
         className="relative w-full rounded-2xl overflow-hidden"
@@ -121,6 +172,7 @@ export default function ProjectsSlider() {
             fill
             className="object-cover object-center"
             priority
+            unoptimized
           />
 
           <div className="absolute inset-0 bg-black/20" />
@@ -141,7 +193,7 @@ export default function ProjectsSlider() {
           </p>
           <Link
             href={project.link}
-            className="inline-flex items-center justify-center w-fit px-7 py-3 rounded-full bg-[#e8511a] hover:bg-[#cf4515] text-white font-semibold text-base transition-colors duration-200"
+            className="inline-flex items-center justify-center w-fit px-7 py-3 rounded-full bg-navy hover:brightness-90 text-white font-semibold text-base transition-all duration-200"
           >
             Learn More
           </Link>
@@ -152,7 +204,7 @@ export default function ProjectsSlider() {
         <button
           onClick={handlePrev}
           aria-label="Previous project"
-          className="w-11 h-11 rounded-full bg-[#1a2f5a] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
         >
           <svg
             width="18"
@@ -170,7 +222,7 @@ export default function ProjectsSlider() {
         <button
           onClick={handleNext}
           aria-label="Next project"
-          className="w-11 h-11 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
         >
           <svg
             width="18"

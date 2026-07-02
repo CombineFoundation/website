@@ -34,13 +34,13 @@ export default function AboutHero({
     const text1Style = text1Size === "big" ? bigText : smallText;
     const text2Style = text2Size === "big" ? bigText : smallText;
     return (
-        <section className="w-full bg-[#F7FBFF] py-4">
+        <section className="w-full py-4">
             <div className="hidden md:grid grid-cols-2 relative max-w-full 2xl:w-[95%] mx-auto  h-[95%] rounded-3xl">
                 <div className="absolute w-[50%] h-[94%] bg-[#E8E8E8] top-4 right-[30%] z-1" />
 
                 {/* TOP LEFT - ABOUT TEXT */}
                 <div className="bg-[#F7FBFF] rounded-br-3xl flex items-center justify-center z-2">
-                    <h1 className={`${text1Style} font-extrabold text-black`}>
+                    <h1 className={`${text1Style} font-extrabold text-primary-900`}>
                         {text1}
                     </h1>
                 </div>
@@ -69,7 +69,7 @@ export default function AboutHero({
 
                 {/* BOTTOM RIGHT - TEXT */}
                 <div className="bg-[#F7FBFF] rounded-tl-3xl flex items-center justify-center z-2 ">
-                    <h1 className={`${text2Style} font-extrabold text-black`}>
+                    <h1 className={`${text2Style} font-extrabold text-primary-900`}>
                         {text2}
                     </h1>
                 </div>

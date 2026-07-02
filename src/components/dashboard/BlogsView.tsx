@@ -6,19 +6,14 @@ import Pagination from "./Pagination";
 import EditBlogModal from "./EditBlogModal";
 import AddBlogModal from "./AddBlogModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import allBlogs from "@/data/blogs.json";
-
-interface Blog {
-  id: number;
-  name: string;
-  authorName: string;
-  date: string;
-  status: "Published" | "Draft" | "Under Review";
-  description: string;
-  conclusion: string;
-  heroImage1: string;
-  heroImage2: string;
-}
+import {
+  fetchBlogs,
+  addBlog,
+  updateBlog,
+  deleteBlogs,
+  type FirestoreBlog,
+} from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -59,36 +54,31 @@ function slugify(text: string): string {
 }
 
 export default function BlogsView() {
-  const [blogs, setBlogs] = useState<Blog[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-blogs");
-        if (saved) return JSON.parse(saved) as Blog[];
-      } catch {}
-    }
-    return (allBlogs as Array<{ id: number; title: string; authorName: string; date: string; status: string; description: string; conclusion: string; heroImage1: string; heroImage2: string }>).map((b) => ({
-      id: b.id,
-      name: b.title,
-      authorName: b.authorName,
-      date: b.date,
-      status: b.status as "Published" | "Draft" | "Under Review",
-      description: b.description,
-      conclusion: b.conclusion || "",
-      heroImage1: b.heroImage1 || "",
-      heroImage2: b.heroImage2 || "",
-    }));
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [blogs, setBlogs] = useState<FirestoreBlog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [editBlog, setEditBlog] = useState<Blog | null>(null);
+  const [editBlog, setEditBlog] = useState<FirestoreBlog | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadBlogs = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchBlogs();
+      setBlogs(data);
+    } catch (err) {
+      console.error("Error fetching blogs:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-blogs", JSON.stringify(blogs));
-  }, [blogs]);
+    loadBlogs();
+  }, []);
 
   const filtered = useMemo(() => {
     let result = blogs;
@@ -112,8 +102,8 @@ export default function BlogsView() {
   );
 
   const allChecked =
-    paginated.length > 0 && paginated.every((b) => selectedIds.has(b.id));
-  const someChecked = paginated.some((b) => selectedIds.has(b.id));
+    paginated.length > 0 && paginated.every((b) => selectedIds.has(b.id!));
+  const someChecked = paginated.some((b) => selectedIds.has(b.id!));
 
   const canEdit = selectedIds.size === 1;
   const canDelete = selectedIds.size > 0;
@@ -122,19 +112,19 @@ export default function BlogsView() {
     if (allChecked) {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((b) => next.delete(b.id));
+        paginated.forEach((b) => next.delete(b.id!));
         return next;
       });
     } else {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((b) => next.add(b.id));
+        paginated.forEach((b) => next.add(b.id!));
         return next;
       });
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -154,33 +144,21 @@ export default function BlogsView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setBlogs((prev) => prev.filter((b) => !selectedIds.has(b.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteBlogs(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadBlogs();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
-  const handleSaveEdit = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
-    if (!editBlog) return;
-    setBlogs((prev) =>
-      prev.map((b) =>
-        b.id === editBlog.id
-          ? { ...b, name: data.name, authorName: data.authorName, date: toStorageDate(data.date), status: data.status, description: data.description, conclusion: data.conclusion, heroImage1: data.heroImage1, heroImage2: data.heroImage2 }
-          : b
-      )
-    );
-    setEditBlog(null);
-    setSelectedIds(new Set());
-  };
-
-  const handleAdd = (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
-    const newId = blogs.length > 0 ? Math.max(...blogs.map((b) => b.id)) + 1 : 1;
-    const newBlog: Blog = {
-      id: newId,
+  const handleSaveEdit = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
+    if (!editBlog?.id) return;
+    await updateBlog(editBlog.id, {
       name: data.name,
       authorName: data.authorName,
       date: toStorageDate(data.date),
@@ -189,11 +167,38 @@ export default function BlogsView() {
       conclusion: data.conclusion,
       heroImage1: data.heroImage1,
       heroImage2: data.heroImage2,
-    };
-    setBlogs((prev) => [...prev, newBlog]);
+      content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
+    });
+    setEditBlog(null);
+    setSelectedIds(new Set());
+    await loadBlogs();
+  };
+
+  const handleAdd = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
+    await addBlog({
+      name: data.name,
+      authorName: data.authorName,
+      date: toStorageDate(data.date),
+      status: data.status,
+      description: data.description,
+      conclusion: data.conclusion,
+      heroImage1: data.heroImage1,
+      heroImage2: data.heroImage2,
+      content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
+    });
     setShowAddModal(false);
+    await loadBlogs();
     setCurrentPage(Math.ceil((blogs.length + 1) / PAGE_SIZE));
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading blogs...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -201,7 +206,7 @@ export default function BlogsView() {
         <h1 className="text-2xl font-bold text-gray-900">Blogs</h1>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#0C3155] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-[#0f1b3d] text-white text-sm font-medium px-4 py-2 rounded-lg hover:brightness-110 transition-all cursor-pointer"
         >
           <span className="text-lg leading-none">+</span> Add Blog
         </button>
@@ -250,7 +255,7 @@ export default function BlogsView() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginated.map((blog) => {
-              const isChecked = selectedIds.has(blog.id);
+              const isChecked = selectedIds.has(blog.id!);
               return (
                 <tr
                   key={blog.id}
@@ -260,7 +265,7 @@ export default function BlogsView() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => toggleOne(blog.id)}
+                      onChange={() => toggleOne(blog.id!)}
                       className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                     />
                   </td>
@@ -293,7 +298,7 @@ export default function BlogsView() {
 
       {editBlog && (
         <EditBlogModal
-          blog={editBlog}
+          blog={editBlog as any}
           onCancel={() => { setEditBlog(null); }}
           onSave={handleSaveEdit}
         />

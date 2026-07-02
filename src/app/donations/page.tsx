@@ -10,7 +10,7 @@ function page() {
             <DonationForm />
             <DonationUsage />
             <SuccessfulVentures />
-            <CtaSection text="Do you have the same vision as us ?" buttonText="Donate Now" />
+            <CtaSection text="Your Support Can Save Dreams" buttonText="Support Now" />
         </div>
     )
 }

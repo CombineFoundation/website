@@ -7,13 +7,13 @@ interface CourseHeroProps {
 }
 
 export default function CourseHero({ course }: CourseHeroProps) {
-  const shortTitle = course.title.replace(/ Course$/i, "");
+  const shortTitle = (course.title || course.name || "").replace(/ Course$/i, "");
 
   return (
     <>
       <div className="w-full pl-17 pr-10 py-8 max-sm:px-6 max-sm:py-6">
         <div className="text-[12.5px] lg:text-sm xl:text-base text-gray-500 mb-7">
-          Free Courses&nbsp;/&nbsp;<span className="text-gray-500">{course.title}</span>
+          Free Courses&nbsp;/&nbsp;<span className="text-gray-500">{course.title || course.name}</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-start">
@@ -58,7 +58,9 @@ export default function CourseHero({ course }: CourseHeroProps) {
                 </span>
                 <span className="font-medium text-gray-600">Price :&nbsp;</span>
                 <span className="text-gray-900">{course.price.toLocaleString()} PKR</span>
-                <span className="text-[12px] lg:text-sm xl:text-base text-gray-400 ml-1">(Originally {course.originalPrice.toLocaleString()})</span>
+                {Number(course.originalPrice) > 0 && (
+                  <span className="text-[12px] lg:text-sm xl:text-base text-gray-400 ml-1">(Originally {Number(course.originalPrice).toLocaleString()} PKR)</span>
+                )}
               </li>
 
               <li className="flex items-center gap-[9px] text-[13.5px] lg:text-base xl:text-lg text-gray-700">
@@ -68,20 +70,32 @@ export default function CourseHero({ course }: CourseHeroProps) {
                     <path d="M8 14l-2 7 6-3 6 3-2-7"/>
                   </svg>
                 </span>
-                <span className="text-gray-700">Professional Certificates Provided After Completion</span>
+                <span className="text-gray-700">Get Certified. Get Noticed. Get Hired.</span>
               </li>
             </ul>
 
-            <button className="inline-block bg-[#F0632E] text-white text-[12.5px] lg:text-sm xl:text-base font-bold uppercase px-6 py-2.5 rounded-full border-none cursor-pointer mb-2.5 hover:bg-[#d9541f] hover:-translate-y-0.5 active:translate-y-0 transition-all">
-              Enroll Now
-            </button>
-            <div className="text-[11.5px] lg:text-xs xl:text-sm text-gray-400 italic">*Basic Internet Connection and Laptop Required</div>
+            {course.mode && (
+              <p className="text-[12.5px] lg:text-sm xl:text-base text-gray-500 mb-2">
+                Mode: {course.mode}
+              </p>
+            )}
+
+            <a
+              href={course.enrollmentLink || "#"}
+              target={course.enrollmentLink ? "_blank" : undefined}
+              rel={course.enrollmentLink ? "noopener noreferrer" : undefined}
+            >
+              <button className="inline-block bg-accent-orange text-white text-[12.5px] lg:text-sm xl:text-base font-bold uppercase px-6 py-2.5 rounded-full border-none cursor-pointer mb-2.5 hover:brightness-90 hover:-translate-y-0.5 active:translate-y-0 transition-all">
+                Enroll Now, Start Learning Today
+              </button>
+            </a>
+            <div className="text-[11.5px] lg:text-xs xl:text-sm text-gray-400 italic">{course.requirements}</div>
           </div>
 
           <div className="relative w-full h-80 mx-auto max-sm:hidden">
             <div className="absolute left-0 top-0 w-[55%] h-[260px] rounded-[10px] overflow-hidden shadow-md z-10">
               <img
-                src={course.imageBack}
+                src={course.heroImage1}
                 alt=""
                 className="w-full h-full object-cover object-top rounded-[10px]"
                 onError={(e) => {
@@ -96,8 +110,8 @@ export default function CourseHero({ course }: CourseHeroProps) {
               style={{ boxShadow: "0 6px 18px rgba(0,0,0,0.22)" }}
             >
               <img
-                src={course.image}
-                alt={course.title}
+                src={course.heroImage2}
+                alt={course.title || course.name || ""}
                 className="w-full h-full object-cover object-top rounded-[10px]"
                 onError={(e) => {
                   const t = e.currentTarget;

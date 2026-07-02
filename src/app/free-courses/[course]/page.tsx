@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllCourseSlugs, getCourseBySlug } from "@/lib/freeCourses";
 import CourseHero from "@/components/free-courses/CourseHero";
@@ -16,10 +15,11 @@ interface CoursePageProps {
 export function generateStaticParams() {
   return getAllCourseSlugs();
 }
+export const dynamic = "force-dynamic";
 
 export default async function CoursePage({ params }: CoursePageProps) {
   const { course: slug } = await params;
-  const course = getCourseBySlug(slug);
+  const course = await getCourseBySlug(slug);
 
   if (!course) {
     return notFound();
@@ -29,7 +29,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
     <>
       <CourseHero course={course} />
       <hr className="w-[95vw] text-gray-500 m-auto" />
-      <Modules modules={course.modules} />
+      <Modules modules={course.modules} guidelineCta={course.guidelineCta} />
       <SuccessStories />
       <MeetInstructors />
       <CtaSection

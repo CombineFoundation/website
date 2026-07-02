@@ -1,29 +1,50 @@
 "use client";
 
 import Image from "next/image";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 
 const SLICES = [
     {
-        label: "Health and Education",
-        percent: "60%",
-        value: 60,
-        color: "#7ecde8",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+        label: "Education & Technology Programs",
+        percent: "40%",
+        value: 40,
+        color: "var(--secondary-600)",
+        desc: "Your donations help us to provide AI, web development, digital literacy, and leadership training programs that empower youth to become skilled and self-dependent",
     },
     {
-        label: "Health and Education",
-        percent: "20%",
-        value: 20,
-        color: "#0f2d5c",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+        label: "Scholarships & Student Support",
+        percent: "15%",
+        value: 15,
+        color: "var(--primary-500)",
+        desc: "Your support gives deserving students a hope to continue their education, follow their dreams, and create a brighter tomorrow without fear of financial conditions.",
     },
     {
-        label: "Health and Education",
-        percent: "20%",
-        value: 20,
-        color: "#1e5b9e",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur,",
+        label: "Community Welfare & Relief Programs",
+        percent: "10%",
+        value: 10,
+        color: "var(--color-orange)",
+        desc: "Your contribution brings hope to struggling families through food support, emergency relief, and care during difficult times.",
+    },
+    {
+        label: "Sustainability & Plantation Initiatives",
+        percent: "15%",
+        value: 15,
+        color: "#4CAF50",
+        desc: "Your donation helps create a greener future through plantation drives, environmental awareness, and sustainability programs for coming generation",
+    },
+    {
+        label: "Volunteer & Leadership Development",
+        percent: "15%",
+        value: 15,
+        color: "#7ECDE8",
+        desc: "Your support empowers youth to become future leaders, serve communities, and inspire positive change around them.",
+    },
+    {
+        label: "Operational & Compliance Support",
+        percent: "5%",
+        value: 5,
+        color: "#B0BEC5",
+        desc: "Your contribution helps us to maintain transparent systems and responsible operations, so every donation creates a meaningful impact.",
     },
 ];
 
@@ -33,8 +54,8 @@ export default function DonationUsage() {
             <div className="w-full max-w-[1280px]">
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-extrabold text-black tracking-tight mb-3">
-                    How we use your donations
+                <h1 className="text-3xl md:text-4xl font-extrabold text-secondary-500 tracking-tight mb-3">
+                    See How Your Donation Helps
                 </h1>
                 <hr className="border-t border-[#b0bec5] mb-10" />
 
@@ -61,6 +82,19 @@ export default function DonationUsage() {
                                             <Cell key={i} fill={slice.color} />
                                         ))}
                                     </Pie>
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: "#fff",
+                                            border: "1px solid #ccc",
+                                            borderRadius: "4px",
+                                            padding: "8px",
+                                            color: "#000",
+                                        }}
+                                        formatter={(value, name, props) => [
+                                            `${props.payload.label}`,
+                                            `${props.payload.percent}`,
+                                        ]}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>

@@ -1,18 +1,81 @@
 "use client";
 
-import dynamic from 'next/dynamic'
-import PageHeroMobile from '@/components/UI/Pageheromobile'
-import AchievementsList from '@/components/projects/Achievementslist '
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import PageHeroMobile from "@/components/UI/Pageheromobile";
+import AchievementsList from "@/components/projects/Achievementslist ";
+import { getAllProjects, type Project } from "@/lib/projects";
+import { Loader2 } from "lucide-react";
 
-const AchievementsMap = dynamic(() => import('@/components/projects/map'), { ssr: false })
-const Projects = () => {
+const AchievementsMap = dynamic(() => import("@/components/projects/map"), { ssr: false });
+
+export default function Projects() {
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await getAllProjects();
+        setProjects(data);
+
+        // Check for 'id' parameter to auto-expand and scroll to a project
+        const params = new URLSearchParams(window.location.search);
+        const urlId = params.get("id");
+        if (urlId) {
+          const exists = data.some((p) => String(p.id) === urlId);
+          if (exists) {
+            setActiveId(urlId);
+            setTimeout(() => {
+              const el = document.getElementById(`project-card-${urlId}`);
+              el?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 300);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
+
+  const handleMapSelect = (id: string) => {
+    setActiveId(id);
+    setTimeout(() => {
+      const el = document.getElementById(`project-card-${id}`);
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+  };
+
+  const handleCardToggle = (id: string) => {
+    setActiveId((prev) => (prev === id ? null : id));
+  };
+
+  if (loading) {
     return (
-        <>
-            <PageHeroMobile title="Projects" imageSrc="/projects/projecthero.png" styles="my-4 " />
-            <AchievementsMap />
-            <AchievementsList />
-        </>
-    )
-}
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-20">
+        <Loader2 className="w-10 h-10 text-orange animate-spin" />
+        <span className="mt-4 text-gray-600 font-medium">Loading projects...</span>
+      </div>
+    );
+  }
 
-export default Projects
+  return (
+    <>
+      <PageHeroMobile title="Projects" imageSrc="/projects/projecthero.png" styles="my-4" />
+      <AchievementsMap
+        projects={projects}
+        activeId={activeId}
+        onSelect={handleMapSelect}
+      />
+      <AchievementsList
+        projects={projects}
+        activeId={activeId}
+        onToggle={handleCardToggle}
+      />
+    </>
+  );
+}

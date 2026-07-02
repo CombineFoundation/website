@@ -10,10 +10,10 @@ type StoryContent = {
 };
 
 const storyContent: StoryContent = {
-    title: "The Story",
+    title: "The Story Behind Combine Foundation",
     paragraphs: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.",
-        "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id, ultricies vel nibh. Sed volutpat lacus vitae gravida viverra. Fusce vel tempor elit. Proin tempus, magna id",
+        "Combine Foundation was established on the ideology that \"nation cannot build through donations\" and under this spirit Combine Foundation aims to fill the gap between despair and hope. Pakistan has extraordinary youth potential, yet millions of students still lack access to quality education, leadership opportunities, mentorship, career guidance, and digital skills for the future. After Identify this challenge and need Combine Foundation came into being as a part of Combine Group's mission to uplift Pakistani youth.",
+        "The combine foundation evolved into a structured organization officially registered as an NPO (under the Companies Act 2017) in SECP in 2023 and officially launched in May 2025 as Combine Foundation.",
     ],
     image: "/about/story/story.png",
     imageAlt: "Students on a field visit",
@@ -23,7 +23,7 @@ export default function OurStory() {
     return (
         <section className="w-full  mx-auto px-6 py-10 md:py-14">
             <div
-                className="w-full rounded-2xl px-8 py-6 mb-8 md:mb-10 bg-[#124980]"
+                className="w-full rounded-2xl px-8 py-6 mb-8 md:mb-10 bg-secondary-500"
             >
                 <h2 className="text-white font-bold text-4xl md:text-5xl">
                     {storyContent.title}

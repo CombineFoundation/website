@@ -71,13 +71,13 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
 
             {/* Footer */}
             <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200 bg-white shrink-0">
-                <span className="text-sm font-medium text-gray-800 leading-tight">
+                <span className="text-sm font-medium text-gray-900 leading-tight">
                     {cert.title}
                 </span>
                 <a
                     href={cert.url}
                     aria-label={`Open ${cert.title}`}
-                    className="ml-3 flex-shrink-0 w-8 h-8 rounded-full bg-[#0C3155] hover:bg-[#243d73] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                    className="ml-3 flex-shrink-0 w-8 h-8 rounded-full bg-secondary-600 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                 >
                     <ArrowIcon />
                 </a>
@@ -92,7 +92,7 @@ const TaxShariaCertificates = () => {
             <div className="max-w-full mx-auto">
 
                 <div className="mb-2">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-secondary-500">
                         Tax and Sharia Certificates
                     </h2>
                 </div>

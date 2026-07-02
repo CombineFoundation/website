@@ -4,39 +4,38 @@ import { useState, useMemo, useEffect } from "react";
 import { Search, Trash2, ChevronDown } from "lucide-react";
 import Pagination from "./Pagination";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import allDonations from "@/data/donations.json";
-
-interface Donation {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  amount: number;
-  paymentMethod: string;
-}
+import { fetchDonations, deleteDonations, type FirestoreDonation } from "@/lib/admin-actions";
+import { Loader2 } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
-const paymentMethods = Array.from(new Set((allDonations as Donation[]).map((d) => d.paymentMethod)));
-
 export default function DonationsView() {
-  const [donations, setDonations] = useState<Donation[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("dashboard-donations");
-        if (saved) return JSON.parse(saved) as Donation[];
-      } catch {}
-    }
-    return allDonations as Donation[];
-  });
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [donations, setDonations] = useState<FirestoreDonation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+  const loadDonations = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchDonations();
+      setDonations(data);
+    } catch (err) {
+      console.error("Error fetching donations:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("dashboard-donations", JSON.stringify(donations));
+    loadDonations();
+  }, []);
+
+  const paymentMethods = useMemo(() => {
+    return Array.from(new Set(donations.map((d) => d.paymentMethod))).filter(Boolean);
   }, [donations]);
 
   const filtered = useMemo(() => {
@@ -62,8 +61,8 @@ export default function DonationsView() {
   );
 
   const allChecked =
-    paginated.length > 0 && paginated.every((d) => selectedIds.has(d.id));
-  const someChecked = paginated.some((d) => selectedIds.has(d.id));
+    paginated.length > 0 && paginated.every((d) => selectedIds.has(d.id!));
+  const someChecked = paginated.some((d) => selectedIds.has(d.id!));
 
   const canDelete = selectedIds.size > 0;
 
@@ -71,19 +70,19 @@ export default function DonationsView() {
     if (allChecked) {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((d) => next.delete(d.id));
+        paginated.forEach((d) => next.delete(d.id!));
         return next;
       });
     } else {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        paginated.forEach((d) => next.add(d.id));
+        paginated.forEach((d) => next.add(d.id!));
         return next;
       });
     }
   };
 
-  const toggleOne = (id: number) => {
+  const toggleOne = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -96,15 +95,26 @@ export default function DonationsView() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
-    const count = selectedIds.size;
-    setDonations((prev) => prev.filter((d) => !selectedIds.has(d.id)));
+  const confirmDelete = async () => {
+    const ids = [...selectedIds];
+    await deleteDonations(ids);
     setSelectedIds(new Set());
     setShowDeleteConfirm(false);
-    if (currentPage > Math.ceil((filtered.length - count) / PAGE_SIZE)) {
-      setCurrentPage(Math.max(1, Math.ceil((filtered.length - count) / PAGE_SIZE)));
+    await loadDonations();
+    const newTotal = filtered.length - ids.length;
+    if (currentPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setCurrentPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6 min-h-full flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+        <span className="ml-3 text-gray-500 font-medium">Loading donations...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -190,7 +200,7 @@ export default function DonationsView() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginated.map((donation) => {
-              const isChecked = selectedIds.has(donation.id);
+              const isChecked = selectedIds.has(donation.id!);
               return (
                 <tr
                   key={donation.id}
@@ -200,7 +210,7 @@ export default function DonationsView() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => toggleOne(donation.id)}
+                      onChange={() => toggleOne(donation.id!)}
                       className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                     />
                   </td>

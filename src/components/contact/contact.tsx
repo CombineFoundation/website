@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import type { Message } from "@/lib/collections";
 
@@ -101,13 +101,15 @@ const ContactForm = () => {
 
         setLoading(true);
         try {
-            const payload: Omit<Message, "id"> = {
+            const payload = {
                 name: sanitise(form.name),
                 email: sanitise(form.email),
+                subject: "Website Contact",
                 message: sanitise(form.message),
-                sentAt: serverTimestamp(),
+                timestamp: new Date().toLocaleString(),
+                createdAt: serverTimestamp(),
             };
-            await addDoc(collection(db, "messages"), payload);
+            await addDoc(collection(db, "contacts"), payload);
             setSuccess(true);
             setForm({ name: "", email: "", message: "" });
             setErrors(EMPTY_ERRORS);
@@ -134,7 +136,7 @@ const ContactForm = () => {
         <section className=" py-10 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
             <div className="w-full">
                 {/* Header */}
-                <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-secondary-500 mb-2">
                     Contact form
                 </h2>
                 <hr className="border-gray-200 mb-8 lg:mb-10" />
@@ -229,8 +231,7 @@ const ContactForm = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[#0F3D6B] via-[#0061C3] to-[#0F3D6B]
-hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
+                            className="w-full py-3 lg:py-4 rounded-full bg-gradient-to-r from-[var(--secondary-600)] via-[var(--secondary-500)] to-[var(--secondary-600)] hover:brightness-110
                                        text-white text-sm lg:text-base xl:text-lg
                                        font-semibold tracking-wide transition-all duration-200
                                        disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
@@ -244,7 +245,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
 
                         {/* Address */}
                         <div className="flex flex-col">
-                            <span className="mt-0.5 flex-shrink-0 text-black">
+                            <span className="mt-0.5 flex-shrink-0 text-secondary-500">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -259,7 +260,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
 
                         {/* Phone */}
                         <div className="flex flex-col mb-1">
-                            <span className="flex-shrink-0 text-black">
+                            <span className="flex-shrink-0 text-secondary-500">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -277,7 +278,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
 
                         {/* Email */}
                         <div className="flex flex-col">
-                            <span className="flex-shrink-0 text-black">
+                            <span className="flex-shrink-0 text-secondary-500">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -298,7 +299,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
                         <div className="flex items-center gap-5 mt-1">
                             {/* Instagram */}
                             <a href="https://www.instagram.com/combinefoundation" aria-label="Instagram"
-                                className="text-black hover:text-pink-500 transition-colors">
+                                className="text-secondary-500 hover:text-pink-500 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -309,7 +310,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
                             </a>
                             {/* Facebook */}
                             <a href="https://www.facebook.com/combinefoundationoffical" aria-label="Facebook"
-                                className="text-black hover:text-blue-600 transition-colors">
+                                className="text-secondary-500 hover:text-blue-600 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">
@@ -318,7 +319,7 @@ hover:from-[#1a4d85] hover:via-[#1a71d3] hover:to-[#1a4d85]
                             </a>
                             {/* LinkedIn */}
                             <a href="https://www.linkedin.com/company/combine-foundation/" aria-label="LinkedIn"
-                                className="text-black hover:text-blue-700 transition-colors">
+                                className="text-secondary-500 hover:text-blue-700 transition-colors">
                                 <svg width="22" height="22" className="lg:w-6 lg:h-6" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" strokeWidth="1.8"
                                     strokeLinecap="round" strokeLinejoin="round">

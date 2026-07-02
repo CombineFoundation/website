@@ -15,6 +15,7 @@ const AboutPage = () => {
                 image1="/about/hero/hero1.png"
                 image2="/about/hero/hero2.jpg"
                 text1Size="big"
+                text2Size="big"
                 mobileTitle="About"
             />
             <OurStory />

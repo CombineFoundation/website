@@ -12,45 +12,45 @@ type Value = {
 const values: Value[] = [
     {
         id: 1,
-        urdu: "سالمیت",
-        english: "Integrity",
-        description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
-    },
-    {
-        id: 2,
         urdu: "بااختیاربنانا",
         english: "Empowerment",
         description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "Equipping individuals with the tools, knowledge, and confidence to take control of their lives and create meaningful change in their communities.",
+    },
+    {
+        id: 2,
+        urdu: "قیادت",
+        english: "Leadership",
+        description:
+            "Developing visionary leaders who inspire others, drive positive change, and take initiative to solve challenges facing their communities.",
     },
     {
         id: 3,
-        urdu: "ہمدردی",
-        english: "Compassion",
+        urdu: "پائیداری",
+        english: "Sustainability",
         description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "Promoting long-term environmental, social, and economic practices that ensure a better future for generations to come.",
     },
     {
         id: 4,
-        urdu: "اختراع",
-        english: "Innovation",
+        urdu: "خود انحصاری",
+        english: "Self-reliance",
         description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "Fostering independence and self-sufficiency so individuals and communities can thrive without external dependency.",
     },
     {
         id: 5,
-        urdu: "تعاون",
-        english: "Collaboration",
+        urdu: "ہمدردی",
+        english: "Compassion",
         description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "Leading with empathy and kindness, understanding the needs of others, and working to uplift those who are underserved.",
     },
     {
         id: 6,
-        urdu: "تعاون",
-        english: "Collaboration",
+        urdu: "سالمیت",
+        english: "Integrity",
         description:
-            "nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem orci, mattis non efficitur id,",
+            "Upholding the highest standards of honesty, transparency, and ethical conduct in all our actions and decisions.",
     },
 ];
 
@@ -66,7 +66,7 @@ function ValueCard({ value }: ValueCardProps) {
         <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative overflow-hidden rounded-2xl flex items-center justify-center text-center px-6 py-10 cursor-pointer bg-[#0F3D6B]"
+            className="relative overflow-hidden rounded-2xl flex items-center justify-center text-center px-6 py-10 cursor-pointer bg-secondary-600"
             style={{ minHeight: "290px" }}
         >
             {/* DEFAULT STATE */}

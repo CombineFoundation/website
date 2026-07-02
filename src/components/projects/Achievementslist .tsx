@@ -1,111 +1,43 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 
-type Stat = {
-    value: string;
-    label: string;
-};
-
-type Achievement = {
-    id: number;
+interface ProjectItem {
+    id: string;
     title: string;
     images: string[];
     description: string;
     goal: string;
-    stats: Stat[];
-    beforeImage: string;
-    afterImage: string;
-    futurePlans: string;
-    partners: string[];
-};
+    stats: { value: string; label: string }[];
+    beforeImage?: string;
+    afterImage?: string;
+    futurePlans?: string;
+    partners?: string[];
+}
 
-const achievements: Achievement[] = [
-    {
-        id: 1,
-        title: "Ramadan Bachat Camp With Hammad Foundation",
-        images: [
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-        ],
-        description:
-            "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet.",
-        goal:
-            "Curabitur pellentesque commodo lacus at sodales sodales.",
-        stats: [
-            { value: "800+", label: "Fruits Distributed" },
-            { value: "1200+", label: "People Helped" },
-            { value: "75+", label: "Volunteers" },
-            { value: "10+", label: "Cities Covered" },
-        ],
-        beforeImage: "/home/image1.avif",
-        afterImage: "/home/image1.avif",
-        futurePlans:
-            "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet.",
-        partners: [
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-        ],
-    },
-
-    {
-        id: 2,
-        title: "Food Distribution Campaign",
-        images: [
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-        ],
-        description:
-            "Pellentesque commodo lacus at sodales sodales.",
-        goal:
-            "Quisque sagittis orci ut diam condimentum.",
-        stats: [
-            { value: "500+", label: "Meals Served" },
-            { value: "300+", label: "Families Helped" },
-            { value: "50+", label: "Volunteers" },
-            { value: "5+", label: "Areas Covered" },
-        ],
-        beforeImage: "/home/image1.avif",
-        afterImage: "/home/image1.avif",
-        futurePlans:
-            "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet.",
-        partners: [
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-        ],
-    },
-];
-
-type AchievementItemProps = {
-    item: Achievement;
-    open: boolean;
-    onToggle: () => void;
-};
+interface AchievementsListProps {
+    projects: ProjectItem[];
+    activeId: string | null;
+    onToggle: (id: string) => void;
+}
 
 function AchievementItem({
     item,
     open,
     onToggle,
-}: AchievementItemProps) {
+}: {
+    item: ProjectItem;
+    open: boolean;
+    onToggle: () => void;
+}) {
     return (
         <div
+            id={`project-card-${item.id}`}
             className={`
                 rounded-2xl overflow-hidden border
                 transition-all duration-500 ease-in-out
                 ${open
-                    ? "bg-[#0F3D6B] border-[#0F3D6B] shadow-2xl shadow-blue-950/20"
+                    ? "bg-secondary-500 border-gray-600 "
                     : "bg-white border-gray-200 hover:border-gray-300"}
             `}
         >
@@ -168,7 +100,6 @@ function AchievementItem({
                             : "opacity-0 -translate-y-2"}
                     `}
                 >
-
                     {/* Images */}
                     <div
                         className="flex gap-3 overflow-x-auto pb-2"
@@ -233,78 +164,83 @@ function AchievementItem({
                     </div>
 
                     {/* Before After */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-                        <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
-                                <Image
-                                    src={item.beforeImage}
-                                    alt="Before"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            <p className="text-white text-center font-bold">
-                                Before
-                            </p>
-                        </div>
-
-                        <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
-                                <Image
-                                    src={item.afterImage}
-                                    alt="After"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            <p className="text-white text-center font-bold">
-                                After
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Future Plans */}
-                    <div>
-                        <h4 className="text-white font-bold text-base mb-2">
-                            Future Plans
-                        </h4>
-
-                        <p className="text-white/85 text-sm leading-6">
-                            {item.futurePlans}
-                        </p>
-                    </div>
-
-                    {/* Partners */}
-                    <div>
-                        <h4 className="text-white font-bold text-base mb-4">
-                            Project Partners
-                        </h4>
-
-                        <div
-                            className="flex gap-3 overflow-x-auto pb-2"
-                            style={{ scrollbarWidth: "none" }}
-                        >
-                            {item.partners.map((src, i) => (
-                                <div
-                                    key={i}
-                                    className="
-                                        relative rounded-xl overflow-hidden
-                                        shrink-0 w-[200px] h-[200px]
-                                        
-                                    "
-                                >
+                    {item.beforeImage && item.afterImage && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+                            <div>
+                                <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
                                     <Image
-                                        src={src}
-                                        alt={`Partner ${i + 1}`}
+                                        src={item.beforeImage}
+                                        alt="Before"
                                         fill
-                                        className="object-contain p-4"
+                                        className="object-cover"
                                     />
                                 </div>
-                            ))}
+
+                                <p className="text-white text-center font-bold">
+                                    Before
+                                </p>
+                            </div>
+
+                            <div>
+                                <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
+                                    <Image
+                                        src={item.afterImage}
+                                        alt="After"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+
+                                <p className="text-white text-center font-bold">
+                                    After
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    {/* Future Plans */}
+                    {item.futurePlans && (
+                        <div>
+                            <h4 className="text-white font-bold text-base mb-2">
+                                Future Plans
+                            </h4>
+
+                            <p className="text-white/85 text-sm leading-6">
+                                {item.futurePlans}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Partners */}
+                    {item.partners && item.partners.length > 0 && (
+                        <div>
+                            <h4 className="text-white font-bold text-base mb-4">
+                                Project Partners
+                            </h4>
+
+                            <div
+                                className="flex gap-3 overflow-x-auto pb-2"
+                                style={{ scrollbarWidth: "none" }}
+                            >
+                                {item.partners.map((src, i) => (
+                                    <div
+                                        key={i}
+                                        className="
+                                            relative rounded-xl overflow-hidden
+                                            shrink-0 w-[200px] h-[200px]
+                                        "
+                                    >
+                                        <Image
+                                            src={src}
+                                            alt={`Partner ${i + 1}`}
+                                            fill
+                                            className="object-contain p-4"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             </div>
@@ -312,21 +248,15 @@ function AchievementItem({
     );
 }
 
-export default function AchievementsList() {
-    const [activeId, setActiveId] = useState<number | null>(1);
-
-    const handleToggle = (id: number) => {
-        setActiveId((prev) => (prev === id ? null : id));
-    };
-
+export default function AchievementsList({ projects, activeId, onToggle }: AchievementsListProps) {
     return (
         <section className="w-full mx-auto sm:px-4 py-10 space-y-4">
-            {achievements.map((item) => (
+            {projects.map((item) => (
                 <AchievementItem
                     key={item.id}
                     item={item}
                     open={activeId === item.id}
-                    onToggle={() => handleToggle(item.id)}
+                    onToggle={() => onToggle(item.id)}
                 />
             ))}
         </section>

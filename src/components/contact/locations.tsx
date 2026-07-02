@@ -38,7 +38,7 @@ const Locations = () => {
             <div className="w-full">
 
                 {/* Header */}
-                <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-black mb-3">
+                <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-secondary-500 mb-3">
                     Locations
                 </h2>
 
