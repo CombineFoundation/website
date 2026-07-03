@@ -18,14 +18,15 @@ const quoteData: QuoteData = {
 
 export default function QuoteSection() {
   return (
-    <div className="relative w-full max-w-[1500px] mx-auto flex flex-row justify-center overflow-hidden">
+    // <div className="relative w-full max-w-[1500px] mx-auto flex flex-row justify-center overflow-hidden">
+    <div className="relative w-full max-w-[1500px] mx-auto flex flex-col overflow-hidden">
       <SectionHeader
         title="Founder Info"
         description="A vision to combine efforts, uplift communities, and inspire hope"
       />
-      <section className="relative max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8">
+      <section className="relative w-full max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 flex justify-center">
 
-        <div className="relative rounded-2xl w-6xl bg-linear-to-r from-[#FF6900] to-[#b14a01] p-1"
+        <div className="relative rounded-2xl mx-auto max-w-6xl bg-linear-to-r from-[#FF6900] to-[#b14a01] p-1"
           // style={{
           //   background: "linear-gradient(97.67deg, #3DABDE 5.02%,  #3DABDE 91.7%)",
           // }}
