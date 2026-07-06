@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-secondary-600 text-white relative overflow-hidden py-16 px-4 md:px-8 mt-auto">
       {/* Huge Vertical COMBINE text on the right */}
       <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <span
+        {/* <span
           className="font-normal text-primary-600"
           style={{
             writingMode: "vertical-rl",
@@ -20,7 +20,7 @@ export default function Footer() {
           }}
         >
           COMBINE
-        </span>
+        </span> */}
       </div>
 
       <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
@@ -30,7 +30,7 @@ export default function Footer() {
             <Image src="/logo.png" alt="Combine Foundation Logo" width={80} height={35} className="object-contain" />
           </div>
           <p className="text-[13px] text-gray-300 leading-relaxed mb-12 max-w-sm">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus.
+            Combine Foundation is a registered non-profit organization under section 42 companies Act 2017 while we are Tax exempted organization and the social impact arm of Combine Group. We are dedicated to creating sustainable change in Pakistan by focusing on education, health awareness, youth empowerment, and community welfare. Our approach is built on transparency, innovation, and long-term impact.
           </p>
           <div className="mt-auto text-xs text-gray-300 space-y-3">
             <p>Charity Registration No : PCP-R3/2022/234</p>
