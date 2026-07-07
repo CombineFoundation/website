@@ -9,6 +9,7 @@ import blogsData from "@/data/blogs.json";
 import contactsData from "@/data/contacts.json";
 import donationsData from "@/data/donations.json";
 import projectsData from "@/data/projects.json";
+import mousData from "@/data/mous.json";
 
 // Helper: clear a collection before seeding
 async function clearCollection(collectionName: string) {
@@ -162,6 +163,22 @@ export async function seedProjects() {
   console.log(`Seeded ${projectsData.length} projects`);
 }
 
+// ─── Seed MOUs ───────────────────────────────────────────────────────
+export async function seedMous() {
+  const db = getDb();
+  await clearCollection("mous");
+  for (const mou of mousData as any[]) {
+    await addDoc(collection(db, "mous"), {
+      title: mou.title,
+      paragraphs: mou.paragraphs,
+      image: mou.image,
+      imageAlt: mou.imageAlt || mou.title,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${mousData.length} MOUs`);
+}
+
 // ─── Seed All Collections ────────────────────────────────────────────
 export async function seedAllCollections() {
   console.log("Starting full database seed...");
@@ -171,6 +188,7 @@ export async function seedAllCollections() {
   await seedContacts();
   await seedDonations();
   await seedProjects();
+  await seedMous();
   console.log("All collections seeded successfully!");
 }
 
