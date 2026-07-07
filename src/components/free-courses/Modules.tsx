@@ -5,9 +5,47 @@ import type { Module } from "@/lib/freeCourses";
 interface ModulesProps {
   modules: Module[];
   guidelineCta?: string;
+  guidelineFile?: string;
 }
 
-export default function Modules({ modules, guidelineCta }: ModulesProps) {
+export default function Modules({ modules, guidelineCta, guidelineFile }: ModulesProps) {
+  const handleDownload = () => {
+    if (!guidelineFile) {
+      alert("Course guidelines are not available for this course yet.");
+      return;
+    }
+
+    try {
+      if (guidelineFile.startsWith("data:")) {
+        // Handle Base64 Data URL
+        const link = document.createElement("a");
+        link.href = guidelineFile;
+        
+        // Extract MIME type to determine file extension
+        let extension = "pdf";
+        const mimeMatch = guidelineFile.match(/^data:(.*?);/);
+        if (mimeMatch && mimeMatch[1]) {
+          const mimeType = mimeMatch[1];
+          if (mimeType.startsWith("image/")) {
+            extension = mimeType.split("/")[1] || "png";
+          } else if (mimeType === "application/pdf") {
+            extension = "pdf";
+          }
+        }
+        
+        link.download = `Course_Guideline.${extension}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Handle regular URL (e.g. external link or file path)
+        window.open(guidelineFile, "_blank", "noopener,noreferrer");
+      }
+    } catch (error) {
+      console.error("Error downloading guideline:", error);
+      alert("Failed to download the course guideline. Please try again.");
+    }
+  };
   return (
     <section className="w-full py-8 max-sm:px-6">
       <div className="pb-3 mb-6 px-9">
@@ -45,7 +83,10 @@ export default function Modules({ modules, guidelineCta }: ModulesProps) {
           <p className="text-white text-sm sm:text-xl md:text-2xl font-bold text-center sm:text-left">
             {guidelineCta || "Want to Master This Course? Download the Complete Course Guideline Now!"}
           </p>
-          <button className="shrink-0 bg-accent-orange hover:brightness-90 text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-full transition-all duration-200 whitespace-nowrap">
+          <button
+            onClick={handleDownload}
+            className="shrink-0 bg-accent-orange hover:brightness-90 text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-full transition-all duration-200 whitespace-nowrap"
+          >
             Download Course Guidelines
           </button>
         </div>

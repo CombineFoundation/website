@@ -72,6 +72,7 @@ export async function seedCourses() {
       level: course.level || "Beginner",
       enrollmentLink: course.enrollmentLink || "",
       guidelineFile: course.guidelineFile || "",
+      guidelineCta: course.guidelineCta || "",
       modules: course.modules || [],
       successStories: course.successStories || [],
       createdAt: serverTimestamp(),

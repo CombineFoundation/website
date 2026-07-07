@@ -61,6 +61,11 @@ export async function getAllCourses(): Promise<Course[]> {
         modules: d.modules || [],
         instructor: d.instructor || "",
         enrollmentLink: d.enrollmentLink || "",
+        requirements: d.requirements || "",
+        guidelineCta: d.guidelineCta || "",
+        guidelineFile: d.guidelineFile || "",
+        mode: d.mode || "",
+        status: d.status || "",
       } as Course;
     });
   } catch (error) {
