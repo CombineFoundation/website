@@ -55,14 +55,6 @@ const impactItems: ImpactItem[] = [
   },
   {
     id: 6,
-    stat: "9+",
-    title: "Courses Completed",
-    image: "/home/impact/impact6.png",
-    description:
-      "Combine Foundation has successfully conducted 9 professional and skill development courses designed to prepare students and professionals for careers in technology, freelancing, digital marketing, and personal growth. Our courses include Quantitative Finance, Meta Ads Marketing, Python with AI Development, and Web Development, helping learners gain modern digital skills so they can earn from home, build freelancing careers, and increase their side income with confidence and practical knowledge.",
-  },
-  {
-    id: 7,
     stat: "30+",
     title: "Webinars & Awareness Sessions",
     image: "/home/impact/impact6.png",
