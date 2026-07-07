@@ -31,7 +31,7 @@ export default function QuoteSection() {
           //   background: "linear-gradient(97.67deg, #3DABDE 5.02%,  #3DABDE 91.7%)",
           // }}
         >
-          <div className=" px-8 py-6 md:px-12 md:py-14 lg:pr-[250px] xl:pr-[300px] w-full lg:w-full min-[856px]:w-[80%] ">
+          <div className=" px-8 py-6 md:px-12 md:py-14 min-[856px]:pr-10 lg:pr-[250px] xl:pr-[300px] w-full lg:w-full min-[856px]:w-[80%] ">
 
             <h2 className="text-white font-bold text-xl md:text-2xl mb-5 text-center min-[856px]:text-left">
               {quoteData.name}
@@ -41,7 +41,7 @@ export default function QuoteSection() {
             </p>
 
 
-            <div className="hidden min-[856px]:block absolute bottom-0  right-[-15%] w-[450px] lg:w-[500px] h-[380px] pointer-events-none">
+            <div className="hidden min-[856px]:block absolute bottom-0  right-[-20%] lg:right-[-15%0] w-[450px] lg:w-[500px] h-[380px] pointer-events-none">
 
               <Image
                 src={quoteData.image}
