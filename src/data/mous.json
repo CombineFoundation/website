@@ -1,29 +1,47 @@
 [
   {
+    "title": "Islamian Computing Society (IIUI) X Combine Foundation MOU",
+    "paragraphs": [
+      "Islamian Computing Society represents students interested in computing, technology, and digital innovation at the International Islamic University Islamabad (IIUI). The society aims to enhance technical, professional, and leadership capabilities of its members through seminars, workshops, coding competitions, gaming events, and skill development sessions in emerging technologies such as Artificial Intelligence (AI), Web Development, Cybersecurity, and Programming.",
+      "This collaboration is established to provide selected computer science students with free or discounted access to future-oriented courses, joint educational and technical initiatives, and practical learning opportunities to foster professional growth within the student community."
+    ],
+    "image": "/publications/pub1.png",
+    "imageAlt": "MOU signing between Islamian Computing Society (IIUI) and Combine Foundation"
+  },
+  {
+    "title": "Quants Society (NED University) X Combine Foundation MOU",
+    "paragraphs": [
+      "Quants Society represents students of the Computational Finance department at NED University of Engineering and Technology, aiming to enhance technical and professional growth opportunities for its members. This partnership provides skill-based learning opportunities, promoting future-aligned technical education in Computational Finance.",
+      "The collaboration focuses on offering merit-based free or discounted access to Combine Foundation's advanced training programs, workshops, and webinars, specifically in the areas of Python, AI, Web Development, Shopify, and WordPress."
+    ],
+    "image": "/publications/pub1.png",
+    "imageAlt": "MOU signing between Quants Society (NED University) and Combine Foundation"
+  },
+  {
     "title": "Hammad Foundation X Combine Foundation MOU",
     "paragraphs": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.",
-      "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem"
+      "Hammad Foundation is a valued community partner collaborating with Combine Foundation to serve the community in areas of social welfare, educational access, and environmental awareness. This partnership is established to combine resources for the upliftment of students and underprivileged communities.",
+      "The primary focus is bridging the financial gap for deserving students by providing access to quality learning and web development training, co-developing training modules, and hosting joint student outreach sessions to foster a cleaner, greener, and more educated society."
     ],
     "image": "/publications/pub1.png",
     "imageAlt": "MOU signing between Hammad Foundation and Combine Foundation"
   },
   {
-    "title": "Hammad Foundation X Green Earth MOU",
+    "title": "NED Girls Affairs Society (NGAS) X Combine Foundation MOU",
     "paragraphs": [
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+      "NED Girls' Affairs Society (NGAS) is a student-led organization at NED University dedicated to women empowerment, leadership development, and community engagement. This collaboration is established to empower female students through skill-based learning, mentorship, and professional development opportunities.",
+      "Both parties work together to co-organize workshops related to digital skills, professional development, and community outreach, providing free course enrollment opportunities to selected NGAS members and designing customized training programs aligned with their educational needs."
     ],
     "image": "/publications/pub1.png",
-    "imageAlt": "MOU signing between Hammad Foundation and Green Earth"
+    "imageAlt": "MOU signing between NED Girls Affairs Society (NGAS) and Combine Foundation"
   },
   {
-    "title": "Hammad Foundation X Education Trust MOU",
+    "title": "Sindh Madressatul Islam University (SMIU) X Combine Foundation MOU",
     "paragraphs": [
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
-      "Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio."
+      "Sindh Madressatul Islam University (SMIU) and Combine Foundation have entered into a partnership to establish a framework for mutual collaboration in youth development, leadership training, internships, and community engagement initiatives.",
+      "The collaboration provides SMIU students with training and skill development programs in emerging technologies, AI automation, and professional development, alongside internship pipelines, joint workshops, seminars, and project-based learning opportunities."
     ],
     "image": "/publications/pub1.png",
-    "imageAlt": "MOU signing between Hammad Foundation and Education Trust"
+    "imageAlt": "MOU signing between Sindh Madressatul Islam University (SMIU) and Combine Foundation"
   }
 ]
