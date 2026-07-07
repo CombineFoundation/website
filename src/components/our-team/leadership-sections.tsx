@@ -1,7 +1,8 @@
 import Image from "next/image";
+import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
 interface Member {
-  id: number;
+  id: string;
   name: string;
   title: string;
   image: string;
@@ -12,44 +13,9 @@ interface GroupSection {
   members: Member[];
 }
 
-const sections: GroupSection[] = [
-  {
-    heading: "Department Heads",
-    members: [
-      { id: 1, name: "Muhammad Umar", title: "Projects Coordinator and Innovation Lead", image: "/volunteer/vol1.png" },
-      { id: 2, name: "Saifullah", title: "Finance Manager", image: "/volunteer/vol2.png" },
-      { id: 3, name: "Rizwan Ahmed", title: "Legal and Compliance Officer", image: "/about/hero/hero2.jpg" },
-      { id: 4, name: "Esha Adeel", title: "Lead Developer", image: "/about/story/story.png" },
-      { id: 5, name: "Vikram Singh", title: "Graphics Lead", image: "/publications/pub1.png" },
-      { id: 6, name: "Maliha Naz", title: "Content Department Lead", image: "/home/impact/impact1.png" },
-      { id: 7, name: "Ayan Ahmed", title: "Social Media Manager", image: "/home/blog/blog1.png" },
-      { id: 8, name: "Muhammad Usman", title: "Video Production Lead", image: "/home/blog/blog2.png" },
-    ],
-  },
-  {
-    heading: "Ambassadors",
-    members: [
-      { id: 1, name: "Miss Yasmeen", title: "Pakistan", image: "/home/blog/blog3.png" },
-      { id: 2, name: "Aliza Hamid", title: "Spain", image: "/about/achievements/achievements.png" },
-      { id: 3, name: "Hira Kamal", title: "China", image: "/donation/df1.png" },
-      { id: 4, name: "Mirkamol Qobilov", title: "Uzbekistan", image: "/donation/donation.png" },
-    ],
-  },
-  {
-    heading: "Youth Leaders",
-    members: [
-      { id: 1, name: "Subhan Khan", title: "Youth Leader", image: "/home/project/project.png" },
-      { id: 2, name: "Hafsah Khalil", title: "Youth Leader", image: "/home/impact/impact4.png" },
-      { id: 3, name: "Sundas Parri", title: "Youth Leader", image: "/home/impact/impact5.png" },
-      { id: 4, name: "Neha Rubab", title: "Youth Leader", image: "/home/impact/impact6.png" },
-      { id: 5, name: "Haseeb Fakhra", title: "Youth Leader", image: "/home/impact/impact2.jpg" },
-      { id: 6, name: "Muzamil Mustafa", title: "Youth Leader", image: "/projects/projecthero.png" },
-      { id: 7, name: "Farwa Rehman", title: "Youth Leader", image: "/home/founder/person.png" },
-      { id: 8, name: "Spogmay Arif", title: "Youth Leader", image: "/events/eventsperson.png" },
-      { id: 9, name: "Malik Kamran", title: "Youth Leader", image: "/about/hero/hero2.jpg" },
-    ],
-  },
-];
+interface LeadershipSectionsProps {
+  teamMembers: FirestoreTeamMember[];
+}
 
 function MemberCard({ member }: { member: Member }) {
   return (
@@ -95,7 +61,84 @@ function MembersSection({ section }: { section: GroupSection }) {
   );
 }
 
-export default function LeadershipSections() {
+export default function LeadershipSections({ teamMembers }: LeadershipSectionsProps) {
+  // Filter members by section
+  const dbDeptHeads = teamMembers.filter((m) => m.section === "Department Head");
+  const dbAmbassadors = teamMembers.filter((m) => m.section === "Ambassador");
+  const dbYouthLeaders = teamMembers.filter((m) => m.section === "Youth Leader");
+
+  // Fallback to static data if database is empty for all of them
+  const hasDbData = dbDeptHeads.length > 0 || dbAmbassadors.length > 0 || dbYouthLeaders.length > 0;
+
+  const sections: GroupSection[] = hasDbData
+    ? [
+        {
+          heading: "Department Heads",
+          members: dbDeptHeads.map((m, index) => ({
+            id: m.id || `dept-${index}`,
+            name: m.name,
+            title: m.role,
+            image: m.image,
+          })),
+        },
+        {
+          heading: "Ambassadors",
+          members: dbAmbassadors.map((m, index) => ({
+            id: m.id || `amb-${index}`,
+            name: m.name,
+            title: m.role,
+            image: m.image,
+          })),
+        },
+        {
+          heading: "Youth Leaders",
+          members: dbYouthLeaders.map((m, index) => ({
+            id: m.id || `youth-${index}`,
+            name: m.name,
+            title: m.role,
+            image: m.image,
+          })),
+        },
+      ].filter((s) => s.members.length > 0) // Only show sections that have members in the DB
+    : [
+        {
+          heading: "Department Heads",
+          members: [
+            { id: "1", name: "Muhammad Umar", title: "Projects Coordinator and Innovation Lead", image: "/volunteer/vol1.png" },
+            { id: "2", name: "Saifullah", title: "Finance Manager", image: "/volunteer/vol2.png" },
+            { id: "3", name: "Rizwan Ahmed", title: "Legal and Compliance Officer", image: "/about/hero/hero2.jpg" },
+            { id: "4", name: "Esha Adeel", title: "Lead Developer", image: "/about/story/story.png" },
+            { id: "5", name: "Vikram Singh", title: "Graphics Lead", image: "/publications/pub1.png" },
+            { id: "6", name: "Maliha Naz", title: "Content Department Lead", image: "/home/impact/impact1.png" },
+            { id: "7", name: "Ayan Ahmed", title: "Social Media Manager", image: "/home/blog/blog1.png" },
+            { id: "8", name: "Muhammad Usman", title: "Video Production Lead", image: "/home/blog/blog2.png" },
+          ],
+        },
+        {
+          heading: "Ambassadors",
+          members: [
+            { id: "1", name: "Miss Yasmeen", title: "Pakistan", image: "/home/blog/blog3.png" },
+            { id: "2", name: "Aliza Hamid", title: "Spain", image: "/about/achievements/achievements.png" },
+            { id: "3", name: "Hira Kamal", title: "China", image: "/donation/df1.png" },
+            { id: "4", name: "Mirkamol Qobilov", title: "Uzbekistan", image: "/donation/donation.png" },
+          ],
+        },
+        {
+          heading: "Youth Leaders",
+          members: [
+            { id: "1", name: "Subhan Khan", title: "Youth Leader", image: "/home/project/project.png" },
+            { id: "2", name: "Hafsah Khalil", title: "Youth Leader", image: "/home/impact/impact4.png" },
+            { id: "3", name: "Sundas Parri", title: "Youth Leader", image: "/home/impact/impact5.png" },
+            { id: "4", name: "Neha Rubab", title: "Youth Leader", image: "/home/impact/impact6.png" },
+            { id: "5", name: "Haseeb Fakhra", title: "Youth Leader", image: "/home/impact/impact2.jpg" },
+            { id: "6", name: "Muzamil Mustafa", title: "Youth Leader", image: "/projects/projecthero.png" },
+            { id: "7", name: "Farwa Rehman", title: "Youth Leader", image: "/home/founder/person.png" },
+            { id: "8", name: "Spogmay Arif", title: "Youth Leader", image: "/events/eventsperson.png" },
+            { id: "9", name: "Malik Kamran", title: "Youth Leader", image: "/about/hero/hero2.jpg" },
+          ],
+        },
+      ];
+
   return (
     <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
       {sections.map((section) => (

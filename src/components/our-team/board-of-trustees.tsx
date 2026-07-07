@@ -1,25 +1,36 @@
 import Image from "next/image";
+import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
-interface Trustee {
-  id: number;
-  name: string;
-  role: string;
-  description: string;
-  image: string;
+interface BoardOfTrusteesProps {
+  teamMembers: FirestoreTeamMember[];
 }
 
-const trustees: Trustee[] = [
-  {
-    id: 1,
-    name: "Mr. Farrukh Rehman",
-    role: "Director",
-    description:
-      "Farrukh Rehman is a specialist in Risk Based Internal Auditing and Risk Management with over 20 years of expertise in the fields of finance, governance, and business advisory. As the Director of Combine Consultants and CRMA, he assists companies to enhance internal control measures, manage risks, and grow sustainably. Besides, he serves as an executive trainer and visiting faculty dedicated to developing future leaders in audit and risk management.",
-    image: "/about/hero/hero1.png",
-  },
-];
+export default function BoardOfTrustees({ teamMembers }: BoardOfTrusteesProps) {
+  // Filter for Board of Trustees section
+  const dbTrustees = teamMembers.filter(
+    (m) => m.section === "Board of Trustees"
+  );
 
-export default function BoardOfTrustees() {
+  // If there are trustees in the database, use them; otherwise, fallback to the hardcoded list
+  const displayTrustees = dbTrustees.length > 0
+    ? dbTrustees.map((t, index) => ({
+        id: t.id || index.toString(),
+        name: t.name,
+        role: t.role,
+        description: "",
+        image: t.image,
+      }))
+    : [
+        {
+          id: "1",
+          name: "Mr. Farrukh Rehman",
+          role: "Director",
+          description:
+            "Farrukh Rehman is a specialist in Risk Based Internal Auditing and Risk Management with over 20 years of expertise in the fields of finance, governance, and business advisory. As the Director of Combine Consultants and CRMA, he assists companies to enhance internal control measures, manage risks, and grow sustainably. Besides, he serves as an executive trainer and visiting faculty dedicated to developing future leaders in audit and risk management.",
+          image: "/about/hero/hero1.png",
+        },
+      ];
+
   return (
     <section className="w-full px-6 py-10 md:px-12 lg:px-16">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
@@ -27,7 +38,7 @@ export default function BoardOfTrustees() {
       </h2>
 
       <div className="flex flex-col">
-        {trustees.map((trustee) => (
+        {displayTrustees.map((trustee) => (
           <div
             key={trustee.id}
             className="flex flex-col sm:flex-row items-center sm:items-start gap-20 py-8 first:pt-0 text-center sm:text-left"
@@ -50,9 +61,11 @@ export default function BoardOfTrustees() {
               <p className="text-sm md:text-base text-primary-800 font-medium mb-3">
                 {trustee.role}
               </p>
-              <p className="text-sm md:text-base lg:text-lg text-black leading-relaxed">
-                {trustee.description}
-              </p>
+              {trustee.description && (
+                <p className="text-sm md:text-base lg:text-lg text-black leading-relaxed">
+                  {trustee.description}
+                </p>
+              )}
             </div>
           </div>
         ))}
