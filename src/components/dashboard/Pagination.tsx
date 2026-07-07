@@ -16,6 +16,7 @@ export default function Pagination({
   onPageChange,
 }: PaginationProps) {
   const getPages = (): (number | "...")[] => {
+    if (!Number.isFinite(totalPages) || totalPages < 1) return [1];
     if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
     const pages: (number | "...")[] = [1, 2, 3, 4, 5, 6];
     if (currentPage > 6) pages.splice(2, 0, "...");

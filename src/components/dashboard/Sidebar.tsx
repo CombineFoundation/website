@@ -10,6 +10,10 @@ import {
   FolderKanban,
   ChevronLeft,
   ChevronRight,
+  FileText,
+  Briefcase,
+  UserCircle,
+  Image,
 } from "lucide-react";
 
 export type SectionId =
@@ -18,7 +22,11 @@ export type SectionId =
   | "blogs"
   | "contact"
   | "donations"
-  | "projects";
+  | "projects"
+  | "publications"
+  | "jobs"
+  | "team"
+  | "splash";
 
 interface NavItem {
   id: SectionId;
@@ -34,6 +42,10 @@ const navItems: NavItem[] = [
   { id: "contact", label: "Contact", icon: Users, badge: null },
   { id: "donations", label: "Donations", icon: Star, badge: null },
   { id: "projects", label: "Projects", icon: FolderKanban, badge: null },
+  { id: "publications", label: "Publications", icon: FileText, badge: null },
+  { id: "jobs", label: "Jobs", icon: Briefcase, badge: null },
+  { id: "team", label: "Team", icon: UserCircle, badge: null },
+  { id: "splash", label: "Splash Banners", icon: Image, badge: null },
 ];
 
 export default function Sidebar({

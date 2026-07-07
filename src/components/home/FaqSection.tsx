@@ -148,7 +148,7 @@ export default function FaqSection({ description }: FaqSectionProps) {
   };
 
   return (
-    <section className="px-6 py-16 w-full lg:w-[90%] mx-auto">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16">
       {/* ── Heading ── */}
       {description ? (
         // ✅ Description provided → keep existing SectionHeader unchanged

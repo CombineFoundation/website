@@ -81,8 +81,8 @@ import type { BlogPost } from "@/lib/blogs";
 
 export default function BlogSection({ blogs }: { blogs: BlogPost[] }) {
   return (
-    <section className="w-full px-6 py-14 font-sans">
-      <div className="max-w-6xl mx-auto">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-14 font-sans">
+      <div>
         <SectionHeader
           title="Blog"
           description="Stay updated with our latest news"

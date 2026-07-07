@@ -19,7 +19,8 @@ type Event = {
 
 function parseEventDate(dateStr: string): Date | null {
     if (!dateStr || dateStr.toLowerCase().includes("to be announced")) return null;
-    const d = new Date(dateStr);
+    const cleaned = dateStr.replace(/(\d+)(st|nd|rd|th)/g, "$1");
+    const d = new Date(cleaned);
     return isNaN(d.getTime()) ? null : d;
 }
 

@@ -16,6 +16,8 @@ const STEPS = [
     desc: "Once you get portal access, you can start participating in real-world volunteer projects, complete assigned tasks, and gain practical experience in different fields. You will also get free access to professional courses that help you build valuable career skills, improve your CV or resume, and prepare for future opportunities. Connect with industry professionals, receive mentorship, and grow in a safe, supportive environment.",
     number: 3,
   },
+
+  
 ];
 
 function DocIcon() {
@@ -33,8 +35,8 @@ function DocIcon() {
 
 export default function ProcessOfJoining() {
   return (
-    <section className="w-full py-16 md:py-24">
-      <div className="px-6 md:px-12 max-w-full mx-auto">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <div>
 
         {/* Title */}
         <h2 className="text-4xl md:text-5xl font-extrabold text-secondary-500 tracking-tight mb-4">

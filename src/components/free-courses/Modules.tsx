@@ -47,7 +47,7 @@ export default function Modules({ modules, guidelineCta, guidelineFile }: Module
     }
   };
   return (
-    <section className="w-full py-8 max-sm:px-6">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-8">
       <div className="pb-3 mb-6 px-9">
         <h2 className="text-2xl md:text-5xl font-bold text-black tracking-tight">
           Modules
