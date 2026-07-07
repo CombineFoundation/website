@@ -19,7 +19,7 @@ const DEFAULT_PROJECTS: Project[] = [
     name: "RAISE",
     description:
       "RAISE (Rising Ambitions in Skills & Education) is a project of the Combine Foundation that aims to empower students and employees with the information, skills, and opportunities to excel in today's fast-paced environment. The project connects learners to practical training modules relevant to industries, helping them secure future employment. RAISE offers courses like Web Development (coding fundamentals, responsive design, freelancing skills — 2 successful batches), Quantitative Finance (financial literacy, data analysis, market concepts — batches 1 & 2 completed, batch 3 upcoming), Python with AI Development (AI development, automation, coding — batch 1 completed, batch 2 in progress), Basic Computer Skills (MS Office, typing, digital platforms for beginners), and Meta Ads Marketing (Facebook & Instagram ads, audience targeting, freelancing skills). With a focus on digital literacy, innovation, and lifelong learning, this project helps learners pursue freelancing and improve their income and self-reliance.",
-    image: "/home/project/project.png",
+    image: "/home/projects/6.svg",
     link: "/projects",
   },
   {
