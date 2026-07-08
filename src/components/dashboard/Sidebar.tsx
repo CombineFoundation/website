@@ -104,20 +104,18 @@ export default function Sidebar({
                 className={`
                   group flex items-center gap-3 rounded-lg px-3 py-2.5 w-full text-left
                   transition-all duration-200 relative min-w-max cursor-pointer
-                  ${
-                    isActive
-                      ? "bg-orange text-white"
-                      : "text-slate-300 hover:bg-slate-700/60 hover:text-white"
+                  ${isActive
+                    ? "bg-orange text-white"
+                    : "text-slate-300 hover:bg-slate-700/60 hover:text-white"
                   }
                 `}
               >
                 <Icon
                   size={20}
-                  className={`flex-shrink-0 transition-colors ${
-                    isActive
+                  className={`flex-shrink-0 transition-colors ${isActive
                       ? "text-white"
                       : "text-slate-400 group-hover:text-white"
-                  }`}
+                    }`}
                 />
 
                 {isOpen && (
