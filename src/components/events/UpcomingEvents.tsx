@@ -378,8 +378,19 @@ export default function UpcomingEvents() {
                     
                     if (d.dateTime) {
                         const dt = new Date(d.dateTime);
-                        dateStr = dt.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
-                        startStr = dt.toLocaleTimeString("en-US", { hour: 'numeric', minute: '2-digit' });
+                        if (!isNaN(dt.getTime())) {
+                            dateStr = dt.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
+                            startStr = dt.toLocaleTimeString("en-US", { hour: 'numeric', minute: '2-digit' });
+                        } else {
+                            if (d.dateTime.includes(" / ")) {
+                                const [datePart, timePart] = d.dateTime.split(" / ");
+                                dateStr = datePart;
+                                startStr = timePart;
+                            } else {
+                                dateStr = d.dateTime;
+                                startStr = "";
+                            }
+                        }
                         endStr = d.endTime || "";
                     } else if (d.date) {
                         dateStr = d.date;

@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 const BellIcon = () => (
   <svg
@@ -71,10 +73,21 @@ const colorMap: Record<string, string> = {
 };
 
 function AdminHeader() {
+  const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
+
+  const handleLogout = async () => {
+    if (auth) {
+      await auth.signOut();
+    }
+    // Delete session cookie
+    document.cookie = "session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    setDropdownOpen(false);
+    router.push("/login");
+  };
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -210,10 +223,9 @@ function AdminHeader() {
 
           {dropdownOpen && (
             <div className="absolute right-0 top-full mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-              <Link
-                href="/"
-                onClick={() => setDropdownOpen(false)}
-                className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              <button
+                onClick={handleLogout}
+                className="w-full text-left flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -221,7 +233,7 @@ function AdminHeader() {
                   <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
                 Logout
-              </Link>
+              </button>
             </div>
           )}
         </div>
@@ -235,6 +247,33 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (!auth) {
+      setAuthorized(true);
+      return;
+    }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        router.push("/login");
+      } else {
+        setAuthorized(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  if (!authorized) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white text-lg font-medium">
+        Checking admin authentication...
+      </div>
+    );
+  }
+
   return (
     <div className="w-full overflow-x-hidden">
       <AdminHeader />
