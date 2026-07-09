@@ -21,7 +21,7 @@ export default function BlogDetail({ post, blogs }: BlogDetailProps) {
   };
 
   return (
-    <article className="max-w-7xl mx-auto px-9 py-8 max-sm:px-6">
+    <article className="max-w-[1500px] mx-auto px-9 py-8 max-sm:px-6">
 
       <nav className="flex items-center text-xs mb-5 flex-wrap justify-center">
   <a

@@ -19,10 +19,10 @@ const achievements: Achievement[] = [
             "By providing free webinars, skill-building training sessions, and high-demand Information Technology training programs at up to 95% scholarships, Combine Foundation impacted 3,000+ lives and made them capable of leading their lives.",
         ],
         images: [
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
+            "/about/galleryimgs/1.svg",
+            "/about/galleryimgs/2.svg",
+            "/about/galleryimgs/3.svg",
+            "/about/galleryimgs/4.svg",
         ],
     },
     {
@@ -33,10 +33,10 @@ const achievements: Achievement[] = [
             "Today, these students are earning good amounts of income, paying for their education, providing for their families, and making full-time careers within the technology sector. These are just some examples that demonstrate the positive effects of access to education, skill development, and making a difference by creating opportunities.",
         ],
         images: [
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
+            "/about/galleryimgs/5.svg",
+            "/about/galleryimgs/6.svg",
+            "/about/galleryimgs/7.svg",
+            "/about/galleryimgs/8.svg",
         ],
     },
     {
@@ -47,10 +47,10 @@ const achievements: Achievement[] = [
             "For those volunteers who are interested in contributing to a better society, our organization offers special volunteer programs related to sustainability, environmental awareness, and other social causes. These programs give volunteers the opportunity to make a difference, help others in their community, and spread what they know among people.",
         ],
         images: [
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
+            "/about/galleryimgs/9.svg",
+            "/about/galleryimgs/10.svg",
+            "/about/galleryimgs/11.svg",
+            "/about/galleryimgs/12.svg",
         ],
     },
     {
@@ -61,10 +61,10 @@ const achievements: Achievement[] = [
             "To ensure that lack of finances does not become a barrier for any bright learner from taking these courses, we offer up to 95% scholarship grants to deserving candidates. Many of the students that enroll in these courses have become financially independent and are either self-employed or employed, making positive contributions in their lives and career paths.",
         ],
         images: [
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
+            "/about/galleryimgs/13.svg",
+            "/about/galleryimgs/14.svg",
+            "/about/galleryimgs/15.svg",
+            "/about/galleryimgs/16.svg",
         ],
     },
     {
@@ -75,10 +75,10 @@ const achievements: Achievement[] = [
             "Through various health-awareness and sustainability campaigns, we have made communities aware of key social, environmental, and health concerns and encouraged changes in their lifestyles. Additionally, our plantation and kitchen gardening programs ensure sustainability and responsibility for the environment.",
         ],
         images: [
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
-            "/about/achievements/achievements.png",
+            "/about/galleryimgs/1.svg",
+            "/about/galleryimgs/2.svg",
+            "/about/galleryimgs/3.svg",
+            "/about/galleryimgs/4.svg",
         ],
     },
 ];
@@ -133,7 +133,7 @@ export default function CombineAchievements() {
     const item = achievements[current];
 
     return (
-        <section className="w-full mx-auto px-6 py-10 md:py-14">
+        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14">
             <SectionHeader title="Combine Foundation Impact & Achievements" />
 
             <div

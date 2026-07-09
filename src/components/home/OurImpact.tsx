@@ -25,7 +25,7 @@ const impactItems: ImpactItem[] = [
     id: 2,
     stat: "204+",
     title: "Students Empowered",
-    image: "/home/impact/impact2.jpg",
+    image: "/home/impact cards/5.svg",
     description:
       "More than 204 students have been trained through technology, digital skills, and professional development programs. These courses help students to gain confidence, build careers, start earning from home and create better futures through education, freelancing, and modern digital skills.",
   },
@@ -33,33 +33,33 @@ const impactItems: ImpactItem[] = [
     id: 3,
     stat: "250+",
     title: "Passionate Volunteers",
-    image: "/home/impact/impact2.jpg",
+    image: "/home/impact cards/6.svg",
     description:
       "Our 250+ active volunteers are the heart of our community initiatives. From welfare drives to educational campaigns or Youth Leadership Program, they dedicate their time and efforts to serving humanity, supporting communities, and spreading kindness across Pakistan.",
   },
   {
     id: 4,
     stat: "40+",
-    title: "Youth Leaders",
-    image: "/home/impact/impact4.png",
+    title: "Emerging Youth Leaders",
+    image: "/home/impact cards/8.svg",
     description:
       "We have empowered 40+ active youth leaders who are confidently leading projects, social initiatives, and community activities and working as leaders in the Youth Leadership Program of the Combine Foundation.",
   },
   {
     id: 5,
     stat: "20+",
-    title: "Team Members",
-    image: "/home/impact/impact5.png",
+    title: "Dedicated Team Members",
+    image: "/home/impact cards/7.svg",
     description:
       "Behind every successful initiative is our Combine Foundation team. We have 20+ committed members working across different departments with passion, teamwork, and a shared vision to create meaningful social impact.",
   },
   {
     id: 6,
-    stat: "9+",
-    title: "Courses Completed",
+    stat: "30+",
+    title: "Webinars & Awareness Sessions",
     image: "/home/impact/impact6.png",
     description:
-      "Combine Foundation has successfully conducted 9 professional and skill development courses designed to prepare students and professionals for careers in technology, freelancing, digital marketing, and personal growth.",
+      "We have organized 30+ webinars and awareness sessions covering AI, technology, medical awareness, cybersecurity, leadership, sustainability, scholarships, freelancing, self-grooming, and personal development. These sessions have inspired and educated countless individuals to learn, grow, and move toward a brighter future.",
   },
 ];
 type ImpactCardProps = {
@@ -114,7 +114,7 @@ function ImpactCard({ item }: ImpactCardProps) {
 
 export default function OurImpact() {
   return (
-    <section className="py-16 px-6 mx-auto max-w-[1400px]">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-16">
       <SectionHeader title="OUR IMPACT" description="At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need." />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center justify-items-center">

@@ -36,7 +36,7 @@ const INSTRUCTORS: Instructor[] = [
 
 export default function MeetInstructors() {
   return (
-    <section className="w-full mx-auto px-9 py-8 max-sm:px-6">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-8">
       <div className="pb-3">
         <h2 className="text-2xl md:text-4xl xl:text-5xl font-bold text-gray-900">
           Your Learning Mentors

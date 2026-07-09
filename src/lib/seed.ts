@@ -10,6 +10,7 @@ import blogsData from "@/data/blogs.json";
 import contactsData from "@/data/contacts.json";
 import donationsData from "@/data/donations.json";
 import projectsData from "@/data/projects.json";
+import mousData from "@/data/mous.json";
 
 // Helper: clear a collection before seeding
 async function clearCollection(collectionName: string) {
@@ -197,6 +198,7 @@ export async function seedAllCollections() {
   await seedContacts();
   await seedDonations();
   await seedProjects();
+  await seedMous();
   console.log("All collections seeded successfully!");
 }
 
