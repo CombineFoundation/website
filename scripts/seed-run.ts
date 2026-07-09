@@ -20,6 +20,23 @@ if (fs.existsSync(envPath)) {
 
 async function main() {
   const { seedAllCollections } = await import("../src/lib/seed");
+  const { auth } = await import("../src/lib/firebase");
+  const { signInWithEmailAndPassword } = await import("firebase/auth");
+
+  const email = process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD || process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+
+  if (auth && email && password) {
+    console.log(`Attempting admin login for ${email}...`);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Logged in successfully. Bypassing security rules!");
+    } catch (authError: any) {
+      console.warn("Authentication failed. Seeding will run unauthenticated:", authError.message);
+    }
+  } else {
+    console.log("No ADMIN_EMAIL/ADMIN_PASSWORD found in .env.local. Running unauthenticated (might fail if security rules block it)...");
+  }
 
   console.log("Starting database seed...");
   try {
