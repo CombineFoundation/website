@@ -1,68 +1,82 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import Image from "next/image";
+import type { FirestoreMOU } from "@/lib/admin-actions";
 
 interface MOU {
-    id: number;
+    id: string;
     title: string;
     paragraphs: string[];
     image: string;
     imageAlt: string;
 }
+interface MOUSliderProps {
+    mous: FirestoreMOU[];
+}
 
-const mous: MOU[] = [
-    {
-        id: 1,
-        title: "Combine foundation with Hammad foundation",
-        paragraphs: [
-            "A Memorandum of Understanding has been signed between the Combine Foundation and Hammad Foundation to enhance their joint commitment towards education, skills training, and community upliftment. This MOU is focused on offering opportunities to needy students by minimizing financial constraints and maximizing their access to education.",
-            "Both foundations intend to cooperate through various programs which will help in achieving the goals related to scholarships, awareness campaigns, vocational assistance, and sustainable development programs. Transparency and accountability will be key components of any joint commitment between the two foundations as the focus will be on making a positive difference to society.",
-        ],
-        image: "/publications/pub1.png",
-        imageAlt: "MOU signing between Hammad Foundation and Combine Foundation",
-    },
-    {
-        id: 2,
-        title: "Combine foundation with NED girl's affair society (NGAS)",
-        paragraphs: [
-            "Memorandum of Understanding has been signed between Combine Foundation and NGAS Girls Affair to help and empower women in Pakistan through education, professional development, and skill building. The Combine Foundation has signed an agreement of MoU between itself and the NED Girls Affair Society (NGAS).",
-            "This MoU involves working together to plan out workshops, specially customized training, health seminars, and career development sessions specifically for the benefit of NGAS members and students. Through their collective efforts, these two institutions will try to give the girls the skills necessary for success in academics and their personal and professional lives. In order to increase the number of attendees to these sessions, Combine Foundation will be promoted through the NGAS social media accounts, joint campaigns, and students' mobilizations.",
-        ],
-        image: "/publications/pub1.png",
-        imageAlt: "MOU signing between NGAS and Combine Foundation",
-    },
-    {
-        id: 3,
-        title: "Combine foundation with Quants society",
-        paragraphs: [
-            "The Combine Foundation and Quants Society has formed a strategic partnership via a Memorandum of Understanding (MoU) to advance technical education, future-ready skills, and educational empowerment among students pursuing Computational Finance education. The objective of this partnership is to offer scholarships or discounts to deserving students to attend industry-based courses and webinars on trending topics including Python, Artificial Intelligence (AI), Web Development, Shopify, WordPress, and many more.",
-            "With this collaboration, both the Combine Foundation and Quants Society will jointly engage in awareness campaigns and educational initiatives that will equip the students to excel academically and professionally in the digital world. Under the MoU, the Quants Society will help Combine Foundation by organizing campaigns and outreach programs aimed at promoting their educational offerings through various social media platforms while offering fair merit-based admission procedures to the eligible candidates.",
-        ],
-        image: "/publications/pub1.png",
-        imageAlt: "MOU signing between Quants Society and Combine Foundation",
-    },
-    {
-        id: 4,
-        title: "Combine foundation with SMIU",
-        paragraphs: [
-            "A Memorandum of Understanding (MoU) has been signed by Combine Foundation and Sindh Madarsatul Islam University (SMIU) to empower students in terms of youth development, leadership, training, internships, and community involvement. The goal of this MoU is to create meaningful educational opportunities to bridge the gap between theoretical academic education and industry requirements.",
-            "With the help of combined workshops, leadership programs, career development programs, and skill-building programs, the students will be able to gain useful information and competencies which will enable them to be successful in their careers. Under this MoU, the Combine Foundation will provide trainers, coordinators, and learning resources whereas SMIU will take care of ensuring student involvement and success of various programs. Both organizations will work towards innovation, grooming responsible future leaders, and leaving a positive social impact through education and sustainable community development.",
-        ],
-        image: "/publications/pub1.png",
-        imageAlt: "MOU signing between SMIU and Combine Foundation",
-    },
-];
+const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
+    const displayMous: MOU[] = dbMous.length > 0
+        ? dbMous.map((m, index) => ({
+            id: m.id || index.toString(),
+            title: m.title,
+            paragraphs: m.paragraphs || [],
+            image: m.image,
+            imageAlt: m.imageAlt || m.title,
+        }))
+        : [
+            {
+                id: "1",
+                title: "Combine foundation with Hammad foundation",
+                paragraphs: [
+                    "A Memorandum of Understanding has been signed between the Combine Foundation and Hammad Foundation to enhance their joint commitment towards education, skills training, and community upliftment. This MOU is focused on offering opportunities to needy students by minimizing financial constraints and maximizing their access to education.",
+                    "Both foundations intend to cooperate through various programs which will help in achieving the goals related to scholarships, awareness campaigns, vocational assistance, and sustainable development programs. Transparency and accountability will be key components of any joint commitment between the two foundations as the focus will be on making a positive difference to society.",
+                ],
+                image: "/publications/pub1.png",
+                imageAlt: "MOU signing between Hammad Foundation and Combine Foundation",
+            },
+            {
+                id: "2",
+                title: "Combine foundation with NED girl's affair society (NGAS)",
+                paragraphs: [
+                    "Memorandum of Understanding has been signed between Combine Foundation and NGAS Girls Affair to help and empower women in Pakistan through education, professional development, and skill building. The Combine Foundation has signed an agreement of MoU between itself and the NED Girls Affair Society (NGAS).",
+                    "This MoU involves working together to plan out workshops, specially customized training, health seminars, and career development sessions specifically for the benefit of NGAS members and students. Through their collective efforts, these two institutions will try to give the girls the skills necessary for success in academics and their personal and professional lives. In order to increase the number of attendees to these sessions, Combine Foundation will be promoted through the NGAS social media accounts, joint campaigns, and students' mobilizations.",
+                ],
+                image: "/publications/pub1.png",
+                imageAlt: "MOU signing between NGAS and Combine Foundation",
+            },
+            {
+                id: "3",
+                title: "Combine foundation with Quants society",
+                paragraphs: [
+                    "The Combine Foundation and Quants Society has formed a strategic partnership via a Memorandum of Understanding (MoU) to advance technical education, future-ready skills, and educational empowerment among students pursuing Computational Finance education. The objective of this partnership is to offer scholarships or discounts to deserving students to attend industry-based courses and webinars on trending topics including Python, Artificial Intelligence (AI), Web Development, Shopify, WordPress, and many more.",
+                    "With this collaboration, both the Combine Foundation and Quants Society will jointly engage in awareness campaigns and educational initiatives that will equip the students to excel academically and professionally in the digital world. Under the MoU, the Quants Society will help Combine Foundation by organizing campaigns and outreach programs aimed at promoting their educational offerings through various social media platforms while offering fair merit-based admission procedures to the eligible candidates.",
+                ],
+                image: "/publications/pub1.png",
+                imageAlt: "MOU signing between Quants Society and Combine Foundation",
+            },
+            {
+                id: "4",
+                title: "Combine foundation with SMIU",
+                paragraphs: [
+                    "A Memorandum of Understanding (MoU) has been signed by Combine Foundation and Sindh Madarsatul Islam University (SMIU) to empower students in terms of youth development, leadership, training, internships, and community involvement. The goal of this MoU is to create meaningful educational opportunities to bridge the gap between theoretical academic education and industry requirements.",
+                    "With the help of combined workshops, leadership programs, career development programs, and skill-building programs, the students will be able to gain useful information and competencies which will enable them to be successful in their careers. Under this MoU, the Combine Foundation will provide trainers, coordinators, and learning resources whereas SMIU will take care of ensuring student involvement and success of various programs. Both organizations will work towards innovation, grooming responsible future leaders, and leaving a positive social impact through education and sustainable community development.",
+                ],
+                image: "/publications/pub1.png",
+                imageAlt: "MOU signing between SMIU and Combine Foundation",
+            },
+        ];
 
-const MOUSlider = () => {
     const [current, setCurrent] = useState(0);
 
     const handlePrev = () =>
-        setCurrent((c) => (c === 0 ? mous.length - 1 : c - 1));
+        setCurrent((c) => (c === 0 ? displayMous.length - 1 : c - 1));
     const handleNext = () =>
-        setCurrent((c) => (c === mous.length - 1 ? 0 : c + 1));
+        setCurrent((c) => (c === displayMous.length - 1 ? 0 : c + 1));
 
-    const mou = mous[current];
+    const mou = displayMous[current];
+
+    if (!mou) return null;
 
     return (
         <section className="bg-white">
