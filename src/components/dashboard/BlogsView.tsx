@@ -156,7 +156,7 @@ export default function BlogsView() {
     }
   };
 
-  const handleSaveEdit = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
+  const handleSaveEdit = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
     if (!editBlog?.id) return;
     await updateBlog(editBlog.id, {
       name: data.name,
@@ -167,13 +167,14 @@ export default function BlogsView() {
       conclusion: data.conclusion,
       heroImage1: data.heroImage1,
       heroImage2: data.heroImage2,
+      content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
     });
     setEditBlog(null);
     setSelectedIds(new Set());
     await loadBlogs();
   };
 
-  const handleAdd = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string }) => {
+  const handleAdd = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
     await addBlog({
       name: data.name,
       authorName: data.authorName,
@@ -183,6 +184,7 @@ export default function BlogsView() {
       conclusion: data.conclusion,
       heroImage1: data.heroImage1,
       heroImage2: data.heroImage2,
+      content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
     });
     setShowAddModal(false);
     await loadBlogs();

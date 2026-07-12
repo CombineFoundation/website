@@ -138,17 +138,29 @@ export default function ProjectsView() {
 
   const handleSaveEdit = async (data: Omit<Project, "id">) => {
     if (!editProject) return;
-    await updateProject(editProject.id, data);
-    setEditProject(null);
-    setSelectedIds(new Set());
-    await loadProjects();
+    try {
+      await updateProject(editProject.id, data);
+      setEditProject(null);
+      setSelectedIds(new Set());
+      await loadProjects();
+    } catch (err: any) {
+      console.error("Save edit project error:", err);
+      alert("Failed to save project edit: " + (err.message || err));
+      throw err;
+    }
   };
 
   const handleAdd = async (data: Omit<Project, "id">) => {
-    await addProject(data);
-    setShowAddModal(false);
-    await loadProjects();
-    setCurrentPage(Math.ceil((projects.length + 1) / PAGE_SIZE));
+    try {
+      await addProject(data);
+      setShowAddModal(false);
+      await loadProjects();
+      setCurrentPage(Math.ceil((projects.length + 1) / PAGE_SIZE));
+    } catch (err: any) {
+      console.error("Add project error:", err);
+      alert("Failed to add project: " + (err.message || err));
+      throw err;
+    }
   };
 
   if (loading) {

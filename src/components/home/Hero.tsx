@@ -103,6 +103,7 @@ export default function HeroSlider() {
           sizes="100vw"
           className="object-cover"
           priority
+          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
       </div>

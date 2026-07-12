@@ -1,6 +1,7 @@
-import { getDb } from "@/lib/firebase";
+import { getDb, auth } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, getDocs, deleteDoc } from "firebase/firestore/lite";
 import { Program, Application, Message, Job } from "./collections";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 // Import JSON data
 import eventsData from "@/data/events.json";
@@ -25,12 +26,12 @@ export async function seedEvents() {
   const db = getDb();
   await clearCollection("events");
   for (const event of eventsData as any[]) {
-    // Parse "24 Jun 26 / 4:00 PM"
-    let dateStr = "2026-06-24";
-    let startStr = "4:00 PM";
-    let endStr = "6:00 PM";
+    // Parse "24 Jun 26 / 4:00 PM" if needed
+    let dateStr = event.date || "2026-06-24";
+    let startStr = event.startTime || "4:00 PM";
+    let endStr = event.endTime || "6:00 PM";
     try {
-      if (event.dateTime && event.dateTime.includes(" / ")) {
+      if (!event.date && event.dateTime && event.dateTime.includes(" / ")) {
         const [d, t] = event.dateTime.split(" / ");
         dateStr = d;
         startStr = t;
@@ -40,7 +41,7 @@ export async function seedEvents() {
     await addDoc(collection(db, "events"), {
       title: event.name || event.title || "",
       description: event.description || "",
-      bulletPoints: event.description ? [event.description] : ["Join us for this event.", "Learn new skills.", "Meet the community."],
+      bulletPoints: event.bulletPoints || (event.description ? [event.description] : ["Join us for this event.", "Learn new skills.", "Meet the community."]),
       date: dateStr,
       startTime: startStr,
       endTime: endStr,
@@ -163,20 +164,28 @@ export async function seedProjects() {
   console.log(`Seeded ${projectsData.length} projects`);
 }
 
-// ─── Seed MOUs ───────────────────────────────────────────────────────
-export async function seedMous() {
-  const db = getDb();
-  await clearCollection("mous");
-  for (const mou of mousData as any[]) {
-    await addDoc(collection(db, "mous"), {
-      title: mou.title,
-      paragraphs: mou.paragraphs,
-      image: mou.image,
-      imageAlt: mou.imageAlt || mou.title,
-      createdAt: serverTimestamp(),
-    });
+async function authenticateAdmin() {
+  if (!auth) {
+    console.warn("Auth is not initialized");
+    return;
   }
-  console.log(`Seeded ${mousData.length} MOUs`);
+  const email = "admin@combinefoundation.com";
+  const password = "admin123"; // default temporary password for seeding
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    console.log("Authenticated as admin successfully");
+  } catch (error: any) {
+    if (error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        console.log("Created and authenticated as admin successfully");
+      } catch (createErr) {
+        console.error("Failed to create admin user during seeding:", createErr);
+      }
+    } else {
+      console.error("Authentication failed during seeding:", error);
+    }
+  }
 }
 
 // ─── Seed Team Members ────────────────────────────────────────────────
@@ -313,6 +322,7 @@ export async function seedAnnualReports() {
 // ─── Seed All Collections ────────────────────────────────────────────
 export async function seedAllCollections() {
   console.log("Starting full database seed...");
+  await authenticateAdmin();
   await seedEvents();
   await seedCourses();
   await seedBlogs();
