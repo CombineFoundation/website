@@ -188,6 +188,22 @@ async function authenticateAdmin() {
   }
 }
 
+// ─── Seed MOUs ───────────────────────────────────────────────────────
+export async function seedMous() {
+  const db = getDb();
+  await clearCollection("mous");
+  for (const mou of mousData as any[]) {
+    await addDoc(collection(db, "mous"), {
+      title: mou.title,
+      paragraphs: mou.paragraphs,
+      image: mou.image,
+      imageAlt: mou.imageAlt || mou.title,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${mousData.length} MOUs`);
+}
+
 // ─── Seed Team Members ────────────────────────────────────────────────
 export async function seedTeamMembers() {
   const db = getDb();
