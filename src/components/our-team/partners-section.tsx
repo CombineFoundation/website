@@ -1,7 +1,8 @@
 import Image from "next/image";
+import type { FirestorePartner } from "@/lib/admin-actions";
 
 interface Partner {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   image: string;
@@ -38,7 +39,7 @@ const partners: Partner[] = [
   },
 ];
 
-function PartnerCard({ partner }: { partner: Partner }) {
+function PartnerCard({ partner }: { partner: Partner | FirestorePartner }) {
   const [firstWord, ...remainingWords] = partner.name.split(" ");
   const remainingName = remainingWords.join(" ");
 
@@ -70,7 +71,8 @@ function PartnerCard({ partner }: { partner: Partner }) {
   );
 }
 
-export default function PartnersSection() {
+export default function PartnersSection({ partners: initialPartners }: { partners?: FirestorePartner[] }) {
+  const displayPartners = initialPartners && initialPartners.length > 0 ? initialPartners : partners;
   return (
 
     <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
@@ -80,8 +82,8 @@ export default function PartnersSection() {
       </h2>
 
       <div className="flex flex-col gap-8">
-        {partners.map((partner) => (
-          <PartnerCard key={partner.id} partner={partner} />
+        {displayPartners.map((partner) => (
+          <PartnerCard key={partner.id || partner.name} partner={partner} />
         ))}
       </div>
     </section>

@@ -179,6 +179,137 @@ export async function seedMous() {
   console.log(`Seeded ${mousData.length} MOUs`);
 }
 
+// ─── Seed Team Members ────────────────────────────────────────────────
+export async function seedTeamMembers() {
+  const db = getDb();
+  await clearCollection("teamMembers");
+  
+  const teamMembers = [
+    // Board of Trustees
+    { name: "Mr. Farrukh Rehman", role: "Director", section: "Board of Trustees", image: "/about/hero/hero1.png" },
+    // Department Heads
+    { name: "Muhammad Umar", role: "Projects Coordinator and Innovation Lead", section: "Department Head", image: "/volunteer/vol1.png" },
+    { name: "Saifullah", role: "Finance Manager", section: "Department Head", image: "/volunteer/vol2.png" },
+    { name: "Rizwan Ahmed", role: "Legal and Compliance Officer", section: "Department Head", image: "/about/hero/hero2.jpg" },
+    { name: "Esha Adeel", role: "Lead Developer", section: "Department Head", image: "/about/story/story.png" },
+    { name: "Vikram Singh", role: "Graphics Lead", section: "Department Head", image: "/publications/pub1.png" },
+    { name: "Maliha Naz", role: "Content Department Lead", section: "Department Head", image: "/home/impact/impact1.png" },
+    { name: "Ayan Ahmed", role: "Social Media Manager", section: "Department Head", image: "/home/blog/blog1.png" },
+    { name: "Muhammad Usman", role: "Video Production Lead", section: "Department Head", image: "/home/blog/blog2.png" },
+    // Ambassadors
+    { name: "Miss Yasmeen", role: "Pakistan", section: "Ambassador", image: "/home/blog/blog3.png" },
+    { name: "Aliza Hamid", role: "Spain", section: "Ambassador", image: "/about/achievements/achievements.png" },
+    { name: "Hira Kamal", role: "China", section: "Ambassador", image: "/donation/df1.png" },
+    { name: "Mirkamol Qobilov", role: "Uzbekistan", section: "Ambassador", image: "/donation/donation.png" },
+    // Youth Leaders
+    { name: "Subhan Khan", role: "Youth Leader", section: "Youth Leader", image: "/home/project/project.png" },
+    { name: "Hafsah Khalil", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact4.png" },
+    { name: "Sundas Parri", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact5.png" },
+    { name: "Neha Rubab", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact6.png" },
+    { name: "Haseeb Fakhra", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact2.jpg" },
+    { name: "Muzamil Mustafa", role: "Youth Leader", section: "Youth Leader", image: "/projects/projecthero.png" },
+    { name: "Farwa Rehman", role: "Youth Leader", section: "Youth Leader", image: "/home/founder/person.png" },
+    { name: "Spogmay Arif", role: "Youth Leader", section: "Youth Leader", image: "/events/eventsperson.png" },
+    { name: "Malik Kamran", role: "Youth Leader", section: "Youth Leader", image: "/about/hero/hero2.jpg" }
+  ];
+
+  for (const m of teamMembers) {
+    await addDoc(collection(db, "teamMembers"), {
+      ...m,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${teamMembers.length} team members`);
+}
+
+// ─── Seed Partners ────────────────────────────────────────────────────
+export async function seedPartners() {
+  const db = getDb();
+  await clearCollection("partners");
+  
+  const partnersList = [
+    {
+      name: "Sindh Madarasatul Islam University (SMIU)",
+      description: "Sindh Madarasatul Islam University (SMIU) is a highly valued partner organization associated with Combine Foundation to provide educational and innovative learning opportunities for students. In this connection, both partner organizations are looking forward to providing a platform where students can learn and develop skills.",
+      image: "/about/hero/hero1.png",
+    },
+    {
+      name: "Hammad Foundation",
+      description: "Hammad Foundation is one of our valued community partners that help us in our mission to serve the community in terms of social welfare and environmental awareness, along with other community services. It shows the commitment of both foundations in bringing about a positive impact on society.",
+      image: "/about/hero/hero2.jpg",
+    },
+    {
+      name: "Quants Society (NED University)",
+      description: "Quants Society, being one of the Department Societies of NED University, is a valued academic and community society that works in collaboration with the Combine Foundation in helping students develop their skills and careers. Under this collaboration, a session was conducted at NED University.",
+      image: "/about/story/story.png",
+    },
+    {
+      name: "NGAS — NED Girls Affairs Society (NED University)",
+      description: "NGAS – NED Girls Affairs Society is a valued partner organization collaborating with Combine Foundation to promote awareness, education, and community empowerment initiatives focused on social wellbeing and women’s development.",
+      image: "/events/eventsperson.png",
+    },
+  ];
+
+  for (const p of partnersList) {
+    await addDoc(collection(db, "partners"), {
+      ...p,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${partnersList.length} partners`);
+}
+
+// ─── Seed Splash Banners ──────────────────────────────────────────────
+export async function seedSplashBanners() {
+  const db = getDb();
+  await clearCollection("splashBanners");
+  await addDoc(collection(db, "splashBanners"), {
+    image: "/home/project/project.png",
+    linkUrl: "/events",
+    alt: "Sample announcement — add a real banner via admin",
+    createdAt: serverTimestamp(),
+  });
+  console.log("Seeded 1 splash banner");
+}
+
+// ─── Seed Annual Reports ──────────────────────────────────────────────
+export async function seedAnnualReports() {
+  const db = getDb();
+  await clearCollection("annualReports");
+  
+  const reportsList = [
+    {
+      title: "Annual Report 2022",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
+      image: "/publications/pub1.png",
+      viewUrl: "#",
+      downloadUrl: "#",
+    },
+    {
+      title: "Annual Report 2021",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
+      image: "/publications/pub1.png",
+      viewUrl: "#",
+      downloadUrl: "#",
+    },
+    {
+      title: "Annual Report 2020",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
+      image: "/publications/pub1.png",
+      viewUrl: "#",
+      downloadUrl: "#",
+    },
+  ];
+
+  for (const r of reportsList) {
+    await addDoc(collection(db, "annualReports"), {
+      ...r,
+      createdAt: serverTimestamp(),
+    });
+  }
+  console.log(`Seeded ${reportsList.length} annual reports`);
+}
+
 // ─── Seed All Collections ────────────────────────────────────────────
 export async function seedAllCollections() {
   console.log("Starting full database seed...");
@@ -189,6 +320,10 @@ export async function seedAllCollections() {
   await seedDonations();
   await seedProjects();
   await seedMous();
+  await seedTeamMembers();
+  await seedPartners();
+  await seedSplashBanners();
+  await seedAnnualReports();
   console.log("All collections seeded successfully!");
 }
 
