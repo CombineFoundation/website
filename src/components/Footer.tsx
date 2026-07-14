@@ -33,8 +33,8 @@ export default function Footer() {
             Combine Foundation is a registered non-profit organization under section 42 companies Act 2017 while we are Tax exempted organization and the social impact arm of Combine Group. We are dedicated to creating sustainable change in Pakistan by focusing on education, health awareness, youth empowerment, and community welfare. Our approach is built on transparency, innovation, and long-term impact.
           </p>
           <div className="mt-auto text-xs text-gray-300 space-y-3">
-            <p>Charity Registration No : PCP-R3/2022/234</p>
-            <p>National Tax No : 3162706-4</p>
+            <p>Charity Registration No : PCP-R1/2026/1348</p>
+            <p>National Tax No : 6182420</p>
           </div>
         </div>
 

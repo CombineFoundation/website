@@ -44,6 +44,14 @@ const partners: Partner[] = [
     image: "/events/eventsperson.png",
     mou: "/mou/NEDGAS.pdf",
   },
+  {
+    id: 5,
+    name: "Combine Foundation with Islamian Computing Society",
+    description:
+      "The Memorandum of Understanding has been signed by Combine Foundation and Islamian Computing Society (ICS), International Islamic University Islamabad (IIUI) to enhance the technical skills of the students through education, training, and professional development. The aim of this MoU is to fill the gap between theory and practice and make sure that the students have access to new technological courses and skill development programs through which they can develop their technical skills. In collaboration with each other, they can arrange workshops, webinars, campaigns, and training related to Artificial Intelligence (AI), Python, Web Development, Cybersecurity, Shopify, WordPress, and Programming, through which they can develop their technical skills and enhance their career ready competencies. Under this MoU, the Combine Foundation will provide free or reduced fees of courses along with training, learning materials, guidance, and ecertificates while the Islamian Computing Society will help the students participate in the educational initiatives.",
+    image: "/about/hero/hero1.png",
+    mou: "/mou/Combine Foundation -Islamian Computing Society-IIUI-MoU.pdf",
+  },
 ];
 
 type Direction = "next" | "prev";
