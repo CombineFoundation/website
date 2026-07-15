@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
+import { fetchContacts, fetchDonations } from "@/lib/admin-actions";
 
 const BellIcon = () => (
   <svg
@@ -49,20 +50,19 @@ const CombineLogo = () => (
   </div>
 );
 
-const notifications = [
-  { id: 1, type: "event", text: "New event: Iftar Drive added", time: "2 min ago" },
-  { id: 2, type: "course", text: "New course: Quantum Computing Workshop", time: "15 min ago" },
-  { id: 3, type: "blog", text: "New blog: Education for All published", time: "1 hr ago" },
-  { id: 4, type: "contact", text: "New message received from Sarah Ahmed", time: "3 hrs ago" },
-  { id: 5, type: "course", text: "New course: AI & Machine Learning", time: "5 hrs ago" },
-  { id: 6, type: "event", text: "New event: Charity Gala created", time: "1 day ago" },
-];
+interface NotificationItem {
+  id: string;
+  type: "blog" | "event" | "course" | "contact" | "donation";
+  text: string;
+  time: string;
+}
 
 const iconMap: Record<string, React.ReactNode> = {
   blog: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
   event: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
   course: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
   contact: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+  donation: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
 };
 
 const colorMap: Record<string, string> = {
@@ -70,12 +70,16 @@ const colorMap: Record<string, string> = {
   event: "bg-orange-500",
   course: "bg-purple-500",
   contact: "bg-green-500",
+  donation: "bg-emerald-600",
 };
 
 function AdminHeader() {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [adminName, setAdminName] = useState("Admin User");
+  const [adminInitial, setAdminInitial] = useState("A");
   const notifRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
 
@@ -88,6 +92,58 @@ function AdminHeader() {
     setDropdownOpen(false);
     router.push("/login");
   };
+
+  useEffect(() => {
+    if (auth) {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user && user.email) {
+          const emailName = user.email.split("@")[0];
+          const formattedName = emailName.charAt(0).toUpperCase() + emailName.slice(1);
+          setAdminName(formattedName);
+          setAdminInitial(formattedName.charAt(0).toUpperCase());
+        } else {
+          setAdminName("Admin");
+          setAdminInitial("A");
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    async function loadNotifications() {
+      try {
+        const [contacts, donations] = await Promise.all([
+          fetchContacts().catch(() => []),
+          fetchDonations().catch(() => [])
+        ]);
+        if (!active) return;
+
+        const mappedContacts = contacts.slice(0, 3).map((c) => ({
+          id: `contact-${c.id}`,
+          type: "contact" as const,
+          text: `Contact from ${c.name}: "${c.subject || c.message.substring(0, 25) + '...'}"`,
+          time: "New",
+        }));
+
+        const mappedDonations = donations.slice(0, 3).map((d) => ({
+          id: `donation-${d.id}`,
+          type: "donation" as const,
+          text: `Received Rs. ${d.amount} from ${d.name}`,
+          time: "New",
+        }));
+
+        setNotifications([...mappedContacts, ...mappedDonations]);
+      } catch (error) {
+        console.error("Failed to load header notifications:", error);
+      }
+    }
+    loadNotifications();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -202,13 +258,13 @@ function AdminHeader() {
                 fontSize: "13px",
               }}
             >
-              A
+              {adminInitial}
             </div>
             <span
               className="hidden sm:inline text-white font-medium"
               style={{ fontSize: "13px", whiteSpace: "nowrap" }}
             >
-              Ali Imran
+              {adminName}
             </span>
             <span
               className="text-white opacity-70"
