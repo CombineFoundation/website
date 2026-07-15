@@ -101,14 +101,3 @@ export function slugify(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
-
-import rawCourses from "@/data/courses.json";
-
-export const COURSES: Course[] = (rawCourses as any[]).map((c) => ({
-  ...c,
-  price: Number(c.price),
-  modules: c.modules.map((m: any, i: number) => ({
-    ...m,
-    id: i + 1,
-  })),
-}));
