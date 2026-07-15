@@ -16,47 +16,14 @@ interface MOUSliderProps {
     mous: FirestoreMOU[];
 }
 
-const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
-    const displayMous: MOU[] = dbMous.length > 0
-        ? dbMous.map((m, index) => ({
-            id: m.id || index.toString(),
-            title: m.title,
-            paragraphs: m.paragraphs || [],
-            image: m.image,
-            imageAlt: m.imageAlt || m.title,
-        }))
-        : [
-            {
-                id: "1",
-                title: "Hammad Foundation X Combine Foundation MOU",
-                paragraphs: [
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu.",
-                    "Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id. Praesent lorem",
-                ],
-                image: "/publications/pub1.png",
-                imageAlt: "MOU signing between Hammad Foundation and Combine Foundation",
-            },
-            {
-                id: "2",
-                title: "Hammad Foundation X Green Earth MOU",
-                paragraphs: [
-                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-                    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-                ],
-                image: "/publications/pub1.png",
-                imageAlt: "MOU signing between Hammad Foundation and Green Earth",
-            },
-            {
-                id: "3",
-                title: "Hammad Foundation X Education Trust MOU",
-                paragraphs: [
-                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
-                    "Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
-                ],
-                image: "/publications/pub1.png",
-                imageAlt: "MOU signing between Hammad Foundation and Education Trust",
-            },
-        ];
+const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
+    const displayMous: MOU[] = dbMous.map((m, index) => ({
+        id: m.id || index.toString(),
+        title: m.title,
+        paragraphs: m.paragraphs || [],
+        image: m.image,
+        imageAlt: m.imageAlt || m.title,
+    }));
 
     const [current, setCurrent] = useState(0);
 
