@@ -220,7 +220,7 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="/donations" className="border-2 border-primary-500 text-primary-500 px-8 py-2.5 rounded-full font-bold hover:bg-secondary-500 hover:text-white transition-all duration-300 shadow-sm">
+            <Link href="/donations" className="border-2 border-secondary-500 text-secondary-500 px-8 py-2.5 rounded-full font-bold hover:bg-primary-500 hover:text-white transition-all duration-300 shadow-sm">
               Donate
             </Link>
           </div>
