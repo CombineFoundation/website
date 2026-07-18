@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { X, Upload } from "lucide-react";
 
+import { uploadImage } from "@/lib/firebase-upload";
+import { Loader2 } from "lucide-react";
+
 interface PartnerFormData {
   name: string;
   description: string;
@@ -14,16 +17,9 @@ interface AddPartnerModalProps {
   onSave: (data: PartnerFormData) => void;
 }
 
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalProps) {
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState("");
   const [form, setForm] = useState<PartnerFormData>({
     name: "",
     description: "",
@@ -36,16 +32,27 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const dataUrl = await readFileAsDataURL(file);
-      setForm((prev) => ({ ...prev, image: dataUrl }));
+    if (!file) return;
+    const field = "image";
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "partners");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
     }
   };
 
-  const isValid = form.name.trim() && form.description.trim();
+  const isUploading = Object.values(uploadingFields).some(Boolean);
+
+  const isValid = form.name.trim() && form.description.trim() && form.image.trim();
 
   const handleSave = () => {
-    if (!isValid) return;
+    if (!isValid || isUploading) return;
     onSave(form);
   };
 
@@ -85,12 +92,17 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
 
         <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">Image</label>
-          {form.image ? (
+          {uploadingFields.image ? (
+            <div className="flex flex-col items-center justify-center h-32 w-48 border border-gray-200 rounded-lg bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+            </div>
+          ) : form.image ? (
             <div className="relative inline-block">
               <img src={form.image} alt="Preview" className="h-32 w-48 object-cover rounded-lg border border-gray-200" />
               <button
                 onClick={() => setForm((prev) => ({ ...prev, image: "" }))}
-                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full animate-fadeIn"
               >
                 <X size={14} />
               </button>
@@ -104,23 +116,31 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
           )}
         </div>
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={isUploading}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || isUploading}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {isUploading && <Loader2 className="w-4 h-4 animate-spin" />}
+            {isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>

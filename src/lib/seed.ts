@@ -7,10 +7,335 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "fire
 import eventsData from "@/data/events.json";
 import coursesData from "@/data/courses.json";
 import blogsData from "@/data/blogs.json";
-import contactsData from "@/data/contacts.json";
 import donationsData from "@/data/donations.json";
-import projectsData from "@/data/projects.json";
 import mousData from "@/data/mous.json";
+
+// Inline contactsData and projectsData
+const contactsData: any[] = [];
+const projectsData = [
+  {
+    "title": "SMIU FYP Evaluation and Pilot project design",
+    "images": [
+      "/about/hero/hero1.png",
+      "/about/story/story.png"
+    ],
+    "description": "SMIU FYP Evaluation & Pilot Project Design is a joint project between SMIU (Sindh Madarssatul Islam University) and Combine Foundation. Its objective is to assist students in enhancing the quality and efficiency of their Final Year Projects. This project focuses on the aspects of project evaluation, validation, and piloting to make sure that the project is practically in demand.",
+    "goal": "The objective of this project is to assess and improve the quality of projects done by the students of SMIU during their final year through assessment, validation, and pilot testing.",
+    "stats": [
+      { "value": "150+", "label": "Projects Evaluated" },
+      { "value": "500+", "label": "Students Guided" },
+      { "value": "10+", "label": "Pilot Designs" },
+      { "value": "20+", "label": "Mentors & Evaluators" }
+    ],
+    "beforeImage": "/about/hero/hero1.png",
+    "afterImage": "/about/story/story.png",
+    "futurePlans": "As part of our future vision, Combine Foundation aims to operate throughout Pakistan to maximize the impact of our work toward youth development and community empowerment. Our plans involve enhancing collaboration with universities throughout the country to offer more opportunities for learning and networking. The future plans will involve structured leadership certifications aimed at empowering youths with the necessary skills needed for success both professionally and personally. Lastly, our goal is to establish internships in employment schemes that help youths to gain employment after their studies.",
+    "partners": [
+      "/about/hero/hero1.png"
+    ],
+    "location": "Karachi",
+    "coordinates": "24.8504, 67.0031"
+  },
+  {
+    "title": "Beach Cleanup drive with Hammad Foundation",
+    "images": [
+      "/home/impact/impact1.png",
+      "/home/impact/impact2.jpg"
+    ],
+    "description": "The Beach Clean-up Drive was a collective effort between the Combine Foundation and the Hammad Foundation, in which youth contribute wholeheartedly with participation of more than 500 Gen Z volunteers. Through this activity, efforts were made to ensure a cleaner and greener environment by cleaning the beaches and spreading awareness regarding the need for protecting nature.",
+    "goal": "The main goal is to Bring the youth together for the purpose of having a positive impact on the environment through beach clean-up activities aimed at reducing pollution and sustainable green future.",
+    "stats": [
+      { "value": "500+", "label": "Gen Z Volunteers" },
+      { "value": "2+", "label": "Tons of Trash Cleared" },
+      { "value": "3+", "label": "Beaches Cleaned" },
+      { "value": "1,000+", "label": "Awareness Flyers" }
+    ],
+    "beforeImage": "/home/impact/impact1.png",
+    "afterImage": "/home/impact/impact2.jpg",
+    "futurePlans": "We aim to scale our beach cleaning activities to multiple coastal points across the region, partner with municipal corporations for waste disposal/recycling, and initiate a continuous awareness campaign on marine plastic reduction.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Karachi",
+    "coordinates": "24.6800, 66.8200"
+  },
+  {
+    "title": "Ramadan Bachat camp and Ration Drive with Hammad Foundation",
+    "images": [
+      "/home/impact/impact4.png",
+      "/home/impact/impact5.png"
+    ],
+    "description": "The Ramadan Bachat Camp & Ration Drive was a joint initiative of Combine Foundation & Hammad Foundation to help needy families during the holy month of Ramadan. In this project, the daily basic necessities and essentials through the Bachat Camp and ration were arranged for those who needed it the most. In this way, financially stressed and needy people have their basic needs. Through this project, many people came forward to promote the act of kindness and support of needy families.",
+    "goal": "The main objective of this initiative is to help poor and needy families during Ramadan through the provision of necessities and food, so that they can also live their life and Ramadan like others. This will not only help them fulfill their needs but also show compassion, solidarity, and generosity.",
+    "stats": [
+      { "value": "1,200+", "label": "Families Assisted" },
+      { "value": "60%", "label": "Below Market Rates" },
+      { "value": "100+", "label": "Volunteers Onboarded" },
+      { "value": "8+", "label": "Ration Drives Held" }
+    ],
+    "beforeImage": "/home/impact/impact4.png",
+    "afterImage": "/home/impact/impact5.png",
+    "futurePlans": "We plan to establish a sustainable ration supply model that goes beyond Ramadan to support highly vulnerable families year-round, and expand the footprint to other districts.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Karachi",
+    "coordinates": "25.0200, 67.1200"
+  },
+  {
+    "title": "Risk-Based Internal Audit Session at NED University with Quants Society",
+    "images": [
+      "/about/story/story.png",
+      "/home/impact/impact6.png"
+    ],
+    "description": "The Risk-Based Internal Audit Seminar was arranged by Combine Foundation in cooperation with Quants Society from NED University with the aim of providing students and young professionals with practical understanding of audit, risk management, and corporate governance. Facilitated by a renowned industry professional, and Director of Combine Consultant Farrukh Rehman, the seminar offered participants useful insight about contemporary auditing procedures and risks, as well as career options in finance and consulting industries.",
+    "goal": "The main goal of this seminar is to enhance students' understanding of risk-based internal auditing and develop practical skills in risk management, governance, and professional decision-making for future career growth.",
+    "stats": [
+      { "value": "150+", "label": "Students & Professionals" },
+      { "value": "1", "label": "Director Facilitator" },
+      { "value": "5+", "label": "Key Audit Domains" },
+      { "value": "100%", "label": "Interactive Q&A" }
+    ],
+    "beforeImage": "/about/story/story.png",
+    "afterImage": "/home/impact/impact6.png",
+    "futurePlans": "We intend to organize hands-on training sessions with industry-standard software, launch corporate mentorship pairings for participating students, and schedule regular academic guest lectures.",
+    "partners": [
+      "/about/story/story.png"
+    ],
+    "location": "Karachi",
+    "coordinates": "25.1800, 67.2800"
+  },
+  {
+    "title": "Breast Cancer and Gender-Based Violence Awareness Campaign with NGAS",
+    "images": [
+      "/events/eventsperson.png",
+      "/about/achievements/achievements.png"
+    ],
+    "description": "The Breast Cancer and Gender-Based Violence Awareness Campaign will be organized in collaboration with NGAS, which is aimed at raising the community's awareness on the need for early detection of breast cancer and preventing gender-based violence. This program aims at creating awareness through activities such as discussion, health promotion programs, seminars, and other learning activities.",
+    "goal": "The main purpose is to create awareness regarding breast cancer and gender-based violence, ensure early identification and prevention, and empower communities to move toward a better future.",
+    "stats": [
+      { "value": "400+", "label": "Attendees Reached" },
+      { "value": "3+", "label": "Interactive Seminars" },
+      { "value": "20+", "label": "Medical Volunteers" },
+      { "value": "100%", "label": "Free Consultation" }
+    ],
+    "beforeImage": "/events/eventsperson.png",
+    "afterImage": "/about/achievements/achievements.png",
+    "futurePlans": "Our plans involve establishing a peer support network, launching hybrid seminars accessible to campuses nationwide, and partnering with medical specialists to provide subsidised checkup camps.",
+    "partners": [
+      "/events/eventsperson.png"
+    ],
+    "location": "Quetta",
+    "coordinates": "30.2193, 66.9830"
+  },
+  {
+    "title": "Kitchen Garden Festival Camp",
+    "images": [
+      "/home/impact/impact5.png",
+      "/home/impact/impact1.png"
+    ],
+    "description": "The Kitchen Garden Festival Camp by Combine Foundation promotes healthy and ecofriendly living by educate people to reconnect with nature and adopting organic lifestyles. Through the Kitchen Garden Festival Camp and awareness sessions, families learn the benefits of fresh organic food, healthy eating habits, and growing fruits and vegetables at home. This initiative also spreads awareness about reducing the usage of processed food and building a more natural, sustainable, and wellness-focused lifestyle for a healthier future.",
+    "goal": "To promote healthy and eco-friendly living by educating families on organic lifestyles, fresh food benefits, and home-growing techniques for a sustainable future.",
+    "stats": [
+      { "value": "300+", "label": "Families Participated" },
+      { "value": "15+", "label": "Gardening Workshops" },
+      { "value": "100%", "label": "Organic Focus" },
+      { "value": "500+", "label": "Saplings Distributed" }
+    ],
+    "beforeImage": "/home/impact/impact5.png",
+    "afterImage": "/home/impact/impact1.png",
+    "futurePlans": "We plan to establish regular neighborhood gardening hubs and partner with educational institutions to set up model gardens for children.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Karachi",
+    "coordinates": "25.0153, 67.2459"
+  },
+  {
+    "title": "Healthy Lifestyle Awareness Program",
+    "images": [
+      "/home/impact/impact4.png",
+      "/home/impact/impact6.png"
+    ],
+    "description": "The Healthy Lifestyle Awareness Program by Combine Foundation promotes preventive wellness, healthy habits, and positive lifestyle choices through interactive awareness sessions and educational activities. In these sessions, we guide individuals to gradually improve their daily routines according to their personal lifestyle in a practical and sustainable way, making it easier for them to follow and maintain healthy habits for the long-term. Through this awareness program we guide them about importance of balanced nutrition, regular physical activity, disciplined routines, and mindful living practices to improve overall well-being and productivity. Many individuals have benefited from these sessions and are now living healthier, more balanced, and wellness-focused lives.",
+    "goal": "To promote preventive wellness, healthy habits, and positive lifestyle choices through practical guidelines for sustainable daily routines.",
+    "stats": [
+      { "value": "1,000+", "label": "People Reached" },
+      { "value": "20+", "label": "Educational Seminars" },
+      { "value": "90%", "label": "Adoption Rate" },
+      { "value": "50+", "label": "Wellness Consultations" }
+    ],
+    "beforeImage": "/home/impact/impact4.png",
+    "afterImage": "/home/impact/impact6.png",
+    "futurePlans": "We plan to offer a mobile application for tracking habits, coordinate digital webinars with professional nutritionists, and establish regional wellness chapters.",
+    "partners": [
+      "/events/eventsperson.png"
+    ],
+    "location": "Karachi",
+    "coordinates": "24.9178, 67.0946"
+  },
+  {
+    "title": "RAISE (Rising Ambitions in Skills & Education)",
+    "images": [
+      "/about/hero/hero1.png",
+      "/about/story/story.png"
+    ],
+    "description": "RAISE (Rising Ambitions in Skills & Education) is a project of the Combine Foundation that aims to empower students as well as employees with all the information, skills, and opportunities to excel in today's fast-paced environment. The aim of this project is to connect learners to practical training modules relevant to the industries which can help them secure their future employment. The RAISE project offers a variety of courses like Python with AI, Web Development, Basic Computer Skills, Quantitative Finance, Meta Ads Marketing, as well as programs designed to foster growth in personal qualities of learners. With a focus on building digital literacy, innovation, and a passion for learning, this project can help learners pursue freelancing jobs and improve their income and self-reliance.",
+    "goal": "To empower students and employees with industry-relevant skills, digital literacy, and personal growth modules to enhance employment opportunities and self-reliance.",
+    "stats": [
+      { "value": "15+", "label": "Industry Courses" },
+      { "value": "2,000+", "label": "Learners Trained" },
+      { "value": "85%", "label": "Employment Success" },
+      { "value": "100%", "label": "Self-Reliance Focus" }
+    ],
+    "beforeImage": "/about/hero/hero1.png",
+    "afterImage": "/about/story/story.png",
+    "futurePlans": "We plan to partner with corporate sponsors to offer internships, expand our course catalog to include advanced machine learning engineering, and build an online freelancing community board.",
+    "partners": [
+      "/about/hero/hero1.png"
+    ],
+    "location": "Online",
+    "coordinates": "lorem"
+  },
+  {
+    "title": "CSC Scholarship Program",
+    "images": [
+      "/home/impact/impact1.png",
+      "/about/achievements/achievements.png"
+    ],
+    "description": "The CSC Scholarship Program by Combine Foundation was launched to support deserving and talented students in their educational journey. Who are unable to study due to financial reasons. The program provides financial assistance and all kinds of academic support to help students continue their studies and achieve their career goals with confidence without any fear of financial issues. Currently many deserving students are studying and growing under CSC Scholarship program.",
+    "goal": "To support deserving and talented students who face financial barriers by providing tuition assistance and academic mentorship to ensure they complete their studies successfully.",
+    "stats": [
+      { "value": "100+", "label": "Scholarships Awarded" },
+      { "value": "95%", "label": "Graduation Rate" },
+      { "value": "10+", "label": "Partner Colleges" },
+      { "value": "100%", "label": "Financial Support" }
+    ],
+    "beforeImage": "/home/impact/impact1.png",
+    "afterImage": "/about/achievements/achievements.png",
+    "futurePlans": "We aim to grow the scholarship fund to support 500+ students next year and partner with more universities in other provinces.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Online",
+    "coordinates": "lorem"
+  },
+  {
+    "title": "Freelancing & Online Earning Awareness sessions",
+    "images": [
+      "/about/hero/hero1.png",
+      "/home/impact/impact6.png"
+    ],
+    "description": "Various Freelancing & Online Earning Awareness sessions by the Combine Foundation were conducted to help students and freelancers to teach them how to start earning online through digital skills and freelancing platforms. These sessions introduced practical ways to build freelance careers, work remotely, and generate income using skill-based services. Through these sessions Students and freelancers also received guidance on online marketplaces, career opportunities, and how to get clients through inbound and outbound leads.",
+    "goal": "To introduce practical ways to build freelance careers, work remotely, generate income using skill-based services, and guide participants on getting clients via inbound and outbound leads.",
+    "stats": [
+      { "value": "1,500+", "label": "Students Trained" },
+      { "value": "12+", "label": "Sessions Conducted" },
+      { "value": "50+", "label": "Earning Successes" },
+      { "value": "100%", "label": "Practical Guidance" }
+    ],
+    "beforeImage": "/about/hero/hero1.png",
+    "afterImage": "/home/impact/impact6.png",
+    "futurePlans": "We aim to expand these awareness sessions into structured, hands-on bootcamps with industry-expert mentors and build an online freelancing community board for lead sharing.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Karachi & Online",
+    "coordinates": "24.8607, 67.0011"
+  },
+  {
+    "title": "Volunteer program",
+    "images": [
+      "/home/impact/impact4.png",
+      "/about/story/story.png"
+    ],
+    "description": "The Volunteer Program of Combine Foundation provides students with opportunities to work on real-world projects and gain practical experience through community involvement. This program has different niches on which volunteers can work. Through volunteering, skills like leadership, teamwork, responsibility, and communication skills are developed while it also encourages students to actively contribute to social and educational initiatives.",
+    "goal": "To provide students with hands-on opportunities to work on community initiatives, develop critical soft skills like leadership and communication, and actively contribute to social impact.",
+    "stats": [
+      { "value": "350+", "label": "Active Volunteers" },
+      { "value": "5+", "label": "Volunteer Niches" },
+      { "value": "15+", "label": "Projects Completed" },
+      { "value": "1,200+", "label": "Community Hours" }
+    ],
+    "beforeImage": "/home/impact/impact4.png",
+    "afterImage": "/about/story/story.png",
+    "futurePlans": "We plan to launch a formal volunteer tracking and reward system, establish campus-level volunteer chapters across major universities, and offer leadership training certifications.",
+    "partners": [
+      "/about/story/story.png"
+    ],
+    "location": "Pakistan",
+    "coordinates": "lorem"
+  },
+  {
+    "title": "Youth Leadership Program",
+    "images": [
+      "/about/hero/hero1.png",
+      "/about/achievements/achievements.png"
+    ],
+    "description": "The Youth Leadership Program by Combine Foundation is a 6-month leadership development program designed to empower young individuals to become confident and responsible future leaders. Through different activities, real-world projects, teamwork, and social initiatives, students actively participate in decision-making and program execution while also improving their leadership, communication, and strategic thinking skills. This program helps youth to build confidence, personal growth, and strong community engagement skills for the future. We have a strong network for Youth leadership programs where many students from different universities are part of this program either as a youth leader or youth leader volunteer.",
+    "goal": "To empower young individuals through a 6-month hands-on leadership development curriculum, enhancing their decision-making, team building, communication, and community engagement capabilities.",
+    "stats": [
+      { "value": "6 Months", "label": "Program Duration" },
+      { "value": "200+", "label": "Youth Leaders" },
+      { "value": "15+", "label": "Universities Involved" },
+      { "value": "30+", "label": "Social Projects Led" }
+    ],
+    "beforeImage": "/about/hero/hero1.png",
+    "afterImage": "/about/achievements/achievements.png",
+    "futurePlans": "We plan to establish a permanent youth leadership council, collaborate with international youth development forums, and introduce national-level leadership summits.",
+    "partners": [
+      "/about/hero/hero1.png"
+    ],
+    "location": "Karachi & Online",
+    "coordinates": "24.8504, 67.0031"
+  },
+  {
+    "title": "One Follower One Plant: Plantation Drives",
+    "images": [
+      "/home/impact/impact1.png",
+      "/home/impact/impact2.jpg"
+    ],
+    "description": "Through our “One Follower, One Plant” plantation drive by combine foundation, we are actively working to promote environmental sustainability and climate awareness. Our mission is to create a greener, cleaner, and healthier future for upcoming generations. We plant a tree for every new supporter to help improve air quality, reduce climate impact, and build a more sustainable future. We also organize plantation activities and awareness programs that highlight the importance of trees in maintaining ecological balance and protecting the environment.",
+    "goal": "To promote environmental sustainability and combat climate change by planting a tree for every new supporter, raising awareness on environmental protection and ecological balance.",
+    "stats": [
+      { "value": "1,000+", "label": "Trees Planted" },
+      { "value": "5,000+", "label": "Supporters Engaged" },
+      { "value": "5+", "label": "Plantation Drives" },
+      { "value": "95%", "label": "Sapling Survival Rate" }
+    ],
+    "beforeImage": "/home/impact/impact1.png",
+    "afterImage": "/home/impact/impact2.jpg",
+    "futurePlans": "We aim to digitize our planting verification system, expand the drives to major urban cities across Pakistan, and partner with schools to establish green student clubs.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Karachi & Islamabad",
+    "coordinates": "24.8560, 67.0040"
+  },
+  {
+    "title": "“Packet Palto Phir Kharido” Awareness Campaign",
+    "images": [
+      "/home/impact/impact5.png",
+      "/home/impact/impact4.png"
+    ],
+    "description": "The “Packet Palto Phir Kharido”Awarness Campaign by Combine Foundation is a unique consumer awareness initiative that encourages people to make smarter and healthier food choices. Through this campaign, individuals are educated on the importance of reading product labels, understanding ingredients, avoiding harmful processed foods, and choosing healthier alternatives before making a purchase. This campaign is a remainder for people to make smarter food choices by understanding what they consume daily by Reading product labels for smarter buying decisions, making healthy food choices, avoiding harmful processed ingredients, by choosing healthier and safer alternatives.",
+    "goal": "To educate and empower consumers to read food labels, avoid harmful processed ingredients, and choose healthy alternatives for a better and mindful lifestyle.",
+    "stats": [
+      { "value": "3,000+", "label": "Consumers Reached" },
+      { "value": "20+", "label": "School/Uni Sessions" },
+      { "value": "92%", "label": "Awareness Rating" },
+      { "value": "500+", "label": "Labels Analyzed" }
+    ],
+    "beforeImage": "/home/impact/impact5.png",
+    "afterImage": "/home/impact/impact4.png",
+    "futurePlans": "We intend to scale this campaign digitally by launching barcode scanners or educational video series, and partner with local nutritionists for community grocery tours.",
+    "partners": [
+      "/about/hero/hero2.jpg"
+    ],
+    "location": "Lahore",
+    "coordinates": "31.5204, 74.3587"
+  }
+];
 
 // Helper: clear a collection before seeding
 async function clearCollection(collectionName: string) {
@@ -211,31 +536,31 @@ export async function seedTeamMembers() {
   
   const teamMembers = [
     // Board of Trustees
-    { name: "Mr. Farrukh Rehman", role: "Director", section: "Board of Trustees", image: "/about/hero/hero1.png" },
+    { name: "Mr. Farrukh Rehman", role: "Director", section: "Board of Trustees", image: "/home/founder/person.png" },
     // Department Heads
     { name: "Muhammad Umar", role: "Projects Coordinator and Innovation Lead", section: "Department Head", image: "/volunteer/vol1.png" },
     { name: "Saifullah", role: "Finance Manager", section: "Department Head", image: "/volunteer/vol2.png" },
-    { name: "Rizwan Ahmed", role: "Legal and Compliance Officer", section: "Department Head", image: "/about/hero/hero2.jpg" },
-    { name: "Esha Adeel", role: "Lead Developer", section: "Department Head", image: "/about/story/story.png" },
-    { name: "Vikram Singh", role: "Graphics Lead", section: "Department Head", image: "/publications/pub1.png" },
-    { name: "Maliha Naz", role: "Content Department Lead", section: "Department Head", image: "/home/impact/impact1.png" },
-    { name: "Ayan Ahmed", role: "Social Media Manager", section: "Department Head", image: "/home/blog/blog1.png" },
-    { name: "Muhammad Usman", role: "Video Production Lead", section: "Department Head", image: "/home/blog/blog2.png" },
+    { name: "Rizwan Ahmed", role: "Legal and Compliance Officer", section: "Department Head", image: "/avatar.svg" },
+    { name: "Esha Adeel", role: "Lead Developer", section: "Department Head", image: "/events/eventsperson.png" },
+    { name: "Vikram Singh", role: "Graphics Lead", section: "Department Head", image: "/avatar.svg" },
+    { name: "Maliha Naz", role: "Content Department Lead", section: "Department Head", image: "/avatar.svg" },
+    { name: "Ayan Ahmed", role: "Social Media Manager", section: "Department Head", image: "/avatar.svg" },
+    { name: "Muhammad Usman", role: "Video Production Lead", section: "Department Head", image: "/avatar.svg" },
     // Ambassadors
-    { name: "Miss Yasmeen", role: "Pakistan", section: "Ambassador", image: "/home/blog/blog3.png" },
-    { name: "Aliza Hamid", role: "Spain", section: "Ambassador", image: "/about/achievements/achievements.png" },
-    { name: "Hira Kamal", role: "China", section: "Ambassador", image: "/donation/df1.png" },
-    { name: "Mirkamol Qobilov", role: "Uzbekistan", section: "Ambassador", image: "/donation/donation.png" },
+    { name: "Miss Yasmeen", role: "Pakistan", section: "Ambassador", image: "/avatar.svg" },
+    { name: "Aliza Hamid", role: "Spain", section: "Ambassador", image: "/avatar.svg" },
+    { name: "Hira Kamal", role: "China", section: "Ambassador", image: "/avatar.svg" },
+    { name: "Mirkamol Qobilov", role: "Uzbekistan", section: "Ambassador", image: "/avatar.svg" },
     // Youth Leaders
-    { name: "Subhan Khan", role: "Youth Leader", section: "Youth Leader", image: "/home/project/project.png" },
-    { name: "Hafsah Khalil", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact4.png" },
-    { name: "Sundas Parri", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact5.png" },
-    { name: "Neha Rubab", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact6.png" },
-    { name: "Haseeb Fakhra", role: "Youth Leader", section: "Youth Leader", image: "/home/impact/impact2.jpg" },
-    { name: "Muzamil Mustafa", role: "Youth Leader", section: "Youth Leader", image: "/projects/projecthero.png" },
-    { name: "Farwa Rehman", role: "Youth Leader", section: "Youth Leader", image: "/home/founder/person.png" },
-    { name: "Spogmay Arif", role: "Youth Leader", section: "Youth Leader", image: "/events/eventsperson.png" },
-    { name: "Malik Kamran", role: "Youth Leader", section: "Youth Leader", image: "/about/hero/hero2.jpg" }
+    { name: "Subhan Khan", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Hafsah Khalil", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Sundas Parri", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Neha Rubab", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Haseeb Fakhra", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Muzamil Mustafa", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Farwa Rehman", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Spogmay Arif", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" },
+    { name: "Malik Kamran", role: "Youth Leader", section: "Youth Leader", image: "/avatar.svg" }
   ];
 
   for (const m of teamMembers) {

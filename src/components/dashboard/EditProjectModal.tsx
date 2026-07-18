@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { X, Upload, Plus, Trash2, Loader2 } from "lucide-react";
-import { compressImage } from "@/lib/image-compress";
+import { uploadImage } from "@/lib/firebase-upload";
 
 interface ProjectStat {
   value: string;
@@ -29,17 +29,9 @@ interface EditProjectModalProps {
   onSave: (data: ProjectFormData) => Promise<void> | void;
 }
 
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function EditProjectModal({ project, onCancel, onSave }: EditProjectModalProps) {
   const [saving, setSaving] = useState(false);
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
   const [error, setError] = useState("");
   const [form, setForm] = useState<ProjectFormData>({
     title: project.title || "",
@@ -69,9 +61,17 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
   const handleImageUpload = async (field: "images", _e: React.ChangeEvent<HTMLInputElement>) => {
     const files = _e.target.files;
     if (!files) return;
-    const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
-    setForm((prev) => ({ ...prev, images: [...prev.images, ...compressedDataUrls] }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const urls = await Promise.all(Array.from(files).map((file) => uploadImage(file, "projects")));
+      setForm((prev) => ({ ...prev, images: [...prev.images, ...urls] }));
+    } catch (err: any) {
+      console.error("Images upload error:", err);
+      setError("Failed to upload project images. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const removeImage = (index: number) => {
@@ -84,17 +84,34 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
   const handleSingleImageUpload = async (field: "beforeImage" | "afterImage", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const dataUrl = await readFileAsDataURL(file);
-    const compressedDataUrl = await compressImage(dataUrl);
-    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "projects");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Single image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const handlePartnerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-    const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
-    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...compressedDataUrls] }));
+    const field = "partners";
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const urls = await Promise.all(Array.from(files).map((file) => uploadImage(file, "projects")));
+      setForm((prev) => ({ ...prev, partners: [...prev.partners, ...urls] }));
+    } catch (err: any) {
+      console.error("Partner images upload error:", err);
+      setError("Failed to upload partner images. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const removePartner = (index: number) => {
@@ -103,6 +120,8 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
       partners: prev.partners.filter((_, i) => i !== index),
     }));
   };
+
+  const isUploading = Object.values(uploadingFields).some(Boolean);
 
   const handleStatChange = (index: number, field: "value" | "label", val: string) => {
     setForm((prev) => {
@@ -133,7 +152,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
     form.stats?.some((s) => s.value?.trim() && s.label?.trim()));
 
   const handleSave = async () => {
-    if (!isValid) return;
+    if (!isValid || isUploading) return;
     setSaving(true);
     setError("");
     try {
@@ -144,7 +163,7 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
       });
     } catch (err: any) {
       console.error("Save project error:", err);
-      setError(err.message || "Failed to save project. Ensure you are signed in and images are not too large (limit is 1MB).");
+      setError(err.message || "Failed to save project. Ensure you are signed in.");
     } finally {
       setSaving(false);
     }
@@ -269,19 +288,31 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
               </button>
             </div>
           ))}
-          {form.images.length < 5 && (
-            <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
-              <Upload size={18} className="text-gray-400" />
-              <span className="text-xs text-gray-400 mt-1">Upload</span>
-              <input type="file" accept="image/*" multiple onChange={(e) => handleImageUpload("images", e)} className="hidden" />
-            </label>
+          {uploadingFields.images ? (
+            <div className="flex flex-col items-center justify-center w-24 h-24 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-[10px] text-gray-500 mt-1">Uploading...</span>
+            </div>
+          ) : (
+            form.images.length < 5 && (
+              <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+                <Upload size={18} className="text-gray-400" />
+                <span className="text-xs text-gray-400 mt-1">Upload</span>
+                <input type="file" accept="image/*" multiple onChange={(e) => handleImageUpload("images", e)} className="hidden" />
+              </label>
+            )
           )}
         </div>
 
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Before Image (Optional)</label>
-            {form.beforeImage ? (
+            {uploadingFields.beforeImage ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.beforeImage ? (
               <div className="relative">
                 <img src={form.beforeImage} alt="Before" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, beforeImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -298,7 +329,12 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
           </div>
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">After Image (Optional)</label>
-            {form.afterImage ? (
+            {uploadingFields.afterImage ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.afterImage ? (
               <div className="relative">
                 <img src={form.afterImage} alt="After" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, afterImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -341,11 +377,18 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
               </button>
             </div>
           ))}
-          <label className="flex flex-col items-center justify-center w-20 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
-            <Upload size={18} className="text-gray-400" />
-            <span className="text-xs text-gray-400 mt-1">Upload</span>
-            <input type="file" accept="image/*" multiple onChange={handlePartnerUpload} className="hidden" />
-          </label>
+          {uploadingFields.partners ? (
+            <div className="flex flex-col items-center justify-center w-20 h-20 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-[10px] text-gray-500 mt-0.5">Uploading...</span>
+            </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center w-20 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+              <Upload size={18} className="text-gray-400" />
+              <span className="text-xs text-gray-400 mt-1">Upload</span>
+              <input type="file" accept="image/*" multiple onChange={handlePartnerUpload} className="hidden" />
+            </label>
+          )}
         </div>
 
         {error && (
@@ -357,22 +400,22 @@ export default function EditProjectModal({ project, onCancel, onSave }: EditProj
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            disabled={saving}
+            disabled={saving || isUploading}
             className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid || saving}
+            disabled={!isValid || saving || isUploading}
             className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
-              isValid && !saving
+              isValid && !saving && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-            {saving ? "Saving..." : "Save"}
+            {(saving || isUploading) && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>
