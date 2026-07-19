@@ -2,6 +2,7 @@ import Hero from "@/components/UI/hero"
 import FounderProfile from "@/components/our-team/founder-profile"
 import CeoProfile from "@/components/our-team/ceo-profile"
 import BoardOfTrustees from "@/components/our-team/board-of-trustees"
+import BoardOfMembers from "@/components/our-team/board-of-members"
 import LeadershipSections from "@/components/our-team/leadership-sections"
 import PartnersSection from "@/components/our-team/partners-section"
 import { fetchTeamMembers, fetchPartners, type FirestoreTeamMember, type FirestorePartner } from "@/lib/admin-actions"
@@ -28,6 +29,7 @@ const Page = async () => {
       <FounderProfile />
       <CeoProfile />
       <BoardOfTrustees members={teamMembers} />
+      <BoardOfMembers members={teamMembers} />
       <LeadershipSections members={teamMembers} />
       <PartnersSection partners={partners} />
     </>

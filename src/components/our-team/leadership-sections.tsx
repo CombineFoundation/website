@@ -11,7 +11,10 @@ interface Member {
   image: string;
 }
 
-
+interface GroupSection {
+  heading: string;
+  members: Member[];
+}
 
 function MemberCard({ member }: { member: Member }) {
   return (
