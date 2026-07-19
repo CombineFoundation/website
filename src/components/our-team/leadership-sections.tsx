@@ -18,7 +18,7 @@ interface GroupSection {
 
 const sections: GroupSection[] = [
   {
-    heading: "Department Heads",
+    heading: "Youth Forum",
     members: [
       { id: 1, name: "Muhammad Umar", title: "Projects Coordinator and Innovation Lead", image: "/volunteer/vol1.png" },
       { id: 2, name: "Saifullah", title: "Finance Manager", image: "/volunteer/vol2.png" },
@@ -147,7 +147,7 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
   const displaySections = hasDbMembers
     ? [
         {
-          heading: "Department Heads",
+          heading: "Youth Forum",
           members: members
             .filter((m) => m.section === "Department Head")
             .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
