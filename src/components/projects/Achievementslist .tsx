@@ -1,94 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
 
-interface ProjectItem {
+type Stat = {
+    value: string;
+    label: string;
+};
+
+type ProjectItem = {
     id: string;
     title: string;
     images: string[];
     description: string;
     goal: string;
-    stats: { value: string; label: string }[];
+    stats: Stat[];
     beforeImage: string;
     afterImage: string;
     futurePlans: string;
     partners: string[];
-}
+};
 
 interface AchievementsListProps {
     projects: ProjectItem[];
     activeId: string | null;
     onToggle: (id: string) => void;
-}
-
-function ScrollableImages({ images, title }: { images: string[]; title: string }) {
-    const scrollRef = useRef<HTMLDivElement>(null);
-
-    const scroll = (dir: "left" | "right") => {
-        if (!scrollRef.current) return;
-        const amount = 280;
-        scrollRef.current.scrollBy({
-            left: dir === "left" ? -amount : amount,
-            behavior: "smooth",
-        });
-    };
-
-    return (
-        <div className="relative group">
-            {images.length > 2 && (
-                <>
-                    <button
-                        onClick={() => scroll("left")}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                        aria-label="Scroll left"
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-                    </button>
-                    <button
-                        onClick={() => scroll("right")}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                        aria-label="Scroll right"
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                    </button>
-                </>
-            )}
-            <div
-                ref={scrollRef}
-                className="flex gap-3 overflow-x-auto pb-2 scroll-smooth"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                onMouseDown={(e) => {
-                    const el = scrollRef.current;
-                    if (!el) return;
-                    const startX = e.pageX;
-                    const scrollLeft = el.scrollLeft;
-                    const onMove = (ev: MouseEvent) => {
-                        ev.preventDefault();
-                        el.scrollLeft = scrollLeft - (ev.pageX - startX);
-                    };
-                    document.addEventListener("mousemove", onMove);
-                    document.addEventListener("mouseup", () => {
-                        document.removeEventListener("mousemove", onMove);
-                    }, { once: true });
-                }}
-            >
-                {images.map((src, i) => (
-                    <div
-                        key={i}
-                        className="relative rounded-xl overflow-hidden shrink-0 w-[200px] sm:w-[250px] h-[200px] sm:h-[250px] hover:scale-[1.02] transition-transform duration-500"
-                    >
-                        <Image
-                            src={src}
-                            alt={`${title} image ${i + 1}`}
-                            fill
-                            className="object-cover"
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
 }
 
 function AchievementItem({
@@ -102,16 +37,14 @@ function AchievementItem({
 }) {
     return (
         <div
-            id={`project-card-${item.id}`}
             className={`
                 rounded-2xl overflow-hidden border
                 transition-all duration-500 ease-in-out
                 ${open
-                    ? "bg-secondary-500 border-gray-600 "
+                    ? "bg-secondary-500 border-gray-600"
                     : "bg-white border-gray-200 hover:border-gray-300"}
             `}
         >
-            {/* Header */}
             <button
                 onClick={onToggle}
                 className="
@@ -154,7 +87,6 @@ function AchievementItem({
                 </div>
             </button>
 
-            {/* Content */}
             <div
                 className={`
                     overflow-hidden transition-all duration-700 ease-in-out
@@ -170,26 +102,43 @@ function AchievementItem({
                             : "opacity-0 -translate-y-2"}
                     `}
                 >
-                    {/* Images */}
-                    <ScrollableImages images={item.images} title={item.title} />
+                    <div
+                        className="flex gap-3 overflow-x-auto pb-2"
+                        style={{ scrollbarWidth: "none" }}
+                    >
+                        {item.images.map((src, i) => (
+                            <div
+                                key={i}
+                                className="
+                                    relative rounded-xl overflow-hidden
+                                    shrink-0 w-[200px] sm:w-[250px] h-[200px] sm:h-[250px]
+                                    hover:scale-[1.02]
+                                    transition-transform duration-500
+                                "
+                            >
+                                <Image
+                                    src={src}
+                                    alt={`${item.title} image ${i + 1}`}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
 
-                    {/* Description */}
                     <p className="text-white/85 text-sm leading-6">
                         {item.description}
                     </p>
 
-                    {/* Goal */}
                     <div>
                         <h4 className="text-white font-bold text-xl mb-1">
                             Goal
                         </h4>
-
                         <p className="text-white/85 text-base leading-6">
                             {item.goal}
                         </p>
                     </div>
 
-                    {/* Stats */}
                     <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
                         {item.stats.map((stat, i) => (
                             <div
@@ -203,7 +152,6 @@ function AchievementItem({
                                 <p className="text-white font-extrabold text-2xl">
                                     {stat.value}
                                 </p>
-
                                 <p className="text-white/80 text-xs mt-1">
                                     {stat.label}
                                 </p>
@@ -211,8 +159,7 @@ function AchievementItem({
                         ))}
                     </div>
 
-                    {/* Before After */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
                         <div>
                             <div className="relative rounded-2xl overflow-hidden aspect-video w-full mb-2">
                                 <Image
@@ -237,23 +184,19 @@ function AchievementItem({
                         </div>
                     </div>
 
-                    {/* Future Plans */}
                     <div>
                         <h4 className="text-white font-bold text-base mb-2">
                             Future Plans
                         </h4>
-
                         <p className="text-white/85 text-sm leading-6">
                             {item.futurePlans}
                         </p>
                     </div>
 
-                    {/* Partners */}
                     <div>
                         <h4 className="text-white font-bold text-base mb-4">
                             Project Partners
                         </h4>
-
                         <div
                             className="flex gap-3 overflow-x-auto pb-2"
                             style={{ scrollbarWidth: "none" }}
@@ -276,7 +219,6 @@ function AchievementItem({
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -285,7 +227,7 @@ function AchievementItem({
 
 export default function AchievementsList({ projects, activeId, onToggle }: AchievementsListProps) {
     return (
-        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 space-y-4">
+        <section className="w-full mx-auto sm:px-4 py-10 space-y-4">
             {projects.map((item) => (
                 <AchievementItem
                     key={item.id}
