@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 
 interface ProjectItem {
     id: string;
@@ -19,6 +20,75 @@ interface AchievementsListProps {
     projects: ProjectItem[];
     activeId: string | null;
     onToggle: (id: string) => void;
+}
+
+function ScrollableImages({ images, title }: { images: string[]; title: string }) {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (dir: "left" | "right") => {
+        if (!scrollRef.current) return;
+        const amount = 280;
+        scrollRef.current.scrollBy({
+            left: dir === "left" ? -amount : amount,
+            behavior: "smooth",
+        });
+    };
+
+    return (
+        <div className="relative group">
+            {images.length > 2 && (
+                <>
+                    <button
+                        onClick={() => scroll("left")}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        aria-label="Scroll left"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                    </button>
+                    <button
+                        onClick={() => scroll("right")}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        aria-label="Scroll right"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                    </button>
+                </>
+            )}
+            <div
+                ref={scrollRef}
+                className="flex gap-3 overflow-x-auto pb-2 scroll-smooth"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                onMouseDown={(e) => {
+                    const el = scrollRef.current;
+                    if (!el) return;
+                    const startX = e.pageX;
+                    const scrollLeft = el.scrollLeft;
+                    const onMove = (ev: MouseEvent) => {
+                        ev.preventDefault();
+                        el.scrollLeft = scrollLeft - (ev.pageX - startX);
+                    };
+                    document.addEventListener("mousemove", onMove);
+                    document.addEventListener("mouseup", () => {
+                        document.removeEventListener("mousemove", onMove);
+                    }, { once: true });
+                }}
+            >
+                {images.map((src, i) => (
+                    <div
+                        key={i}
+                        className="relative rounded-xl overflow-hidden shrink-0 w-[200px] sm:w-[250px] h-[200px] sm:h-[250px] hover:scale-[1.02] transition-transform duration-500"
+                    >
+                        <Image
+                            src={src}
+                            alt={`${title} image ${i + 1}`}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 function AchievementItem({
@@ -101,29 +171,7 @@ function AchievementItem({
                     `}
                 >
                     {/* Images */}
-                    <div
-                        className="flex gap-3 overflow-x-auto pb-2"
-                        style={{ scrollbarWidth: "none" }}
-                    >
-                        {item.images.map((src, i) => (
-                            <div
-                                key={i}
-                                className="
-                                    relative rounded-xl overflow-hidden
-                                    shrink-0 w-[250px] h-[250px]
-                                    hover:scale-[1.02]
-                                    transition-transform duration-500
-                                "
-                            >
-                                <Image
-                                    src={src}
-                                    alt={`${item.title} image ${i + 1}`}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    <ScrollableImages images={item.images} title={item.title} />
 
                     {/* Description */}
                     <p className="text-white/85 text-sm leading-6">
@@ -164,9 +212,9 @@ function AchievementItem({
                     </div>
 
                     {/* Before After */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-10">
                         <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
+                            <div className="relative rounded-2xl overflow-hidden aspect-video w-full mb-2">
                                 <Image
                                     src={item.beforeImage}
                                     alt="Before"
@@ -174,14 +222,10 @@ function AchievementItem({
                                     className="object-cover"
                                 />
                             </div>
-
-                            <p className="text-white text-center font-bold">
-                                Before
-                            </p>
+                            <p className="text-white text-center font-bold">Before</p>
                         </div>
-
                         <div>
-                            <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
+                            <div className="relative rounded-2xl overflow-hidden aspect-video w-full mb-2">
                                 <Image
                                     src={item.afterImage}
                                     alt="After"
@@ -189,10 +233,7 @@ function AchievementItem({
                                     className="object-cover"
                                 />
                             </div>
-
-                            <p className="text-white text-center font-bold">
-                                After
-                            </p>
+                            <p className="text-white text-center font-bold">After</p>
                         </div>
                     </div>
 
