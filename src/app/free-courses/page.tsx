@@ -10,6 +10,16 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const courses = await getAllCourses();
 
+  const stories = courses
+    .flatMap((c) =>
+      (c.successStories || []).map((s: any) => ({
+        name: s.studentName,
+        description: s.testimonial,
+        course: c.title,
+      }))
+    )
+    .filter((s) => s.name && s.description);
+
   return (
   <main>
     <Hero text1="Free" text2="Courses" image1="/home/image1.avif" image2="/home/image1.avif"
@@ -18,7 +28,7 @@ export default async function Home() {
     />
     <AboutCourses />
     <CoursesOffered courses={courses} />
-    <SuccessStories />
+    <SuccessStories stories={stories} />
     <FaqSection />
 
   </main>

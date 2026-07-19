@@ -2,74 +2,37 @@
 
 import { useState } from "react";
 
-interface Story {
-  id: number;
+export interface StoryItem {
   name: string;
   description: string;
   course: string;
 }
 
-const STORIES: Story[] = [
-  {
-    id: 1,
-    name: "Ali Sohail",
-    course: "Web Development",
-    description:
-      "I want to sincerely thank combine foundation teachers of combine foundation, who worked with great efforts and dedication to teach the children. They guided them well through without any difficulties and challenges they faced in their studies and explained things so effectively that our children where they are able to do coding today.",
-  },
-  {
-    id: 2,
-    name: "Hussain Naqvi",
-    course: "Quantitative Finance Bootcamp",
-    description:
-      "My journey with the Quantitative Finance & Business Analytics Bootcamp 2025 by Combine Foundation has been very rewarding. In the very first session, I was able to build a Financial Calculator (NPV & IRR) in Python on Google Collab, which calculates values and provides investment recommendations. The hands-on approach makes learning both practical and impactful. I'm excited to continue exploring upcoming topics like Risk, Derivatives, and Portfolio Optimization.",
-  },
-  {
-    id: 3,
-    name: "Rahib Khan",
-    course: "Basic Computer Fundamental with AI",
-    description:
-      "Assalamu Alaikum Sir, you taught and guided us in an excellent way, patiently clearing all our doubts and helping us fully understand each concept. You explained everything from the basics to advanced topics and showed us how to explore further in the field. You provided us with a clear pathway for learning, which I will never forget in my life. Thank you so much for this opportunity and for helping me evolve my IT skills in the world of computers.",
-  },
-  {
-    id: 4,
-    name: "Ali Sohail",
-    course: "Web Development",
-    description:
-      "Assalam o alaikum, my name is Ali Sohail. Under combine foundation I am doing a web development course. When I started this course, I only knew a few basics of computer but today I am pro at coding and all of these made possible by my teachers' mentors and sir. As they support me in every step and make me capable of doing coding. All the queries that I had they always solved them. Today just because of them I can do coding.",
-  },
-  {
-    id: 5,
-    name: "Eshal Subhan",
-    course: "Web Development",
-    description:
-      "Assalam o alaikum. This is me, Eshal Subhan. Today I am going to tell you guys about the experience of the course that I have learned. So, the course's name is web development. In which I have learned how to use the website, how it works, and how to generate that. For this course I already knew about html and CSS. I just got to know JavaScript. It was very interesting journey it was very fun to learn now after learning a course I can confidently make the web pages websites many more even though I am very proud of myself that I have learned these things and thankyou to the teachers and combine foundations for this amazing course jazak Allah.",
-  },
-];
-
-export default function SuccessStories() {
+export default function SuccessStories({ stories }: { stories: StoryItem[] }) {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [direction, setDirection] = useState<"left" | "right" | null>(null);
   const [animating, setAnimating] = useState(false);
 
   const navigate = (dir: "left" | "right") => {
-    if (animating) return;
+    if (animating || stories.length === 0) return;
     setDirection(dir);
     setAnimating(true);
     setPlaying(false);
     setTimeout(() => {
       setCurrent((prev) =>
         dir === "right"
-          ? (prev + 1) % STORIES.length
-          : (prev - 1 + STORIES.length) % STORIES.length
+          ? (prev + 1) % stories.length
+          : (prev - 1 + stories.length) % stories.length
       );
       setAnimating(false);
       setDirection(null);
     }, 320);
   };
 
-  const story = STORIES[current];
+  const story = stories[current];
+
+  if (stories.length === 0) return null;
 
   return (
     <>
@@ -225,7 +188,7 @@ export default function SuccessStories() {
               </p>
 
               <div className="flex items-center gap-1.5 mt-3">
-                {STORIES.map((_, i) => (
+                {stories.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => {

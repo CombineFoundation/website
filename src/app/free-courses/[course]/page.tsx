@@ -25,12 +25,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
     return notFound();
   }
 
+  const stories = (course.successStories || []).map((s: any) => ({
+    name: s.studentName,
+    description: s.testimonial,
+    course: course.title,
+  })).filter((s) => s.name && s.description);
+
   return (
     <>
       <CourseHero course={course} />
       <hr className="w-[95vw] text-gray-500 m-auto" />
       <Modules modules={course.modules} guidelineCta={course.guidelineCta} />
-      <SuccessStories />
+      <SuccessStories stories={stories} />
       <MeetInstructors />
       <CtaSection
         text="Ready to Level Up Your Skills ? "

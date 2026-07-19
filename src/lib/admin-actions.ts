@@ -20,6 +20,8 @@ export interface FirestoreEvent {
   dateTime: string;
   location: string;
   registrationLink: string;
+  bulletPoints?: string[];
+  endTime?: string;
   createdAt?: any;
 }
 
@@ -51,6 +53,7 @@ export interface FirestoreBlog {
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  content?: string[];
   createdAt?: any;
 }
 

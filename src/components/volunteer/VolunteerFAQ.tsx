@@ -37,7 +37,7 @@ const faqs: FaqItem[] = [
     id: 5,
     question: "What kind of volunteer opportunities are available?",
     answer:
-      "Volunteers can work in different areas including: Content Writing, Graphic Designing, Web Development, Media & Marketing, Leadership Programs, and Video Editing.",
+      "Volunteers can work in different areas including:\n• Content Writing\n• Graphic Designing\n• Web development\n• Media & Marketing\n• Leadership Programs\n• Video Editing",
   },
   {
     id: 6,
@@ -55,7 +55,7 @@ const faqs: FaqItem[] = [
     id: 8,
     question: "How will this program help my career?",
     answer:
-      "The volunteer program helps you: Gain practical experience, improve communication and teamwork skills, build leadership abilities, strengthen your CV or resume, expand your professional network, and explore career interests and opportunities.",
+      "The volunteer program helps you:\n• Gain practical experience\n• Improve communication and teamwork skills\n• Build leadership abilities\n• Strengthen your CV or resume\n• Expand your professional network\n• Explore career interests and opportunities",
   },
   {
     id: 9,
@@ -118,7 +118,7 @@ export default function VolunteerFAQ() {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed whitespace-pre-line">
                   {item.answer}
                 </p>
               </div>

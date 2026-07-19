@@ -136,7 +136,7 @@ export default function EventsView() {
     }
   };
 
-  const handleSaveEdit = async (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
+  const handleSaveEdit = async (data: { name: string; description: string; location: string; date: string; registrationLink: string; bulletPoints?: string; endTime?: string }) => {
     if (!editEvent?.id) return;
     await updateEvent(editEvent.id, {
       name: data.name,
@@ -144,19 +144,23 @@ export default function EventsView() {
       location: data.location,
       dateTime: toDisplayDate(data.date),
       registrationLink: data.registrationLink,
+      bulletPoints: data.bulletPoints ? data.bulletPoints.split("\n").map(p => p.trim()).filter(Boolean) : [],
+      endTime: data.endTime || "",
     });
     setEditEvent(null);
     setSelectedIds(new Set());
     await loadEvents();
   };
 
-  const handleAdd = async (data: { name: string; description: string; location: string; date: string; registrationLink: string }) => {
+  const handleAdd = async (data: { name: string; description: string; location: string; date: string; registrationLink: string; bulletPoints?: string; endTime?: string }) => {
     await addEvent({
       name: data.name,
       description: data.description,
       dateTime: toDisplayDate(data.date),
       location: data.location,
       registrationLink: data.registrationLink,
+      bulletPoints: data.bulletPoints ? data.bulletPoints.split("\n").map(p => p.trim()).filter(Boolean) : [],
+      endTime: data.endTime || "",
     });
     setShowAddModal(false);
     await loadEvents();

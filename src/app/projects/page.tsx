@@ -19,6 +19,19 @@ export default function Projects() {
       try {
         const data = await getAllProjects();
         setProjects(data);
+
+        const params = new URLSearchParams(window.location.search);
+        const urlId = params.get("id");
+        if (urlId) {
+          const exists = data.some((p) => String(p.id) === urlId);
+          if (exists) {
+            setActiveId(urlId);
+            setTimeout(() => {
+              const el = document.getElementById(`project-card-${urlId}`);
+              el?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 300);
+          }
+        }
       } catch (err) {
         console.error("Error loading projects:", err);
       } finally {

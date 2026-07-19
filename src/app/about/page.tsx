@@ -15,7 +15,7 @@ const AboutPage = () => {
                 image1="/about/hero/1.svg"
                 image2="/about/hero/2.svg"
                 text1Size="big"
-                text2Size="small"
+                text2Size="big"
                 mobileTitle="About"
             />
             <OurStory />
