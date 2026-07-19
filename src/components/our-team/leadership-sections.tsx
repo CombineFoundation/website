@@ -103,7 +103,7 @@ function MembersSection({ section }: { section: GroupSection }) {
 }
 
 export default function LeadershipSections({ members }: { members?: FirestoreTeamMember[] }) {
-  const hasDbMembers = members && members.length > 0 && members.some(m => ["Department Head", "Youth Forum", "Ambassador", "Youth Leader"].includes(m.section));
+  const hasDbMembers = members && members.length > 0 && members.some(m => ["Department Head", "Youth Forum", "Ambassador"].includes(m.section));
 
   const displaySections = hasDbMembers
     ? [
@@ -117,12 +117,6 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
           heading: "Ambassadors",
           members: members
             .filter((m) => m.section === "Ambassador")
-            .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
-        },
-        {
-          heading: "Youth Leaders",
-          members: members
-            .filter((m) => m.section === "Youth Leader")
             .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
         },
       ].filter((s) => s.members.length > 0)
