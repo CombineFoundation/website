@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 const SECTION_OPTIONS = [
   "Youth Leader",
   "Ambassador",
-  "Department Head",
+  "Youth Forum",
   "Board of Trustees",
 ];
 
