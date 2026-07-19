@@ -11,6 +11,7 @@ const SECTION_OPTIONS = [
   "Ambassador",
   "Youth Forum",
   "Board of Trustees",
+  "Board of Members",
 ];
 
 interface TeamMemberFormData {
