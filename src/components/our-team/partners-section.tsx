@@ -153,10 +153,10 @@ export default function PartnersSection({ partners: initialPartners }: { partner
           <p className="text-sm md:text-base text-white/90 leading-relaxed line-clamp-6">
             {partner.description}
           </p>
-          {(partner as any).mou && (
+          {(partner as any).pdf || (partner as any).mou ? (
             <div className="mt-6">
               <a
-                href={(partner as any).mou}
+                href={(partner as any).pdf || (partner as any).mou}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-fit px-6 py-3 mt-6 rounded-full border-2 border-white text-white hover:bg-white hover:text-primary-800 font-semibold text-sm transition-all duration-200"
@@ -170,7 +170,7 @@ export default function PartnersSection({ partners: initialPartners }: { partner
                 View MOU
               </a>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
 
