@@ -10,6 +10,7 @@ interface MOU {
     paragraphs: string[];
     image: string;
     imageAlt: string;
+    pdf: string;
 }
 interface MOUSliderProps {
     mous: FirestoreMOU[];
@@ -23,6 +24,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
             paragraphs: m.paragraphs || [],
             image: m.image,
             imageAlt: m.imageAlt || m.title,
+            pdf: (m as any).pdf || "",
         }))
         : [
             {
@@ -34,6 +36,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                 ],
                 image: "/publications/pub1.png",
                 imageAlt: "MOU signing between Hammad Foundation and Combine Foundation",
+                pdf: "/mou/hammad foundation.pdf",
             },
             {
                 id: "2",
@@ -44,6 +47,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                 ],
                 image: "/publications/pub1.png",
                 imageAlt: "MOU signing between NGAS and Combine Foundation",
+                pdf: "/mou/NEDGAS.pdf",
             },
             {
                 id: "3",
@@ -54,6 +58,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                 ],
                 image: "/publications/pub1.png",
                 imageAlt: "MOU signing between Quants Society and Combine Foundation",
+                pdf: "/mou/QUANTS SOCIETY.pdf",
             },
             {
                 id: "4",
@@ -64,6 +69,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                 ],
                 image: "/publications/pub1.png",
                 imageAlt: "MOU signing between SMIU and Combine Foundation",
+                pdf: "/mou/youth development training.pdf",
             },
             {
                 id: "5",
@@ -74,6 +80,7 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                 ],
                 image: "/publications/pub1.png",
                 imageAlt: "MOU signing between Islamian Computing Society and Combine Foundation",
+                pdf: "/mou/Combine Foundation -Islamian Computing Society-IIUI-MoU.pdf",
             },
         ];
 
@@ -123,6 +130,22 @@ const MOUSlider = ({ mous: dbMous }: MOUSliderProps) => {
                             fill
                             className="object-cover"
                         />
+                        {mou.pdf && (
+                            <a
+                                href={mou.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="absolute bottom-4 right-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/90 hover:bg-white text-gray-900 font-semibold text-sm shadow-lg transition-all duration-200"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                </svg>
+                                View MOU
+                            </a>
+                        )}
                     </div>
                 </div>
 

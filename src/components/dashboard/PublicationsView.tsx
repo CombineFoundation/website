@@ -395,6 +395,7 @@ export default function PublicationsView() {
                 <th className="py-3 text-left font-medium text-gray-500">Title</th>
                 <th className="py-3 text-left font-medium text-gray-500">Paragraphs</th>
                 <th className="py-3 text-left font-medium text-gray-500">Image Alt</th>
+                <th className="py-3 text-left font-medium text-gray-500">PDF</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -413,6 +414,13 @@ export default function PublicationsView() {
                     <td className="py-3.5 text-gray-800 font-medium pr-4">{mou.title}</td>
                     <td className="py-3.5 text-gray-600">{mou.paragraphs?.length ?? 0} paragraphs</td>
                     <td className="py-3.5 text-gray-600 max-w-[200px] truncate">{mou.imageAlt || "—"}</td>
+                    <td className="py-3.5">
+                      {mou.pdf ? (
+                        <a href={mou.pdf} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xs">View</a>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
                   </tr>
                 );
               })}

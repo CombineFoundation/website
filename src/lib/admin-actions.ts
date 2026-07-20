@@ -293,6 +293,7 @@ export interface FirestoreMOU {
   paragraphs: string[];
   image: string;
   imageAlt: string;
+  pdf?: string;
   createdAt?: any;
 }
 
