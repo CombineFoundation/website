@@ -35,3 +35,14 @@ export async function uploadImage(file: File, folder: string = "images"): Promis
     }
   }
 }
+
+export async function uploadPDF(file: File, folder: string = "mou"): Promise<string> {
+  if (!storage) throw new Error("Firebase Storage is not initialized.");
+
+  const fileExtension = file.name.split(".").pop() || "pdf";
+  const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
+  const storageRef = ref(storage, `${folder}/${uniqueFilename}`);
+
+  const snapshot = await uploadBytes(storageRef, file);
+  return getDownloadURL(snapshot.ref);
+}
