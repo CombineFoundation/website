@@ -18,6 +18,8 @@ export default function SplashBanner() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    if (localStorage.getItem("splash_seen")) return;
+
     const fetchLatest = async () => {
       try {
         const snap = await getDocs(
@@ -44,12 +46,18 @@ export default function SplashBanner() {
     fetchLatest();
   }, []);
 
+  const close = () => {
+    localStorage.setItem("splash_seen", "true");
+    setVisible(false);
+    setDismissed(true);
+  };
+
   if (!visible || !splash || dismissed) return null;
 
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm"
-      onClick={() => setVisible(false)}
+          onClick={close}
     >
       <div
         className="relative w-[85vw] max-w-sm sm:max-w-md lg:w-1/2 lg:max-w-none rounded-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300"
@@ -78,7 +86,7 @@ export default function SplashBanner() {
         )}
 
         <button
-          onClick={() => setVisible(false)}
+      onClick={close}
           aria-label="Close"
           className="
             absolute top-3 right-3 z-10
