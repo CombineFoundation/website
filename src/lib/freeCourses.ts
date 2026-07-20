@@ -62,6 +62,7 @@ export async function getAllCourses(): Promise<Course[]> {
         imageBack: d.heroImage2 || d.imageBack || "",
         status: d.status || "",
         modules: d.modules || [],
+        successStories: d.successStories || [],
         instructor: d.instructor || "",
         enrollmentLink: d.enrollmentLink || "",
       } as Course;
