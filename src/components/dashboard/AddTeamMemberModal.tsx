@@ -7,7 +7,7 @@ import { uploadImage } from "@/lib/firebase-upload";
 import { Loader2 } from "lucide-react";
 
 const SECTION_OPTIONS = [
-  "Ambassador",
+  "International Forum",
   "Youth Forum",
   "Board of Trustees",
   "Board of Members",
