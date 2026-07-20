@@ -88,6 +88,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -95,9 +96,13 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
     router.push(`/free-courses/${slug}`);
   };
 
-  const filtered = courses.filter((c) =>
-    (c.title || c.name || "").toLowerCase().includes(search.toLowerCase())
-  );
+  const categories = [...new Set(courses.map((c) => c.category).filter(Boolean))] as string[];
+
+  const filtered = courses.filter((c) => {
+    const matchSearch = (c.title || c.name || "").toLowerCase().includes(search.toLowerCase());
+    const matchCategory = !category || c.category === category;
+    return matchSearch && matchCategory;
+  });
 
   return (
     <>
@@ -155,6 +160,34 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
             </svg>
           </button>
         </div>
+
+        {categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-5">
+            <button
+              onClick={() => setCategory("")}
+              className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors cursor-pointer ${
+                !category
+                  ? "bg-secondary-500 text-white border-secondary-500"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+              }`}
+            >
+              All
+            </button>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors cursor-pointer ${
+                  category === cat
+                    ? "bg-secondary-500 text-white border-secondary-500"
+                    : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div
           ref={scrollRef}

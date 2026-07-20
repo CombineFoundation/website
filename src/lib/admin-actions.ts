@@ -31,6 +31,7 @@ export interface FirestoreCourse {
   instructor: string;
   price: string;
   status: "Ongoing" | "Completed" | "Launch";
+  category: string;
   description: string;
   heroImage1: string;
   heroImage2: string;

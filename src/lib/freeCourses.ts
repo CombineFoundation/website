@@ -18,6 +18,7 @@ export interface Course {
   name?: string;
   title: string;
   slug: string;
+  category?: string;
   bullets: string[];
   description: string;
   duration: string;
@@ -49,6 +50,7 @@ export async function getAllCourses(): Promise<Course[]> {
         id: doc.id,
         title: d.name || d.title || "",
         slug: d.slug || doc.id,
+        category: d.category || "",
         bullets: d.modules?.[0]?.bullets || [], // fallback to first module's bullets if not present at root
         description: d.description || "",
         duration: d.duration || "",
