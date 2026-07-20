@@ -20,6 +20,7 @@ export interface FirestoreEvent {
   dateTime: string;
   location: string;
   registrationLink: string;
+  post?: string;
   bulletPoints?: string[];
   endTime?: string;
   createdAt?: any;

@@ -9,6 +9,7 @@ interface EventFormData {
   location: string;
   date: string;
   registrationLink: string;
+  post: string;
   bulletPoints: string;
   endTime: string;
 }
@@ -28,6 +29,7 @@ export default function AddEventModal({ onCancel, onSave }: AddEventModalProps) 
     location: "",
     date: "",
     registrationLink: "",
+    post: "",
     bulletPoints: "",
     endTime: "",
   });
@@ -144,6 +146,18 @@ export default function AddEventModal({ onCancel, onSave }: AddEventModalProps) 
             value={form.registrationLink}
             onChange={handleChange}
             placeholder="https://example.com/register"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Post URL (optional — for completed events)</label>
+          <input
+            type="url"
+            name="post"
+            value={form.post}
+            onChange={handleChange}
+            placeholder="https://example.com/event-recap"
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
