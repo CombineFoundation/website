@@ -63,8 +63,28 @@ service cloud.firestore {
     match /splashBanners/{bannerId} {
       allow read: if true;
       allow write: if request.auth != null;
+    }
+
     // MOUs: public read, admin write
     match /mous/{mouId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Team Members: public read, admin write
+    match /teamMembers/{memberId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Notifications: public read, admin write
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Partners: public read, admin write
+    match /partners/{partnerId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
