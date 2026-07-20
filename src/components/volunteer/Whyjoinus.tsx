@@ -5,31 +5,31 @@ import { useState, useRef } from "react";
 
 const PANELS = [
   {
-    src: "/volunteer/vol2.png",
+    src: "/volunteer/volunteer program imgs/why join us.svg",
     label: "Skill Development",
     heading: "Build Valuable Skills & Practical Experience",
     desc: "Learn new skills, gain practical experience, and build a stronger CV or resume for your future career. Our volunteer program provides a safe, peaceful, and supportive environment where you can grow personally and professionally.",
   },
   {
-    src: "/volunteer/vol2.png",
+    src: "/volunteer/volunteer program imgs/why join us (2).svg",
     label: "Exposure & Networking",
     heading: "Expand Your Network & Explore New Fields",
     desc: "Get exposure to different fields, projects, and real-world experiences while connecting with industry professionals. This helps you discover your interests and build meaningful professional relationships.",
   },
   {
-    src: "/volunteer/vol2.png",
+    src: "/volunteer/volunteer program imgs/why join us (3).svg",
     label: "Diverse Opportunities",
     heading: "Find Your Passion Across Multiple Areas",
     desc: "Whether your interest is in leadership, events, social work, media, management, or creative programs, we support your goals and help you grow in the direction you choose.",
   },
   {
-    src: "/volunteer/vol2.png",
+    src: "/volunteer/volunteer program imgs/why join us (4).svg",
     label: "Mentorship & Guidance",
     heading: "Receive Mentorship & Turn Ideas into Impact",
     desc: "We value new ideas and provide mentorship, guidance, and opportunities to help you turn your ideas into impactful projects and career-building experiences.",
   },
   {
-    src: "/volunteer/vol2.png",
+    src: "/volunteer/volunteer program imgs/why join us.svg",
     label: "Career Building",
     heading: "Build Your Career with Confidence",
     desc: "Here, you can learn, grow, contribute to society, and start building your career with confidence. By becoming a volunteer, you invest in your own personal and professional growth while helping the community.",

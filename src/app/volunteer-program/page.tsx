@@ -10,8 +10,8 @@ export default function VolunteerPage() {
     return (
         <div>
             <Hero text1="VOLUNTEER" text2="PROGRAM"
-                image1="/volunteer/vol1.png"
-                image2="/volunteer/vol2.png"
+                image1="/volunteer/volunteer program imgs/hero g.svg"
+                image2="/volunteer/volunteer program imgs/hero g (2).svg"
                 text1Size="small"
                 text2Size="small"
                 mobileTitle="Volunteer"
