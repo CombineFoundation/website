@@ -12,22 +12,22 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: 1,
-    image: "/image1.avif",
+    image: "/home/heroslider/1.svg",
     alt: "Building communities together",
   },
   {
     id: 2,
-    image: "/image1.avif",
+    image: "/home/heroslider/2.svg",
     alt: "Empowering education across borders",
   },
   {
     id: 3,
-    image: "/image1.avif",
+    image: "/home/heroslider/3.svg",
     alt: "Creating lasting change",
   },
   {
     id: 4,
-    image: "/image1.avif",
+    image: "/home/heroslider/4.svg",
     alt: "Volunteers making a difference",
   },
 ];
