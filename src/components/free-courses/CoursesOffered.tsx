@@ -109,11 +109,15 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
     return () => document.removeEventListener("mousedown", handler);
   }, [showFilter]);
 
-  const filtered = courses.filter((c) => {
-    const matchSearch = (c.title || c.name || "").toLowerCase().includes(search.toLowerCase());
-    const matchCategory = !category || c.category === category;
-    return matchSearch && matchCategory;
-  });
+  const statusOrder: Record<string, number> = { Launch: 0, Ongoing: 1, Completed: 2 };
+
+  const filtered = courses
+    .filter((c) => {
+      const matchSearch = (c.title || c.name || "").toLowerCase().includes(search.toLowerCase());
+      const matchCategory = !category || c.category === category;
+      return matchSearch && matchCategory;
+    })
+    .sort((a, b) => (statusOrder[a.status || ""] ?? 2) - (statusOrder[b.status || ""] ?? 2));
 
   return (
     <>
