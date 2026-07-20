@@ -103,14 +103,14 @@ function MembersSection({ section }: { section: GroupSection }) {
 }
 
 export default function LeadershipSections({ members }: { members?: FirestoreTeamMember[] }) {
-  const hasDbMembers = members && members.length > 0 && members.some(m => ["Department Head", "Youth Forum", "Ambassador"].includes(m.section));
+  const hasDbMembers = members && members.length > 0 && members.some(m => ["Department Head", "Youth Forum", "Youth Leader", "Ambassador"].includes(m.section));
 
   const displaySections = hasDbMembers
     ? [
         {
           heading: "Youth Forum",
           members: members
-            .filter((m) => m.section === "Department Head" || m.section === "Youth Forum")
+            .filter((m) => m.section === "Department Head" || m.section === "Youth Forum" || m.section === "Youth Leader")
             .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
         },
         {
