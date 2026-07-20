@@ -5,13 +5,14 @@ import BoardOfTrustees from "@/components/our-team/board-of-trustees"
 import BoardOfMembers from "@/components/our-team/board-of-members"
 import LeadershipSections from "@/components/our-team/leadership-sections"
 import PartnersSection from "@/components/our-team/partners-section"
-import { fetchTeamMembers, fetchPartners, type FirestoreTeamMember, type FirestorePartner } from "@/lib/admin-actions"
+import { fetchTeamMembers, fetchPartners, fetchMOUs, type FirestoreTeamMember, type FirestorePartner, type FirestoreMOU } from "@/lib/admin-actions"
 
 export const dynamic = "force-dynamic";
 
 const Page = async () => {
   let teamMembers: FirestoreTeamMember[] = [];
   let partners: FirestorePartner[] = [];
+  let mous: FirestoreMOU[] = [];
   try {
     teamMembers = await fetchTeamMembers();
   } catch (e) {
@@ -22,6 +23,21 @@ const Page = async () => {
   } catch (e) {
     console.error("Failed to fetch partners:", e);
   }
+  try {
+    mous = await fetchMOUs();
+  } catch (e) {
+    console.error("Failed to fetch MOUs:", e);
+  }
+
+  const mouPartners = mous.map((m) => ({
+    id: m.id || "",
+    name: m.title,
+    description: m.paragraphs.join(" "),
+    image: m.image,
+    pdf: m.pdf || "",
+  }));
+
+  const displayPartners = mouPartners.length > 0 ? mouPartners : partners;
 
   return (
     <>
@@ -31,7 +47,7 @@ const Page = async () => {
       <BoardOfTrustees members={teamMembers} />
       <BoardOfMembers members={teamMembers} />
       <LeadershipSections members={teamMembers} />
-      <PartnersSection partners={partners} />
+      <PartnersSection partners={displayPartners as FirestorePartner[]} />
     </>
   )
 }
