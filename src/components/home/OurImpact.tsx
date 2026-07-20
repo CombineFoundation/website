@@ -25,7 +25,7 @@ const impactItems: ImpactItem[] = [
     id: 2,
     stat: "204+",
     title: "Students Empowered",
-    image: "/home/impact cards/5.svg",
+    image: "/home/impact cards/student-impowerment.jpeg",
     description:
       "More than 204 students have been trained through technology, digital skills, and professional development programs. These courses help students to gain confidence, build careers, start earning from home and create better futures through education, freelancing, and modern digital skills.",
   },
