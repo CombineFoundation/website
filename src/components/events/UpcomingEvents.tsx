@@ -118,13 +118,15 @@ function EventCard({ event }: { event: Event }) {
                     </ul>
                     <div className="flex flex-wrap gap-3">
                         {showPost ? (
-                            <Link
+                            <a
                                 href={event.post!}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
                                 style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                             >
                                 View Post
-                            </Link>
+                            </a>
                         ) : (
                             <>
                                 <Link
@@ -208,13 +210,15 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
 
                 <div className="flex flex-wrap gap-3">
                     {showPost ? (
-                        <Link
+                        <a
                             href={event.post!}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="px-5 py-2 rounded-full text-white text-sm font-semibold"
                             style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
                         >
                             View Post
-                        </Link>
+                        </a>
                     ) : (
                         <>
                             <Link
