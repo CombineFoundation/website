@@ -17,8 +17,16 @@ export default function SplashBanner() {
   const [splash, setSplash] = useState<SplashData | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
+  const seen = (): boolean => {
+    try { return !!localStorage.getItem("splash_seen"); } catch { return false; }
+  };
+
+  const markSeen = () => {
+    try { localStorage.setItem("splash_seen", "true"); } catch {}
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("splash_seen")) return;
+    if (seen()) return;
 
     const fetchLatest = async () => {
       try {
@@ -47,7 +55,7 @@ export default function SplashBanner() {
   }, []);
 
   const close = () => {
-    localStorage.setItem("splash_seen", "true");
+    markSeen();
     setVisible(false);
     setDismissed(true);
   };
