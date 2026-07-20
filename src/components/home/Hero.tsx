@@ -81,7 +81,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative w-full h-[520px] overflow-hidden bg-gray-300">
+    <section className="relative w-full aspect-[1280/480] overflow-hidden bg-gray-300">
       <div
         className="absolute inset-0"
         style={{
