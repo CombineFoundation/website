@@ -48,23 +48,22 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
         </h3>
 
         <ul className="flex-1 space-y-1.5">
-          {course.modules
-            .flatMap((mod) => mod.bullets)
-            .slice(0, 5)
-            .map((bullet, i) => (
+          {(() => {
+            const allB = course.modules.flatMap((mod) => mod.bullets);
+            const items = allB.length > 0 ? allB.slice(0, 5) : course.modules.slice(0, 5).map((m) => m.title);
+            return items.map((item, i) => (
               <li
                 key={i}
-                className={`flex items-start gap-1.5 text-[11px] sm:text-xs lg:text-sm leading-snug transition-colors duration-300 ${hovered ? "text-white" : "text-black"
-                  }`}
+                className={`flex items-start gap-1.5 text-[11px] sm:text-xs lg:text-sm leading-snug transition-colors duration-300 ${hovered ? "text-white" : "text-black"}`}
               >
                 <span
-                  className={`mt-[5px] shrink-0 rounded-full transition-colors duration-300 ${hovered                   ? "bg-white" : "bg-primary-700"
-                    }`}
+                  className={`mt-[5px] shrink-0 rounded-full transition-colors duration-300 ${hovered ? "bg-white" : "bg-primary-700"}`}
                   style={{ width: 4, height: 4 }}
                 />
-                {bullet}
+                {item}
               </li>
-            ))}
+            ));
+          })()}
         </ul>
 
         <button
