@@ -44,9 +44,10 @@ export async function getAllProjects(): Promise<Project[]> {
       }
       return snap.docs.map((doc) => {
         const data = doc.data();
+        const { createdAt, ...rest } = data;
         return {
           id: doc.id,
-          ...data,
+          ...rest,
         } as Project;
       });
     } catch (error) {

@@ -46,3 +46,22 @@ export async function uploadImage(file: File, folder: string = "images"): Promis
     }
   }
 }
+
+/**
+ * Uploads a generic file (e.g. PDF) to Firebase Storage under the specified folder.
+ *
+ * @param file The file to upload
+ * @param folder The target folder in storage (e.g. "mous", "documents")
+ */
+export async function uploadFile(file: File, folder: string = "files"): Promise<string> {
+  if (!storage) {
+    throw new Error("Firebase Storage is not initialized.");
+  }
+  const fileExtension = file.name.split(".").pop() || "bin";
+  const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
+  const storageRef = ref(storage, `${folder}/${uniqueFilename}`);
+
+  const snapshot = await uploadBytes(storageRef, file);
+  const downloadUrl = await getDownloadURL(snapshot.ref);
+  return downloadUrl;
+}
