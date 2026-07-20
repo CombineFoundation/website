@@ -27,7 +27,7 @@ const slides: Slide[] = [
   },
   {
     id: 4,
-    image: "/home/heroslider/4.svg",
+    image: "/home/heroslider/5.svg",
     alt: "Volunteers making a difference",
   },
 ];
