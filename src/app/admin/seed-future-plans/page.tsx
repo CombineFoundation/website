@@ -86,8 +86,16 @@ export default function SeedFuturePlansPage() {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const matchTitle = (title: string): string | undefined => {
-    return FUTURE_PLANS[title] ?? FUTURE_PLANS[title.replace(/["\u201C\u201D]/g, "")];
+  const plansKey = (raw: string): string | undefined => {
+    if (FUTURE_PLANS[raw]) return raw;
+    const stripped = raw.replace(/["\u201C\u201D]/g, "").trim();
+    if (FUTURE_PLANS[stripped]) return stripped;
+    for (const key of Object.keys(FUTURE_PLANS)) {
+      if (key.toLowerCase() === raw.toLowerCase()) return key;
+      if (key.toLowerCase() === stripped.toLowerCase()) return key;
+      if (key.toLowerCase().includes(raw.toLowerCase()) || raw.toLowerCase().includes(key.toLowerCase())) return key;
+    }
+    return undefined;
   };
 
   const handleSeed = async () => {
@@ -98,12 +106,13 @@ export default function SeedFuturePlansPage() {
       const lines: string[] = [];
 
       for (const p of projects) {
-        const plans = matchTitle(p.title);
-        if (plans) {
-          await updateProject(p.id!, { futurePlans: plans });
-          lines.push(`${p.title} → ✅ futurePlans updated`);
+        const label = p.title || (p as any).name || "(untitled)";
+        const matched = plansKey(label);
+        if (matched) {
+          await updateProject(p.id!, { futurePlans: FUTURE_PLANS[matched] });
+          lines.push(`${label} → ✅ futurePlans updated`);
         } else {
-          lines.push(`${p.title} → ➖ skipped (no mapping)`);
+          lines.push(`${label} → ➖ skipped (no mapping)`);
         }
       }
 
