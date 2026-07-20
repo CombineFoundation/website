@@ -394,6 +394,7 @@ export default function TeamView() {
                 <th className="py-3 text-left font-medium text-gray-500">Name</th>
                 <th className="py-3 text-left font-medium text-gray-500">Description</th>
                 <th className="py-3 text-left font-medium text-gray-500 w-16">Image</th>
+                <th className="py-3 text-left font-medium text-gray-500 w-16">MOU</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -414,6 +415,13 @@ export default function TeamView() {
                     <td className="py-3.5">
                       {partner.image ? (
                         <img src={partner.image} alt="" className="w-10 h-10 rounded object-cover" />
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="py-3.5">
+                      {partner.mou ? (
+                        <a href={partner.mou} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xs">View PDF</a>
                       ) : (
                         <span className="text-gray-400">—</span>
                       )}
