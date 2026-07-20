@@ -89,7 +89,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative w-full aspect-[1280/980] overflow-hidden bg-gray-300">
+    <section className={`relative w-full overflow-hidden bg-gray-300 ${isMobile ? "aspect-[1280/980]" : "aspect-[1280/480]"}`}>
       <div
         className="absolute inset-0"
         style={{
