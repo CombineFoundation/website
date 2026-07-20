@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Course, slugify } from "@/lib/freeCourses";
 
@@ -89,6 +89,7 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
 export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -97,6 +98,16 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
   };
 
   const categories = [...new Set(courses.map((c) => c.category).filter(Boolean))] as string[];
+
+  useEffect(() => {
+    if (!showFilter) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".filter-dropdown")) setShowFilter(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [showFilter]);
 
   const filtered = courses.filter((c) => {
     const matchSearch = (c.title || c.name || "").toLowerCase().includes(search.toLowerCase());
@@ -144,50 +155,50 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
             />
           </div>
 
-          <button className="p-2 rounded-lg border border-gray-200 bg-background shadow-sm hover:bg-gray-50 transition-colors">
-            <svg
-              className="w-4 h-4 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M4 6h16M7 12h10M10 18h4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="relative filter-dropdown">
             <button
-              onClick={() => setCategory("")}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors cursor-pointer ${
-                !category
+              onClick={() => setShowFilter(!showFilter)}
+              className={`p-2 rounded-lg border transition-colors cursor-pointer ${
+                category
                   ? "bg-secondary-500 text-white border-secondary-500"
-                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                  : "bg-background border-gray-200 hover:bg-gray-50 text-gray-500"
               }`}
             >
-              All
-            </button>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors cursor-pointer ${
-                  category === cat
-                    ? "bg-secondary-500 text-white border-secondary-500"
-                    : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
-                }`}
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
               >
-                {cat}
-              </button>
-            ))}
+                <path
+                  d="M4 6h16M7 12h10M10 18h4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            {showFilter && categories.length > 0 && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
+                <button
+                  onClick={() => { setCategory(""); setShowFilter(false); }}
+                  className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer ${!category ? "font-semibold text-secondary-500" : "text-gray-700"}`}
+                >
+                  All
+                </button>
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => { setCategory(cat); setShowFilter(false); }}
+                    className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer ${category === cat ? "font-semibold text-secondary-500" : "text-gray-700"}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         <div
           ref={scrollRef}
