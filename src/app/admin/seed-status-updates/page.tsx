@@ -169,6 +169,41 @@ export default function SeedStatusUpdatesPage() {
         lines.push(`Python & AI Chatbot Course — Batch 2 → ✅ created (${id}) with status Launch`);
       }
 
+      // 4. Quantitative Finance: rename current to Batch 3, create Batch 2 & Batch 1 (all Completed)
+      const qfCourse = courses.find(
+        (c) => c.name === "Quantitative Finance Course"
+      );
+      if (qfCourse) {
+        // Rename current → Batch 3, set Completed
+        await updateCourse(qfCourse.id!, { name: "Quantitative Finance Course — Batch 3", status: "Completed" });
+        lines.push("Quantitative Finance Course → ✅ renamed to Batch 3 & set Completed");
+
+        // Build base data for new batches from existing course (exclude id/createdAt)
+        const { id: _id, createdAt: _ca, name: _name, ...baseData } = qfCourse;
+
+        // Batch 2
+        const b2 = courses.find((c) => c.name === "Quantitative Finance Course — Batch 2");
+        if (b2) {
+          await updateCourse(b2.id!, { status: "Completed" });
+          lines.push("Quantitative Finance Course — Batch 2 → ✅ already exists, status set to Completed");
+        } else {
+          const id2 = await addCourse({ ...baseData, name: "Quantitative Finance Course — Batch 2", status: "Completed" } as any);
+          lines.push(`Quantitative Finance Course — Batch 2 → ✅ created (${id2}) with status Completed`);
+        }
+
+        // Batch 1
+        const b1 = courses.find((c) => c.name === "Quantitative Finance Course — Batch 1");
+        if (b1) {
+          await updateCourse(b1.id!, { status: "Completed" });
+          lines.push("Quantitative Finance Course — Batch 1 → ✅ already exists, status set to Completed");
+        } else {
+          const id1 = await addCourse({ ...baseData, name: "Quantitative Finance Course — Batch 1", status: "Completed" } as any);
+          lines.push(`Quantitative Finance Course — Batch 1 → ✅ created (${id1}) with status Completed`);
+        }
+      } else {
+        lines.push("Quantitative Finance Course → ❌ not found");
+      }
+
       if (lines.length === 0) {
         setResult("No operations performed.");
       } else {
@@ -189,6 +224,8 @@ export default function SeedStatusUpdatesPage() {
         <li><strong>Update:</strong> Artificial Intelligence & Python Program → Completed</li>
         <li><strong>Update:</strong> Digital Empowerment Course → add bullet content</li>
         <li><strong>Create/Update:</strong> Python & AI Chatbot Course — Batch 2 → Launch</li>
+        <li><strong>Rename:</strong> Quantitative Finance Course → Batch 3 (Completed)</li>
+        <li><strong>Create/Update:</strong> Quantitative Finance Batch 2 & Batch 1 → Completed</li>
       </ul>
 
       <button
