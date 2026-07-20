@@ -40,14 +40,14 @@ function MembersSection({ section }: { section: GroupSection }) {
 
   useEffect(() => {
     const update = () => {
-      if (window.matchMedia("(min-width: 1280px)").matches) setCols(4);
-      else if (window.matchMedia("(min-width: 1024px)").matches) setCols(3);
+      if (window.matchMedia("(min-width: 1024px)").matches) setCols(4);
+      else if (window.matchMedia("(min-width: 768px)").matches) setCols(3);
       else setCols(2);
     };
     update();
     const mqls = [
-      window.matchMedia("(min-width: 1280px)"),
       window.matchMedia("(min-width: 1024px)"),
+      window.matchMedia("(min-width: 768px)"),
     ];
     mqls.forEach((m) => m.addEventListener("change", update));
     return () => mqls.forEach((m) => m.removeEventListener("change", update));
@@ -58,22 +58,15 @@ function MembersSection({ section }: { section: GroupSection }) {
   const hasMore = section.members.length > limit;
   const canShowLess = visibleRows > initialRows;
 
-  const gridCols =
-    section.members.length === 4
-      ? "grid-cols-2 lg:grid-cols-4"
-      : section.members.length === 8
-      ? "grid-cols-2 lg:grid-cols-4"
-      : "grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
-
   return (
     <div className="mb-12">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         {section.heading}
       </h2>
 
-      <div className={`grid ${gridCols} gap-8 justify-items-center`}>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
         {visibleMembers.map((member) => (
-          <div key={member.id} className="w-full max-w-[300px] my-3">
+          <div key={member.id}>
             <MemberCard member={member} />
           </div>
         ))}
