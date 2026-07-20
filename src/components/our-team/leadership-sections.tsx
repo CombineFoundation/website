@@ -18,8 +18,8 @@ interface GroupSection {
 
 function MemberCard({ member }: { member: Member }) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className="relative w-full max-w-[192px] aspect-square overflow-hidden rounded-2xl mb-3">
+    <div className="flex flex-col items-center text-center w-full">
+      <div className="relative w-full aspect-square overflow-hidden rounded-2xl mb-3">
         <Image
           src={member.image}
           alt={member.name}
