@@ -6,6 +6,7 @@ import Image from "next/image";
 type Slide = {
   id: number;
   image: string;
+  mobile: string;
   alt: string;
 };
 
@@ -13,21 +14,25 @@ const slides: Slide[] = [
   {
     id: 1,
     image: "/home/heroslider/1.svg",
+    mobile: "/home/heroslider/mobile1.svg",
     alt: "Building communities together",
   },
   {
     id: 2,
     image: "/home/heroslider/2.svg",
+    mobile: "/home/heroslider/mobile2.svg",
     alt: "Empowering education across borders",
   },
   {
     id: 3,
     image: "/home/heroslider/3.svg",
+    mobile: "/home/heroslider/mobile3.svg",
     alt: "Creating lasting change",
   },
   {
     id: 4,
     image: "/home/heroslider/5.svg",
+    mobile: "/home/heroslider/mobile5.svg",
     alt: "Volunteers making a difference",
   },
 ];
@@ -103,7 +108,7 @@ export default function HeroSlider() {
         }}
       >
         <Image
-          src={isMobile ? "/home/heroslider/mobile1.svg" : slides[current].image}
+          src={isMobile ? slides[current].mobile : slides[current].image}
           alt={slides[current].alt}
           fill
           className="object-cover"
