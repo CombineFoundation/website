@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { X, Plus, Trash2 } from "lucide-react";
 
-import { uploadImage, uploadPDF } from "@/lib/firebase-upload";
+import { uploadImage, uploadFile } from "@/lib/firebase-upload";
 import { Loader2 } from "lucide-react";
 
 interface MOUFormData {
@@ -58,7 +58,7 @@ export default function AddMOUModal({ onCancel, onSave }: AddMOUModalProps) {
     setUploadingFields((prev) => ({ ...prev, [field]: true }));
     setError("");
     try {
-      const url = await uploadPDF(file, "mou");
+      const url = await uploadFile(file, "mous");
       setForm((prev) => ({ ...prev, [field]: url }));
     } catch (err: any) {
       console.error("PDF upload error:", err);
