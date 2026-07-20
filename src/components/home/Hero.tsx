@@ -38,7 +38,15 @@ export default function HeroSlider() {
   const [current, setCurrent] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("next");
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const goNext = useCallback(() => {
     if (sliding) return;
@@ -81,7 +89,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative w-full aspect-[1280/480] overflow-hidden bg-gray-300">
+    <section className="relative w-full aspect-[1280/980] overflow-hidden bg-gray-300">
       <div
         className="absolute inset-0"
         style={{
@@ -95,7 +103,7 @@ export default function HeroSlider() {
         }}
       >
         <Image
-          src={slides[current].image}
+          src={isMobile ? "/home/heroslider/mobile1.svg" : slides[current].image}
           alt={slides[current].alt}
           fill
           className="object-cover"
