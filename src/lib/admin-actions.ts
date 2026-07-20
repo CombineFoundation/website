@@ -373,7 +373,6 @@ export interface FirestorePartner {
   name: string;
   description: string;
   image: string;
-  mou?: string;
   createdAt?: any;
 }
 

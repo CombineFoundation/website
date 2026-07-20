@@ -9,7 +9,6 @@ interface Partner {
   name: string;
   description: string;
   image: string;
-  mou?: string;
 }
 
 const fallbackPartners: Partner[] = [
@@ -19,7 +18,6 @@ const fallbackPartners: Partner[] = [
     description:
       "Sindh Madarasatul Islam University (SMIU) is a highly valued partner organization associated with Combine Foundation to provide educational and innovative learning opportunities for students. In this connection, both partner organizations are looking forward to providing a platform where students can learn and develop skills.",
     image: "/about/hero/hero1.png",
-    mou: "/mou/youth development training.pdf",
   },
   {
     id: 2,
@@ -27,7 +25,6 @@ const fallbackPartners: Partner[] = [
     description:
       "Hammad Foundation is one of our valued community partners that help us in our mission to serve the community in terms of social welfare and environmental awareness, along with other community services. It shows the commitment of both foundations in bringing about a positive impact on society.",
     image: "/about/hero/hero2.jpg",
-    mou: "/mou/hammad foundation.pdf",
   },
   {
     id: 3,
@@ -35,7 +32,6 @@ const fallbackPartners: Partner[] = [
     description:
       "Quants Society, being one of the Department Societies of NED University, is a valued academic and community society that works in collaboration with the Combine Foundation in helping students develop their skills and careers. Under this collaboration, a session was conducted at NED University.",
     image: "/about/story/story.png",
-    mou: "/mou/QUANTS SOCIETY.pdf",
   },
   {
     id: 4,
@@ -43,7 +39,6 @@ const fallbackPartners: Partner[] = [
     description:
       "NGAS \u2013 NED Girls Affairs Society is a valued partner organization collaborating with Combine Foundation to promote awareness, education, and community empowerment initiatives focused on social wellbeing and women\u2019s development.",
     image: "/events/eventsperson.png",
-    mou: "/mou/NEDGAS.pdf",
   },
   {
     id: 5,
@@ -51,7 +46,6 @@ const fallbackPartners: Partner[] = [
     description:
       "The Memorandum of Understanding has been signed by Combine Foundation and Islamian Computing Society (ICS), International Islamic University Islamabad (IIUI) to enhance the technical skills of the students through education, training, and professional development. The aim of this MoU is to fill the gap between theory and practice and make sure that the students have access to new technological courses and skill development programs through which they can develop their technical skills. In collaboration with each other, they can arrange workshops, webinars, campaigns, and training related to Artificial Intelligence (AI), Python, Web Development, Cybersecurity, Shopify, WordPress, and Programming, through which they can develop their technical skills and enhance their career ready competencies. Under this MoU, the Combine Foundation will provide free or reduced fees of courses along with training, learning materials, guidance, and ecertificates while the Islamian Computing Society will help the students participate in the educational initiatives.",
     image: "/about/hero/hero1.png",
-    mou: "/mou/Combine Foundation -Islamian Computing Society-IIUI-MoU.pdf",
   },
 ];
 
@@ -153,30 +147,6 @@ export default function PartnersSection({ partners: initialPartners }: { partner
           <p className="text-sm md:text-base text-white/90 leading-relaxed line-clamp-6">
             {partner.description}
           </p>
-          <a
-            href={partner.mou || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-fit px-6 py-3 mt-6 rounded-full border-2 border-white text-white hover:bg-white hover:text-primary-800 font-semibold text-sm transition-all duration-200"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2"
-            >
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-            </svg>
-            View MOU
-          </a>
         </div>
       </div>
 
