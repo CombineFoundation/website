@@ -433,7 +433,7 @@ export default function UpcomingEvents() {
 
                     return {
                         id: doc.id,
-                        title: d.title || "",
+                        title: d.name || d.title || "",
                         bulletPoints: d.bulletPoints || [],
                         date: dateStr,
                         startTime: startStr,
