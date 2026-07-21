@@ -195,6 +195,15 @@ export default function DonationForm() {
             };
             await addDoc(collection(db, "donations"), payload);
             setSuccess(true);
+
+            const message = [
+                `Hi, I'm ${sanitise(form.firstName)} ${sanitise(form.lastName)}.`,
+                `I'd like to donate ${form.amount} Rs via ${form.paymentMethod}.`,
+                `My email: ${sanitise(form.email)}, Phone: ${sanitise(form.phone)}, Country: ${form.country}, City: ${form.city}.`,
+            ].join("%0A%0A");
+
+            window.open(`https://wa.me/923193372277?text=${message}`, "_blank");
+
             // Reset form
             setForm({
                 firstName: "",

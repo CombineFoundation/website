@@ -372,6 +372,7 @@ export interface FirestorePartner {
   description: string;
   image: string;
   createdAt?: any;
+  mou?:string;
 }
 
 export async function fetchPartners(): Promise<FirestorePartner[]> {
