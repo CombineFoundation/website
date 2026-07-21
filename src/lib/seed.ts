@@ -3,7 +3,7 @@ import { collection, addDoc, serverTimestamp, getDocs, deleteDoc } from "firebas
 import { Program, Application, Message, Job } from "./collections";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
-// Import JSON data
+// Import JSON dat
 import eventsData from "@/data/events.json";
 import coursesData from "@/data/courses.json";
 import blogsData from "@/data/blogs.json";
