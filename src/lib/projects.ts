@@ -1,6 +1,5 @@
 import { collection, getDocs, query, orderBy } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
-import projectsData from "@/data/projects.json";
 
 export interface ProjectStat {
   value: string;
@@ -35,7 +34,7 @@ export async function getAllProjects(): Promise<Project[]> {
   const fetchAndCache = async (): Promise<Project[]> => {
     if (!db) {
       // Fallback if Firebase not initialized
-      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+      return [];
     }
     try {
       const snap = await getDocs(
@@ -43,7 +42,7 @@ export async function getAllProjects(): Promise<Project[]> {
       );
       if (snap.empty) {
         // Fallback if Firestore is empty
-        return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+        return [];
       }
       return snap.docs.map((doc) => {
         const data = doc.data();
@@ -54,7 +53,7 @@ export async function getAllProjects(): Promise<Project[]> {
       });
     } catch (error) {
       console.error("Error fetching projects from Firebase:", error);
-      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+      return [];
     }
   };
 
