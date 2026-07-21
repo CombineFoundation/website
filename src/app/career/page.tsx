@@ -105,10 +105,10 @@ export default function CareerPage() {
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
                 <Link 
                   href="/volunteer-program" 
-                  className="bg-gradient-to-r from-secondary-800 to-secondary-500 hover:from-secondary-600 hover:to-secondary-400 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base flex items-center gap-2 group"
+                  className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base flex items-center gap-2 group"
                 >
                   <span>Apply as Volunteer</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-secondary-500" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 
                 <Link 

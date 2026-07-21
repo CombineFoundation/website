@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2 } from "lucide-react";
+import { X, Upload, Plus, Trash2, Loader2 } from "lucide-react";
+import { uploadImage } from "@/lib/firebase-upload";
 
 interface ProjectStat {
   value: string;
@@ -24,19 +25,13 @@ interface ProjectFormData {
 
 interface AddProjectModalProps {
   onCancel: () => void;
-  onSave: (data: ProjectFormData) => void;
-}
-
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  onSave: (data: ProjectFormData) => Promise<void> | void;
 }
 
 export default function AddProjectModal({ onCancel, onSave }: AddProjectModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState("");
   const [form, setForm] = useState<ProjectFormData>({
     title: "",
     description: "",
@@ -65,8 +60,17 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
   const handleImageUpload = async (field: "images", _e: React.ChangeEvent<HTMLInputElement>) => {
     const files = _e.target.files;
     if (!files) return;
-    const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, images: [...prev.images, ...dataUrls] }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const urls = await Promise.all(Array.from(files).map((file) => uploadImage(file, "projects")));
+      setForm((prev) => ({ ...prev, images: [...prev.images, ...urls] }));
+    } catch (err: any) {
+      console.error("Images upload error:", err);
+      setError("Failed to upload project images. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const removeImage = (index: number) => {
@@ -79,15 +83,34 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
   const handleSingleImageUpload = async (field: "beforeImage" | "afterImage", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "projects");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Single image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const handlePartnerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-    const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...dataUrls] }));
+    const field = "partners";
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const urls = await Promise.all(Array.from(files).map((file) => uploadImage(file, "projects")));
+      setForm((prev) => ({ ...prev, partners: [...prev.partners, ...urls] }));
+    } catch (err: any) {
+      console.error("Partner images upload error:", err);
+      setError("Failed to upload partner images. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const removePartner = (index: number) => {
@@ -96,6 +119,8 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
       partners: prev.partners.filter((_, i) => i !== index),
     }));
   };
+
+  const isUploading = Object.values(uploadingFields).some(Boolean);
 
   const handleStatChange = (index: number, field: "value" | "label", val: string) => {
     setForm((prev) => {
@@ -117,21 +142,30 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
   };
 
   const isValid =
-    form.title.trim() &&
-    form.description.trim() &&
-    form.location.trim() &&
-    form.coordinates.trim() &&
-    form.goal.trim() &&
-    form.futurePlans.trim() &&
-    form.images.length > 0 &&
-    form.beforeImage.trim() &&
-    form.afterImage.trim() &&
-    form.partners.length > 0 &&
-    form.stats.some((s) => s.value.trim() && s.label.trim());
+    !!(form.title?.trim() &&
+    form.description?.trim() &&
+    form.location?.trim() &&
+    form.coordinates?.trim() &&
+    form.goal?.trim() &&
+    form.images?.length >= 1 &&
+    form.stats?.some((s) => s.value?.trim() && s.label?.trim()));
 
-  const handleSave = () => {
-    if (!isValid) return;
-    onSave(form);
+  const handleSave = async () => {
+    if (!isValid || isUploading) return;
+    setSaving(true);
+    setError("");
+    try {
+      const cleanedStats = form.stats.filter((s) => s.value?.trim() && s.label?.trim());
+      await onSave({
+        ...form,
+        stats: cleanedStats,
+      });
+    } catch (err: any) {
+      console.error("Save project error:", err);
+      setError(err.message || "Failed to save project. Ensure you are signed in.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -242,7 +276,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         ))}
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 recommended)</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 required)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.images.map((src, i) => (
@@ -253,19 +287,31 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
               </button>
             </div>
           ))}
-          {form.images.length < 5 && (
-            <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
-              <Upload size={18} className="text-gray-400" />
-              <span className="text-xs text-gray-400 mt-1">Upload</span>
-              <input type="file" accept="image/*" multiple onChange={(e) => handleImageUpload("images", e)} className="hidden" />
-            </label>
+          {uploadingFields.images ? (
+            <div className="flex flex-col items-center justify-center w-24 h-24 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-[10px] text-gray-500 mt-1">Uploading...</span>
+            </div>
+          ) : (
+            form.images.length < 5 && (
+              <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+                <Upload size={18} className="text-gray-400" />
+                <span className="text-xs text-gray-400 mt-1">Upload</span>
+                <input type="file" accept="image/*" multiple onChange={(e) => handleImageUpload("images", e)} className="hidden" />
+              </label>
+            )
           )}
         </div>
 
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Before Image</label>
-            {form.beforeImage ? (
+            <label className="block text-sm text-gray-600 mb-1">Before Image (Optional)</label>
+            {uploadingFields.beforeImage ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.beforeImage ? (
               <div className="relative">
                 <img src={form.beforeImage} alt="Before" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, beforeImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -281,8 +327,13 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
             )}
           </div>
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">After Image</label>
-            {form.afterImage ? (
+            <label className="block text-sm text-gray-600 mb-1">After Image (Optional)</label>
+            {uploadingFields.afterImage ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.afterImage ? (
               <div className="relative">
                 <img src={form.afterImage} alt="After" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, afterImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -300,7 +351,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans (Optional)</p>
 
         <div className="mb-4">
           <textarea
@@ -314,7 +365,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners (Optional)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.partners.map((src, i) => (
@@ -325,30 +376,45 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
               </button>
             </div>
           ))}
-          <label className="flex flex-col items-center justify-center w-20 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
-            <Upload size={18} className="text-gray-400" />
-            <span className="text-xs text-gray-400 mt-1">Upload</span>
-            <input type="file" accept="image/*" multiple onChange={handlePartnerUpload} className="hidden" />
-          </label>
+          {uploadingFields.partners ? (
+            <div className="flex flex-col items-center justify-center w-20 h-20 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-[10px] text-gray-500 mt-0.5">Uploading...</span>
+            </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center w-20 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+              <Upload size={18} className="text-gray-400" />
+              <span className="text-xs text-gray-400 mt-1">Upload</span>
+              <input type="file" accept="image/*" multiple onChange={handlePartnerUpload} className="hidden" />
+            </label>
+          )}
         </div>
+
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
 
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving || isUploading}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving || isUploading}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {(saving || isUploading) && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>

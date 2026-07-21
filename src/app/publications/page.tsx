@@ -2,16 +2,22 @@ import PageHeroMobile from "@/components/UI/Pageheromobile"
 import AnnualReports from "@/components/publications/annual"
 import Mouslider from "@/components/publications/Mouseslider"
 import TaxShariaCertificates from "@/components/publications/Taxshariacertificates "
-import { fetchMOUs, type FirestoreMOU } from "@/lib/admin-actions"
+import { fetchMOUs, fetchAnnualReports, type FirestoreMOU, type FirestoreAnnualReport } from "@/lib/admin-actions"
 
 export const dynamic = "force-dynamic";
 
 const page = async () => {
     let mous: FirestoreMOU[] = [];
+    let reports: FirestoreAnnualReport[] = [];
     try {
         mous = await fetchMOUs();
     } catch (e) {
         console.error("Failed to fetch MOUs:", e);
+    }
+    try {
+        reports = await fetchAnnualReports();
+    } catch (e) {
+        console.error("Failed to fetch Annual Reports:", e);
     }
 
     return (
@@ -21,7 +27,7 @@ const page = async () => {
                 title="Publications"
                 mobileStyles="!text-5xl"
             />
-            <AnnualReports />
+            <AnnualReports reports={reports} />
             <Mouslider mous={mous} />
             <TaxShariaCertificates />
         </div>
