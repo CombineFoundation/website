@@ -33,7 +33,7 @@ export default function BoardOfTrustees({ members }: { members?: FirestoreTeamMe
     : trustees;
 
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16">
+    <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Board of Directors
       </h2>

@@ -11,7 +11,6 @@ interface MOU {
     image: string;
     imageAlt: string;
 }
-
 interface MOUSliderProps {
     mous: FirestoreMOU[];
 }
