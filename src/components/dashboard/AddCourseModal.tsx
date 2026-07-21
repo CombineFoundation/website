@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2, GripVertical } from "lucide-react";
+import { X, Upload, Plus, Trash2, GripVertical, Loader2 } from "lucide-react";
+import { uploadImage } from "@/lib/firebase-upload";
 
 interface CourseModule {
   title: string;
@@ -20,6 +21,7 @@ interface CourseFormData {
   price: string;
   originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
+  category: string;
   description: string;
   heroImage1: string;
   heroImage2: string;
@@ -36,19 +38,13 @@ interface CourseFormData {
 
 interface AddCourseModalProps {
   onCancel: () => void;
-  onSave: (data: CourseFormData) => void;
-}
-
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  onSave: (data: CourseFormData) => Promise<void> | void;
 }
 
 export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState("");
   const [form, setForm] = useState<CourseFormData>({
     name: "",
     instructor: "",
@@ -56,6 +52,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     originalPrice: 0,
     status: "Ongoing",
     description: "",
+    category: "",
     heroImage1: "",
     heroImage2: "",
     lessons: 0,
@@ -83,18 +80,39 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
   const handleImageUpload = async (field: "heroImage1" | "heroImage2", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "courses");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
 
   const handleGuidelineUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.type === "application/pdf" || file.type.startsWith("image/")) {
-      const dataUrl = await readFileAsDataURL(file);
-      setForm((prev) => ({ ...prev, guidelineFile: dataUrl }));
+      const field = "guidelineFile";
+      setUploadingFields((prev) => ({ ...prev, [field]: true }));
+      setError("");
+      try {
+        const storageUrl = await uploadImage(file, "courses");
+        setForm((prev) => ({ ...prev, [field]: storageUrl }));
+      } catch (err: any) {
+        console.error("Guideline upload error:", err);
+        setError("Failed to upload guideline file. Please try again.");
+      } finally {
+        setUploadingFields((prev) => ({ ...prev, [field]: false }));
+      }
     }
   };
+
+  const isUploading = Object.values(uploadingFields).some(Boolean);
 
   const handleModuleChange = (index: number, field: "title" | "bullets", value: string) => {
     setForm((prev) => {
@@ -161,9 +179,18 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     form.modules.length > 0 &&
     form.modules.every(m => m.title.trim() && m.bullets.some(b => b.trim()));
 
-  const handleSave = () => {
-    if (!isValid) return;
-    onSave(form);
+  const handleSave = async () => {
+    if (!isValid || isUploading) return;
+    setSaving(true);
+    setError("");
+    try {
+      await onSave(form);
+    } catch (err: any) {
+      console.error("Save course error:", err);
+      setError(err.message || "Failed to save course. Ensure you are signed in.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -280,6 +307,24 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
             </select>
           </div>
           <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Category</label>
+            <input
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              list="course-categories"
+              placeholder="e.g. Technology"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <datalist id="course-categories">
+              <option value="Technology" />
+              <option value="Finance" />
+              <option value="Marketing" />
+              <option value="Design" />
+              <option value="Personal Development" />
+            </datalist>
+          </div>
+          <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Enrollment Link</label>
             <input
               type="url"
@@ -335,7 +380,12 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Hero Image 1</label>
-            {form.heroImage1 ? (
+            {uploadingFields.heroImage1 ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.heroImage1 ? (
               <div className="relative">
                 <img src={form.heroImage1} alt="Hero 1 preview" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, heroImage1: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -352,7 +402,12 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
           </div>
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Hero Image 2</label>
-            {form.heroImage2 ? (
+            {uploadingFields.heroImage2 ? (
+              <div className="flex flex-col items-center justify-center h-32 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.heroImage2 ? (
               <div className="relative">
                 <img src={form.heroImage2} alt="Hero 2 preview" className="w-full h-32 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, heroImage2: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -373,9 +428,14 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
         <p className="text-sm font-medium text-gray-700 mb-4">Course Guideline</p>
 
         <div className="mb-6">
-          {form.guidelineFile ? (
+          {uploadingFields.guidelineFile ? (
+            <div className="flex flex-col items-center justify-center p-3 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-xs text-gray-500 mt-1">Uploading Guideline...</span>
+            </div>
+          ) : form.guidelineFile ? (
             <div className="relative flex items-center gap-2 p-3 bg-gray-50 rounded-md border border-gray-200">
-              <span className="text-sm text-gray-700 truncate flex-1">{form.guidelineFile.startsWith("data:application/pdf") ? "Guideline PDF" : "Guideline Image"}</span>
+              <span className="text-sm text-gray-700 truncate flex-1">{form.guidelineFile.includes("firebasestorage.googleapis.com") && form.guidelineFile.includes(".pdf") ? "Guideline PDF" : form.guidelineFile.startsWith("data:application/pdf") ? "Guideline PDF" : "Guideline Image"}</span>
               <button onClick={() => setForm((prev) => ({ ...prev, guidelineFile: "" }))} className="text-red-500 hover:text-red-700">
                 <X size={16} />
               </button>
@@ -469,29 +529,37 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               type="text"
               value={story.videoUrl}
               onChange={(e) => handleStoryChange(i, "videoUrl", e.target.value)}
-              placeholder="Instagram/YouTube embed URL"
+              placeholder="Instagram/YouTube/Facebook video link"
               className="w-full border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         ))}
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving || isUploading}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving || isUploading}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {(saving || isUploading) && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>

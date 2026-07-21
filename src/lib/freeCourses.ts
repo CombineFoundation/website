@@ -18,6 +18,7 @@ export interface Course {
   name?: string;
   title: string;
   slug: string;
+  category?: string;
   bullets: string[];
   description: string;
   duration: string;
@@ -33,7 +34,7 @@ export interface Course {
   guidelineCta?: string;
   guidelineFile?: string;
   status?: string;
-  successStories?: any[];
+  successStories?: SuccessStory[];
   modules: Module[];
   instructor?: string;
   enrollmentLink?: string;
@@ -49,6 +50,7 @@ export async function getAllCourses(): Promise<Course[]> {
         id: doc.id,
         title: d.name || d.title || "",
         slug: d.slug || doc.id,
+        category: d.category || "",
         bullets: d.modules?.[0]?.bullets || [], // fallback to first module's bullets if not present at root
         description: d.description || "",
         duration: d.duration || "",
@@ -58,7 +60,9 @@ export async function getAllCourses(): Promise<Course[]> {
         originalPrice: d.originalPrice || d.price || 0,
         image: d.heroImage1 || d.image || "",
         imageBack: d.heroImage2 || d.imageBack || "",
+        status: d.status || "",
         modules: d.modules || [],
+        successStories: d.successStories || [],
         instructor: d.instructor || "",
         enrollmentLink: d.enrollmentLink || "",
       } as Course;
@@ -101,14 +105,3 @@ export function slugify(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
-
-import rawCourses from "@/data/courses.json";
-
-export const COURSES: Course[] = (rawCourses as any[]).map((c) => ({
-  ...c,
-  price: Number(c.price),
-  modules: c.modules.map((m: any, i: number) => ({
-    ...m,
-    id: i + 1,
-  })),
-}));
