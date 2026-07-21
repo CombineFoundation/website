@@ -373,6 +373,7 @@ export interface FirestorePartner {
   image: string;
   mouUrl?: string;
   createdAt?: any;
+  mou?:string;
 }
 
 export async function fetchPartners(): Promise<FirestorePartner[]> {

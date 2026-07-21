@@ -33,7 +33,8 @@ export async function getAllProjects(): Promise<Project[]> {
 
   const fetchAndCache = async (): Promise<Project[]> => {
     if (!db) {
-      return [];
+      // Fallback if Firebase not initialized
+      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
     }
     try {
       const snap = await getDocs(
