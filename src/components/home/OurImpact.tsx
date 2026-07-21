@@ -57,7 +57,7 @@ const impactItems: ImpactItem[] = [
     id: 6,
     stat: "30+",
     title: "Webinars & Awareness Sessions",
-    image: "/home/impact/impact6.png",
+    image: "/home/impact cards/webinar.jpeg",
     description:
       "We have organized 30+ webinars and awareness sessions covering AI, technology, medical awareness, cybersecurity, leadership, sustainability, scholarships, freelancing, self-grooming, and personal development. These sessions have inspired and educated countless individuals to learn, grow, and move toward a brighter future.",
   },

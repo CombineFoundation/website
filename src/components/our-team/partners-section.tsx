@@ -59,7 +59,7 @@ type Direction = "next" | "prev";
 
 export default function PartnersSection({ partners: initialPartners }: { partners?: FirestorePartner[] }) {
   const displayPartners: Partner[] =
-    initialPartners && initialPartners.length > 0 ? initialPartners : fallbackPartners;
+    initialPartners && initialPartners.length > 0 ? (initialPartners as Partner[]) : fallbackPartners;
 
   const [current, setCurrent] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);

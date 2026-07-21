@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAllCourseSlugs, getCourseBySlug } from "@/lib/freeCourses";
+import { getAllCourseSlugs, getCourseBySlug, SuccessStory } from "@/lib/freeCourses";
 import CourseHero from "@/components/free-courses/CourseHero";
 import Modules from "@/components/free-courses/Modules";
 import SuccessStories from "@/components/free-courses/SuccessStories";
@@ -25,10 +25,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
     return notFound();
   }
 
-  const stories = (course.successStories || []).map((s: any) => ({
+  const stories = (course.successStories || []).map((s: SuccessStory) => ({
     name: s.studentName,
     description: s.testimonial,
     course: course.title,
+    videoUrl: s.videoUrl,
   })).filter((s) => s.name && s.description);
 
   return (

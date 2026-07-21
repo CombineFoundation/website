@@ -34,7 +34,7 @@ export interface Course {
   guidelineCta?: string;
   guidelineFile?: string;
   status?: string;
-  successStories?: any[];
+  successStories?: SuccessStory[];
   modules: Module[];
   instructor?: string;
   enrollmentLink?: string;

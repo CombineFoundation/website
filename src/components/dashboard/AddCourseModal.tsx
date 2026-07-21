@@ -529,7 +529,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               type="text"
               value={story.videoUrl}
               onChange={(e) => handleStoryChange(i, "videoUrl", e.target.value)}
-              placeholder="Instagram/YouTube embed URL"
+              placeholder="Instagram/YouTube/Facebook video link"
               className="w-full border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
