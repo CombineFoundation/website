@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, Plus, Trash2 } from "lucide-react";
+import { X, Upload, Plus, Trash2, Loader2 } from "lucide-react";
+import { compressImage } from "@/lib/image-compress";
 
 interface ProjectStat {
   value: string;
@@ -24,7 +25,7 @@ interface ProjectFormData {
 
 interface AddProjectModalProps {
   onCancel: () => void;
-  onSave: (data: ProjectFormData) => void;
+  onSave: (data: ProjectFormData) => Promise<void> | void;
 }
 
 function readFileAsDataURL(file: File): Promise<string> {
@@ -37,6 +38,8 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 export default function AddProjectModal({ onCancel, onSave }: AddProjectModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState<ProjectFormData>({
     title: "",
     description: "",
@@ -66,7 +69,8 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
     const files = _e.target.files;
     if (!files) return;
     const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, images: [...prev.images, ...dataUrls] }));
+    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...compressedDataUrls] }));
   };
 
   const removeImage = (index: number) => {
@@ -80,14 +84,16 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
     const file = e.target.files?.[0];
     if (!file) return;
     const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    const compressedDataUrl = await compressImage(dataUrl);
+    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
   };
 
   const handlePartnerUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
     const dataUrls = await Promise.all(Array.from(files).map(readFileAsDataURL));
-    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...dataUrls] }));
+    const compressedDataUrls = await Promise.all(dataUrls.map((url) => compressImage(url)));
+    setForm((prev) => ({ ...prev, partners: [...prev.partners, ...compressedDataUrls] }));
   };
 
   const removePartner = (index: number) => {
@@ -117,21 +123,30 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
   };
 
   const isValid =
-    form.title.trim() &&
-    form.description.trim() &&
-    form.location.trim() &&
-    form.coordinates.trim() &&
-    form.goal.trim() &&
-    form.futurePlans.trim() &&
-    form.images.length > 0 &&
-    form.beforeImage.trim() &&
-    form.afterImage.trim() &&
-    form.partners.length > 0 &&
-    form.stats.some((s) => s.value.trim() && s.label.trim());
+    !!(form.title?.trim() &&
+    form.description?.trim() &&
+    form.location?.trim() &&
+    form.coordinates?.trim() &&
+    form.goal?.trim() &&
+    form.images?.length >= 1 &&
+    form.stats?.some((s) => s.value?.trim() && s.label?.trim()));
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isValid) return;
-    onSave(form);
+    setSaving(true);
+    setError("");
+    try {
+      const cleanedStats = form.stats.filter((s) => s.value?.trim() && s.label?.trim());
+      await onSave({
+        ...form,
+        stats: cleanedStats,
+      });
+    } catch (err: any) {
+      console.error("Save project error:", err);
+      setError(err.message || "Failed to save project. Ensure you are signed in and images are not too large (limit is 1MB).");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -242,7 +257,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         ))}
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 recommended)</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Images (4-5 required)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.images.map((src, i) => (
@@ -264,7 +279,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
 
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">Before Image</label>
+            <label className="block text-sm text-gray-600 mb-1">Before Image (Optional)</label>
             {form.beforeImage ? (
               <div className="relative">
                 <img src={form.beforeImage} alt="Before" className="w-full h-32 object-cover rounded-md border border-gray-200" />
@@ -281,7 +296,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
             )}
           </div>
           <div className="flex-1">
-            <label className="block text-sm text-gray-600 mb-1">After Image</label>
+            <label className="block text-sm text-gray-600 mb-1">After Image (Optional)</label>
             {form.afterImage ? (
               <div className="relative">
                 <img src={form.afterImage} alt="After" className="w-full h-32 object-cover rounded-md border border-gray-200" />
@@ -300,7 +315,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Future Plans (Optional)</p>
 
         <div className="mb-4">
           <textarea
@@ -314,7 +329,7 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
         </div>
 
         <hr className="my-5 border-gray-200" />
-        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Project Partners (Optional)</p>
 
         <div className="flex flex-wrap gap-3 mb-4">
           {form.partners.map((src, i) => (
@@ -332,23 +347,31 @@ export default function AddProjectModal({ onCancel, onSave }: AddProjectModalPro
           </label>
         </div>
 
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "name": "Closing ceremony of Youth Leadership Program",
+    "description": "Our ceremony for closing the Youth Leadership Program is a way to celebrate the growth, progress, and commitment of the young leaders and volunteers, who have successfully completed their leadership journey.",
+    "bulletPoints": [
+      "Certificate Distribution: Awarding youth leaders and volunteers for their success.",
+      "Leadership Awards: Honoring leaders for their excellent performance.",
+      "Project Presentation: Presenting ideas that can make positive impacts on the community.",
+      "Teamwork Celebration: Praising all team members for their excellent teamwork.",
+      "Networking opportunity: Connection with other young leaders, professionals, and volunteers."
+    ],
+    "date": "to be announced",
+    "startTime": "to be announced",
+    "endTime": "to be announced",
+    "location": "Karachi",
+    "registrationLink": "https://combinefoundation.com/register"
+  },
+  {
+    "id": 2,
+    "name": "Pakistan Independence Day Celebration",
+    "description": "Through our celebration of Pakistan Independence Day, we join to recognize our country's heritage, celebrate Pakistan's achievement, build a sense of unity among ourselves, and engage in activities that will represent unity and culture of Pakistan.",
+    "bulletPoints": [
+      "Awareness Sessions: Discussion on the journey and values of Pakistan.",
+      "Community Activities: Uniting people for the festive celebration of Independence Day.",
+      "Leader’s Participation: Encouraging youth participation in making Pakistan better in the future.",
+      "Interactions Among Youth: Giving the youth a chance to interact with each other."
+    ],
+    "date": "14th August 2026",
+    "startTime": "to be announced",
+    "endTime": "to be announced",
+    "location": "Karachi online and onsite",
+    "registrationLink": "https://combinefoundation.com/register"
+  },
+  {
+    "id": 3,
+    "name": "Kitchen Garden Festival 3.0",
+    "description": "Kitchen Garden Festival 3.0 aims to inspire both students and communities to adopt sustainable lifestyles, organic gardening practices, and respect for the environment through practical education.",
+    "bulletPoints": [
+      "Kitchen Gardening Workshop: Hands-on learning about producing healthy foods in your own kitchen garden.",
+      "Organic Living Awareness: Educating individuals about adopting sustainable, healthy, and environment-friendly habits.",
+      "Sustainable Conversations: Sparking discussion on sustainability topics among community members.",
+      "Community Engagement Program: Connecting with others to educate and encourage sustainable efforts."
+    ],
+    "date": "to be announced",
+    "startTime": "to be announced",
+    "endTime": "to be announced",
+    "location": "Karachi",
+    "registrationLink": "https://combinefoundation.com/register"
+  },
+  {
+    "id": 4,
+    "name": "Future Leaders & AI Summit",
+    "description": "The purpose of Our Future Leaders & AI Summit is to make young individuals familiar with essential skills in leadership, AI technology, and innovation opportunities.",
+    "bulletPoints": [
+      "AI Awareness Sessions: Discover the most recent developments and innovations in artificial intelligence.",
+      "Leadership discussion: Insights shared by skilled leaders and specialists within the industry.",
+      "Technology Panel Discussion: Examining innovation, new technologies, and upcoming trends.",
+      "Career Guidance Program: Assisting youth in planning and achieving their career goals.",
+      "Networking Sessions: Networking with peers, students, innovators, and leaders."
+    ],
+    "date": "to be announced",
+    "startTime": "to be announced",
+    "endTime": "to be announced",
+    "location": "Karachi online and onsite",
+    "registrationLink": "https://combinefoundation.com/register"
+  },
+  {
+    "id": 5,
+    "name": "Plantation Drive",
+    "description": "Our ‘Plantation Drive’ is an initiative to engage the community in activities of environmental sustainability, climatic responsibility and greening the future through tree planting and awareness campaigns.",
+    "bulletPoints": [
+      "Tree Plantation Programs: Planting trees for a more eco-friendly and healthy environment.",
+      "Environmental Awareness Campaigns: Informing people about environmental issues and climate change.",
+      "Volunteer Participation: Giving people a chance to participate in the effort of bringing about environmental changes.",
+      "Sustainable Activities Sessions: Creating awareness among the citizens regarding sustainability."
+    ],
+    "date": "to be announced",
+    "startTime": "to be announced",
+    "endTime": "to be announced",
+    "location": "Multiple Community Locations (onsite)",
+    "registrationLink": "https://combinefoundation.com/register"
+  }
+]

@@ -1,7 +1,9 @@
 "use client";
 
+import type { FirestoreAnnualReport } from "@/lib/admin-actions";
+
 type Report = {
-    id: number;
+    id: string | number;
     title: string;
     description: string;
     image: string;
@@ -39,7 +41,7 @@ const REPORTS: Report[] = [
     },
 ];
 
-function ReportCard({ report }: { report: Report }) {
+function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
     return (
         <div className="w-full bg-white rounded-2xl shadow-xl flex flex-col min-[500px]:flex-row overflow-hidden h-auto min-[500px]:h-[350px] items-center md:p-6 p-4 gap-4 min-[500px]:gap-0">
             {/* Image */}
@@ -92,7 +94,8 @@ function ReportCard({ report }: { report: Report }) {
     );
 }
 
-export default function AnnualReports() {
+export default function AnnualReports({ reports }: { reports?: FirestoreAnnualReport[] }) {
+    const displayReports = reports && reports.length > 0 ? reports : REPORTS;
     return (
         <section id="annual-reports" className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-12">
             {/* Heading */}
@@ -104,8 +107,8 @@ export default function AnnualReports() {
 
             {/* Cards */}
             <div className="flex flex-col gap-5">
-                {REPORTS.map((report) => (
-                    <ReportCard key={report.id} report={report} />
+                {displayReports.map((report) => (
+                    <ReportCard key={report.id || report.title} report={report} />
                 ))}
             </div>
         </section>

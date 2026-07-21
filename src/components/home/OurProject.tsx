@@ -78,7 +78,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
       name: p.title || p.name || "",
       description: p.description,
       image: p.images?.[0] || p.image || "/home/project/project.png",
-      link: p.link || `/projects`,
+      link: p.link || `/projects?id=${p.id}`,
     }));
   }, [initialProjects]);
 
@@ -164,6 +164,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
             fill
             className="object-cover object-center"
             priority
+            unoptimized
           />
 
           <div className="absolute inset-0 bg-black/35" />

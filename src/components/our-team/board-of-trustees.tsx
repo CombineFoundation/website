@@ -1,10 +1,11 @@
 import Image from "next/image";
+import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
 interface Trustee {
-  id: number;
+  id: number | string;
   name: string;
   role: string;
-  description: string;
+  description?: string;
   image: string;
 }
 
@@ -19,7 +20,18 @@ const trustees: Trustee[] = [
   },
 ];
 
-export default function BoardOfTrustees() {
+export default function BoardOfTrustees({ members }: { members?: FirestoreTeamMember[] }) {
+  const dbTrustees = members?.filter((m) => m.section === "Board of Trustees") || [];
+  const displayTrustees = dbTrustees.length > 0 
+    ? dbTrustees.map((m) => ({
+        id: m.id || m.name,
+        name: m.name,
+        role: m.role,
+        image: m.image,
+        description: "", // Description not present in teamMembers dashboard schema
+      }))
+    : trustees;
+
   return (
     <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
@@ -27,7 +39,7 @@ export default function BoardOfTrustees() {
       </h2>
 
       <div className="flex flex-col">
-        {trustees.map((trustee) => (
+        {displayTrustees.map((trustee) => (
           <div
             key={trustee.id}
             className="flex flex-col sm:flex-row items-center sm:items-start gap-20 py-8 first:pt-0 text-center sm:text-left"

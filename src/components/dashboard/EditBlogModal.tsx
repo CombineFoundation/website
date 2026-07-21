@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload } from "lucide-react";
+import { X, Upload, Loader2 } from "lucide-react";
+import { compressImage } from "@/lib/image-compress";
 
 interface BlogFormData {
   name: string;
@@ -12,12 +13,13 @@ interface BlogFormData {
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  content: string;
 }
 
 interface EditBlogModalProps {
-  blog: BlogFormData;
+  blog: any;
   onCancel: () => void;
-  onSave: (data: BlogFormData) => void;
+  onSave: (data: BlogFormData) => Promise<void> | void;
 }
 
 function toDateInput(dateStr: string): string {
@@ -40,6 +42,8 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalProps) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState<BlogFormData>({
     name: blog.name,
     authorName: blog.authorName,
@@ -49,6 +53,7 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
     conclusion: blog.conclusion || "",
     heroImage1: blog.heroImage1 || "",
     heroImage2: blog.heroImage2 || "",
+    content: blog.content ? (Array.isArray(blog.content) ? blog.content.join("\n\n") : blog.content) : "",
   });
 
   const handleChange = (
@@ -61,7 +66,8 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
     const file = e.target.files?.[0];
     if (!file) return;
     const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, [field]: dataUrl }));
+    const compressedDataUrl = await compressImage(dataUrl);
+    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
   };
 
   const isValid =
@@ -69,12 +75,22 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
     form.authorName.trim() &&
     form.date.trim() &&
     form.description.trim() &&
+    form.content.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isValid) return;
-    onSave(form);
+    setSaving(true);
+    setError("");
+    try {
+      await onSave(form);
+    } catch (err: any) {
+      console.error("Save blog error:", err);
+      setError(err.message || "Failed to save blog. Ensure you are signed in and images are not too large.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -152,6 +168,18 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
         </div>
 
         <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Body Content (Use blank lines to separate paragraphs)</label>
+          <textarea
+            name="content"
+            value={form.content}
+            onChange={handleChange}
+            placeholder="Write the full blog post paragraphs here..."
+            rows={6}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">Conclusion</label>
           <textarea
             name="conclusion"
@@ -203,23 +231,31 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
           </div>
         </div>
 
-        <div className="flex justify-end gap-3">
+        {error && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
+        <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={saving}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || saving}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !saving
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

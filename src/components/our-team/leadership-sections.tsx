@@ -1,7 +1,8 @@
 import Image from "next/image";
+import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
 interface Member {
-  id: number;
+  id: number | string;
   name: string;
   title: string;
   image: string;
@@ -95,10 +96,35 @@ function MembersSection({ section }: { section: GroupSection }) {
   );
 }
 
-export default function LeadershipSections() {
+export default function LeadershipSections({ members }: { members?: FirestoreTeamMember[] }) {
+  const hasDbMembers = members && members.length > 0 && members.some(m => ["Department Head", "Ambassador", "Youth Leader"].includes(m.section));
+
+  const displaySections = hasDbMembers
+    ? [
+        {
+          heading: "Department Heads",
+          members: members
+            .filter((m) => m.section === "Department Head")
+            .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
+        },
+        {
+          heading: "Ambassadors",
+          members: members
+            .filter((m) => m.section === "Ambassador")
+            .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
+        },
+        {
+          heading: "Youth Leaders",
+          members: members
+            .filter((m) => m.section === "Youth Leader")
+            .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
+        },
+      ].filter((s) => s.members.length > 0)
+    : sections;
+
   return (
     <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
-      {sections.map((section) => (
+      {displaySections.map((section) => (
         <MembersSection key={section.heading} section={section} />
       ))}
     </section>

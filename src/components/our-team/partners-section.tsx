@@ -2,61 +2,17 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
-
-interface Partner {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  mou: string;
-}
-
-const partners: Partner[] = [
-  {
-    id: 1,
-    name: "Sindh Madarasatul Islam University (SMIU)",
-    description:
-      "Sindh Madarasatul Islam University (SMIU) is a highly valued partner organization associated with Combine Foundation to provide educational and innovative learning opportunities for students. In this connection, both partner organizations are looking forward to providing a platform where students can learn and develop skills.",
-    image: "/about/hero/hero1.png",
-    mou: "/mou/youth development training.pdf",
-  },
-  {
-    id: 2,
-    name: "Hammad Foundation",
-    description:
-      "Hammad Foundation is one of our valued community partners that help us in our mission to serve the community in terms of social welfare and environmental awareness, along with other community services. It shows the commitment of both foundations in bringing about a positive impact on society.",
-    image: "/about/hero/hero2.jpg",
-    mou: "/mou/hammad foundation.pdf",
-  },
-  {
-    id: 3,
-    name: "Quants Society (NED University)",
-    description:
-      "Quants Society, being one of the Department Societies of NED University, is a valued academic and community society that works in collaboration with the Combine Foundation in helping students develop their skills and careers. Under this collaboration, a session was conducted at NED University.",
-    image: "/about/story/story.png",
-    mou: "/mou/QUANTS SOCIETY.pdf",
-  },
-  {
-    id: 4,
-    name: "NGAS \u2014 NED Girls Affairs Society (NED University)",
-    description:
-      "NGAS \u2013 NED Girls Affairs Society is a valued partner organization collaborating with Combine Foundation to promote awareness, education, and community empowerment initiatives focused on social wellbeing and women\u2019s development.",
-    image: "/events/eventsperson.png",
-    mou: "/mou/NEDGAS.pdf",
-  },
-  {
-    id: 5,
-    name: "Combine Foundation with Islamian Computing Society",
-    description:
-      "The Memorandum of Understanding has been signed by Combine Foundation and Islamian Computing Society (ICS), International Islamic University Islamabad (IIUI) to enhance the technical skills of the students through education, training, and professional development. The aim of this MoU is to fill the gap between theory and practice and make sure that the students have access to new technological courses and skill development programs through which they can develop their technical skills. In collaboration with each other, they can arrange workshops, webinars, campaigns, and training related to Artificial Intelligence (AI), Python, Web Development, Cybersecurity, Shopify, WordPress, and Programming, through which they can develop their technical skills and enhance their career ready competencies. Under this MoU, the Combine Foundation will provide free or reduced fees of courses along with training, learning materials, guidance, and ecertificates while the Islamian Computing Society will help the students participate in the educational initiatives.",
-    image: "/about/hero/hero1.png",
-    mou: "/mou/Combine Foundation -Islamian Computing Society-IIUI-MoU.pdf",
-  },
-];
+import type { FirestorePartner } from "@/lib/admin-actions";
 
 type Direction = "next" | "prev";
 
-export default function PartnersSection() {
+interface PartnersSectionProps {
+  partners: FirestorePartner[];
+}
+
+export default function PartnersSection({
+  partners,
+}: PartnersSectionProps) {
   const [current, setCurrent] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("next");
@@ -64,32 +20,45 @@ export default function PartnersSection() {
 
   const goTo = useCallback(
     (dir: Direction) => {
-      if (sliding) return;
+      if (sliding || partners.length === 0) return;
+
       setDirection(dir);
       setSliding(true);
+
       setTimeout(() => {
         setCurrent((prev) =>
           dir === "next"
             ? (prev + 1) % partners.length
             : (prev - 1 + partners.length) % partners.length
         );
+
         setSliding(false);
       }, 400);
     },
-    [sliding]
+    [sliding, partners.length]
   );
 
   const startTimer = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => goTo("next"), 5000);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    timerRef.current = setInterval(() => {
+      goTo("next");
+    }, 5000);
   }, [goTo]);
 
   useEffect(() => {
-    startTimer();
+    if (partners.length > 0) {
+      startTimer();
+    }
+
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
     };
-  }, [startTimer]);
+  }, [startTimer, partners.length]);
 
   const handlePrev = () => {
     goTo("prev");
@@ -101,13 +70,21 @@ export default function PartnersSection() {
     startTimer();
   };
 
+  if (!partners.length) {
+    return null;
+  }
+
   const partner = partners[current];
+
   const [firstWord, ...remainingWords] = partner.name.split(" ");
   const remainingName = remainingWords.join(" ");
 
   return (
-    <section className="w-full mx-auto py-10 px-6 md:px-12 lg:px-16"  style={{ maxWidth: "1500px" }}>
-      <div className=" m-w-[1500px]">
+    <section
+      className="w-full mx-auto py-10 px-6 md:px-12 lg:px-16"
+      style={{ maxWidth: "1500px" }}
+    >
+      <div className="m-w-[1500px]">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
           Our Partners
         </h2>
@@ -153,9 +130,11 @@ export default function PartnersSection() {
               <span className="text-white"> {remainingName}</span>
             )}
           </h3>
+
           <p className="text-sm md:text-base text-white/90 leading-relaxed line-clamp-6">
             {partner.description}
           </p>
+
           <a
             href={partner.mou}
             target="_blank"
@@ -202,10 +181,11 @@ export default function PartnersSection() {
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
+
         <button
           onClick={handleNext}
           aria-label="Next partner"
-          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex in items-center justify-center transition-all duration-200 cursor-pointer"
         >
           <svg
             width="18"
