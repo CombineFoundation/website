@@ -1,6 +1,5 @@
 import { collection, getDocs, query, orderBy } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
-import projectsData from "@/data/projects.json";
 
 export interface ProjectStat {
   value: string;
@@ -21,29 +20,59 @@ export interface Project {
   location: string;
   coordinates: string;
 }
+export const projectsData = [
+  {
+    id: 1,
+    title: "Example Project",
+    images: [],
+    description: "Example",
+    goal: "Example goal",
+    stats: [],
+    beforeImage: "",
+    afterImage: "",
+    futurePlans: "",
+    partners: [],
+    location: "",
+    coordinates: "",
+  },
+];
+let cachedProjects: Project[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 30000; // 30 seconds
 
 export async function getAllProjects(): Promise<Project[]> {
-  if (!db) {
-    // Fallback if Firebase not initialized
-    return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+  const now = Date.now();
+  if (cachedProjects && (now - cacheTimestamp < CACHE_TTL)) {
+    return cachedProjects;
   }
-  try {
-    const snap = await getDocs(
-      query(collection(db, "projects"), orderBy("createdAt", "desc"))
-    );
-    if (snap.empty) {
-      // Fallback if Firestore is empty
-      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+
+  const fetchAndCache = async (): Promise<Project[]> => {
+    if (!db) {
+      return [];
     }
-    return snap.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-      } as Project;
-    });
-  } catch (error) {
-    console.error("Error fetching projects from Firebase:", error);
-    return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
-  }
+    try {
+      const snap = await getDocs(
+        query(collection(db, "projects"), orderBy("createdAt", "desc"))
+      );
+      if (snap.empty) {
+        return [];
+      }
+      return snap.docs.map((doc) => {
+        const data = doc.data();
+        const { createdAt, ...rest } = data;
+        return {
+          id: doc.id,
+          ...rest,
+        } as Project;
+      });
+    } catch (error) {
+      console.error("Error fetching projects from Firebase:", error);
+      return [];
+    }
+  };
+
+  const data = await fetchAndCache();
+  cachedProjects = data;
+  cacheTimestamp = Date.now();
+  return data;
 }

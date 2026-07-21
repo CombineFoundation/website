@@ -20,6 +20,8 @@ export interface FirestoreEvent {
   dateTime: string;
   location: string;
   registrationLink: string;
+  bulletPoints?: string[];
+  endTime?: string;
   createdAt?: any;
 }
 
@@ -51,6 +53,7 @@ export interface FirestoreBlog {
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  content?: string[];
   createdAt?: any;
 }
 
@@ -368,7 +371,9 @@ export interface FirestorePartner {
   name: string;
   description: string;
   image: string;
+  mouUrl?: string;
   createdAt?: any;
+  mou?:string;
 }
 
 export async function fetchPartners(): Promise<FirestorePartner[]> {

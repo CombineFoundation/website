@@ -229,7 +229,7 @@ export default function TeamView() {
     if (partner && partner.id) setEditPartner(partner as FirestorePartner & { id: string });
   };
 
-  const handleSavePartner = async (data: { name: string; description: string; image: string }) => {
+  const handleSavePartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
     if (editPartner?.id) {
       await updatePartner(editPartner.id, data);
       setEditPartner(null);
@@ -238,7 +238,7 @@ export default function TeamView() {
     }
   };
 
-  const handleAddPartner = async (data: { name: string; description: string; image: string }) => {
+  const handleAddPartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
     await addPartner(data);
     setShowAddPartner(false);
     await loadPartners();

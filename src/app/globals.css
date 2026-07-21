@@ -43,7 +43,7 @@
   --color-secondary-700: var(--secondary-700);
   --color-accent-orange: var(--accent-orange);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
   --color-navy: #FF6900;
   --color-orange: #111827;
@@ -60,6 +60,10 @@
   --leading-body: 1.35;
   }
 } */
+
+html {
+  scroll-behavior: smooth;
+}
 
 html, body {
   width: 100%;
