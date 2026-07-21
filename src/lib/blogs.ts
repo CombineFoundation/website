@@ -39,7 +39,10 @@ export async function getAllBlogs(): Promise<BlogPost[]> {
         if (!db) return [];
         try {
             const snap = await getDocs(collection(db, "blogs"));
-            return snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as BlogPost));
+            return snap.docs.map(doc => {
+                const { createdAt, ...rest } = doc.data();
+                return { id: doc.id, ...rest } as BlogPost;
+            });
         } catch (error) {
             console.error("Error fetching blogs:", error);
             return [];

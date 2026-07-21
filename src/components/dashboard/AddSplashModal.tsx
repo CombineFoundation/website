@@ -4,6 +4,9 @@ import { useState } from "react";
 import { X, Upload } from "lucide-react";
 import Image from "next/image";
 
+import { uploadImage } from "@/lib/firebase-upload";
+import { Loader2 } from "lucide-react";
+
 interface SplashFormData {
   image: string;
   linkUrl: string;
@@ -15,16 +18,9 @@ interface AddSplashModalProps {
   onSave: (data: SplashFormData) => void;
 }
 
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function AddSplashModal({ onCancel, onSave }: AddSplashModalProps) {
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState("");
   const [form, setForm] = useState<SplashFormData>({
     image: "",
     linkUrl: "",
@@ -40,14 +36,26 @@ export default function AddSplashModal({ onCancel, onSave }: AddSplashModalProps
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const dataUrl = await readFileAsDataURL(file);
-    setForm((prev) => ({ ...prev, image: dataUrl }));
+    const field = "image";
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "splash");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
+
+  const isUploading = Object.values(uploadingFields).some(Boolean);
 
   const isValid = form.image.trim() && form.alt.trim();
 
   const handleSave = () => {
-    if (!isValid) return;
+    if (!isValid || isUploading) return;
     onSave(form);
   };
 
@@ -56,7 +64,7 @@ export default function AddSplashModal({ onCancel, onSave }: AddSplashModalProps
       <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-semibold text-gray-900">Add Splash Banner</h2>
-          <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">
+          <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer animate-fadeIn">
             <X size={20} />
           </button>
         </div>
@@ -65,13 +73,18 @@ export default function AddSplashModal({ onCancel, onSave }: AddSplashModalProps
 
         <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">Banner Image</label>
-          {form.image ? (
+          {uploadingFields.image ? (
+            <div className="flex flex-col items-center justify-center w-full h-40 border border-gray-200 rounded-md bg-gray-50 mb-2">
+              <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
+              <span className="text-xs text-gray-500 mt-2">Uploading image...</span>
+            </div>
+          ) : form.image ? (
             <div className="relative w-full h-40 rounded-md overflow-hidden bg-gray-100 mb-2">
               <Image
                 src={form.image}
                 alt="Preview"
                 fill
-                className="object-contain"
+                className="object-contain animate-fadeIn"
               />
             </div>
           ) : null}
@@ -108,23 +121,31 @@ export default function AddSplashModal({ onCancel, onSave }: AddSplashModalProps
           />
         </div>
 
+        {error && (
+          <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700 font-medium rounded-r-md">
+            {error}
+          </div>
+        )}
+
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
+            disabled={isUploading}
+            className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid}
-            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer ${
-              isValid
+            disabled={!isValid || isUploading}
+            className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
+              isValid && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Save
+            {isUploading && <Loader2 className="w-4 h-4 animate-spin" />}
+            {isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>
