@@ -220,6 +220,6 @@ export default function PartnersSection({
           </svg>
         </button>
       </div>
-    </section>
+    </div>
   );
 }
