@@ -6,7 +6,7 @@ import SectionHeader from "@/components/UI/SectionHeader";
 type FaqItem = {
   id: number;
   question: string;
-  answer: string;
+  answer: string | string[];
 };
 
 const faqs: FaqItem[] = [
@@ -14,7 +14,7 @@ const faqs: FaqItem[] = [
     id: 1,
     question: "What is Combine Foundation?",
     answer:
-      "Combine Foundation is a registered non-profit organization and the social impact arm of Combine Group. We are dedicated to creating sustainable change in Pakistan by focusing on education, health awareness, youth empowerment, and community welfare. Our approach is built on transparency, innovation, and long-term impact.",
+      "Combine Foundation is a registered non-profit organization under section 42 companies Act 2017 while we are Tax exempted organization and the social impact arm of Combine Group. We are dedicated to creating sustainable change in Pakistan by focusing on education, health awareness, youth empowerment, and community welfare. Our approach is built on transparency, innovation, and long-term impact.",
   },
   {
     id: 2,
@@ -26,64 +26,58 @@ const faqs: FaqItem[] = [
     id: 3,
     question: "How can I join the Combine Foundation?",
     answer:
-      "You can join Combine Foundation by submitting an application through our portal. The joining process includes application submission, application review, interview, and onboarding.",
+      "You can join Combine Foundation by submitting an application through Combine Foundation Portal. The joining process includes application submission, application review, interview, and onboarding.",
   },
   {
     id: 4,
-    question: "How can I volunteer with the Combine Foundation?",
+    question: "How can I donate or support the foundation?",
     answer:
-      "Our structured volunteer program allows individuals to gain hands-on experience, contribute to community projects, and develop leadership and teamwork skills. You can apply through our website and become part of our growing impact network.",
+      ["You can support Combine Foundation by:", "Donating to fund education, healthcare, and welfare programs", "Sponsoring students through scholarships", "Supporting community relief initiatives"],
   },
   {
     id: 5,
-    question: "How can I donate or support the foundation?",
+    question: "Why should organizations partner with the Combine Foundation?",
     answer:
-      "You can support Combine Foundation by donating to fund education, healthcare, and welfare programs, sponsoring students through scholarships, or supporting community relief initiatives. We follow a transparent system, ensuring your contribution directly impacts those in need.",
+      ["Partnering with Combine Foundation offers:", "Direct impact through a zero-admin-cost approach", "Transparency and accountability in all operations", "Future-focused programs (AI, technology, workforce development)", "CSR collaboration opportunities aligned with global standards"],
   },
   {
     id: 6,
-    question: "Why should organizations partner with the Combine Foundation?",
+    question: "Is prior experience required for volunteering?",
     answer:
-      "Partnering with Combine Foundation offers direct impact through a zero-admin-cost approach, transparency and accountability in all operations, future-focused programs (AI, technology, workforce development), and CSR collaboration opportunities aligned with global standards.",
+      "No, beginners and students are welcome just you have concept to do something for Allah and Pakistan.",
   },
   {
     id: 7,
-    question: "Is prior experience required?",
+    question: "Are certificates provided to volunteers?",
     answer:
-      "No, beginners and students are welcome. You just need a desire to do something for Allah and Pakistan.",
+      "Yes, certificates awarded based on participation and performance.",
   },
   {
     id: 8,
-    question: "Are certificates provided?",
-    answer:
-      "Yes, certificates are awarded based on participation and performance.",
-  },
-  {
-    id: 9,
     question: "Can volunteers grow into leadership roles?",
     answer:
       "Yes, volunteers can progress into youth leadership, internship, and job opportunities.",
   },
   {
-    id: 10,
+    id: 9,
     question: "What are the benefits of joining as a volunteer?",
     answer:
       "Joining as a volunteer provides opportunities to gain practical experience, improve leadership and communication skills, and work on real-world projects and community initiatives. Volunteers also build teamwork, confidence, networking opportunities, and professional exposure while contributing positively to society.",
   },
   {
-    id: 11,
+    id: 10,
     question: "Will volunteers receive learning and growth opportunities?",
     answer:
       "Yes, volunteers get access to training sessions, webinars, leadership activities, project participation, and skill development opportunities that support personal and professional growth.",
   },
   {
-    id: 12,
+    id: 11,
     question: "Can volunteering help in career development?",
     answer:
       "Yes, volunteering helps individuals gain practical experience, improve soft skills, strengthen their portfolio, and explore networking and career opportunities in different fields.",
   },
   {
-    id: 13,
+    id: 12,
     question: "Who can join as a volunteer?",
     answer:
       "Students, professionals, and passionate individuals who want to contribute to social impact, community development, and learning opportunities can join as volunteers.",
@@ -124,9 +118,20 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-            {item.answer}
-          </p>
+          {Array.isArray(item.answer) ? (
+            <>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">{item.answer[0]}</p>
+              <ul className="list-disc list-inside text-gray-600 text-sm md:text-base leading-relaxed mt-2 space-y-1">
+                {item.answer.slice(1).map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+              {item.answer}
+            </p>
+          )}
         </div>
       </div>
     </div>
