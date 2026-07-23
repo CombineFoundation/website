@@ -4,15 +4,20 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import type { FirestorePartner } from "@/lib/admin-actions";
 
-type Direction = "next" | "prev";
-
-interface PartnersSectionProps {
-  partners: FirestorePartner[];
+interface Partner {
+  id: number | string;
+  name: string;
+  description: string;
+  image: string;
+  mou?: string;
 }
 
-export default function PartnersSection({
-  partners,
-}: PartnersSectionProps) {
+type Direction = "next" | "prev";
+
+export default function PartnersSection({ partners: initialPartners }: { partners?: FirestorePartner[] }) {
+  const displayPartners: Partner[] =
+    initialPartners && initialPartners.length > 0 ? (initialPartners as Partner[]) : [];
+
   const [current, setCurrent] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("next");
@@ -20,62 +25,40 @@ export default function PartnersSection({
 
   const goTo = useCallback(
     (dir: Direction) => {
-      if (sliding || partners.length === 0) return;
-
+      if (sliding || displayPartners.length === 0) return;
       setDirection(dir);
       setSliding(true);
-
       setTimeout(() => {
         setCurrent((prev) =>
           dir === "next"
-            ? (prev + 1) % partners.length
-            : (prev - 1 + partners.length) % partners.length
+            ? (prev + 1) % displayPartners.length
+            : (prev - 1 + displayPartners.length) % displayPartners.length
         );
-
         setSliding(false);
       }, 400);
     },
-    [sliding, partners.length]
+    [sliding, displayPartners.length]
   );
 
   const startTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-
-    timerRef.current = setInterval(() => {
-      goTo("next");
-    }, 5000);
-  }, [goTo]);
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (displayPartners.length < 2) return;
+    timerRef.current = setInterval(() => goTo("next"), 5000);
+  }, [goTo, displayPartners.length]);
 
   useEffect(() => {
-    if (partners.length > 0) {
-      startTimer();
-    }
-
+    startTimer();
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
+      if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [startTimer, partners.length]);
+  }, [startTimer]);
 
-  const handlePrev = () => {
-    goTo("prev");
-    startTimer();
-  };
+  const handlePrev = () => { goTo("prev"); startTimer(); };
+  const handleNext = () => { goTo("next"); startTimer(); };
 
-  const handleNext = () => {
-    goTo("next");
-    startTimer();
-  };
+  if (displayPartners.length === 0) return null;
 
-  if (!partners.length) {
-    return null;
-  }
-
-  const partner = partners[current];
-
+  const partner = displayPartners[current];
   const [firstWord, ...remainingWords] = partner.name.split(" ");
   const remainingName = remainingWords.join(" ");
 
@@ -92,10 +75,10 @@ export default function PartnersSection({
         <p className="text-sm md:text-base text-primary-800 leading-relaxed">
           {partner.description}
         </p>
-        {partner.mouUrl && (
+        {partner.mou && (
           <div className="mt-6">
             <a
-              href={partner.mouUrl}
+              href={partner.mou}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-secondary-600 text-white font-medium text-sm rounded-lg hover:shadow-lg hover:brightness-110 transition-all duration-300 w-fit"
@@ -145,7 +128,6 @@ export default function PartnersSection({
             className="object-cover object-center rounded-2xl"
             priority
           />
-
           <div className="absolute inset-0 bg-black/40" />
         </div>
 

@@ -34,6 +34,7 @@ export interface Course {
   originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
+  category: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
@@ -64,7 +65,7 @@ export default function CoursesView() {
     try {
       setLoading(true);
       const data = await fetchCourses();
-      setCourses(data.map((d) => ({ ...d, id: d.id! })) as Course[]);
+      setCourses(data.map((d) => ({ ...d, id: d.id!, originalPrice: 0, requirements: "", guidelineCta: "" })) as Course[]);
     } catch (err) {
       console.error("Error fetching courses:", err);
     } finally {

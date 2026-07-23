@@ -3,12 +3,23 @@ import AboutCourses from "@/components/free-courses/AboutCourses";
 import CoursesOffered from "@/components/free-courses/CoursesOffered";
 import SuccessStories from "@/components/free-courses/SuccessStories";
 import FaqSection from "@/components/home/FaqSection";
-import { getAllCourses } from "@/lib/freeCourses";
+import { getAllCourses, SuccessStory } from "@/lib/freeCourses";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const courses = await getAllCourses();
+
+  const stories = courses
+    .flatMap((c) =>
+      (c.successStories || []).map((s: SuccessStory) => ({
+        name: s.studentName,
+        description: s.testimonial,
+        course: c.title,
+        videoUrl: s.videoUrl,
+      }))
+    )
+    .filter((s) => s.name && s.description);
 
   return (
   <main>
@@ -18,7 +29,7 @@ export default async function Home() {
     />
     <AboutCourses />
     <CoursesOffered courses={courses} />
-    <SuccessStories />
+    <SuccessStories stories={stories} />
     <FaqSection />
 
   </main>

@@ -21,6 +21,7 @@ interface CourseFormData {
   price: string;
   originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
+  category: string;
   description: string;
   heroImage1: string;
   heroImage2: string;
@@ -51,6 +52,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     originalPrice: 0,
     status: "Ongoing",
     description: "",
+    category: "",
     heroImage1: "",
     heroImage2: "",
     lessons: 0,
@@ -305,6 +307,24 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
             </select>
           </div>
           <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Category</label>
+            <input
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              list="course-categories"
+              placeholder="e.g. Technology"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <datalist id="course-categories">
+              <option value="Technology" />
+              <option value="Finance" />
+              <option value="Marketing" />
+              <option value="Design" />
+              <option value="Personal Development" />
+            </datalist>
+          </div>
+          <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Enrollment Link</label>
             <input
               type="url"
@@ -509,7 +529,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               type="text"
               value={story.videoUrl}
               onChange={(e) => handleStoryChange(i, "videoUrl", e.target.value)}
-              placeholder="Instagram/YouTube embed URL"
+              placeholder="Instagram/YouTube/Facebook video link"
               className="w-full border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
