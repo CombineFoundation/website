@@ -2,38 +2,29 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import type { FirestoreMOU } from "@/lib/admin-actions";
+import type { FirestorePartner } from "@/lib/admin-actions";
 
-interface MOU {
-    id: string;
-    title: string;
-    paragraphs: string[];
-    image: string;
-    imageAlt: string;
-}
-interface MOUSliderProps {
-    mous: FirestoreMOU[];
-}
-
-const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
-    const displayMous: MOU[] = dbMous.map((m, index) => ({
-        id: m.id || index.toString(),
-        title: m.title,
-        paragraphs: m.paragraphs || [],
-        image: m.image,
-        imageAlt: m.imageAlt || m.title,
-    }));
+const MOUSlider = ({ mous: dbPartners = [] }: { mous: FirestorePartner[] }) => {
+    const displayPartners = dbPartners
+        .filter((partner) => partner?.image)
+        .map((partner, index) => ({
+            ...partner,
+            id: partner.id || index.toString(),
+            name: partner.name || "Partner",
+            description: partner.description || "",
+            image: partner.image,
+        }));
 
     const [current, setCurrent] = useState(0);
 
     const handlePrev = () =>
-        setCurrent((c) => (c === 0 ? displayMous.length - 1 : c - 1));
+        setCurrent((c) => (c === 0 ? displayPartners.length - 1 : c - 1));
     const handleNext = () =>
-        setCurrent((c) => (c === displayMous.length - 1 ? 0 : c + 1));
+        setCurrent((c) => (c === displayPartners.length - 1 ? 0 : c + 1));
 
-    const mou = displayMous[current];
+    const partner = displayPartners[current];
 
-    if (!mou) return null;
+    if (!partner) return null;
 
     return (
         <section className="bg-white mt-8">
@@ -41,7 +32,7 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
 
                 {/* Section Header */}
                 <div className="mb-2">
-                    <h2 className="text-3xl font-bold text-secondary-500">MOU&apos;s</h2>
+                    <h2 className="text-3xl font-bold text-secondary-500">Our Partners</h2>
                 </div>
                 <hr className="border-gray-300 mb-8" />
 
@@ -50,12 +41,12 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
 
                     {/* Title */}
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary-600 mb-4 leading-snug">
-                        {mou.title}
+                        {partner.name}
                     </h3>
 
                     {/* Description Paragraphs */}
                     <div className="space-y-4 mb-6">
-                        {mou.paragraphs.map((para, idx) => (
+                        {partner.description.split("\n").filter(Boolean).map((para, idx) => (
                             <p key={idx} className="text-primary-800 text-sm md:text-base lg:text-lg leading-relaxed">
                                 {para}
                             </p>
@@ -65,8 +56,8 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
                     {/* Image */}
                     <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden">
                         <Image
-                            src={mou.image}
-                            alt={mou.imageAlt}
+                            src={partner.image}
+                            alt={partner.name}
                             fill
                             className="object-cover"
                         />
@@ -77,7 +68,7 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
                 <div className="flex justify-center sm:justify-end items-center gap-3 mt-6">
                     <button
                         onClick={handlePrev}
-                        aria-label="Previous MOU"
+                        aria-label="Previous partner"
                         className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg
@@ -95,7 +86,7 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
                     </button>
                     <button
                         onClick={handleNext}
-                        aria-label="Next MOU"
+                        aria-label="Next partner"
                         className="w-11 h-11 rounded-full bg-secondary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
                     >
                         <svg

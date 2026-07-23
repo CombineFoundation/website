@@ -21,6 +21,7 @@ export interface FirestoreEvent {
   location: string;
   registrationLink: string;
   bulletPoints?: string[];
+  images?: string[];
   endTime?: string;
   createdAt?: any;
 }
@@ -105,8 +106,10 @@ export async function fetchEvents(): Promise<FirestoreEvent[]> {
       id: d.id,
       ...data,
       name: data.name || data.title || "",
+      description: data.description || data.summary || "",
       dateTime: data.dateTime || data.date || "",
       registrationLink: data.registrationLink || data.registerLink || "",
+      images: Array.isArray(data.images) ? data.images : [],
     } as FirestoreEvent;
   });
 }
