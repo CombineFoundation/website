@@ -116,7 +116,7 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
     : [];
 
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
+    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
       {displaySections.map((section) => (
         <MembersSection key={section.heading} section={section} />
       ))}
