@@ -123,7 +123,7 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
     : sections;
 
   return (
-    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
+    <section className="max-w-[1500px] px-4 md:px-6 lg:px-8 py-10">
       {displaySections.map((section) => (
         <MembersSection key={section.heading} section={section} />
       ))}

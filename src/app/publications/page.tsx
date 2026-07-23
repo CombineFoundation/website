@@ -27,7 +27,8 @@ const page = async () => {
                 title="Publications"
                 mobileStyles="!text-5xl"
             />
-            <AnnualReports reports={reports} />
+            
+            {reports.length > 0 && <AnnualReports reports={reports} />}
             <Mouslider mous={mous} />
             <TaxShariaCertificates />
         </div>

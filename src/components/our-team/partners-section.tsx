@@ -80,7 +80,7 @@ export default function PartnersSection({
   const remainingName = remainingWords.join(" ");
 
   return (
-    <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden">
+    <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden mb-5">
       {/* Text */}
       <div className="md:col-span-3 flex flex-col justify-center p-8 md:p-10 lg:p-12">
         <h3 className="text-xl md:text-2xl font-bold mb-6">
@@ -107,10 +107,23 @@ export default function PartnersSection({
             </a>
           </div>
         )}
-      </div>
 
+        {/* moved here */}
+        <div className="flex gap-3 mt-8">
+          <button onClick={handlePrev} aria-label="Previous partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button onClick={handleNext} aria-label="Next partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div
-        className="relative w-full overflow-hidden rounded-2xl"
+        className="relative md:col-span-2 w-full overflow-hidden rounded-2xl"
         style={{ height: "500px" }}
       >
         <div
@@ -136,90 +149,9 @@ export default function PartnersSection({
           <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        <div
-          className="absolute inset-0 flex flex-col justify-center px-8 md:px-12 lg:px-16 max-w-3xl"
-          style={{
-            opacity: sliding ? 0 : 1,
-            transition: "opacity 0.3s ease",
-          }}
-        >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">
-            <span className="text-primary-400">{firstWord}</span>
-            {remainingName && (
-              <span className="text-white"> {remainingName}</span>
-            )}
-          </h3>
 
-          <p className="text-sm md:text-base text-white/90 leading-relaxed line-clamp-6">
-            {partner.description}
-          </p>
-
-          <a
-            href={partner.mou}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-fit px-6 py-3 mt-6 rounded-full border-2 border-white/80 text-white/80 hover:bg-white hover:text-primary-800 font-semibold text-sm transition-all duration-200"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2"
-            >
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-            </svg>
-            View MOU
-          </a>
-        </div>
       </div>
 
-      <div className="flex justify-center sm:justify-start gap-3 mt-8 px-4 md:px-6 lg:px-8">
-        <button
-          onClick={handlePrev}
-          aria-label="Previous partner"
-          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        <button
-          onClick={handleNext}
-          aria-label="Next partner"
-          className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex in items-center justify-center transition-all duration-200 cursor-pointer"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
-      </div>
     </div>
   );
 }

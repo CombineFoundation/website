@@ -250,14 +250,21 @@ export interface FirestoreAnnualReport {
   image: string;
   viewUrl: string;
   downloadUrl: string;
-  createdAt?: any;
+  createdAt?: string;
 }
 
 export async function fetchAnnualReports(): Promise<FirestoreAnnualReport[]> {
   const snap = await getDocs(
     query(collection(getDb(), "annualReports"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreAnnualReport));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      createdAt: data.createdAt?.toDate?.().toISOString() ?? null,
+    } as FirestoreAnnualReport;
+  });
 }
 
 export async function addAnnualReport(
@@ -285,21 +292,31 @@ export async function deleteAnnualReports(ids: string[]): Promise<void> {
 }
 
 // ─── MOUs ────────────────────────────────────────────────────────────
-
+function toClientDoc<T>(id: string, data: any): T {
+  const out: any = { id, ...data };
+  for (const key in out) {
+    if (out[key]?.toDate instanceof Function) {
+      out[key] = out[key].toDate().toISOString();
+    }
+  }
+  return out as T;
+}
 export interface FirestoreMOU {
   id?: string;
   title: string;
   paragraphs: string[];
   image: string;
   imageAlt: string;
-  createdAt?: any;
+  pdf?: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 
 export async function fetchMOUs(): Promise<FirestoreMOU[]> {
   const snap = await getDocs(
     query(collection(getDb(), "mous"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreMOU));
+  return snap.docs.map((d) => toClientDoc<FirestoreMOU>(d.id, d.data()));
 }
 
 export async function addMOU(
@@ -372,7 +389,7 @@ export interface FirestorePartner {
   description: string;
   image: string;
   mouUrl?: string;
-  createdAt?: any;
+  createdAt?: string;
   mou?:string;
 }
 
@@ -380,7 +397,14 @@ export async function fetchPartners(): Promise<FirestorePartner[]> {
   const snap = await getDocs(
     query(collection(getDb(), "partners"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestorePartner));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      createdAt: data.createdAt?.toDate?.().toISOString() ?? null,
+    } as FirestorePartner;
+  });
 }
 
 export async function addPartner(

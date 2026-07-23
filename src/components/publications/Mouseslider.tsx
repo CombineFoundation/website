@@ -36,7 +36,7 @@ const MOUSlider = ({ mous: dbMous = [] }: MOUSliderProps) => {
     if (!mou) return null;
 
     return (
-        <section className="bg-white">
+        <section className="bg-white mt-8">
             <div className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8">
 
                 {/* Section Header */}

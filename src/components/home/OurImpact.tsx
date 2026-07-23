@@ -17,7 +17,7 @@ const impactItems: ImpactItem[] = [
     id: 1,
     stat: "3000+",
     title: "Lives Impacted",
-    image: "/home/impact/impact4.png",
+    image: "/home/impact cards/5.svg",
     description:
       "At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need.",
   },
