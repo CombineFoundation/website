@@ -352,14 +352,14 @@ export interface FirestoreTeamMember {
   role: string;
   section: string;
   image: string;
-  createdAt?: any;
+  createdAt?: string | null;
 }
 
 export async function fetchTeamMembers(): Promise<FirestoreTeamMember[]> {
   const snap = await getDocs(
     query(collection(getDb(), "teamMembers"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreTeamMember));
+  return snap.docs.map((d) => toClientDoc<FirestoreTeamMember>(d.id, d.data()));
 }
 
 export async function addTeamMember(
