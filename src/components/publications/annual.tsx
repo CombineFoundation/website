@@ -11,35 +11,7 @@ type Report = {
     downloadUrl: string;
 };
 
-const REPORTS: Report[] = [
-    {
-        id: 1,
-        title: "Annual Report 2022",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
-        image: "/publications/pub1.png",
-        viewUrl: "#",
-        downloadUrl: "#",
-    },
-    {
-        id: 2,
-        title: "Annual Report 2021",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
-        image: "/publications/pub1.png",
-        viewUrl: "#",
-        downloadUrl: "#",
-    },
-    {
-        id: 3,
-        title: "Annual Report 2020",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,",
-        image: "/publications/pub1.png",
-        viewUrl: "#",
-        downloadUrl: "#",
-    },
-];
+
 
 function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
     return (
@@ -95,7 +67,7 @@ function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
 }
 
 export default function AnnualReports({ reports }: { reports?: FirestoreAnnualReport[] }) {
-    const displayReports = reports && reports.length > 0 ? reports : REPORTS;
+    const displayReports = reports && reports.length > 0 ? reports : [];
     return (
         <section id="annual-reports" className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-12">
             {/* Heading */}

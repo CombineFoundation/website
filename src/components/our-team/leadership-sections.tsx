@@ -35,7 +35,7 @@ function MemberCard({ member }: { member: Member }) {
 
 function MembersSection({ section }: { section: GroupSection }) {
   const [cols, setCols] = useState(4);
-  const [visibleRows, setVisibleRows] = useState(2);
+  const [expanded, setExpanded] = useState(false);
   const initialRows = 2;
 
   useEffect(() => {
@@ -53,10 +53,10 @@ function MembersSection({ section }: { section: GroupSection }) {
     return () => mqls.forEach((m) => m.removeEventListener("change", update));
   }, []);
 
-  const limit = visibleRows * cols;
+  const limit = expanded ? section.members.length : initialRows * cols;
   const visibleMembers = section.members.slice(0, limit);
-  const hasMore = section.members.length > limit;
-  const canShowLess = visibleRows > initialRows;
+  const hasMore = section.members.length > initialRows * cols;
+  const isExpanded = expanded && hasMore;
 
   return (
     <div className="mb-12 w-full max-w-[1500px]">
@@ -74,21 +74,12 @@ function MembersSection({ section }: { section: GroupSection }) {
 
       {hasMore && (
         <div className="flex justify-center mt-8">
-          {!canShowLess ? (
-            <button
-              onClick={() => setVisibleRows((p) => p + initialRows)}
-              className="bg-secondary-500 text-white px-8 py-3 rounded-full font-semibold hover:brightness-90 transition-all cursor-pointer"
-            >
-              Show More
-            </button>
-          ) : (
-            <button
-              onClick={() => setVisibleRows(initialRows)}
-              className="md:hidden bg-secondary-500 text-white px-8 py-3 rounded-full font-semibold hover:brightness-90 transition-all cursor-pointer"
-            >
-              Show Less
-            </button>
-          )}
+          <button
+            onClick={() => setExpanded((prev) => !prev)}
+            className="bg-secondary-500 text-white px-8 py-3 rounded-full font-semibold hover:brightness-90 transition-all cursor-pointer"
+          >
+            {isExpanded ? "Show Less" : "Show More"}
+          </button>
         </div>
       )}
     </div>
@@ -102,13 +93,18 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
     ? [
         {
           heading: "Youth Forum",
-          members: members
+          members: (members ?? [])
             .filter((m) => m.section === "Department Head" || m.section === "Youth Forum" || m.section === "Youth Leader")
+            .sort((a, b) => {
+              if (a.section === "Youth Leader" && b.section !== "Youth Leader") return 1;
+              if (a.section !== "Youth Leader" && b.section === "Youth Leader") return -1;
+              return 0;
+            })
             .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
         },
         {
           heading: "International Forum",
-          members: members
+          members: (members ?? [])
             .filter((m) => m.section === "Ambassador" || m.section === "International Forum")
             .map((m) => ({ id: m.id || m.name, name: m.name, title: m.role, image: m.image })),
         },
@@ -116,7 +112,7 @@ export default function LeadershipSections({ members }: { members?: FirestoreTea
     : [];
 
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
+    <section className="max-w-[1500px] px-4 md:px-6 lg:px-8 py-10">
       {displaySections.map((section) => (
         <MembersSection key={section.heading} section={section} />
       ))}

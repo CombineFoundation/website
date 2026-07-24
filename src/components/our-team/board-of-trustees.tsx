@@ -1,6 +1,16 @@
 import Image from "next/image";
 import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
+interface Trustee {
+  id: number | string;
+  name: string;
+  role: string;
+  description?: string;
+  image: string;
+}
+
+
+
 export default function BoardOfTrustees({ members }: { members?: FirestoreTeamMember[] }) {
   const dbTrustees = members?.filter((m) => m.section === "Board of Trustees") || [];
   const displayTrustees = dbTrustees.length > 0 

@@ -40,11 +40,17 @@ export interface Course {
   enrollmentLink?: string;
 }
 
+const statusOrder: Record<string, number> = {
+  upcoming: 0,
+  ongoing: 1,
+  completed: 2,
+};
+
 export async function getAllCourses(): Promise<Course[]> {
   if (!db) return [];
   try {
     const snap = await getDocs(collection(db, "courses"));
-    return snap.docs.map(doc => {
+    const courses = snap.docs.map(doc => {
       const d = doc.data();
       return {
         id: doc.id,
@@ -54,7 +60,7 @@ export async function getAllCourses(): Promise<Course[]> {
         bullets: d.modules?.[0]?.bullets || [], // fallback to first module's bullets if not present at root
         description: d.description || "",
         duration: d.duration || "",
-        level: d.level || "Beginner",
+        level: d.level || "",
         lessons: Number(d.lessons) || 0,
         price: d.price || 0,
         originalPrice: d.originalPrice || d.price || 0,
@@ -67,6 +73,10 @@ export async function getAllCourses(): Promise<Course[]> {
         enrollmentLink: d.enrollmentLink || "",
       } as Course;
     });
+
+    return courses.sort(
+      (a, b) => (statusOrder[a.status ?? ""] ?? 99) - (statusOrder[b.status ?? ""] ?? 99)
+    );
   } catch (error) {
     console.error("Error fetching courses:", error);
     return [];
@@ -80,9 +90,9 @@ export async function getCourseBySlug(slug: string): Promise<Course | undefined>
   // Wait, if a new course is added from Admin Dashboard, it doesn't have a slug field!
   // So we should generate slug from title if it's missing, or find by id.
   // Let's just find the course where (c.slug === slug || slugify(c.title) === slug)
-  
+
   const generateSlug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-  
+
   return courses.find(c => {
     const computedSlug = c.slug || generateSlug(c.title);
     return computedSlug === slug || c.id === slug;
@@ -92,9 +102,9 @@ export async function getCourseBySlug(slug: string): Promise<Course | undefined>
 export async function getAllCourseSlugs() {
   const courses = await getAllCourses();
   const generateSlug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-  
-  return courses.map(course => ({ 
-    course: course.slug && course.slug !== course.id ? course.slug : generateSlug(course.title) 
+
+  return courses.map(course => ({
+    course: course.slug && course.slug !== course.id ? course.slug : generateSlug(course.title)
   }));
 }
 

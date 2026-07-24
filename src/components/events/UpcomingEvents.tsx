@@ -6,15 +6,17 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import { Loader2 } from "lucide-react";
 
-type Event = {
+export type Event = {
     id: string;
     title: string;
+    description?: string;
     bulletPoints: string[];
+    images?: string[];
     date: string;
     startTime: string;
     endTime: string;
     location: string;
-    registerLink: string;
+    registerLink?: string | null;
 };
 
 function parseEventDate(dateStr: string): Date | null {
@@ -185,23 +187,25 @@ function EventPopover({ event, onClose }: { event: Event; onClose: () => void })
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
-                    <Link
-                        href={event.registerLink || "#"}
-                        className="px-5 py-2 rounded-full text-white text-sm font-semibold"
-                                                        style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
-                    >
-                        Register Now
-                    </Link>
-                    <a
-                        href={buildCalendarUrl(event)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-5 py-2 rounded-full text-gray-700 text-sm font-semibold border border-gray-300 hover:bg-gray-50"
-                    >
-                        Add to Calendar
-                    </a>
-                </div>
+                {event.registerLink && event.registerLink.trim() !== "" && (
+                    <div className="flex flex-wrap gap-3">
+                        <Link
+                            href={event.registerLink}
+                            className="px-5 py-2 rounded-full text-white text-sm font-semibold"
+                                                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
+                        >
+                            Register Now
+                        </Link>
+                        <a
+                            href={buildCalendarUrl(event)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2 rounded-full text-gray-700 text-sm font-semibold border border-gray-300 hover:bg-gray-50"
+                        >
+                            Add to Calendar
+                        </a>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -400,7 +404,8 @@ export default function UpcomingEvents() {
 
                     return {
                         id: doc.id,
-                        title: d.title || "",
+                        title: d.title || d.name || d.eventName || "",
+                        description: d.description || "",
                         bulletPoints: d.bulletPoints || [],
                         date: dateStr,
                         startTime: startStr,

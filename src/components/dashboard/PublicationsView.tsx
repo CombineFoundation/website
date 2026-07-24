@@ -1,28 +1,28 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
-import { Loader2, ChevronDown } from "lucide-react";
-import TableToolbar from "./TableToolbar";
-import Pagination from "./Pagination";
-import DeleteConfirmModal from "./DeleteConfirmModal";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import AddAnnualReportModal from "./AddAnnualReportModal";
+import AddPartnerModal from "./AddPartnerModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 import EditAnnualReportModal from "./EditAnnualReportModal";
-import AddMOUModal from "./AddMOUModal";
-import EditMOUModal from "./EditMOUModal";
+import EditPartnerModal from "./EditPartnerModal";
+import Pagination from "./Pagination";
+import TableToolbar from "./TableToolbar";
 import {
-  fetchAnnualReports,
   addAnnualReport,
-  updateAnnualReport,
+  addPartner,
   deleteAnnualReports,
-  fetchMOUs,
-  addMOU,
-  updateMOU,
-  deleteMOUs,
+  deletePartners,
+  fetchAnnualReports,
+  fetchPartners,
+  updateAnnualReport,
+  updatePartner,
   type FirestoreAnnualReport,
-  type FirestoreMOU,
+  type FirestorePartner,
 } from "@/lib/admin-actions";
 
-type Tab = "annual-reports" | "mous";
+type Tab = "annual-reports" | "partners";
 
 const PAGE_SIZE = 10;
 
@@ -31,7 +31,6 @@ export default function PublicationsView() {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Annual Reports state
   const [reports, setReports] = useState<FirestoreAnnualReport[]>([]);
   const [reportsLoading, setReportsLoading] = useState(true);
   const [reportsSearch, setReportsSearch] = useState("");
@@ -42,74 +41,69 @@ export default function PublicationsView() {
   const [showAddReport, setShowAddReport] = useState(false);
   const [showDeleteReports, setShowDeleteReports] = useState(false);
 
-  // MOUs state
-  const [mous, setMous] = useState<FirestoreMOU[]>([]);
-  const [mousLoading, setMousLoading] = useState(true);
-  const [mousSearch, setMousSearch] = useState("");
-  const [mousFilter, setMousFilter] = useState("");
-  const [mousPage, setMousPage] = useState(1);
-  const [mousSelected, setMousSelected] = useState<Set<string>>(new Set());
-  const [editMou, setEditMou] = useState<FirestoreMOU | null>(null);
-  const [showAddMou, setShowAddMou] = useState(false);
-  const [showDeleteMous, setShowDeleteMous] = useState(false);
+  const [partners, setPartners] = useState<FirestorePartner[]>([]);
+  const [partnersLoading, setPartnersLoading] = useState(true);
+  const [partnersSearch, setPartnersSearch] = useState("");
+  const [partnersFilter, setPartnersFilter] = useState("");
+  const [partnersPage, setPartnersPage] = useState(1);
+  const [partnersSelected, setPartnersSelected] = useState<Set<string>>(new Set());
+  const [editPartner, setEditPartner] = useState<(FirestorePartner & { id: string }) | null>(null);
+  const [showAddPartner, setShowAddPartner] = useState(false);
+  const [showDeletePartners, setShowDeletePartners] = useState(false);
 
   const loadReports = async () => {
     try {
       setReportsLoading(true);
       setReports(await fetchAnnualReports());
-    } catch (err) {
-      console.error("Error fetching annual reports:", err);
+    } catch (error) {
+      console.error("Error fetching annual reports:", error);
     } finally {
       setReportsLoading(false);
     }
   };
 
-  const loadMous = async () => {
+  const loadPartners = async () => {
     try {
-      setMousLoading(true);
-      setMous(await fetchMOUs());
-    } catch (err) {
-      console.error("Error fetching MOUs:", err);
+      setPartnersLoading(true);
+      setPartners(await fetchPartners());
+    } catch (error) {
+      console.error("Error fetching partners:", error);
     } finally {
-      setMousLoading(false);
+      setPartnersLoading(false);
     }
   };
 
   useEffect(() => {
-    loadReports();
-    loadMous();
+    void loadReports();
+    void loadPartners();
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDropdown(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ── Annual Reports ─────────────────────────────────────────────
-
   const filteredReports = useMemo(() => {
     let result = reports;
     if (reportsSearch) {
-      result = result.filter((r) =>
-        r.title.toLowerCase().includes(reportsSearch.toLowerCase())
+      result = result.filter((report) =>
+        report.title.toLowerCase().includes(reportsSearch.toLowerCase()) ||
+        report.description.toLowerCase().includes(reportsSearch.toLowerCase())
       );
     }
     return result;
-  }, [reportsSearch, reports]);
+  }, [reports, reportsSearch]);
 
   const reportsTotalPages = Math.max(1, Math.ceil(filteredReports.length / PAGE_SIZE));
-  const reportsPaginated = filteredReports.slice(
-    (reportsPage - 1) * PAGE_SIZE,
-    reportsPage * PAGE_SIZE
-  );
-
-  const reportsAllChecked = reportsPaginated.length > 0 && reportsPaginated.every((r) => reportsSelected.has(r.id!));
-  const reportsSomeChecked = reportsPaginated.some((r) => reportsSelected.has(r.id!));
+  const reportsPaginated = filteredReports.slice((reportsPage - 1) * PAGE_SIZE, reportsPage * PAGE_SIZE);
+  const reportsAllChecked = reportsPaginated.length > 0 && reportsPaginated.every((report) => reportsSelected.has(report.id!));
+  const reportsSomeChecked = reportsPaginated.some((report) => reportsSelected.has(report.id!));
   const canEditReport = reportsSelected.size === 1;
   const canDeleteReports = reportsSelected.size > 0;
 
@@ -117,13 +111,13 @@ export default function PublicationsView() {
     if (reportsAllChecked) {
       setReportsSelected((prev) => {
         const next = new Set(prev);
-        reportsPaginated.forEach((r) => next.delete(r.id!));
+        reportsPaginated.forEach((report) => next.delete(report.id!));
         return next;
       });
     } else {
       setReportsSelected((prev) => {
         const next = new Set(prev);
-        reportsPaginated.forEach((r) => next.add(r.id!));
+        reportsPaginated.forEach((report) => next.add(report.id!));
         return next;
       });
     }
@@ -140,7 +134,7 @@ export default function PublicationsView() {
   const handleEditReport = () => {
     if (!canEditReport) return;
     const id = [...reportsSelected][0];
-    const report = reports.find((r) => r.id === id);
+    const report = reports.find((item) => item.id === id);
     if (report) setEditReport(report);
   };
 
@@ -157,7 +151,7 @@ export default function PublicationsView() {
     await addAnnualReport(data);
     setShowAddReport(false);
     await loadReports();
-    setReportsPage(Math.ceil((reports.length + 1) / PAGE_SIZE));
+    setReportsPage(Math.max(1, Math.ceil((reports.length + 1) / PAGE_SIZE)));
   };
 
   const confirmDeleteReports = async () => {
@@ -172,94 +166,89 @@ export default function PublicationsView() {
     }
   };
 
-  // ── MOUs ───────────────────────────────────────────────────────
-
-  const filteredMous = useMemo(() => {
-    let result = mous;
-    if (mousSearch) {
-      result = result.filter((m) =>
-        m.title.toLowerCase().includes(mousSearch.toLowerCase())
+  const filteredPartners = useMemo(() => {
+    let result = partners;
+    if (partnersSearch) {
+      result = result.filter((partner) =>
+        partner.name.toLowerCase().includes(partnersSearch.toLowerCase()) ||
+        partner.description.toLowerCase().includes(partnersSearch.toLowerCase())
       );
     }
     return result;
-  }, [mousSearch, mous]);
+  }, [partners, partnersSearch]);
 
-  const mousTotalPages = Math.max(1, Math.ceil(filteredMous.length / PAGE_SIZE));
-  const mousPaginated = filteredMous.slice(
-    (mousPage - 1) * PAGE_SIZE,
-    mousPage * PAGE_SIZE
-  );
+  const partnersTotalPages = Math.max(1, Math.ceil(filteredPartners.length / PAGE_SIZE));
+  const partnersPaginated = filteredPartners.slice((partnersPage - 1) * PAGE_SIZE, partnersPage * PAGE_SIZE);
+  const partnersAllChecked = partnersPaginated.length > 0 && partnersPaginated.every((partner) => partnersSelected.has(partner.id!));
+  const partnersSomeChecked = partnersPaginated.some((partner) => partnersSelected.has(partner.id!));
+  const canEditPartner = partnersSelected.size === 1;
+  const canDeletePartners = partnersSelected.size > 0;
 
-  const mousAllChecked = mousPaginated.length > 0 && mousPaginated.every((m) => mousSelected.has(m.id!));
-  const mousSomeChecked = mousPaginated.some((m) => mousSelected.has(m.id!));
-  const canEditMou = mousSelected.size === 1;
-  const canDeleteMous = mousSelected.size > 0;
-
-  const toggleMousAll = () => {
-    if (mousAllChecked) {
-      setMousSelected((prev) => {
+  const togglePartnersAll = () => {
+    if (partnersAllChecked) {
+      setPartnersSelected((prev) => {
         const next = new Set(prev);
-        mousPaginated.forEach((m) => next.delete(m.id!));
+        partnersPaginated.forEach((partner) => next.delete(partner.id!));
         return next;
       });
     } else {
-      setMousSelected((prev) => {
+      setPartnersSelected((prev) => {
         const next = new Set(prev);
-        mousPaginated.forEach((m) => next.add(m.id!));
+        partnersPaginated.forEach((partner) => next.add(partner.id!));
         return next;
       });
     }
   };
 
-  const toggleMou = (id: string) => {
-    setMousSelected((prev) => {
+  const togglePartner = (id: string) => {
+    setPartnersSelected((prev) => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
 
-  const handleEditMou = () => {
-    if (!canEditMou) return;
-    const id = [...mousSelected][0];
-    const mou = mous.find((m) => m.id === id);
-    if (mou) setEditMou(mou);
+  const handleEditPartner = () => {
+    if (!canEditPartner) return;
+    const id = [...partnersSelected][0];
+    const partner = partners.find((item) => item.id === id);
+    if (partner && partner.id) setEditPartner(partner as FirestorePartner & { id: string });
   };
 
-  const handleSaveMou = async (data: { title: string; paragraphs: string[]; image: string; imageAlt: string }) => {
-    if (editMou?.id) {
-      await updateMOU(editMou.id, data);
-      setEditMou(null);
-      setMousSelected(new Set());
-      await loadMous();
+  const handleSavePartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
+    if (editPartner?.id) {
+      await updatePartner(editPartner.id, data);
+      setEditPartner(null);
+      setPartnersSelected(new Set());
+      await loadPartners();
     }
   };
 
-  const handleAddMou = async (data: { title: string; paragraphs: string[]; image: string; imageAlt: string }) => {
-    await addMOU(data);
-    setShowAddMou(false);
-    await loadMous();
-    setMousPage(Math.ceil((mous.length + 1) / PAGE_SIZE));
+  const handleAddPartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
+    await addPartner(data);
+    setShowAddPartner(false);
+    await loadPartners();
+    setPartnersPage(Math.max(1, Math.ceil((partners.length + 1) / PAGE_SIZE)));
   };
 
-  const confirmDeleteMous = async () => {
-    const ids = [...mousSelected];
-    await deleteMOUs(ids);
-    setMousSelected(new Set());
-    setShowDeleteMous(false);
-    await loadMous();
-    const newTotal = filteredMous.length - ids.length;
-    if (mousPage > Math.ceil(newTotal / PAGE_SIZE)) {
-      setMousPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
+  const confirmDeletePartners = async () => {
+    const ids = [...partnersSelected];
+    await deletePartners(ids);
+    setPartnersSelected(new Set());
+    setShowDeletePartners(false);
+    await loadPartners();
+    const newTotal = filteredPartners.length - ids.length;
+    if (partnersPage > Math.ceil(newTotal / PAGE_SIZE)) {
+      setPartnersPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
     }
   };
 
-  const handleAddNew = (type: "annual-report" | "mou") => {
+  const handleAddNew = (type: "annual-report" | "partner") => {
     setShowDropdown(false);
     if (type === "annual-report") {
       setShowAddReport(true);
     } else {
-      setShowAddMou(true);
+      setShowAddPartner(true);
     }
   };
 
@@ -277,7 +266,11 @@ export default function PublicationsView() {
       <>
         <TableToolbar
           searchValue={reportsSearch}
-          onSearchChange={(v) => { setReportsSearch(v); setReportsPage(1); setReportsSelected(new Set()); }}
+          onSearchChange={(value) => {
+            setReportsSearch(value);
+            setReportsPage(1);
+            setReportsSelected(new Set());
+          }}
           filterValue={reportsFilter}
           onFilterChange={setReportsFilter}
           filterOptions={[]}
@@ -286,6 +279,7 @@ export default function PublicationsView() {
           onEdit={handleEditReport}
           onDelete={() => setShowDeleteReports(true)}
         />
+
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -294,7 +288,9 @@ export default function PublicationsView() {
                   <input
                     type="checkbox"
                     checked={reportsAllChecked}
-                    ref={(el) => { if (el) el.indeterminate = reportsSomeChecked && !reportsAllChecked; }}
+                    ref={(element) => {
+                      if (element) element.indeterminate = reportsSomeChecked && !reportsAllChecked;
+                    }}
                     onChange={toggleReportsAll}
                     className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                   />
@@ -344,24 +340,28 @@ export default function PublicationsView() {
             </tbody>
           </table>
         </div>
+
         {filteredReports.length > PAGE_SIZE && (
           <Pagination
             currentPage={reportsPage}
             totalPages={reportsTotalPages}
             totalResults={filteredReports.length}
-            onPageChange={(p) => { setReportsPage(p); setReportsSelected(new Set()); }}
+            onPageChange={(page) => {
+              setReportsPage(page);
+              setReportsSelected(new Set());
+            }}
           />
         )}
       </>
     );
   };
 
-  const renderMOUsTable = () => {
-    if (mousLoading) {
+  const renderPartnersTable = () => {
+    if (partnersLoading) {
       return (
         <div className="flex items-center justify-center py-16">
           <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
-          <span className="ml-3 text-gray-500 font-medium">Loading MOUs...</span>
+          <span className="ml-3 text-gray-500 font-medium">Loading partners...</span>
         </div>
       );
     }
@@ -369,16 +369,21 @@ export default function PublicationsView() {
     return (
       <>
         <TableToolbar
-          searchValue={mousSearch}
-          onSearchChange={(v) => { setMousSearch(v); setMousPage(1); setMousSelected(new Set()); }}
-          filterValue={mousFilter}
-          onFilterChange={setMousFilter}
+          searchValue={partnersSearch}
+          onSearchChange={(value) => {
+            setPartnersSearch(value);
+            setPartnersPage(1);
+            setPartnersSelected(new Set());
+          }}
+          filterValue={partnersFilter}
+          onFilterChange={setPartnersFilter}
           filterOptions={[]}
-          canEdit={canEditMou}
-          canDelete={canDeleteMous}
-          onEdit={handleEditMou}
-          onDelete={() => setShowDeleteMous(true)}
+          canEdit={canEditPartner}
+          canDelete={canDeletePartners}
+          onEdit={handleEditPartner}
+          onDelete={() => setShowDeletePartners(true)}
         />
+
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -386,45 +391,65 @@ export default function PublicationsView() {
                 <th className="w-10 py-3 text-left">
                   <input
                     type="checkbox"
-                    checked={mousAllChecked}
-                    ref={(el) => { if (el) el.indeterminate = mousSomeChecked && !mousAllChecked; }}
-                    onChange={toggleMousAll}
+                    checked={partnersAllChecked}
+                    ref={(element) => {
+                      if (element) element.indeterminate = partnersSomeChecked && !partnersAllChecked;
+                    }}
+                    onChange={togglePartnersAll}
                     className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                   />
                 </th>
-                <th className="py-3 text-left font-medium text-gray-500">Title</th>
-                <th className="py-3 text-left font-medium text-gray-500">Paragraphs</th>
-                <th className="py-3 text-left font-medium text-gray-500">Image Alt</th>
+                <th className="py-3 text-left font-medium text-gray-500">Name</th>
+                <th className="py-3 text-left font-medium text-gray-500">Description</th>
+                <th className="py-3 text-left font-medium text-gray-500">Image</th>
+                <th className="py-3 text-left font-medium text-gray-500">MOU PDF</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {mousPaginated.map((mou) => {
-                const isChecked = mousSelected.has(mou.id!);
+              {partnersPaginated.map((partner) => {
+                const isChecked = partnersSelected.has(partner.id!);
                 return (
-                  <tr key={mou.id} className={`transition-colors ${isChecked ? "bg-blue-50/40" : "hover:bg-gray-50"}`}>
+                  <tr key={partner.id} className={`transition-colors ${isChecked ? "bg-blue-50/40" : "hover:bg-gray-50"}`}>
                     <td className="py-3.5">
                       <input
                         type="checkbox"
                         checked={isChecked}
-                        onChange={() => toggleMou(mou.id!)}
+                        onChange={() => togglePartner(partner.id!)}
                         className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
                       />
                     </td>
-                    <td className="py-3.5 text-gray-800 font-medium pr-4">{mou.title}</td>
-                    <td className="py-3.5 text-gray-600">{mou.paragraphs?.length ?? 0} paragraphs</td>
-                    <td className="py-3.5 text-gray-600 max-w-[200px] truncate">{mou.imageAlt || "—"}</td>
+                    <td className="py-3.5 text-gray-800 font-medium pr-4">{partner.name}</td>
+                    <td className="py-3.5 text-gray-600 max-w-[220px] truncate">{partner.description}</td>
+                    <td className="py-3.5">
+                      {partner.image ? (
+                        <img src={partner.image} alt={partner.name} className="h-12 w-16 object-cover rounded border border-gray-200" />
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="py-3.5 text-gray-600">
+                      {partner.mouUrl ? (
+                        <span className="text-blue-600">Attached</span>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-        {filteredMous.length > PAGE_SIZE && (
+
+        {filteredPartners.length > PAGE_SIZE && (
           <Pagination
-            currentPage={mousPage}
-            totalPages={mousTotalPages}
-            totalResults={filteredMous.length}
-            onPageChange={(p) => { setMousPage(p); setMousSelected(new Set()); }}
+            currentPage={partnersPage}
+            totalPages={partnersTotalPages}
+            totalResults={filteredPartners.length}
+            onPageChange={(page) => {
+              setPartnersPage(page);
+              setPartnersSelected(new Set());
+            }}
           />
         )}
       </>
@@ -433,11 +458,9 @@ export default function PublicationsView() {
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Publications</h1>
 
-        {/* Add New Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setShowDropdown((prev) => !prev)}
@@ -446,6 +469,7 @@ export default function PublicationsView() {
             <span className="text-lg leading-none">+</span> Add New
             <ChevronDown size={16} className={`transition-transform ${showDropdown ? "rotate-180" : ""}`} />
           </button>
+
           {showDropdown && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
               <button
@@ -455,20 +479,23 @@ export default function PublicationsView() {
                 Annual Report
               </button>
               <button
-                onClick={() => handleAddNew("mou")}
+                onClick={() => handleAddNew("partner")}
                 className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors cursor-pointer"
               >
-                MOU
+                Partner
               </button>
             </div>
           )}
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200">
         <button
-          onClick={() => { setActiveTab("annual-reports"); setReportsSelected(new Set()); setMousSelected(new Set()); }}
+          onClick={() => {
+            setActiveTab("annual-reports");
+            setReportsSelected(new Set());
+            setPartnersSelected(new Set());
+          }}
           className={`px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer border-b-2 -mb-[1px] ${
             activeTab === "annual-reports"
               ? "text-blue-600 border-blue-600"
@@ -478,34 +505,41 @@ export default function PublicationsView() {
           Annual Reports
         </button>
         <button
-          onClick={() => { setActiveTab("mous"); setReportsSelected(new Set()); setMousSelected(new Set()); }}
+          onClick={() => {
+            setActiveTab("partners");
+            setReportsSelected(new Set());
+            setPartnersSelected(new Set());
+          }}
           className={`px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer border-b-2 -mb-[1px] ${
-            activeTab === "mous"
+            activeTab === "partners"
               ? "text-blue-600 border-blue-600"
               : "text-gray-500 border-transparent hover:text-gray-700"
           }`}
         >
-          MOUs
+          Partners
         </button>
       </div>
 
-      {/* Content */}
-      {activeTab === "annual-reports" ? renderReportsTable() : renderMOUsTable()}
+      {activeTab === "annual-reports" ? renderReportsTable() : renderPartnersTable()}
 
-      {/* Modals */}
       {editReport && (
         <EditAnnualReportModal
           report={editReport}
-          onCancel={() => { setEditReport(null); setReportsSelected(new Set()); }}
+          onCancel={() => {
+            setEditReport(null);
+            setReportsSelected(new Set());
+          }}
           onSave={handleSaveReport}
         />
       )}
+
       {showAddReport && (
         <AddAnnualReportModal
           onCancel={() => setShowAddReport(false)}
           onSave={handleAddReport}
         />
       )}
+
       {showDeleteReports && (
         <DeleteConfirmModal
           count={reportsSelected.size}
@@ -515,27 +549,33 @@ export default function PublicationsView() {
         />
       )}
 
-      {editMou && (
-        <EditMOUModal
-          mou={editMou}
-          onCancel={() => { setEditMou(null); setMousSelected(new Set()); }}
-          onSave={handleSaveMou}
+      {editPartner && (
+        <EditPartnerModal
+          partner={editPartner}
+          onCancel={() => {
+            setEditPartner(null);
+            setPartnersSelected(new Set());
+          }}
+          onSave={handleSavePartner}
         />
       )}
-      {showAddMou && (
-        <AddMOUModal
-          onCancel={() => setShowAddMou(false)}
-          onSave={handleAddMou}
+
+      {showAddPartner && (
+        <AddPartnerModal
+          onCancel={() => setShowAddPartner(false)}
+          onSave={handleAddPartner}
         />
       )}
-      {showDeleteMous && (
+
+      {showDeletePartners && (
         <DeleteConfirmModal
-          count={mousSelected.size}
-          label="MOU"
-          onCancel={() => setShowDeleteMous(false)}
-          onConfirm={confirmDeleteMous}
+          count={partnersSelected.size}
+          label="partner"
+          onCancel={() => setShowDeletePartners(false)}
+          onConfirm={confirmDeletePartners}
         />
       )}
     </div>
   );
 }
+

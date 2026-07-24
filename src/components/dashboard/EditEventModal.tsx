@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
+import { uploadImage } from "@/lib/firebase-upload";
 
 interface EventFormData {
   name: string;
@@ -10,6 +11,7 @@ interface EventFormData {
   date: string;
   registrationLink: string;
   bulletPoints: string;
+  images: string[];
   endTime: string;
 }
 
@@ -40,6 +42,7 @@ function toDatetimeLocal(dateStr: string): string {
 
 export default function EditEventModal({ event, onCancel, onSave }: EditEventModalProps) {
   const [saving, setSaving] = useState(false);
+  const [uploadingImages, setUploadingImages] = useState(false);
   const [error, setError] = useState("");
   const [isTBA, setIsTBA] = useState(
     event.dateTime === "To be announced" || event.date === "To be announced"
@@ -51,6 +54,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     date: event.dateTime === "To be announced" ? "" : toDatetimeLocal(event.dateTime),
     registrationLink: event.registrationLink || "",
     bulletPoints: event.bulletPoints ? (Array.isArray(event.bulletPoints) ? event.bulletPoints.join("\n") : event.bulletPoints) : "",
+    images: Array.isArray(event.images) ? event.images : [],
     endTime: event.endTime || "",
   });
 
@@ -65,7 +69,7 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     form.description.trim() &&
     form.location.trim() &&
     (isTBA || form.date.trim()) &&
-    form.registrationLink.trim();
+    form.images.length >= 4;
 
   const handleSave = async () => {
     if (!isValid) return;
@@ -82,6 +86,37 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+
+    if (form.images.length + files.length > 5) {
+      setError("You can upload up to 5 images for each event.");
+      e.target.value = "";
+      return;
+    }
+
+    setUploadingImages(true);
+    setError("");
+    try {
+      const uploadedUrls = await Promise.all(files.map((file) => uploadImage(file, "events")));
+      setForm((prev) => ({
+        ...prev,
+        images: [...prev.images, ...uploadedUrls].slice(0, 5),
+      }));
+      e.target.value = "";
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      setError(err.message || "Failed to upload event images. Please try another file.");
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setForm((prev) => ({ ...prev, images: prev.images.filter((_, i) => i !== index) }));
   };
 
   return (
@@ -118,6 +153,31 @@ export default function EditEventModal({ event, onCancel, onSave }: EditEventMod
             rows={4}
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
           />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Event Images (4-5 required)</label>
+          <div className="flex flex-wrap gap-3 mb-3">
+            {form.images.map((src, index) => (
+              <div key={`${src}-${index}`} className="relative h-20 w-20 overflow-hidden rounded-lg border border-gray-200">
+                <img src={src} alt={`Event ${index + 1}`} className="h-full w-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute right-1 top-1 rounded-full bg-black/70 px-1.5 py-0.5 text-[10px] text-white"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+          {form.images.length < 5 && (
+            <label className="inline-flex cursor-pointer items-center rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              <span>{uploadingImages ? "Uploading..." : "Upload images"}</span>
+              <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
+            </label>
+          )}
+          <p className="mt-2 text-xs text-gray-500">Upload 4 to 5 images for the previous-events gallery.</p>
         </div>
 
         <div className="mb-4">
