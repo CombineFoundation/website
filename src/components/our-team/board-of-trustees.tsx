@@ -1,33 +1,36 @@
 import Image from "next/image";
+import type { FirestoreTeamMember } from "@/lib/admin-actions";
 
 interface Trustee {
-  id: number;
+  id: number | string;
   name: string;
   role: string;
-  description: string;
+  description?: string;
   image: string;
 }
 
-const trustees: Trustee[] = [
-  {
-    id: 1,
-    name: "Mr. Farrukh Rehman",
-    role: "Director",
-    description:
-      "Farrukh Rehman is a specialist in Risk Based Internal Auditing and Risk Management with over 20 years of expertise in the fields of finance, governance, and business advisory. As the Director of Combine Consultants and CRMA, he assists companies to enhance internal control measures, manage risks, and grow sustainably. Besides, he serves as an executive trainer and visiting faculty dedicated to developing future leaders in audit and risk management.",
-    image: "/about/hero/hero1.png",
-  },
-];
 
-export default function BoardOfTrustees() {
+
+export default function BoardOfTrustees({ members }: { members?: FirestoreTeamMember[] }) {
+  const dbTrustees = members?.filter((m) => m.section === "Board of Trustees") || [];
+  const displayTrustees = dbTrustees.length > 0 
+    ? dbTrustees.map((m) => ({
+        id: m.id || m.name,
+        name: m.name,
+        role: m.role,
+        image: m.image,
+        description: "",
+      }))
+    : [];
+
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16">
+    <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Board of Directors
       </h2>
 
       <div className="flex flex-col">
-        {trustees.map((trustee) => (
+        {displayTrustees.map((trustee) => (
           <div
             key={trustee.id}
             className="flex flex-col sm:flex-row items-center sm:items-start gap-20 py-8 first:pt-0 text-center sm:text-left"

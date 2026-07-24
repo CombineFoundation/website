@@ -1,49 +1,69 @@
+"use client";
+
+import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
+import type { FirestorePartner } from "@/lib/admin-actions";
 
 interface Partner {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   image: string;
+  mou?: string;
 }
 
-const partners: Partner[] = [
-  {
-    id: 1,
-    name: "Sindh Madarasatul Islam University (SMIU)",
-    description:
-      "Sindh Madarasatul Islam University (SMIU) is a highly valued partner organization associated with Combine Foundation to provide educational and innovative learning opportunities for students. In this connection, both partner organizations are looking forward to providing a platform where students can learn and develop skills.",
-    image: "/about/hero/hero1.png",
-  },
-  {
-    id: 2,
-    name: "Hammad Foundation",
-    description:
-      "Hammad Foundation is one of our valued community partners that help us in our mission to serve the community in terms of social welfare and environmental awareness, along with other community services. It shows the commitment of both foundations in bringing about a positive impact on society.",
-    image: "/about/hero/hero2.jpg",
-  },
-  {
-    id: 3,
-    name: "Quants Society (NED University)",
-    description:
-      "Quants Society, being one of the Department Societies of NED University, is a valued academic and community society that works in collaboration with the Combine Foundation in helping students develop their skills and careers. Under this collaboration, a session was conducted at NED University.",
-    image: "/about/story/story.png",
-  },
-  {
-    id: 4,
-    name: "NGAS \u2014 NED Girls Affairs Society (NED University)",
-    description:
-      "NGAS \u2013 NED Girls Affairs Society is a valued partner organization collaborating with Combine Foundation to promote awareness, education, and community empowerment initiatives focused on social wellbeing and women\u2019s development.",
-    image: "/events/eventsperson.png",
-  },
-];
+type Direction = "next" | "prev";
 
-function PartnerCard({ partner }: { partner: Partner }) {
+export default function PartnersSection({ partners: initialPartners }: { partners?: FirestorePartner[] }) {
+  const displayPartners: Partner[] =
+    initialPartners && initialPartners.length > 0 ? (initialPartners as Partner[]) : [];
+
+  const [current, setCurrent] = useState<number>(0);
+  const [sliding, setSliding] = useState<boolean>(false);
+  const [direction, setDirection] = useState<Direction>("next");
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback(
+    (dir: Direction) => {
+      if (sliding || displayPartners.length === 0) return;
+      setDirection(dir);
+      setSliding(true);
+      setTimeout(() => {
+        setCurrent((prev) =>
+          dir === "next"
+            ? (prev + 1) % displayPartners.length
+            : (prev - 1 + displayPartners.length) % displayPartners.length
+        );
+        setSliding(false);
+      }, 400);
+    },
+    [sliding, displayPartners.length]
+  );
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (displayPartners.length < 2) return;
+    timerRef.current = setInterval(() => goTo("next"), 5000);
+  }, [goTo, displayPartners.length]);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [startTimer]);
+
+  const handlePrev = () => { goTo("prev"); startTimer(); };
+  const handleNext = () => { goTo("next"); startTimer(); };
+
+  if (displayPartners.length === 0) return null;
+
+  const partner = displayPartners[current];
   const [firstWord, ...remainingWords] = partner.name.split(" ");
   const remainingName = remainingWords.join(" ");
 
   return (
-    <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden">
+    <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden mb-5">
       {/* Text */}
       <div className="md:col-span-3 flex flex-col justify-center p-8 md:p-10 lg:p-12">
         <h3 className="text-xl md:text-2xl font-bold mb-6">
@@ -55,35 +75,65 @@ function PartnerCard({ partner }: { partner: Partner }) {
         <p className="text-sm md:text-base text-primary-800 leading-relaxed">
           {partner.description}
         </p>
+        {partner.mou && (
+          <div className="mt-6">
+            <a
+              href={partner.mou}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-secondary-600 text-white font-medium text-sm rounded-lg hover:shadow-lg hover:brightness-110 transition-all duration-300 w-fit"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View MOU
+            </a>
+          </div>
+        )}
+
+        {/* moved here */}
+        <div className="flex gap-3 mt-8">
+          <button onClick={handlePrev} aria-label="Previous partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button onClick={handleNext} aria-label="Next partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        className="relative md:col-span-2 w-full overflow-hidden rounded-2xl"
+        style={{ height: "500px" }}
+      >
+        <div
+          className="absolute inset-0 transition-all w-full duration-400 ease-in-out rounded-2xl"
+          style={{
+            opacity: sliding ? 0 : 1,
+            transform: sliding
+              ? direction === "next"
+                ? "translateX(-20px)"
+                : "translateX(20px)"
+              : "translateX(0)",
+            transition: "opacity 0.4s ease, transform 0.4s ease",
+          }}
+        >
+          <Image
+            src={partner.image}
+            alt={partner.name}
+            fill
+            className="object-cover object-center rounded-2xl"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+
+
       </div>
 
-      {/* Image */}
-      <div className="relative w-full h-96 md:h-[400px] md:col-span-2 overflow-hidden rounded-2xl">
-        <Image
-          src={partner.image}
-          alt={partner.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-      </div>
     </div>
-  );
-}
-
-export default function PartnersSection() {
-  return (
-
-    <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black border-b border-black pb-4 mb-10">
-
-        Our Partners
-      </h2>
-
-      <div className="flex flex-col gap-8">
-        {partners.map((partner) => (
-          <PartnerCard key={partner.id} partner={partner} />
-        ))}
-      </div>
-    </section>
   );
 }

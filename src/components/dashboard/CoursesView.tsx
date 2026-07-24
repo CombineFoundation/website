@@ -34,6 +34,7 @@ export interface Course {
   originalPrice: number;
   status: "Ongoing" | "Completed" | "Launch";
   description: string;
+  category: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
@@ -64,7 +65,7 @@ export default function CoursesView() {
     try {
       setLoading(true);
       const data = await fetchCourses();
-      setCourses(data.map((d) => ({ ...d, id: d.id! })) as Course[]);
+      setCourses(data.map((d) => ({ ...d, id: d.id!, originalPrice: 0, requirements: "", guidelineCta: "" })) as Course[]);
     } catch (err) {
       console.error("Error fetching courses:", err);
     } finally {
@@ -76,16 +77,19 @@ export default function CoursesView() {
     loadCourses();
   }, []);
 
-  const filtered = useMemo(() => {
-    let result = courses;
-    if (search) {
-      result = result.filter((c) =>
-        c.name.toLowerCase().includes(search.toLowerCase()) ||
-        c.instructor.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-    return result;
-  }, [search, courses]);
+const filtered = useMemo(() => {
+  let result = courses;
+  if (search) {
+    result = result.filter((c) =>
+      c.name.toLowerCase().includes(search.toLowerCase()) ||
+      c.instructor.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  if (filter) {
+    result = result.filter((c) => c.status === filter);
+  }
+  return result;
+}, [search, filter, courses]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const totalResults = filtered.length;

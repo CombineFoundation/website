@@ -17,7 +17,7 @@ const impactItems: ImpactItem[] = [
     id: 1,
     stat: "3000+",
     title: "Lives Impacted",
-    image: "/home/impact/impact4.png",
+    image: "/home/impact cards/5.svg",
     description:
       "At Combine Foundation, every project is created with the mission to bring positive change in people's lives. Through our educational, welfare, leadership, and community development programs, we have proudly impacted 3000+ individuals by creating opportunities, spreading hope, and supporting communities in times of need.",
   },
@@ -25,7 +25,7 @@ const impactItems: ImpactItem[] = [
     id: 2,
     stat: "204+",
     title: "Students Empowered",
-    image: "/home/impact cards/5.svg",
+    image: "/home/impact cards/3.jpeg",
     description:
       "More than 204 students have been trained through technology, digital skills, and professional development programs. These courses help students to gain confidence, build careers, start earning from home and create better futures through education, freelancing, and modern digital skills.",
   },
@@ -57,7 +57,7 @@ const impactItems: ImpactItem[] = [
     id: 6,
     stat: "30+",
     title: "Webinars & Awareness Sessions",
-    image: "/home/impact/impact6.png",
+    image: "/home/impact cards/4.svg",
     description:
       "We have organized 30+ webinars and awareness sessions covering AI, technology, medical awareness, cybersecurity, leadership, sustainability, scholarships, freelancing, self-grooming, and personal development. These sessions have inspired and educated countless individuals to learn, grow, and move toward a brighter future.",
   },

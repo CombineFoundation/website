@@ -39,7 +39,7 @@ export default function HowItWorks() {
                         </h2>
                         <div className="relative w-full h-[450px] lg:h-[620] rounded-[32px] overflow-hidden">
                             <Image
-                                src="/volunteer/vol2.png"
+                                src="/volunteer-program/career.svg"
                                 alt="Team"
                                 fill
                                 className="object-cover"

@@ -98,6 +98,11 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const filtered = courses.filter((c) =>
     (c.title || c.name || "").toLowerCase().includes(search.toLowerCase())
   );
+const statusOrder: Record<string, number> = {
+  upcoming: 0,
+  ongoing: 1,
+  completed: 2,
+};
 
   return (
     <>

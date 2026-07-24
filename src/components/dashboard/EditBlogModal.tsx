@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { X, Upload, Loader2 } from "lucide-react";
-import { compressImage } from "@/lib/image-compress";
+import { uploadImage } from "@/lib/firebase-upload";
 
 interface BlogFormData {
   name: string;
@@ -32,17 +32,9 @@ function toDateInput(dateStr: string): string {
   return dateStr;
 }
 
-function readFileAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalProps) {
   const [saving, setSaving] = useState(false);
+  const [uploadingFields, setUploadingFields] = useState<Record<string, boolean>>({});
   const [error, setError] = useState("");
   const [form, setForm] = useState<BlogFormData>({
     name: blog.name,
@@ -65,10 +57,20 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
   const handleImageUpload = async (field: "heroImage1" | "heroImage2", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const dataUrl = await readFileAsDataURL(file);
-    const compressedDataUrl = await compressImage(dataUrl);
-    setForm((prev) => ({ ...prev, [field]: compressedDataUrl }));
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadImage(file, "blogs");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
   };
+
+  const isUploading = Object.values(uploadingFields).some(Boolean);
 
   const isValid =
     form.name.trim() &&
@@ -80,14 +82,14 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
     form.heroImage2.trim();
 
   const handleSave = async () => {
-    if (!isValid) return;
+    if (!isValid || isUploading) return;
     setSaving(true);
     setError("");
     try {
       await onSave(form);
     } catch (err: any) {
       console.error("Save blog error:", err);
-      setError(err.message || "Failed to save blog. Ensure you are signed in and images are not too large.");
+      setError(err.message || "Failed to save blog. Ensure you are signed in.");
     } finally {
       setSaving(false);
     }
@@ -197,7 +199,12 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
         <div className="flex gap-4 mb-6">
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Image 1</label>
-            {form.heroImage1 ? (
+            {uploadingFields.heroImage1 ? (
+              <div className="flex flex-col items-center justify-center h-28 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.heroImage1 ? (
               <div className="relative">
                 <img src={form.heroImage1} alt="Blog image 1 preview" className="w-full h-28 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, heroImage1: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -214,7 +221,12 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
           </div>
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Image 2</label>
-            {form.heroImage2 ? (
+            {uploadingFields.heroImage2 ? (
+              <div className="flex flex-col items-center justify-center h-28 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.heroImage2 ? (
               <div className="relative">
                 <img src={form.heroImage2} alt="Blog image 2 preview" className="w-full h-28 object-cover rounded-md border border-gray-200" />
                 <button onClick={() => setForm((prev) => ({ ...prev, heroImage2: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
@@ -240,22 +252,22 @@ export default function EditBlogModal({ blog, onCancel, onSave }: EditBlogModalP
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            disabled={saving}
+            disabled={saving || isUploading}
             className="px-5 py-2 rounded-md text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            disabled={!isValid || saving}
+            disabled={!isValid || saving || isUploading}
             className={`px-5 py-2 rounded-md text-sm font-medium text-white transition-all cursor-pointer flex items-center gap-2 ${
-              isValid && !saving
+              isValid && !saving && !isUploading
                 ? "bg-gradient-to-r from-secondary-600 via-primary-500 to-secondary-600 hover:brightness-110"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-            {saving ? "Saving..." : "Save"}
+            {(saving || isUploading) && <Loader2 className="w-4 h-4 animate-spin" />}
+            {saving ? "Saving..." : isUploading ? "Uploading..." : "Save"}
           </button>
         </div>
       </div>

@@ -101,70 +101,78 @@ function AchievementItem({
                     `}
                 >
                     {/* Images */}
-                    <div
-                        className="flex gap-3 overflow-x-auto pb-2"
-                        style={{ scrollbarWidth: "none" }}
-                    >
-                        {item.images.map((src, i) => (
-                            <div
-                                key={i}
-                                className="
-                                    relative rounded-xl overflow-hidden
-                                    shrink-0 w-[250px] h-[250px]
-                                    hover:scale-[1.02]
-                                    transition-transform duration-500
-                                "
-                            >
-                                <Image
-                                    src={src}
-                                    alt={`${item.title} image ${i + 1}`}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    {item.images && item.images.filter(src => src && src.trim() !== "").length > 0 && (
+                        <div
+                            className="flex gap-3 overflow-x-auto pb-2"
+                            style={{ scrollbarWidth: "none" }}
+                        >
+                            {item.images.filter(src => src && src.trim() !== "").map((src, i) => (
+                                <div
+                                    key={i}
+                                    className="
+                                        relative rounded-xl overflow-hidden
+                                        shrink-0 w-[250px] h-[250px]
+                                        hover:scale-[1.02]
+                                        transition-transform duration-500
+                                    "
+                                >
+                                    <Image
+                                        src={src}
+                                        alt={`${item.title} image ${i + 1}`}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Description */}
-                    <p className="text-white/85 text-sm leading-6">
-                        {item.description}
-                    </p>
+                    {item.description && item.description.trim() !== "" && (
+                        <p className="text-white/85 text-sm leading-6">
+                            {item.description}
+                        </p>
+                    )}
 
                     {/* Goal */}
-                    <div>
-                        <h4 className="text-white font-bold text-xl mb-1">
-                            Goal
-                        </h4>
+                    {item.goal && item.goal.trim() !== "" && (
+                        <div>
+                            <h4 className="text-white font-bold text-xl mb-1">
+                                Goal
+                            </h4>
 
-                        <p className="text-white/85 text-base leading-6">
-                            {item.goal}
-                        </p>
-                    </div>
+                            <p className="text-white/85 text-base leading-6">
+                                {item.goal}
+                            </p>
+                        </div>
+                    )}
 
                     {/* Stats */}
-                    <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
-                        {item.stats.map((stat, i) => (
-                            <div
-                                key={i}
-                                className="
-                                    text-center py-5 rounded-2xl
-                                    bg-white/5 border border-white/10
-                                    backdrop-blur-sm
-                                "
-                            >
-                                <p className="text-white font-extrabold text-2xl">
-                                    {stat.value}
-                                </p>
+                    {item.stats && item.stats.filter(stat => stat && (stat.value?.trim() || stat.label?.trim())).length > 0 && (
+                        <div className="grid sm:grid-cols-4 grid-cols-2 gap-4">
+                            {item.stats.filter(stat => stat && (stat.value?.trim() || stat.label?.trim())).map((stat, i) => (
+                                <div
+                                    key={i}
+                                    className="
+                                        text-center py-5 rounded-2xl
+                                        bg-white/5 border border-white/10
+                                        backdrop-blur-sm
+                                    "
+                                >
+                                    <p className="text-white font-extrabold text-2xl">
+                                        {stat.value}
+                                    </p>
 
-                                <p className="text-white/80 text-xs mt-1">
-                                    {stat.label}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                                    <p className="text-white/80 text-xs mt-1">
+                                        {stat.label}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Before After */}
-                    {item.beforeImage && item.afterImage && (
+                    {item.beforeImage && item.beforeImage.trim() !== "" && item.afterImage && item.afterImage.trim() !== "" && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
                             <div>
                                 <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
@@ -199,7 +207,7 @@ function AchievementItem({
                     )}
 
                     {/* Future Plans */}
-                    {item.futurePlans && (
+                    {item.futurePlans && item.futurePlans.trim() !== "" && (
                         <div>
                             <h4 className="text-white font-bold text-base mb-2">
                                 Future Plans
@@ -212,7 +220,7 @@ function AchievementItem({
                     )}
 
                     {/* Partners */}
-                    {item.partners && item.partners.length > 0 && (
+                    {item.partners && item.partners.filter(src => src && src.trim() !== "").length > 0 && (
                         <div>
                             <h4 className="text-white font-bold text-base mb-4">
                                 Project Partners
@@ -222,7 +230,7 @@ function AchievementItem({
                                 className="flex gap-3 overflow-x-auto pb-2"
                                 style={{ scrollbarWidth: "none" }}
                             >
-                                {item.partners.map((src, i) => (
+                                {item.partners.filter(src => src && src.trim() !== "").map((src, i) => (
                                     <div
                                         key={i}
                                         className="

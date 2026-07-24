@@ -66,21 +66,7 @@ const achievements: Achievement[] = [
             "/about/galleryimgs/15.svg",
             "/about/galleryimgs/16.svg",
         ],
-    },
-    {
-        id: 5,
-        title: "Building Healthier and Greener Society",
-        paragraphs: [
-            "Through strategic collaborations with educational institutions and other community organizations, we have been able to provide opportunities to learn and collaborate and positively contribute to society.",
-            "Through various health-awareness and sustainability campaigns, we have made communities aware of key social, environmental, and health concerns and encouraged changes in their lifestyles. Additionally, our plantation and kitchen gardening programs ensure sustainability and responsibility for the environment.",
-        ],
-        images: [
-            "/about/galleryimgs/1.svg",
-            "/about/galleryimgs/2.svg",
-            "/about/galleryimgs/3.svg",
-            "/about/galleryimgs/4.svg",
-        ],
-    },
+    }
 ];
 
 type Direction = "next" | "prev";

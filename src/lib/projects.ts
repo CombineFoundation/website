@@ -1,6 +1,5 @@
 import { collection, getDocs, query, orderBy } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
-import projectsData from "@/data/projects.json";
 
 export interface ProjectStat {
   value: string;
@@ -21,7 +20,22 @@ export interface Project {
   location: string;
   coordinates: string;
 }
-
+export const projectsData = [
+  {
+    id: 1,
+    title: "Example Project",
+    images: [],
+    description: "Example",
+    goal: "Example goal",
+    stats: [],
+    beforeImage: "",
+    afterImage: "",
+    futurePlans: "",
+    partners: [],
+    location: "",
+    coordinates: "",
+  },
+];
 let cachedProjects: Project[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_TTL = 30000; // 30 seconds
@@ -34,27 +48,26 @@ export async function getAllProjects(): Promise<Project[]> {
 
   const fetchAndCache = async (): Promise<Project[]> => {
     if (!db) {
-      // Fallback if Firebase not initialized
-      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+      return [];
     }
     try {
       const snap = await getDocs(
         query(collection(db, "projects"), orderBy("createdAt", "desc"))
       );
       if (snap.empty) {
-        // Fallback if Firestore is empty
-        return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+        return [];
       }
       return snap.docs.map((doc) => {
         const data = doc.data();
+        const { createdAt, ...rest } = data;
         return {
           id: doc.id,
-          ...data,
+          ...rest,
         } as Project;
       });
     } catch (error) {
       console.error("Error fetching projects from Firebase:", error);
-      return (projectsData as any[]).map((p) => ({ ...p, id: String(p.id) })) as Project[];
+      return [];
     }
   };
 
