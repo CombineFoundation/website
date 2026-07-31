@@ -128,7 +128,6 @@ export default function PartnersSection({ partners: initialPartners }: { partner
             className="object-cover object-center rounded-2xl"
             priority
           />
-          <div className="absolute inset-0 bg-black/40" />
         </div>
 
 

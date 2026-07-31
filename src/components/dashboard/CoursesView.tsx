@@ -40,7 +40,6 @@ export interface Course {
   lessons: number;
   duration: string;
   requirements: string;
-  guidelineCta: string;
   mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
@@ -64,8 +63,8 @@ export default function CoursesView() {
   const loadCourses = async () => {
     try {
       setLoading(true);
-      const data = await fetchCourses();
-      setCourses(data.map((d) => ({ ...d, id: d.id!, originalPrice: 0, requirements: "", guidelineCta: "" })) as Course[]);
+const data = await fetchCourses();
+      setCourses(data.map((d) => ({ ...d, id: d.id! })) as Course[]);
     } catch (err) {
       console.error("Error fetching courses:", err);
     } finally {

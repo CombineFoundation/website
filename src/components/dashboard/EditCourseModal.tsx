@@ -27,8 +27,7 @@ interface CourseFormData {
   heroImage2: string;
   lessons: number;
   duration: string;
-  requirements: string;
-  guidelineCta: string;
+requirements: string;
   mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
@@ -58,8 +57,7 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     heroImage2: course.heroImage2 || "",
     lessons: course.lessons || 0,
     duration: course.duration || "",
-    requirements: (course as any).requirements || "",
-    guidelineCta: (course as any).guidelineCta || "",
+requirements: (course as any).requirements || "",
     mode: (course as any).mode || "",
     enrollmentLink: course.enrollmentLink || "",
     guidelineFile: course.guidelineFile || "",
@@ -171,8 +169,7 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
     form.description.trim() &&
     form.lessons > 0 &&
     form.duration.trim() &&
-    form.requirements.trim() &&
-    form.guidelineCta.trim() &&
+form.requirements.trim() &&
     form.enrollmentLink.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim() &&
@@ -363,19 +360,7 @@ export default function EditCourseModal({ course, onCancel, onSave }: EditCourse
           </div>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-sm text-gray-600 mb-1">Guideline CTA</label>
-          <input
-            type="text"
-            name="guidelineCta"
-            value={form.guidelineCta}
-            onChange={handleChange}
-            placeholder="Want to Master This Course? Download the Complete Course Guideline Now!"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <hr className="my-5 border-gray-200" />
+<hr className="my-5 border-gray-200" />
         <p className="text-sm font-medium text-gray-700 mb-4">Hero Images</p>
 
         <div className="flex gap-4 mb-4">
