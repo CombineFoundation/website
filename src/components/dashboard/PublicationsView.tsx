@@ -11,18 +11,13 @@ import Pagination from "./Pagination";
 import TableToolbar from "./TableToolbar";
 import {
   addAnnualReport,
-  addPartner,
   deleteAnnualReports,
-  deletePartners,
   fetchAnnualReports,
-  fetchPartners,
   updateAnnualReport,
-  updatePartner,
   type FirestoreAnnualReport,
-  type FirestorePartner,
 } from "@/lib/admin-actions";
 
-type Tab = "annual-reports" | "partners";
+type Tab = "annual-reports";
 
 const PAGE_SIZE = 10;
 
@@ -41,15 +36,6 @@ export default function PublicationsView() {
   const [showAddReport, setShowAddReport] = useState(false);
   const [showDeleteReports, setShowDeleteReports] = useState(false);
 
-  const [partners, setPartners] = useState<FirestorePartner[]>([]);
-  const [partnersLoading, setPartnersLoading] = useState(true);
-  const [partnersSearch, setPartnersSearch] = useState("");
-  const [partnersFilter, setPartnersFilter] = useState("");
-  const [partnersPage, setPartnersPage] = useState(1);
-  const [partnersSelected, setPartnersSelected] = useState<Set<string>>(new Set());
-  const [editPartner, setEditPartner] = useState<(FirestorePartner & { id: string }) | null>(null);
-  const [showAddPartner, setShowAddPartner] = useState(false);
-  const [showDeletePartners, setShowDeletePartners] = useState(false);
 
   const loadReports = async () => {
     try {
@@ -62,20 +48,9 @@ export default function PublicationsView() {
     }
   };
 
-  const loadPartners = async () => {
-    try {
-      setPartnersLoading(true);
-      setPartners(await fetchPartners());
-    } catch (error) {
-      console.error("Error fetching partners:", error);
-    } finally {
-      setPartnersLoading(false);
-    }
-  };
 
   useEffect(() => {
     void loadReports();
-    void loadPartners();
   }, []);
 
   useEffect(() => {
@@ -166,90 +141,12 @@ export default function PublicationsView() {
     }
   };
 
-  const filteredPartners = useMemo(() => {
-    let result = partners;
-    if (partnersSearch) {
-      result = result.filter((partner) =>
-        partner.name.toLowerCase().includes(partnersSearch.toLowerCase()) ||
-        partner.description.toLowerCase().includes(partnersSearch.toLowerCase())
-      );
-    }
-    return result;
-  }, [partners, partnersSearch]);
 
-  const partnersTotalPages = Math.max(1, Math.ceil(filteredPartners.length / PAGE_SIZE));
-  const partnersPaginated = filteredPartners.slice((partnersPage - 1) * PAGE_SIZE, partnersPage * PAGE_SIZE);
-  const partnersAllChecked = partnersPaginated.length > 0 && partnersPaginated.every((partner) => partnersSelected.has(partner.id!));
-  const partnersSomeChecked = partnersPaginated.some((partner) => partnersSelected.has(partner.id!));
-  const canEditPartner = partnersSelected.size === 1;
-  const canDeletePartners = partnersSelected.size > 0;
 
-  const togglePartnersAll = () => {
-    if (partnersAllChecked) {
-      setPartnersSelected((prev) => {
-        const next = new Set(prev);
-        partnersPaginated.forEach((partner) => next.delete(partner.id!));
-        return next;
-      });
-    } else {
-      setPartnersSelected((prev) => {
-        const next = new Set(prev);
-        partnersPaginated.forEach((partner) => next.add(partner.id!));
-        return next;
-      });
-    }
-  };
+  
 
-  const togglePartner = (id: string) => {
-    setPartnersSelected((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
-
-  const handleEditPartner = () => {
-    if (!canEditPartner) return;
-    const id = [...partnersSelected][0];
-    const partner = partners.find((item) => item.id === id);
-    if (partner && partner.id) setEditPartner(partner as FirestorePartner & { id: string });
-  };
-
-  const handleSavePartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
-    if (editPartner?.id) {
-      await updatePartner(editPartner.id, data);
-      setEditPartner(null);
-      setPartnersSelected(new Set());
-      await loadPartners();
-    }
-  };
-
-  const handleAddPartner = async (data: { name: string; description: string; image: string; mouUrl?: string }) => {
-    await addPartner(data);
-    setShowAddPartner(false);
-    await loadPartners();
-    setPartnersPage(Math.max(1, Math.ceil((partners.length + 1) / PAGE_SIZE)));
-  };
-
-  const confirmDeletePartners = async () => {
-    const ids = [...partnersSelected];
-    await deletePartners(ids);
-    setPartnersSelected(new Set());
-    setShowDeletePartners(false);
-    await loadPartners();
-    const newTotal = filteredPartners.length - ids.length;
-    if (partnersPage > Math.ceil(newTotal / PAGE_SIZE)) {
-      setPartnersPage(Math.max(1, Math.ceil(newTotal / PAGE_SIZE)));
-    }
-  };
-
-  const handleAddNew = (type: "annual-report" | "partner") => {
-    setShowDropdown(false);
-    if (type === "annual-report") {
+  const handleAddNew = (type: "annual-report") => {
       setShowAddReport(true);
-    } else {
-      setShowAddPartner(true);
-    }
   };
 
   const renderReportsTable = () => {
@@ -356,105 +253,6 @@ export default function PublicationsView() {
     );
   };
 
-  const renderPartnersTable = () => {
-    if (partnersLoading) {
-      return (
-        <div className="flex items-center justify-center py-16">
-          <Loader2 className="w-8 h-8 text-[#134981] animate-spin" />
-          <span className="ml-3 text-gray-500 font-medium">Loading partners...</span>
-        </div>
-      );
-    }
-
-    return (
-      <>
-        <TableToolbar
-          searchValue={partnersSearch}
-          onSearchChange={(value) => {
-            setPartnersSearch(value);
-            setPartnersPage(1);
-            setPartnersSelected(new Set());
-          }}
-          filterValue={partnersFilter}
-          onFilterChange={setPartnersFilter}
-          filterOptions={[]}
-          canEdit={canEditPartner}
-          canDelete={canDeletePartners}
-          onEdit={handleEditPartner}
-          onDelete={() => setShowDeletePartners(true)}
-        />
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="w-10 py-3 text-left">
-                  <input
-                    type="checkbox"
-                    checked={partnersAllChecked}
-                    ref={(element) => {
-                      if (element) element.indeterminate = partnersSomeChecked && !partnersAllChecked;
-                    }}
-                    onChange={togglePartnersAll}
-                    className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
-                  />
-                </th>
-                <th className="py-3 text-left font-medium text-gray-500">Name</th>
-                <th className="py-3 text-left font-medium text-gray-500">Description</th>
-                <th className="py-3 text-left font-medium text-gray-500">Image</th>
-                <th className="py-3 text-left font-medium text-gray-500">MOU PDF</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {partnersPaginated.map((partner) => {
-                const isChecked = partnersSelected.has(partner.id!);
-                return (
-                  <tr key={partner.id} className={`transition-colors ${isChecked ? "bg-blue-50/40" : "hover:bg-gray-50"}`}>
-                    <td className="py-3.5">
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => togglePartner(partner.id!)}
-                        className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer accent-blue-600"
-                      />
-                    </td>
-                    <td className="py-3.5 text-gray-800 font-medium pr-4">{partner.name}</td>
-                    <td className="py-3.5 text-gray-600 max-w-[220px] truncate">{partner.description}</td>
-                    <td className="py-3.5">
-                      {partner.image ? (
-                        <img src={partner.image} alt={partner.name} className="h-12 w-16 object-cover rounded border border-gray-200" />
-                      ) : (
-                        <span className="text-gray-400">—</span>
-                      )}
-                    </td>
-                    <td className="py-3.5 text-gray-600">
-                      {partner.mouUrl ? (
-                        <span className="text-blue-600">Attached</span>
-                      ) : (
-                        <span className="text-gray-400">—</span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {filteredPartners.length > PAGE_SIZE && (
-          <Pagination
-            currentPage={partnersPage}
-            totalPages={partnersTotalPages}
-            totalResults={filteredPartners.length}
-            onPageChange={(page) => {
-              setPartnersPage(page);
-              setPartnersSelected(new Set());
-            }}
-          />
-        )}
-      </>
-    );
-  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 min-h-full">
@@ -478,12 +276,7 @@ export default function PublicationsView() {
               >
                 Annual Report
               </button>
-              <button
-                onClick={() => handleAddNew("partner")}
-                className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors cursor-pointer"
-              >
-                Partner
-              </button>
+              
             </div>
           )}
         </div>
@@ -494,7 +287,6 @@ export default function PublicationsView() {
           onClick={() => {
             setActiveTab("annual-reports");
             setReportsSelected(new Set());
-            setPartnersSelected(new Set());
           }}
           className={`px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer border-b-2 -mb-[1px] ${
             activeTab === "annual-reports"
@@ -504,23 +296,10 @@ export default function PublicationsView() {
         >
           Annual Reports
         </button>
-        <button
-          onClick={() => {
-            setActiveTab("partners");
-            setReportsSelected(new Set());
-            setPartnersSelected(new Set());
-          }}
-          className={`px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer border-b-2 -mb-[1px] ${
-            activeTab === "partners"
-              ? "text-blue-600 border-blue-600"
-              : "text-gray-500 border-transparent hover:text-gray-700"
-          }`}
-        >
-          Partners
-        </button>
+        
       </div>
 
-      {activeTab === "annual-reports" ? renderReportsTable() : renderPartnersTable()}
+      {activeTab === "annual-reports" ? renderReportsTable() : renderReportsTable()}
 
       {editReport && (
         <EditAnnualReportModal
@@ -549,32 +328,7 @@ export default function PublicationsView() {
         />
       )}
 
-      {editPartner && (
-        <EditPartnerModal
-          partner={editPartner}
-          onCancel={() => {
-            setEditPartner(null);
-            setPartnersSelected(new Set());
-          }}
-          onSave={handleSavePartner}
-        />
-      )}
-
-      {showAddPartner && (
-        <AddPartnerModal
-          onCancel={() => setShowAddPartner(false)}
-          onSave={handleAddPartner}
-        />
-      )}
-
-      {showDeletePartners && (
-        <DeleteConfirmModal
-          count={partnersSelected.size}
-          label="partner"
-          onCancel={() => setShowDeletePartners(false)}
-          onConfirm={confirmDeletePartners}
-        />
-      )}
+    
     </div>
   );
 }

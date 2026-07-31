@@ -30,7 +30,7 @@ const INSTRUCTORS: Instructor[] = [
     id: 4,
     name: "Rida Fatima",
     title: "Quantitative Finance Course Instructor",
-    image: "/home/image1.avif",
+    image: "/course/avtar ride.svg",
   },
 ];
 
