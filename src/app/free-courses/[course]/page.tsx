@@ -12,9 +12,6 @@ interface CoursePageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return getAllCourseSlugs();
-}
 export const dynamic = "force-dynamic";
 
 export default async function CoursePage({ params }: CoursePageProps) {
@@ -36,7 +33,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
     <>
       <CourseHero course={course} />
       <hr className="w-[95vw] text-gray-500 m-auto" />
-      <Modules modules={course.modules} guidelineCta={course.guidelineCta} />
+      <Modules modules={course.modules} guidelineCta={course.guidelineCta} guidelineFile={course.guidelineFile} />
       <SuccessStories stories={stories} />
       <MeetInstructors />
       <CtaSection

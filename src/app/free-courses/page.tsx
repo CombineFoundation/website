@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
   <main>
-    <Hero text1="Free" text2="Courses" image1="/home/image1.avif" image2="/home/image1.avif"
+    <Hero text1="Free" text2="Courses" image1="/course/hero.svg" image2="/course/hero (2).svg"
     mobileTitle="Free Courses" text1Size = "big"
     text2Size="big"
     />

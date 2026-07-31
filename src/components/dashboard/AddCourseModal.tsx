@@ -28,7 +28,6 @@ interface CourseFormData {
   lessons: number;
   duration: string;
   requirements: string;
-  guidelineCta: string;
   mode?: string;
   enrollmentLink: string;
   guidelineFile: string;
@@ -57,8 +56,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     heroImage2: "",
     lessons: 0,
     duration: "",
-    requirements: "",
-    guidelineCta: "",
+requirements: "",
     mode: "",
     enrollmentLink: "",
     guidelineFile: "",
@@ -170,8 +168,7 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
     form.description.trim() &&
     form.lessons > 0 &&
     form.duration.trim() &&
-    form.requirements.trim() &&
-    form.guidelineCta.trim() &&
+form.requirements.trim() &&
     form.enrollmentLink.trim() &&
     form.heroImage1.trim() &&
     form.heroImage2.trim() &&
@@ -360,18 +357,6 @@ export default function AddCourseModal({ onCancel, onSave }: AddCourseModalProps
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm text-gray-600 mb-1">Guideline CTA</label>
-          <input
-            type="text"
-            name="guidelineCta"
-            value={form.guidelineCta}
-            onChange={handleChange}
-            placeholder="Want to Master This Course? Download the Complete Course Guideline Now!"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
         </div>
 
         <hr className="my-5 border-gray-200" />

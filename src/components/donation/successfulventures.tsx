@@ -19,7 +19,7 @@ const VENTURES = [
     },
     {
         id: 2,
-        heading: "AI & Technology Education - Empowering Youth Through AI & Technology Education",
+        heading: "RAISE (Rising Ambitions in Skills & Education)",
         description:
             "With our AI & Technology Education, students learn how to develop futuristic digital skills such as Python Programming, Artificial Intelligence, Web Development, and latest technology. Students will get the required knowledge and expertise with the help of hands-on training sessions and mentoring programs to excel in the digital era.\n\nOur objective here is to prepare youth for their future careers in the fields of Artificial Intelligence, Technology, and Freelancing. We aim to create proficient and self-reliant individuals who can lead a prosperous life in society.",
         images: [
