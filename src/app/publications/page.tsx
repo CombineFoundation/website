@@ -23,7 +23,7 @@ const page = async () => {
     return (
         <div>
             <PageHeroMobile
-                imageSrc="/publications/pub1.png"
+                imageSrc="/publications/hero.png"
                 title="Publications"
                 mobileStyles="!text-5xl"
             />

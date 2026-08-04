@@ -158,7 +158,7 @@ export default function CombineAchievements() {
                                 src={src}
                                 alt={`${item.title} image ${i + 1}`}
                                 fill
-                                className="object-cover"
+                                className="object-cover object-top"
                             />
                         </div>
                     ))}

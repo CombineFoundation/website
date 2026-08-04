@@ -125,7 +125,7 @@ export default function PartnersSection({ partners: initialPartners }: { partner
             src={partner.image}
             alt={partner.name}
             fill
-            className="object-cover object-center rounded-2xl"
+            className="object-cover rounded-2xl"
             priority
           />
         </div>
