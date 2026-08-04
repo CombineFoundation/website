@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Course, slugify } from "@/lib/freeCourses";
 
@@ -48,23 +48,22 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
         </h3>
 
         <ul className="flex-1 space-y-1.5">
-          {course.modules
-            .flatMap((mod) => mod.bullets)
-            .slice(0, 5)
-            .map((bullet, i) => (
+          {(() => {
+            const allB = course.modules.flatMap((mod) => mod.bullets);
+            const items = allB.length > 0 ? allB.slice(0, 5) : course.modules.slice(0, 5).map((m) => m.title);
+            return items.map((item, i) => (
               <li
                 key={i}
-                className={`flex items-start gap-1.5 text-[11px] sm:text-xs lg:text-sm leading-snug transition-colors duration-300 ${hovered ? "text-white" : "text-black"
-                  }`}
+                className={`flex items-start gap-1.5 text-[11px] sm:text-xs lg:text-sm leading-snug transition-colors duration-300 ${hovered ? "text-white" : "text-black"}`}
               >
                 <span
-                  className={`mt-[5px] shrink-0 rounded-full transition-colors duration-300 ${hovered                   ? "bg-white" : "bg-primary-700"
-                    }`}
+                  className={`mt-[5px] shrink-0 rounded-full transition-colors duration-300 ${hovered ? "bg-white" : "bg-primary-700"}`}
                   style={{ width: 4, height: 4 }}
                 />
-                {bullet}
+                {item}
               </li>
-            ))}
+            ));
+          })()}
         </ul>
 
         <button
@@ -88,6 +87,8 @@ function CourseCard({ course, onOpen }: { course: Course; onOpen: (slug: string)
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function CoursesOffered({ courses }: { courses: Course[] }) {
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -95,14 +96,27 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
     router.push(`/free-courses/${slug}`);
   };
 
-  const filtered = courses.filter((c) =>
-    (c.title || c.name || "").toLowerCase().includes(search.toLowerCase())
-  );
-const statusOrder: Record<string, number> = {
-  upcoming: 0,
-  ongoing: 1,
-  completed: 2,
-};
+  const categories = [...new Set(courses.map((c) => c.category).filter(Boolean))] as string[];
+
+  useEffect(() => {
+    if (!showFilter) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".filter-dropdown")) setShowFilter(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [showFilter]);
+
+  const statusOrder: Record<string, number> = { Launch: 0, Ongoing: 1, Completed: 2 };
+
+  const filtered = courses
+    .filter((c) => {
+      const matchSearch = (c.title || c.name || "").toLowerCase().includes(search.toLowerCase());
+      const matchCategory = !category || c.category === category;
+      return matchSearch && matchCategory;
+    })
+    .sort((a, b) => (statusOrder[a.status || ""] ?? 2) - (statusOrder[b.status || ""] ?? 2));
 
   return (
     <>
@@ -144,21 +158,49 @@ const statusOrder: Record<string, number> = {
             />
           </div>
 
-          <button className="p-2 rounded-lg border border-gray-200 bg-background shadow-sm hover:bg-gray-50 transition-colors">
-            <svg
-              className="w-4 h-4 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
+          <div className="relative filter-dropdown">
+            <button
+              onClick={() => setShowFilter(!showFilter)}
+              className={`p-2 rounded-lg border transition-colors cursor-pointer ${
+                category
+                  ? "bg-secondary-500 text-white border-secondary-500"
+                  : "bg-background border-gray-200 hover:bg-gray-50 text-gray-500"
+              }`}
             >
-              <path
-                d="M4 6h16M7 12h10M10 18h4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M4 6h16M7 12h10M10 18h4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            {showFilter && categories.length > 0 && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
+                <button
+                  onClick={() => { setCategory(""); setShowFilter(false); }}
+                  className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer ${!category ? "font-semibold text-secondary-500" : "text-gray-700"}`}
+                >
+                  All
+                </button>
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => { setCategory(cat); setShowFilter(false); }}
+                    className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer ${category === cat ? "font-semibold text-secondary-500" : "text-gray-700"}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <div
@@ -170,7 +212,7 @@ const statusOrder: Record<string, number> = {
             {filtered.map((course, idx) => (
               <div
                 key={course.id}
-                
+
                 className="card-enter flex flex-col h-full"
                 style={{ animationDelay: `${idx * 55}ms` }}
               >
