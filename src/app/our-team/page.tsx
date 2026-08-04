@@ -41,7 +41,7 @@ const Page = async () => {
 
   return (
     <>
-      <Hero text1="OUR" text2="TEAM" image1="/projects/projecthero.png" image2="/projects/projecthero.png" text1Size="big" text2Size="big" mobileTitle="OUR TEAM"/>
+      <Hero text1="OUR" text2="TEAM" image1="/home/projects/4.svg" image2="/home/impact cards/8.svg" text1Size="big" text2Size="big" mobileTitle="OUR TEAM"/>
       <FounderProfile />
       <CeoProfile />
       <BoardOfTrustees members={teamMembers} />

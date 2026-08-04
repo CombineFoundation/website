@@ -12,7 +12,7 @@ interface Trustee {
 
 
 export default function BoardOfTrustees({ members }: { members?: FirestoreTeamMember[] }) {
-  const dbTrustees = members?.filter((m) => m.section === "Board of Trustees") || [];
+  const dbTrustees = members?.filter((m) => m.section === "Board of Director") || [];
   const displayTrustees = dbTrustees.length > 0 
     ? dbTrustees.map((m) => ({
         id: m.id || m.name,

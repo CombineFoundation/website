@@ -70,19 +70,6 @@ const VENTURES = [
         ],
     },
     {
-        id: 6,
-        heading: "Beach Cleanup Campaign - Keeping Our Beaches Clean & Green",
-        description:
-            "The beach cleanup drive that was planned with the help of the Hammad foundation was aimed at creating awareness about cleanliness for our surroundings.\n\nThere were many volunteers who took part in this campaign and helped us make our beaches cleaner. This drive would not only help us eliminate waste pollution but would also serve as a means of encouraging the youth to take part in such initiatives.",
-        images: [
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-            "/home/image1.avif",
-        ],
-    },
-    {
         id: 7,
         heading: "Ramadan Bachat Camp & Free Rashan Drive - Spreading Hope & Relief During Ramadan",
         description:

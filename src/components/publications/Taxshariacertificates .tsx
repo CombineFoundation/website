@@ -21,21 +21,21 @@ const certificates: Certificate[] = [
     {
         id: 2,
         title: "PCP Certificate",
-        image: "/publications/pub1.png",
+        image: "/publications/pub2.png",
         imageAlt: "PCP Certificate",
         url: "/PCP Certificate - 2026-1.pdf",
     },
     {
         id: 3,
         title: "License",
-        image: "/publications/pub1.png",
+        image: "/publications/pub3.png",
         imageAlt: "License",
         url: "/License.pdf",
     },
     {
         id: 4,
         title: "FBR Certificate",
-        image: "/publications/pub1.png",
+        image: "/publications/pub4.png",
         imageAlt: "FBR Certificate",
         url: "/FBR Certificate.pdf",
     },
@@ -67,7 +67,7 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
                         src={cert.image}
                         alt={cert.imageAlt}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                     />
                 ) : (
                     <span className="text-gray-400 text-sm lg:text-base font-medium">
