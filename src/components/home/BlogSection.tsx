@@ -17,7 +17,7 @@ function BlogCard({ post }: BlogCardProps) {
         style={{ height: "320px" }}
       >
         <Image
-          src={post.heroImage1}
+          src={post.cardImage || post.heroImage1}
           alt={post.title}
           fill
           className="object-cover"

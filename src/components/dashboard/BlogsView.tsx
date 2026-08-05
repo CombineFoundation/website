@@ -156,17 +156,20 @@ export default function BlogsView() {
     }
   };
 
-  const handleSaveEdit = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
+  const handleSaveEdit = async (data: { name: string; authorName: string; authorBio: string; authorImage: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; cardImage: string; content?: string }) => {
     if (!editBlog?.id) return;
     await updateBlog(editBlog.id, {
       name: data.name,
       authorName: data.authorName,
+      authorBio: data.authorBio,
+      authorImage: data.authorImage,
       date: toStorageDate(data.date),
       status: data.status,
       description: data.description,
       conclusion: data.conclusion,
       heroImage1: data.heroImage1,
       heroImage2: data.heroImage2,
+      cardImage: data.cardImage,
       content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
     });
     setEditBlog(null);
@@ -174,16 +177,19 @@ export default function BlogsView() {
     await loadBlogs();
   };
 
-  const handleAdd = async (data: { name: string; authorName: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; content?: string }) => {
+  const handleAdd = async (data: { name: string; authorName: string; authorBio: string; authorImage: string; date: string; status: "Published" | "Draft" | "Under Review"; description: string; conclusion: string; heroImage1: string; heroImage2: string; cardImage: string; content?: string }) => {
     await addBlog({
       name: data.name,
       authorName: data.authorName,
+      authorBio: data.authorBio,
+      authorImage: data.authorImage,
       date: toStorageDate(data.date),
       status: data.status,
       description: data.description,
       conclusion: data.conclusion,
       heroImage1: data.heroImage1,
       heroImage2: data.heroImage2,
+      cardImage: data.cardImage,
       content: data.content ? data.content.split("\n\n").map(p => p.trim()).filter(Boolean) : [],
     });
     setShowAddModal(false);
