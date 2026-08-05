@@ -7,12 +7,15 @@ import { uploadImage } from "@/lib/firebase-upload";
 interface BlogFormData {
   name: string;
   authorName: string;
+  authorBio: string;
+  authorImage: string;
   date: string;
   status: "Published" | "Draft" | "Under Review";
   description: string;
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  cardImage: string;
   content: string;
 }
 
@@ -28,12 +31,15 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
   const [form, setForm] = useState<BlogFormData>({
     name: "",
     authorName: "",
+    authorBio: "",
+    authorImage: "",
     date: "",
     status: "Draft",
     description: "",
     conclusion: "",
     heroImage1: "",
     heroImage2: "",
+    cardImage: "",
     content: "",
   });
 
@@ -43,7 +49,7 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleImageUpload = async (field: "heroImage1" | "heroImage2", e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (field: "heroImage1" | "heroImage2" | "cardImage" | "authorImage", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadingFields((prev) => ({ ...prev, [field]: true }));
@@ -68,7 +74,8 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
     form.description.trim() &&
     form.content.trim() &&
     form.heroImage1.trim() &&
-    form.heroImage2.trim();
+    form.heroImage2.trim() &&
+    form.cardImage.trim();
 
   const handleSave = async () => {
     if (!isValid || isUploading) return;
@@ -133,6 +140,18 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
         </div>
 
         <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Author Bio</label>
+          <textarea
+            name="authorBio"
+            value={form.authorBio}
+            onChange={handleChange}
+            placeholder="Brief bio about the author..."
+            rows={3}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          />
+        </div>
+
+        <div className="mb-4">
           <label className="block text-sm text-gray-600 mb-1">Status</label>
           <select
             name="status"
@@ -182,10 +201,33 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
           />
         </div>
 
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">Author Image</label>
+          {uploadingFields.authorImage ? (
+            <div className="flex flex-col items-center justify-center h-28 border border-gray-200 rounded-md bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+            </div>
+          ) : form.authorImage ? (
+            <div className="relative w-full h-28 rounded-md overflow-hidden border border-gray-200">
+              <img src={form.authorImage} alt="Author preview" className="w-full h-full object-cover" />
+              <button onClick={() => setForm((prev) => ({ ...prev, authorImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
+                <X size={14} />
+              </button>
+            </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center h-28 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+              <Upload size={18} className="text-gray-400" />
+              <span className="text-xs text-gray-400 mt-1">Upload Author Image</span>
+              <input type="file" accept="image/*" onChange={(e) => handleImageUpload("authorImage", e)} className="hidden" />
+            </label>
+          )}
+        </div>
+
         <hr className="my-5 border-gray-200" />
         <p className="text-sm font-medium text-gray-700 mb-4">Images</p>
 
-        <div className="flex gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div className="flex-1">
             <label className="block text-sm text-gray-600 mb-1">Image 1</label>
             {uploadingFields.heroImage1 ? (
@@ -227,6 +269,28 @@ export default function AddBlogModal({ onCancel, onSave }: AddBlogModalProps) {
                 <Upload size={18} className="text-gray-400" />
                 <span className="text-xs text-gray-400 mt-1">Upload Image</span>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload("heroImage2", e)} className="hidden" />
+              </label>
+            )}
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm text-gray-600 mb-1">Card Image</label>
+            {uploadingFields.cardImage ? (
+              <div className="flex flex-col items-center justify-center h-28 border border-gray-200 rounded-md bg-gray-50">
+                <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+                <span className="text-xs text-gray-500 mt-1">Uploading...</span>
+              </div>
+            ) : form.cardImage ? (
+              <div className="relative">
+                <img src={form.cardImage} alt="Blog card image preview" className="w-full h-28 object-cover rounded-md border border-gray-200" />
+                <button onClick={() => setForm((prev) => ({ ...prev, cardImage: "" }))} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full">
+                  <X size={14} />
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center h-28 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+                <Upload size={18} className="text-gray-400" />
+                <span className="text-xs text-gray-400 mt-1">Upload Image</span>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload("cardImage", e)} className="hidden" />
               </label>
             )}
           </div>

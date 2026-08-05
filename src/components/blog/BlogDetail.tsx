@@ -5,6 +5,7 @@ import type { BlogPost } from "@/lib/blogs";
 import AuthorCard from "@/components/blog/AuthorCard";
 import Comments from "@/components/blog/Comments";
 import YouMightAlsoLike from "@/components/blog/YouMightAlsoLike";
+import Image from "next/image";
 
 interface BlogDetailProps {
   post: BlogPost;
@@ -41,10 +42,12 @@ export default function BlogDetail({ post, blogs }: BlogDetailProps) {
 
       {/* Hero Image */}
       <div className="rounded-2xl overflow-hidden mb-4 bg-gray-100">
-        <img
+        <Image
           src={post.heroImage1}
           alt={post.title}
-          className="w-full h-56 md:h-80 object-cover"
+          width={900}
+          height={500}
+          className="w-full h-64 md:h-96 object-cover"
         />
       </div>
 
@@ -100,10 +103,12 @@ export default function BlogDetail({ post, blogs }: BlogDetailProps) {
           <div key={i}>
             {i === post.content.length - 1 && post.heroImage2 && (
               <div className="rounded-2xl overflow-hidden mb-4 bg-gray-100">
-                <img
+                <Image
                   src={post.heroImage2}
                   alt="Blog content"
-                  className="w-full h-56 md:h-80 object-cover"
+                  width={900}
+                  height={500}
+                  className="w-full h-64 md:h-96 object-cover"
                 />
               </div>
             )}
@@ -118,7 +123,7 @@ export default function BlogDetail({ post, blogs }: BlogDetailProps) {
           <p className="text-sm md:text-base lg:text-xl text-gray-800 leading-relaxed">{post.conclusion}</p>
         </div>
       )}
-      <AuthorCard name={post.authorName} />
+      <AuthorCard name={post.authorName} bio={post.authorBio} image={post.authorImage} />
       <Comments initialComments={post.commentList} />
       <YouMightAlsoLike blogs={blogs} />
     </article>

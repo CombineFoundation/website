@@ -13,7 +13,10 @@ export interface BlogPost {
   id: string;
   heroImage1: string;
   heroImage2: string;
+  cardImage?: string;
   authorName: string;
+  authorBio?: string;
+  authorImage?: string;
   date: string;
   title: string;
   description: string;

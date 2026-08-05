@@ -21,7 +21,7 @@ export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
     id: p.id || index.toString(),
     title: p.title,
     excerpt: p.description,
-    image: p.heroImage1,
+    image: p.cardImage || p.heroImage1,
     tags: ["Health", "Wellness", "Healthy Living"].slice(0, ((index) % 3) + 1),
     href: `/blog/${p.slug}`,
   }));

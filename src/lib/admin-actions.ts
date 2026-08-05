@@ -53,12 +53,15 @@ export interface FirestoreBlog {
   id?: string;
   name: string;
   authorName: string;
+  authorBio?: string;
+  authorImage?: string;
   date: string;
   status: "Published" | "Draft" | "Under Review";
   description: string;
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  cardImage: string;
   content?: string[];
   createdAt?: any;
 }
