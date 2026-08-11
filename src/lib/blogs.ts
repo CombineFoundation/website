@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, limit } from "firebase/firestore/lite";
+import { collection, getDocs, query, where, limit, updateDoc, doc, arrayUnion, increment } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 
 export interface CommentData {
@@ -76,4 +76,44 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 export async function getAllBlogSlugs() {
     const blogs = await getAllBlogs();
     return blogs.map((post) => ({ slug: post.slug }));
+}
+
+// ─── Comments Functions ──────────────────────────────────────────
+
+export async function saveComment(blogId: string, name: string, text: string): Promise<CommentData | null> {
+    if (!db) return null;
+    try {
+        const newComment: CommentData = {
+            id: Date.now().toString(),
+            name,
+            date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
+            text,
+            avatar: "",
+        };
+
+        await updateDoc(doc(db, "blogs", blogId), {
+            commentList: arrayUnion(newComment),
+            comments: increment(1),
+        });
+
+        return newComment;
+    } catch (error) {
+        console.error("Error saving comment:", error);
+        return null;
+    }
+}
+
+// ─── Likes Functions ─────────────────────────────────────────────
+
+export async function updateBlogLikes(blogId: string, increment_value: number): Promise<boolean> {
+    if (!db) return false;
+    try {
+        await updateDoc(doc(db, "blogs", blogId), {
+            likes: increment(increment_value),
+        });
+        return true;
+    } catch (error) {
+        console.error("Error updating likes:", error);
+        return false;
+    }
 }

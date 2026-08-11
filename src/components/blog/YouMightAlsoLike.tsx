@@ -4,12 +4,6 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import type { BlogPost } from "@/lib/blogs";
 
-const TAG_COLORS: Record<string, string> = {
-  Health: "var(--accent-orange)",
-  Wellness: "var(--accent-orange)",
-  "Healthy Living": "var(--accent-orange)",
-};
-
 export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -22,7 +16,6 @@ export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
     title: p.title,
     excerpt: p.description,
     image: p.cardImage || p.heroImage1,
-    tags: ["Health", "Wellness", "Healthy Living"].slice(0, ((index) % 3) + 1),
     href: `/blog/${p.slug}`,
   }));
 
@@ -98,18 +91,7 @@ export default function YouMightAlsoLike({ blogs }: { blogs: BlogPost[] }) {
               <div className="p-4 md:p-5 lg:p-6 flex flex-col flex-1">
                 <h3 className="text-sm md:text-base lg:text-lg font-bold text-gray-900 mb-2">{post.title}</h3>
 
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-0.5 rounded-full text-white text-[10px] md:text-xs lg:text-sm font-semibold"
-                      style={{ background: TAG_COLORS[tag] ?? "var(--accent-orange)" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
+                
                 <p className="text-xs md:text-sm lg:text-base text-gray-600 leading-relaxed flex-1 line-clamp-3">
                   {post.excerpt}
                 </p>

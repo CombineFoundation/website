@@ -15,7 +15,7 @@ export default function Page() {
 
     return (
         <>
-            <PageHeroMobile title="Events" imageSrc="/home/blog/blog2.png" />
+            <PageHeroMobile title="Events" imageSrc="/events/hero.png" />
             <OurIdeaAboutEvents />
             <UpcomingEvents />
             <EventsAcheivementList activeId={activeId} onToggle={handleCardToggle} />

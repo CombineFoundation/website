@@ -9,7 +9,7 @@ interface Partner {
   name: string;
   description: string;
   image: string;
-  mou?: string;
+  mouUrl?: string;
 }
 
 type Direction = "next" | "prev";
@@ -75,34 +75,38 @@ export default function PartnersSection({ partners: initialPartners }: { partner
         <p className="text-sm md:text-base text-primary-800 leading-relaxed">
           {partner.description}
         </p>
-        {partner.mou && (
-          <div className="mt-6">
-            <a
-              href={partner.mou}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-secondary-600 text-white font-medium text-sm rounded-lg hover:shadow-lg hover:brightness-110 transition-all duration-300 w-fit"
-            >
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              View MOU
-            </a>
-          </div>
-        )}
+        
 
         {/* moved here */}
-        <div className="flex gap-3 mt-8">
-          <button onClick={handlePrev} aria-label="Previous partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-          <button onClick={handleNext} aria-label="Next partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+        <div className="grid grid-cols-2">
+
+          <div className="flex gap-3 mt-8">
+            <button onClick={handlePrev} aria-label="Previous partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button onClick={handleNext} aria-label="Next partner" className="w-11 h-11 rounded-full bg-primary-700 hover:brightness-90 text-white flex items-center justify-center transition-all duration-200 cursor-pointer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+          {partner.mouUrl && (
+            <div className="mt-16 md:mt-0 flex justify-start items-center md:justify-end">
+              <a
+                href={partner.mouUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-500 text-white font-medium text-sm rounded-lg hover:shadow-lg hover:brightness-110 transition-all duration-300"
+              >
+                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                View MOU
+              </a>
+            </div>
+          )}
         </div>
       </div>
       <div
