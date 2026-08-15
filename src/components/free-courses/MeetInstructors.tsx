@@ -12,25 +12,25 @@ const INSTRUCTORS: Instructor[] = [
     id: 1,
     name: "Syeda Maliha Naz",
     title: "Web Development Instructor",
-    image: "/home/image1.avif",
+    image: "/course/Maliha naz.svg",
   },
   {
     id: 2,
     name: "Esha",
     title: "Python & AI Mentor | Lead Developer",
-    image: "/home/image1.avif",
+    image: "/course/Esha.svg",
   },
   {
     id: 3,
     name: "Muhammad Umar",
     title: "Digital Empowerment Course Instructor",
-    image: "/home/image1.avif",
+    image: "/course/M Umar.svg",
   },
   {
     id: 4,
     name: "Rida Fatima",
     title: "Quantitative Finance Course Instructor",
-    image: "/course/avtar ride.svg",
+    image: "/course/avtar rida.svg",
   },
 ];
 

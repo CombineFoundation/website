@@ -285,7 +285,7 @@ export default function TeamView() {
           onSearchChange={(v) => { setMembersSearch(v); setMembersPage(1); setMembersSelected(new Set()); }}
           filterValue={membersFilter}
           onFilterChange={setMembersFilter}
-          filterOptions={["Youth Leader", "Ambassador", "Department Head", "Board of Trustees"]}
+          filterOptions={["Youth Forum", "International Forum", "Board of Members", "Board of Director"]}
           canEdit={canEditMember}
           canDelete={canDeleteMembers}
           onEdit={handleEditMember}

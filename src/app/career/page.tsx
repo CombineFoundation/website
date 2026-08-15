@@ -51,7 +51,6 @@ export default function CareerPage() {
 
         setJobs(jobsList);
       } catch (err: any) {
-        console.error("Error fetching jobs: ", err);
         setError("Failed to load career opportunities. Please try again later.");
       } finally {
         setLoading(false);
