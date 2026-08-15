@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -32,30 +32,22 @@ export default function LoginPage() {
         throw new Error("Authentication succeeded but no user was returned.");
       }
 
-      // On success, set a session cookie for the middleware
       const token = await userCredential.user.getIdToken();
-      document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
+      const response = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ token }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create a secure session.");
+      }
       
       router.push("/admin/dashboard");
     } catch (err: any) {
-      // FALLBACK: If login fails and it's our admin email, try to create it automatically
-      // This helps if the user hasn't run the setup yet.
-      if ((email === "admin@combinefoundation.com" || email === "admin2@combinefoundation.com") && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
-        try {
-          const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
-          if (!newUserCredential.user) {
-            throw new Error("Account created but no user was returned.");
-          }
-
-          const token = await newUserCredential.user.getIdToken();
-          document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
-          router.push("/admin/dashboard");
-          return;
-        } catch (createErr) {
-          console.error("Auto-creation failed", createErr);
-        }
-      }
-
       console.error(err);
 
       // Friendly error messages as requested

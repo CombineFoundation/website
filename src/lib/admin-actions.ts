@@ -8,6 +8,7 @@ import {
   query,
   orderBy,
   serverTimestamp,
+  Timestamp
 } from "firebase/firestore/lite";
 import { getDb } from "./firebase";
 
@@ -23,7 +24,7 @@ export interface FirestoreEvent {
   bulletPoints?: string[];
   images?: string[];
   endTime?: string;
-  createdAt?: any;
+  createdAt?: Timestamp | null;
 }
 
 export interface FirestoreCourse {
@@ -46,7 +47,7 @@ export interface FirestoreCourse {
   slug?: string;
   modules: { title: string; bullets: string[] }[];
   successStories: { studentName: string; testimonial: string; videoUrl: string }[];
-  createdAt?: any;
+  createdAt?: Timestamp | null;
 }
 
 export interface FirestoreBlog {

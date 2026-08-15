@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore/lite";
 import { getDb } from "@/lib/firebase";
+import { error } from "console";
 
 interface SplashData {
   image: string;
@@ -32,7 +33,7 @@ export default function SplashBanner() {
           }
         }
       } catch {
-        console.log("No splash banners available");
+        error("Failed to fetch splash banner data");
       }
       setSplash({
         image: "/home/project/project.png",
