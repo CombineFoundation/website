@@ -13,7 +13,7 @@ export default function CeoProfile() {
         
         <div className="w-full md:w-[23rem] lg:w-[32rem] xl:w-[38rem] flex-shrink-0 order-2 md:order-1">
           <img
-            src="/avatar.svg"
+            src="/1.jpg"
             alt="Mr. Ashfaq Nathani"
             className="w-full aspect-[4/3] md:aspect-square object-cover rounded-[2rem] shadow-sm"
           />
