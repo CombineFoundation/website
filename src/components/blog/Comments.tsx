@@ -2,53 +2,84 @@
 
 import { useState } from "react";
 import type { CommentData } from "@/lib/blogs";
+import { saveComment } from "@/lib/blogs";
 
 interface CommentsProps {
   initialComments: CommentData[];
+  blogId: string;
+  onCommentAdded?: (newComment: CommentData) => void;
 }
 
-export default function Comments({ initialComments }: CommentsProps) {
+export default function Comments({ initialComments, blogId, onCommentAdded }: CommentsProps) {
   const [comments, setComments] = useState<CommentData[]>(initialComments);
+  const [name, setName] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const wordCount = response.trim() ? response.trim().split(/\s+/).length : 0;
 
-  const handleSubmit = () => {
-    const trimmed = response.trim();
-    if (!trimmed) return;
-    if (wordCount < 10) {
-      setError(`Minimum 10 words required (${wordCount}/10)`);
+  const handleSubmit = async () => {
+    const trimmedName = name.trim();
+    const trimmedResponse = response.trim();
+
+    if (!trimmedName) {
+      setError("Please enter your name");
       return;
     }
-    setComments((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        name: "You",
-        date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
-        text: trimmed,
-        avatar: "",
-      },
-    ]);
-    setResponse("");
-    setError("");
+    if (!trimmedResponse) return;
+    if (wordCount < 5) {
+      setError(`Minimum 5 words required (${wordCount}/5)`);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const newComment = await saveComment(blogId, trimmedName, trimmedResponse);
+      if (newComment) {
+        setComments((prev) => [newComment, ...prev]);
+        onCommentAdded?.(newComment);
+        setName("");
+        setResponse("");
+        setError("");
+      } else {
+        setError("Failed to post comment. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section className="w-full px-4 py-6">
       <h2 className="text-xl font-bold text-gray-900 mb-4">Comments</h2>
 
-      <textarea
-        value={response}
-        onChange={(e) => {
-          setResponse(e.target.value);
-          if (error) setError("");
-        }}
-        placeholder="Write a response (minimum 10 words)"
-        rows={4}
-        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none resize-none focus:border-gray-300 transition-colors mb-2"
-      />
+      <div className="mb-4">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (error) setError("");
+          }}
+          placeholder="Your name"
+          className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-gray-300 transition-colors mb-3"
+        />
+
+        <textarea
+          value={response}
+          onChange={(e) => {
+            setResponse(e.target.value);
+            if (error) setError("");
+          }}
+          placeholder="Write a response (minimum 5 words)"
+          rows={4}
+          className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none resize-none focus:border-gray-300 transition-colors"
+        />
+      </div>
 
       {error && <p className="text-xs text-red-500 mb-2">{error}</p>}
 
@@ -56,13 +87,14 @@ export default function Comments({ initialComments }: CommentsProps) {
         {response.trim() && (
           <button
             onClick={handleSubmit}
-            className="px-5 py-2 rounded-full bg-accent-orange text-white text-xs font-semibold hover:brightness-90 transition-all active:scale-95"
+            disabled={isLoading}
+            className="px-5 py-2 rounded-full bg-accent-orange text-white text-xs font-semibold hover:brightness-90 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Post Comment
+            {isLoading ? "Posting..." : "Post Comment"}
           </button>
         )}
         {response.trim() && (
-          <span className="text-xs text-gray-400">{wordCount}/10 words</span>
+          <span className="text-xs text-gray-400">{wordCount}/5 words</span>
         )}
       </div>
 

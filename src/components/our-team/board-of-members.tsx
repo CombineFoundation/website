@@ -14,12 +14,12 @@ export default function BoardOfMembers({ members }: { members?: FirestoreTeamMem
     : [];
 
   return (
-    <section className="w-full px-6 py-10 md:px-12 lg:px-16 m-w-[1500px]">
+    <section className="w-full px-6 py-10 md:px-8">
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-500 border-b border-black pb-4 mb-10">
         Board of Members
       </h2>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
         {displayMembers.map((member) => (
           <div
             key={member.id}

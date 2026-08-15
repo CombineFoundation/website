@@ -19,7 +19,6 @@ export default function PageHeroMobile({
     Overlaycolor,
     mobileStyles,
 }: PageHeroMobileProps) {
-    console.log("mobileStyles received:", mobileStyles); // Debug trace
     return (
         <div className={`w-full pt-20 relative ${styles ?? ""}`}>
             <h2

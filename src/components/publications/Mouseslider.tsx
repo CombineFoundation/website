@@ -54,12 +54,12 @@ const MOUSlider = ({ mous: dbPartners = [] }: { mous: FirestorePartner[] }) => {
                     </div>
 
                     {/* Image */}
-                    <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden">
+                    <div className="relative w-full min-h-full sm:h-96 rounded-2xl overflow-hidden ">
                         <Image
                             src={partner.image}
                             alt={partner.name}
                             fill
-                            className="object-cover"
+                            className="object-fit"
                         />
                     </div>
                 </div>

@@ -32,7 +32,7 @@ export default function SplashBanner() {
           }
         }
       } catch {
-        console.log("No splash banners available");
+        "Failed to fetch splash banner data";
       }
       setSplash({
         image: "/home/project/project.png",
