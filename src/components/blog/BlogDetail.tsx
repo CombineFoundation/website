@@ -1,3 +1,5 @@
+"use client";
+
 import type { BlogPost } from "@/lib/blogs";
 import { updateBlogLikes } from "@/lib/blogs";
 import AuthorCard from "@/components/blog/AuthorCard";

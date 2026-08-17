@@ -40,10 +40,6 @@ let cachedProjects: Project[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_TTL = 30000; // 30 seconds
 
-let cachedProjects: Project[] | null = null;
-let cacheTimestamp = 0;
-const CACHE_TTL = 30000;
-
 export async function getAllProjects(): Promise<Project[]> {
   const now = Date.now();
   if (cachedProjects && (now - cacheTimestamp < CACHE_TTL)) {
