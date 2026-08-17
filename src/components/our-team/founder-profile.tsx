@@ -30,7 +30,7 @@ export default function FounderProfile() {
 
         <div className="w-full md:w-[23rem] lg:w-[32rem] xl:w-[38rem] flex-shrink-0 order-2">
           <img
-            src="/about/founder/founder.png"
+            src="/about/founder/founder.jpeg"
             alt="Mr. Amin Nathani"
             className="w-full aspect-[4/3] md:aspect-square object-cover rounded-[2rem] shadow-sm"
           />

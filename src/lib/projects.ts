@@ -20,6 +20,25 @@ export interface Project {
   location: string;
   coordinates: string;
 }
+export const projectsData = [
+  {
+    id: 1,
+    title: "Example Project",
+    images: [],
+    description: "Example",
+    goal: "Example goal",
+    stats: [],
+    beforeImage: "",
+    afterImage: "",
+    futurePlans: "",
+    partners: [],
+    location: "",
+    coordinates: "",
+  },
+];
+let cachedProjects: Project[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 30000; // 30 seconds
 
 let cachedProjects: Project[] | null = null;
 let cacheTimestamp = 0;

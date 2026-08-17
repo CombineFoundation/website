@@ -42,12 +42,12 @@ export default function SplashBanner() {
           }
         }
       } catch {
-        console.log("No splash banners available");
+        "Failed to fetch splash banner data";
       }
       setSplash({
         image: "/home/project/project.png",
         linkUrl: "/events",
-        alt: "Sample announcement — add a real banner via admin",
+        alt: "Sample announcement",
       });
       setVisible(true);
     };
@@ -68,30 +68,32 @@ export default function SplashBanner() {
           onClick={close}
     >
       <div
-        className="relative w-[85vw] max-w-sm sm:max-w-md lg:w-1/2 lg:max-w-none rounded-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {splash.linkUrl ? (
-          <Link href={splash.linkUrl} className="block relative w-full aspect-[1/1] sm:aspect-[3/2]">
-            <Image
-              src={splash.image}
-              alt={splash.alt}
-              fill
-              className="object-cover"
-              priority
-            />
-          </Link>
-        ) : (
-          <div className="relative w-full aspect-[1/1] sm:aspect-[3/2]">
-            <Image
-              src={splash.image}
-              alt={splash.alt}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        )}
+  className="relative w-[85vw] max-w-sm sm:max-w-md lg:max-w-lg rounded-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300"
+  onClick={(e) => e.stopPropagation()}
+>
+  {splash.linkUrl ? (
+    <Link href={splash.linkUrl} className="block relative w-full max-h-[80vh]">
+      <Image
+        src={splash.image}
+        alt={splash.alt}
+        width={800}
+        height={800}
+        className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+        priority
+      />
+    </Link>
+  ) : (
+    <div className="relative w-full max-h-[80vh]">
+      <Image
+        src={splash.image}
+        alt={splash.alt}
+        width={800}
+        height={800}
+        className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+        priority
+      />
+    </div>
+  )}
 
         <button
       onClick={close}

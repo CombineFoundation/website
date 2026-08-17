@@ -8,6 +8,7 @@ import {
   query,
   orderBy,
   serverTimestamp,
+  Timestamp
 } from "firebase/firestore/lite";
 import { getDb } from "./firebase";
 
@@ -20,10 +21,10 @@ export interface FirestoreEvent {
   dateTime: string;
   location: string;
   registrationLink: string;
-  post?: string;
   bulletPoints?: string[];
+  images?: string[];
   endTime?: string;
-  createdAt?: any;
+  createdAt?: Timestamp | null;
 }
 
 export interface FirestoreCourse {
@@ -31,30 +32,37 @@ export interface FirestoreCourse {
   name: string;
   instructor: string;
   price: string;
+  originalPrice?: number;
   status: "Ongoing" | "Completed" | "Launch";
-  category: string;
+  category?: string;
   description: string;
   heroImage1: string;
   heroImage2: string;
   lessons: number;
   duration: string;
+  mode?: string;
+  requirements?: string;
   enrollmentLink: string;
   guidelineFile: string;
+  slug?: string;
   modules: { title: string; bullets: string[] }[];
   successStories: { studentName: string; testimonial: string; videoUrl: string }[];
-  createdAt?: any;
+  createdAt?: Timestamp | null;
 }
 
 export interface FirestoreBlog {
   id?: string;
   name: string;
   authorName: string;
+  authorBio?: string;
+  authorImage?: string;
   date: string;
   status: "Published" | "Draft" | "Under Review";
   description: string;
   conclusion: string;
   heroImage1: string;
   heroImage2: string;
+  cardImage: string;
   content?: string[];
   createdAt?: any;
 }
@@ -107,8 +115,10 @@ export async function fetchEvents(): Promise<FirestoreEvent[]> {
       id: d.id,
       ...data,
       name: data.name || data.title || "",
+      description: data.description || data.summary || "",
       dateTime: data.dateTime || data.date || "",
       registrationLink: data.registrationLink || data.registerLink || "",
+      images: Array.isArray(data.images) ? data.images : [],
     } as FirestoreEvent;
   });
 }
@@ -252,14 +262,21 @@ export interface FirestoreAnnualReport {
   image: string;
   viewUrl: string;
   downloadUrl: string;
-  createdAt?: any;
+  createdAt?: string;
 }
 
 export async function fetchAnnualReports(): Promise<FirestoreAnnualReport[]> {
   const snap = await getDocs(
     query(collection(getDb(), "annualReports"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreAnnualReport));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      createdAt: data.createdAt?.toDate?.().toISOString() ?? null,
+    } as FirestoreAnnualReport;
+  });
 }
 
 export async function addAnnualReport(
@@ -287,7 +304,15 @@ export async function deleteAnnualReports(ids: string[]): Promise<void> {
 }
 
 // ─── MOUs ────────────────────────────────────────────────────────────
-
+function toClientDoc<T>(id: string, data: any): T {
+  const out: any = { id, ...data };
+  for (const key in out) {
+    if (out[key]?.toDate instanceof Function) {
+      out[key] = out[key].toDate().toISOString();
+    }
+  }
+  return out as T;
+}
 export interface FirestoreMOU {
   id?: string;
   title: string;
@@ -295,14 +320,15 @@ export interface FirestoreMOU {
   image: string;
   imageAlt: string;
   pdf?: string;
-  createdAt?: any;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 
 export async function fetchMOUs(): Promise<FirestoreMOU[]> {
   const snap = await getDocs(
     query(collection(getDb(), "mous"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreMOU));
+  return snap.docs.map((d) => toClientDoc<FirestoreMOU>(d.id, d.data()));
 }
 
 export async function addMOU(
@@ -335,14 +361,14 @@ export interface FirestoreTeamMember {
   role: string;
   section: string;
   image: string;
-  createdAt?: any;
+  createdAt?: string | null;
 }
 
 export async function fetchTeamMembers(): Promise<FirestoreTeamMember[]> {
   const snap = await getDocs(
     query(collection(getDb(), "teamMembers"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreTeamMember));
+  return snap.docs.map((d) => toClientDoc<FirestoreTeamMember>(d.id, d.data()));
 }
 
 export async function addTeamMember(
@@ -374,15 +400,23 @@ export interface FirestorePartner {
   name: string;
   description: string;
   image: string;
-  mou?: string;
-  createdAt?: any;
+  mouUrl?: string;
+  createdAt?: string;
+  mou?:string;
 }
 
 export async function fetchPartners(): Promise<FirestorePartner[]> {
   const snap = await getDocs(
     query(collection(getDb(), "partners"), orderBy("createdAt", "desc"))
   );
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestorePartner));
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      ...data,
+      createdAt: data.createdAt?.toDate?.().toISOString() ?? null,
+    } as FirestorePartner;
+  });
 }
 
 export async function addPartner(

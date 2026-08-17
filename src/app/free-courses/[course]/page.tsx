@@ -12,9 +12,6 @@ interface CoursePageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return getAllCourseSlugs();
-}
 export const dynamic = "force-dynamic";
 
 export default async function CoursePage({ params }: CoursePageProps) {

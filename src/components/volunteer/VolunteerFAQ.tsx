@@ -5,7 +5,7 @@ import { useState } from "react";
 type FaqItem = {
   id: number;
   question: string;
-  answer: string;
+  answer: string | string[];
 };
 
 const faqs: FaqItem[] = [
@@ -37,7 +37,7 @@ const faqs: FaqItem[] = [
     id: 5,
     question: "What kind of volunteer opportunities are available?",
     answer:
-      "Volunteers can work in different areas including:\n• Content Writing\n• Graphic Designing\n• Web development\n• Media & Marketing\n• Leadership Programs\n• Video Editing",
+      ["Volunteers can work in different areas including:", "Content Writing", "Graphic Designing", "Web Development", "Media & Marketing", "Leadership Programs", "Video Editing"],
   },
   {
     id: 6,
@@ -55,7 +55,7 @@ const faqs: FaqItem[] = [
     id: 8,
     question: "How will this program help my career?",
     answer:
-      "The volunteer program helps you:\n• Gain practical experience\n• Improve communication and teamwork skills\n• Build leadership abilities\n• Strengthen your CV or resume\n• Expand your professional network\n• Explore career interests and opportunities",
+      ["The volunteer program helps you:", "Gain practical experience", "Improve communication and teamwork skills", "Build leadership abilities", "Strengthen your CV or resume", "Expand your professional network", "Explore career interests and opportunities"],
   },
   {
     id: 9,
@@ -118,9 +118,20 @@ export default function VolunteerFAQ() {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed whitespace-pre-line">
-                  {item.answer}
-                </p>
+                {Array.isArray(item.answer) ? (
+                  <>
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">{item.answer[0]}</p>
+                    <ul className="list-disc list-inside text-gray-600 text-sm md:text-base leading-relaxed mt-2 space-y-1">
+                      {item.answer.slice(1).map((line, i) => (
+                        <li key={i}>{line}</li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                    {item.answer}
+                  </p>
+                )}
               </div>
             </div>
           </div>

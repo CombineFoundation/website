@@ -64,7 +64,7 @@ export default function Projects() {
 
   return (
     <>
-      <PageHeroMobile title="Projects" imageSrc="/projects/projecthero.png" styles="my-4" />
+      <PageHeroMobile title="Projects" imageSrc="/achievement-gallery/hero.svg" />
       <AchievementsMap
         projects={projects}
         activeId={activeId}

@@ -212,7 +212,7 @@ export default function CoursesOffered({ courses }: { courses: Course[] }) {
             {filtered.map((course, idx) => (
               <div
                 key={course.id}
-                
+
                 className="card-enter flex flex-col h-full"
                 style={{ animationDelay: `${idx * 55}ms` }}
               >

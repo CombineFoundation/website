@@ -85,7 +85,7 @@ const sectionDescriptions: Record<SectionId, string> = {
   contact: "View contact form submissions.",
   donations: "Manage donations here.",
   projects: "Manage your projects here.",
-  publications: "Manage annual reports and MOUs.",
+  publications: "Manage annual reports",
   jobs: "Manage job openings.",
   team: "Manage team members and partners.",
   splash: "Manage splash banners shown on the home page.",

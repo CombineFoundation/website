@@ -136,16 +136,16 @@ export default function EventsView() {
     }
   };
 
-  const handleSaveEdit = async (data: { name: string; description: string; location: string; date: string; registrationLink: string; post?: string; bulletPoints?: string; endTime?: string }) => {
+  const handleSaveEdit = async (data: { name: string; description: string; location: string; date: string; registrationLink?: string | null; bulletPoints?: string; images?: string[]; endTime?: string }) => {
     if (!editEvent?.id) return;
     await updateEvent(editEvent.id, {
       name: data.name,
       description: data.description,
       location: data.location,
       dateTime: toDisplayDate(data.date),
-      registrationLink: data.registrationLink,
-      post: data.post || "",
+      registrationLink: data.registrationLink || "",
       bulletPoints: data.bulletPoints ? data.bulletPoints.split("\n").map(p => p.trim()).filter(Boolean) : [],
+      images: data.images || [],
       endTime: data.endTime || "",
     });
     setEditEvent(null);
@@ -153,15 +153,15 @@ export default function EventsView() {
     await loadEvents();
   };
 
-  const handleAdd = async (data: { name: string; description: string; location: string; date: string; registrationLink: string; post?: string; bulletPoints?: string; endTime?: string }) => {
+  const handleAdd = async (data: { name: string; description: string; location: string; date: string; registrationLink?: string | null; bulletPoints?: string; images?: string[]; endTime?: string }) => {
     await addEvent({
       name: data.name,
       description: data.description,
       dateTime: toDisplayDate(data.date),
       location: data.location,
-      registrationLink: data.registrationLink,
-      post: data.post || "",
+      registrationLink: data.registrationLink || "",
       bulletPoints: data.bulletPoints ? data.bulletPoints.split("\n").map(p => p.trim()).filter(Boolean) : [],
+      images: data.images || [],
       endTime: data.endTime || "",
     });
     setShowAddModal(false);

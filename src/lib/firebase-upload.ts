@@ -11,7 +11,19 @@ function readFileAsDataURL(file: File): Promise<string> {
   });
 }
 
+/**
+ * Uploads an image file to Firebase Storage under the specified folder.
+ * If Firebase Storage is not initialized or the upload fails, it falls back
+ * to reading the file as base64 and compressing it.
+ *
+ * @param file The file to upload
+ * @param folder The target folder in storage (e.g. "blogs", "courses")
+ */
 export async function uploadImage(file: File, folder: string = "images"): Promise<string> {
+  if (typeof window === "undefined") {
+    throw new Error("Image upload is only supported in the browser.");
+  }
+
   try {
     if (!storage) {
       throw new Error("Firebase Storage is not initialized.");
@@ -25,7 +37,7 @@ export async function uploadImage(file: File, folder: string = "images"): Promis
     const downloadUrl = await getDownloadURL(snapshot.ref);
     return downloadUrl;
   } catch (error) {
-    console.warn("Firebase Storage upload failed, falling back to base64 compression:", error);
+    console.warn("Firebase Storage upload failed, falling back to a browser image preview:", error);
     try {
       const dataUrl = await readFileAsDataURL(file);
       return await compressImage(dataUrl);
@@ -36,6 +48,12 @@ export async function uploadImage(file: File, folder: string = "images"): Promis
   }
 }
 
+/**
+ * Uploads a generic file (e.g. PDF) to Firebase Storage under the specified folder.
+ *
+ * @param file The file to upload
+ * @param folder The target folder in storage (e.g. "mous", "documents")
+ */
 export async function uploadFile(file: File, folder: string = "files"): Promise<string> {
   if (!storage) {
     throw new Error("Firebase Storage is not initialized.");

@@ -14,7 +14,7 @@ export function proxy(request: NextRequest) {
   if (pathname.startsWith('/admin')) {
     const session = request.cookies.get('session');
 
-    if (!session) {
+    if (!session?.value) {
       const loginUrl = new URL('/login', request.url);
       return NextResponse.redirect(loginUrl);
     }

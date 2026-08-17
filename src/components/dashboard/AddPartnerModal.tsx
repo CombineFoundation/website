@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { X, Upload } from "lucide-react";
 
-import { uploadImage } from "@/lib/firebase-upload";
+import { uploadImage, uploadFile } from "@/lib/firebase-upload";
 import { Loader2 } from "lucide-react";
 
 interface PartnerFormData {
   name: string;
   description: string;
   image: string;
+  mouUrl?: string;
 }
 
 interface AddPartnerModalProps {
@@ -24,6 +25,7 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
     name: "",
     description: "",
     image: "",
+    mouUrl: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,6 +44,23 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
     } catch (err: any) {
       console.error("Image upload error:", err);
       setError("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingFields((prev) => ({ ...prev, [field]: false }));
+    }
+  };
+
+  const handleMOUUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const field = "mouUrl";
+    setUploadingFields((prev) => ({ ...prev, [field]: true }));
+    setError("");
+    try {
+      const storageUrl = await uploadFile(file, "mous");
+      setForm((prev) => ({ ...prev, [field]: storageUrl }));
+    } catch (err: any) {
+      console.error("MOU upload error:", err);
+      setError("Failed to upload MOU PDF. Please try again.");
     } finally {
       setUploadingFields((prev) => ({ ...prev, [field]: false }));
     }
@@ -112,6 +131,38 @@ export default function AddPartnerModal({ onCancel, onSave }: AddPartnerModalPro
               <Upload size={20} className="text-gray-400" />
               <span className="text-xs text-gray-400 mt-1">Upload Image</span>
               <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+            </label>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-600 mb-1">MOU Document (PDF) — Optional</label>
+          {uploadingFields.mouUrl ? (
+            <div className="flex flex-col items-center justify-center h-24 border border-gray-200 rounded-lg bg-gray-50">
+              <Loader2 className="w-6 h-6 text-[#134981] animate-spin" />
+              <span className="text-xs text-gray-500 mt-1">Uploading PDF...</span>
+            </div>
+          ) : form.mouUrl ? (
+            <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg bg-gray-50">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <svg className="w-6 h-6 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span className="text-xs text-gray-600 truncate max-w-[200px]">MOU Uploaded</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, mouUrl: "" }))}
+                className="text-red-500 hover:text-red-700 text-xs font-semibold cursor-pointer"
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-400 transition-colors">
+              <Upload size={20} className="text-gray-400" />
+              <span className="text-xs text-gray-400 mt-1">Upload MOU PDF</span>
+              <input type="file" accept="application/pdf" onChange={handleMOUUpload} className="hidden" />
             </label>
           )}
         </div>

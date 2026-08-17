@@ -14,12 +14,12 @@ service cloud.firestore {
       allow write: if request.auth != null;
     }
 
-    // Blogs: public read, admin write
+    // Blogs: public read, public update for comments/likes, admin full write
     match /blogs/{blogId} {
       allow read: if true;
+      allow update: if true;
       allow write: if request.auth != null;
     }
-
     // Projects: public read, admin write
     match /projects/{projectId} {
       allow read: if true;
@@ -73,6 +73,8 @@ service cloud.firestore {
 
     // Team Members: public read, admin write
     match /teamMembers/{memberId} {
+    // Annual Reports: public read, admin write
+    match /annualReports/{reportId} {
       allow read: if true;
       allow write: if request.auth != null;
     }

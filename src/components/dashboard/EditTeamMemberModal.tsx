@@ -7,10 +7,8 @@ import { uploadImage } from "@/lib/firebase-upload";
 import { Loader2 } from "lucide-react";
 
 const SECTION_OPTIONS = [
-  "International Forum",
   "Youth Forum",
-  "Board of Trustees",
-  "Board of Members",
+  "International Forum",
 ];
 
 interface TeamMemberFormData {

@@ -5,9 +5,16 @@ import type { Module } from "@/lib/freeCourses";
 interface ModulesProps {
   modules: Module[];
   guidelineCta?: string;
+  guidelineFile?: string;
 }
 
-export default function Modules({ modules, guidelineCta }: ModulesProps) {
+export default function Modules({ modules, guidelineCta, guidelineFile }: ModulesProps) {
+  const handleDownload = () => {
+    if (guidelineFile) {
+      window.open(guidelineFile, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-8">
       <div className="pb-3 mb-6 px-9">
@@ -17,9 +24,9 @@ export default function Modules({ modules, guidelineCta }: ModulesProps) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:mx-9">
-        {modules.map((mod) => (
+{modules.map((mod, idx) => (
           <div
-            key={mod.id}
+            key={mod.id ?? idx}
             className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col min-h-[350px]"
           >
             <h3 className="text-base lg:text-lg xl:text-xl font-bold text-gray-900 mb-3">
@@ -45,7 +52,10 @@ export default function Modules({ modules, guidelineCta }: ModulesProps) {
           <p className="text-white text-sm sm:text-xl md:text-2xl font-bold text-center sm:text-left">
             {guidelineCta || "Want to Master This Course? Download the Complete Course Guideline Now!"}
           </p>
-          <button className="shrink-0 bg-accent-orange hover:brightness-90 text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-full transition-all duration-200 whitespace-nowrap">
+          <button
+            onClick={handleDownload}
+            className="shrink-0 bg-accent-orange hover:brightness-90 text-white font-semibold text-sm px-4 sm:px-6 py-3 rounded-full transition-all duration-200 whitespace-nowrap"
+          >
             Download Course Guidelines
           </button>
         </div>

@@ -13,24 +13,31 @@ interface Certificate {
 const certificates: Certificate[] = [
     {
         id: 1,
-        title: "Tax Certificate for the year 2024",
+        title: "Certificate of Incorporation",
         image: "/publications/pub1.png",
-        imageAlt: "Tax Certificate 2024",
-        url: "/certificates/tax-2024",
+        imageAlt: "COI",
+        url: "/COI (Combine Foundation).pdf",
     },
     {
         id: 2,
-        title: "Tax Certificate for the year 2023",
-        image: "/publications/pub1.png",
-        imageAlt: "Tax Certificate 2023",
-        url: "/certificates/tax-2023",
+        title: "PCP Certificate",
+        image: "/publications/pub2.png",
+        imageAlt: "PCP Certificate",
+        url: "/PCP Certificate - 2026-1.pdf",
     },
     {
         id: 3,
-        title: "Tax Certificate for the year 2022",
-        image: "/publications/pub1.png",
-        imageAlt: "Tax Certificate 2022",
-        url: "/certificates/tax-2022",
+        title: "License",
+        image: "/publications/pub3.png",
+        imageAlt: "License",
+        url: "/License.pdf",
+    },
+    {
+        id: 4,
+        title: "FBR Certificate",
+        image: "/publications/pub4.png",
+        imageAlt: "FBR Certificate",
+        url: "/FBR Certificate.pdf",
     },
 ];
 
@@ -60,7 +67,7 @@ const CertificateCard = ({ cert }: { cert: Certificate }) => {
                         src={cert.image}
                         alt={cert.imageAlt}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                     />
                 ) : (
                     <span className="text-gray-400 text-sm lg:text-base font-medium">
@@ -99,7 +106,7 @@ const TaxShariaCertificates = () => {
                 <hr className="border-gray-300 mb-8" />
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mx-5">
                     {certificates.map((cert) => (
                         <CertificateCard key={cert.id} cert={cert} />
                     ))}
