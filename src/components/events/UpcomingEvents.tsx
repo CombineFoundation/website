@@ -100,6 +100,10 @@ function buildCalendarUrl(event: Event): string {
 }
 
 function EventCard({ event }: { event: Event }) {
+    const eventDate = parseEventDate(event.date);
+    const isPast = eventDate ? eventDate < new Date() : false;
+    const showPost = isPast && event.images && event.images.length > 0;
+
     return (
         <div className="rounded-2xl border border-gray-200 bg-white px-6 py-6">
             <div className="flex flex-col md:flex-row gap-6 md:gap-10">
@@ -114,21 +118,35 @@ function EventCard({ event }: { event: Event }) {
                         ))}
                     </ul>
                     <div className="flex flex-wrap gap-3">
-                        <Link
-                            href={event.registerLink || "#"}
-                            className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
-                            style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
-                        >
-                            Register Now
-                        </Link>
-                        <a
-                            href={buildCalendarUrl(event)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-5 py-2 rounded-full text-gray-700 text-sm font-semibold border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
-                        >
-                            Add to Calendar
-                        </a>
+                        {showPost ? (
+                            <a
+                                href={event.images![0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
+                                style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
+                            >
+                                View Post
+                            </a>
+                        ) : (
+                            <>
+                                <Link
+                                    href={event.registerLink || "#"}
+                                    className="px-5 py-2 rounded-full text-white text-sm font-semibold transition-colors duration-200"
+                                    style={{ background: "linear-gradient(97.67deg, var(--secondary-600) 12.02%, var(--secondary-500) 65.87%)" }}
+                                >
+                                    Register Now
+                                </Link>
+                                <a
+                                    href={buildCalendarUrl(event)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-5 py-2 rounded-full text-gray-700 text-sm font-semibold border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
+                                >
+                                    Add to Calendar
+                                </a>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -152,6 +170,10 @@ function EventCard({ event }: { event: Event }) {
 }
 
 function EventPopover({ event, onClose }: { event: Event; onClose: () => void }) {
+    const eventDate = parseEventDate(event.date);
+    const isPast = eventDate ? eventDate < new Date() : false;
+    const showPost = isPast && event.bulletPoints.length > 0;
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4" onClick={onClose}>
             <div
@@ -412,6 +434,7 @@ export default function UpcomingEvents() {
                         endTime: endStr,
                         location: d.location || "",
                         registerLink: d.registerLink || "",
+                        post: (d as any).post || "",
                     } as Event;
                 });
                 setEvents(data);
@@ -425,7 +448,7 @@ export default function UpcomingEvents() {
     }, []);
 
     return (
-        <section id="calendar" className="w-full mx-auto px-6 py-10 md:py-14">
+        <section className="w-full mx-auto px-6 py-10 md:py-14">
             <h2 className="text-secondary-500 font-bold text-3xl md:text-4xl mb-3">
                 Upcoming Events
             </h2>

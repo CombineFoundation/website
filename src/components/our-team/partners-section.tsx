@@ -75,7 +75,7 @@ export default function PartnersSection({ partners: initialPartners }: { partner
         <p className="text-sm md:text-base text-primary-800 leading-relaxed">
           {partner.description}
         </p>
-        
+
 
         {/* moved here */}
         <div className="grid grid-cols-2">

@@ -34,7 +34,7 @@ const Page = async () => {
     name: m.title,
     description: m.paragraphs.join(" "),
     image: m.image,
-    pdf: (m as any).pdf || "",
+    pdf: m.pdf || "",
   }));
 
   const displayPartners = mouPartners.length > 0 ? mouPartners : partners;

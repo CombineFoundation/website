@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 
-interface ProjectItem {
+type Stat = {
+    value: string;
+    label: string;
+};
+
+type ProjectItem = {
     id: string;
     title: string;
     images: string[];
@@ -32,16 +37,14 @@ function AchievementItem({
 }) {
     return (
         <div
-            id={`project-card-${item.id}`}
             className={`
                 rounded-2xl overflow-hidden border
                 transition-all duration-500 ease-in-out
                 ${open
-                    ? "bg-secondary-500 border-gray-600 "
+                    ? "bg-secondary-500 border-gray-600"
                     : "bg-white border-gray-200 hover:border-gray-300"}
             `}
         >
-            {/* Header */}
             <button
                 onClick={onToggle}
                 className="
@@ -84,7 +87,6 @@ function AchievementItem({
                 </div>
             </button>
 
-            {/* Content */}
             <div
                 className={`
                     overflow-hidden transition-all duration-700 ease-in-out
@@ -258,7 +260,7 @@ function AchievementItem({
 
 export default function AchievementsList({ projects, activeId, onToggle }: AchievementsListProps) {
     return (
-        <section className="max-w-[1500px] mx-auto px-4 md:px-6 lg:px-8 py-10 space-y-4">
+        <section className="w-full mx-auto px-4 md:px-6 lg:px-8 py-10 space-y-4">
             {projects.map((item) => (
                 <AchievementItem
                     key={item.id}

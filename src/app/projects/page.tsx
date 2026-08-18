@@ -20,7 +20,6 @@ export default function Projects() {
         const data = await getAllProjects();
         setProjects(data);
 
-        // Check for 'id' parameter to auto-expand and scroll to a project
         const params = new URLSearchParams(window.location.search);
         const urlId = params.get("id");
         if (urlId) {

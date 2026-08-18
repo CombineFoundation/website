@@ -12,7 +12,6 @@ type Report = {
 };
 
 
-
 function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
     return (
         <div className="w-full bg-white rounded-2xl shadow-xl flex flex-col min-[500px]:flex-row overflow-hidden h-auto min-[500px]:h-[350px] items-center md:p-6 p-4 gap-4 min-[500px]:gap-0">

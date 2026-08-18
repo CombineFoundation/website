@@ -12,19 +12,19 @@ type FaqItem = {
 const faqs: FaqItem[] = [
   {
     id: 1,
-    question: "What is Combine Foundation?",
+    question: "What is Combine Foundation and what is its mission?",
     answer:
       "Combine Foundation is a registered non-profit organization under section 42 companies Act 2017 while we are Tax exempted organization and the social impact arm of Combine Group. We are dedicated to creating sustainable change in Pakistan by focusing on education, health awareness, youth empowerment, and community welfare. Our approach is built on transparency, innovation, and long-term impact.",
   },
   {
     id: 2,
-    question: "What is the core mission of the Combine Foundation?",
+    question: "How can I join or volunteer with Combine Foundation?",
     answer:
-      "The core mission of Combine Foundation is to create structured, accountable, and impact-driven initiatives that reduce inequality and help communities grow stronger through education, empowerment, and sustainable development.",
+      "You can join Combine Foundation by submitting an application through Combine Foundation Portal. The joining process includes application submission, application review, interview, and onboarding. Students, professionals, and passionate individuals who want to contribute to social impact, community development, and learning opportunities can join as volunteers. No prior experience is required — beginners and students are welcome, just you have concept to do something for Allah and Pakistan.",
   },
   {
     id: 3,
-    question: "How can I join the Combine Foundation?",
+    question: "How can I donate or support the foundation?",
     answer:
       "You can join Combine Foundation by submitting an application through Combine Foundation Portal. The joining process includes application submission, application review, interview, and onboarding.",
   },
