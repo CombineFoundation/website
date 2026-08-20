@@ -63,6 +63,11 @@ export default function PartnersSection({ partners: initialPartners }: { partner
   const remainingName = remainingWords.join(" ");
 
   return (
+    <div className="">
+      <div className="mb-2 p-4 md:p-6 lg:p-8 px-16">
+        <h2 className="text-3xl font-bold text-secondary-500">Our Partners</h2>
+      <hr className="border-gray-300" />
+      </div>
     <div className="group grid grid-cols-1 md:grid-cols-5 gap-0 rounded-3xl overflow-hidden mb-5">
       {/* Text */}
       <div className="md:col-span-3 flex flex-col justify-center p-8 md:p-10 lg:p-12">
@@ -137,6 +142,7 @@ export default function PartnersSection({ partners: initialPartners }: { partner
 
       </div>
 
+    </div>
     </div>
   );
 }
