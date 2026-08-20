@@ -31,11 +31,6 @@ const page = async () => {
             />
             
             {reports.length > 0 && <AnnualReports reports={reports} />}
-            {/* Section Header */}
-                <div className="mt-20 mb-2 px-4 md:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-secondary-500">Our Partners</h2>
-                </div>
-                <hr className="border-gray-300 m-8 mt-0 " />
             <PartnersSection partners={mous} />
             <TaxShariaCertificates />
         </div>

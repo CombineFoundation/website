@@ -10,11 +10,11 @@ const VENTURES = [
         description:
             "The Youth Leadership Program that we run is an initiative across the country. It aims to empower youth by preparing and educating them to become competent and responsible future leaders. They get trained in leadership skills, mentoring, volunteering, and community work through various programs to help improve their communication, team-building, and problem-solving abilities for the future.\n\nHundreds of passionate people have participated in this initiative. The objective of this program is to build tomorrow's leaders who will be self-reliant, competent, and able to make a positive difference through their actions.",
         images: [
-            "/donation/YLP (5).svg",
-            "/donation/YLP.svg",
             "/donation/YLP (2).svg",
-            "/donation/YLP (3).svg",
+            "/donation/YLP.svg",
             "/donation/YLP (4).svg",
+            "/donation/YLP (3).svg",
+            "/donation/YLP (5).svg",
         ],
     },
     {
@@ -72,10 +72,10 @@ const VENTURES = [
         description:
             "Our Ramadan Bachat Camp & Free Rashan Drive Welfare Scheme is aimed at helping deserving people by giving them rations during the holy month of Ramadan. With the help of food or Rashan, our main intention is to decrease the difficulties of these deserving families by providing them with some comfort.\n\nThere were many volunteers who took part in this drive in order to offer assistance to needy families. The purpose of this campaign is to facilitate food security, help the needy and promote the essence of Ramadan through kindness and community involvement.",
         images: [
-            "/donation/Ramdan bachat (2).svg",
             "/donation/Ramdan bachat.svg",
-            "/donation/27.svg",
+            "/donation/rashan.jpeg",
             "/donation/28.svg",
+            "/donation/rashan1.jpeg",
             "/donation/29.svg",
         ],
     },
