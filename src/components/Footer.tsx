@@ -61,8 +61,8 @@ export default function Footer() {
           <div className="flex flex-col space-y-4">
             <h3 className="text-orange font-black text-lg mb-2">Support</h3>
             <Link href="/contact" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Contact Us</Link>
-            <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/publications#annual-reports" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Annual Reports</Link>
           </div>
         </div>
