@@ -2,11 +2,6 @@
 
 import Image from "next/image";
 
-type Stat = {
-    value: string;
-    label: string;
-};
-
 type ProjectItem = {
     id: string;
     title: string;
@@ -103,7 +98,7 @@ function AchievementItem({
                     `}
                 >
                     {/* Images */}
-                    {item.images && item.images.filter(src => src && src.trim() !== "").length > 0 && (
+                    {open && item.images && item.images.filter(src => src && src.trim() !== "").length > 0 && (
                         <div
                             className="flex gap-3 overflow-x-auto pb-2"
                             style={{ scrollbarWidth: "none" }}
@@ -123,6 +118,8 @@ function AchievementItem({
                                         alt={`${item.title} image ${i + 1}`}
                                         fill
                                         className="object-cover"
+                                        sizes="250px"
+                                        loading="lazy"
                                     />
                                 </div>
                             ))}
@@ -174,7 +171,7 @@ function AchievementItem({
                     )}
 
                     {/* Before After */}
-                    {item.beforeImage && item.beforeImage.trim() !== "" && item.afterImage && item.afterImage.trim() !== "" && (
+                    {open && item.beforeImage && item.beforeImage.trim() !== "" && item.afterImage && item.afterImage.trim() !== "" && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
                             <div>
                                 <div className="relative rounded-2xl overflow-hidden aspect-video w-[90%] m-auto mb-3">
@@ -183,6 +180,8 @@ function AchievementItem({
                                         alt="Before"
                                         fill
                                         className="object-cover"
+                                        sizes="(max-width: 640px) 90vw, 45vw"
+                                        loading="lazy"
                                     />
                                 </div>
 
@@ -198,6 +197,8 @@ function AchievementItem({
                                         alt="After"
                                         fill
                                         className="object-cover"
+                                        sizes="(max-width: 640px) 90vw, 45vw"
+                                        loading="lazy"
                                     />
                                 </div>
 
@@ -222,7 +223,7 @@ function AchievementItem({
                     )}
 
                     {/* Partners */}
-                    {item.partners && item.partners.filter(src => src && src.trim() !== "").length > 0 && (
+                    {open && item.partners && item.partners.filter(src => src && src.trim() !== "").length > 0 && (
                         <div>
                             <h4 className="text-white font-bold text-base mb-4">
                                 Project Partners
@@ -245,6 +246,8 @@ function AchievementItem({
                                             alt={`Partner ${i + 1}`}
                                             fill
                                             className="object-contain p-4"
+                                            sizes="200px"
+                                            loading="lazy"
                                         />
                                     </div>
                                 ))}
