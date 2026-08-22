@@ -16,7 +16,7 @@ const TESTIMONIALS = [
         role: "Volunteer",
         quote:
             "Joining Combine Foundation was a great learning experience for me. Through this volunteer program, I improved my communication, teamwork, and professional skills while working on real-world projects. The environment is very supportive, peaceful, and motivating for students and young professionals. I also got the opportunity to connect with talented people, learn from industry professionals, and gain practical experience that helped strengthen my confidence and career growth. I highly recommend this volunteer program to anyone who wants to create positive impact while building their future.",
-        image: "/volunteer-program/testimonial.svg",
+        image: "/avatar.svg",
     },
 ];
 
