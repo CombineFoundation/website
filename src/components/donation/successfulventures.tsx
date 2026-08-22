@@ -49,7 +49,7 @@ const VENTURES = [
             "Fit Future Pakistan is our health initiative that aims to promote physical fitness, awareness about exercise, yoga and other such health-related topics among young and older people. By way of fitness training, awareness programs, and wellness activities, we aim to make people live a healthier lifestyle.\n\nWe have already inspired many individuals and senior citizens to become more physically active through health-related sessions and activities.",
         images: [
             "/donation/Fit future (2).svg",
-            "/donation/FIt future.svg",
+            "/donation/Fit future.svg",
             "/donation/26.png"
         ],
     },

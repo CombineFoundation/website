@@ -11,22 +11,6 @@ function readFileAsDataURL(file: File): Promise<string> {
   });
 }
 
-async function compressUploadFile(file: File): Promise<File> {
-  if (!/^image\/(jpeg|jpg|webp)$/i.test(file.type)) {
-    return file;
-  }
-
-  const dataUrl = await readFileAsDataURL(file);
-  const compressedDataUrl = await compressImage(dataUrl, 1600, 1600, 0.78);
-  const response = await fetch(compressedDataUrl);
-  const blob = await response.blob();
-
-  return new File([blob], `${file.name.replace(/\.[^.]+$/, "")}.jpg`, {
-    type: "image/jpeg",
-    lastModified: file.lastModified,
-  });
-}
-
 /**
  * Uploads an image file to Firebase Storage under the specified folder.
  * If Firebase Storage is not initialized or the upload fails, it falls back
@@ -45,12 +29,11 @@ export async function uploadImage(file: File, folder: string = "images"): Promis
       throw new Error("Firebase Storage is not initialized.");
     }
 
-    const uploadFile = await compressUploadFile(file);
-    const fileExtension = uploadFile.name.split(".").pop() || "jpg";
+    const fileExtension = file.name.split(".").pop() || "jpg";
     const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
     const storageRef = ref(storage, `${folder}/${uniqueFilename}`);
 
-    const snapshot = await uploadBytes(storageRef, uploadFile);
+    const snapshot = await uploadBytes(storageRef, file);
     const downloadUrl = await getDownloadURL(snapshot.ref);
     return downloadUrl;
   } catch (error) {

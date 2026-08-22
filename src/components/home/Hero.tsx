@@ -112,8 +112,8 @@ export default function HeroSlider() {
           alt={slides[current].alt}
           fill
           className="object-cover"
-          sizes="100vw"
           priority
+          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
       </div>
