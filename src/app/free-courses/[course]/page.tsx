@@ -5,6 +5,7 @@ import Modules from "@/components/free-courses/Modules";
 import SuccessStories from "@/components/free-courses/SuccessStories";
 import MeetInstructors from "@/components/free-courses/MeetInstructors";
 import CtaSection from "@/components/UI/CtaSection";
+import type { Metadata } from "next";
 
 interface CoursePageProps {
   params: Promise<{
@@ -13,6 +14,33 @@ interface CoursePageProps {
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  return getAllCourseSlugs();
+}
+
+export async function generateMetadata({
+  params,
+}: CoursePageProps): Promise<Metadata> {
+  const { course: slug } = await params;
+  const course = await getCourseBySlug(slug);
+
+  if (!course) {
+    return {
+      title: "Free Course",
+    };
+  }
+
+  return {
+    title: course.title,
+    description: course.description,
+    openGraph: {
+      title: course.title,
+      description: course.description,
+      type: "article",
+    },
+  };
+}
 
 export default async function CoursePage({ params }: CoursePageProps) {
   const { course: slug } = await params;

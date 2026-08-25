@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Privacy Policy",
+  description: "Read how Combine Foundation collects, uses, and protects your information.",
+};
+
 const sections = [
   {
     title: "Information We Collect",

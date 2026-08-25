@@ -4,6 +4,7 @@ import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import type { Donation } from "@/types/database";
+import { isWithinCooldown, markSubmitted } from "@/lib/anti-spam";
 
 const ChevronDown = () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -93,6 +94,7 @@ export default function DonationForm() {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [submitError, setSubmitError] = useState("");
+    const [honeypot, setHoneypot] = useState("");
 
     const handle = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const value = e.target.value;
@@ -179,6 +181,16 @@ export default function DonationForm() {
             return;
         }
 
+        if (honeypot.trim()) {
+            setSubmitError("Submission blocked.");
+            return;
+        }
+
+        if (isWithinCooldown("donation", 60000)) {
+            setSubmitError("Please wait a minute before submitting again.");
+            return;
+        }
+
         setLoading(true);
         try {
             const payload = {
@@ -194,6 +206,7 @@ export default function DonationForm() {
                 createdAt: serverTimestamp(),
             };
             await addDoc(collection(db, "donations"), payload);
+            markSubmitted("donation");
             setSuccess(true);
 
             // Reset form
@@ -218,6 +231,7 @@ export default function DonationForm() {
                 city: false,
                 paymentMethod: false,
             });
+            setHoneypot("");
             // Clear success message after 3 seconds
             setTimeout(() => setSuccess(false), 3000);
         } catch (err) {
@@ -272,6 +286,16 @@ export default function DonationForm() {
 
                 {/* Two-col grid → single col on mobile */}
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+                    <label className="sr-only" aria-hidden="true">
+                        Company
+                        <input
+                            type="text"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                        />
+                    </label>
 
                     {/* ── LEFT: Form ── */}
                     <div className="flex flex-col gap-3">

@@ -5,7 +5,6 @@ import CtaSection from "@/components/UI/CtaSection";
 import HearFromVolunteers from "@/components/volunteer/ourVolunteer";
 import VolunteerFAQ from "@/components/volunteer/VolunteerFAQ";
 
-
 export default function VolunteerPage() {
     return (
         <div>

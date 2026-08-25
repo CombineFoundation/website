@@ -289,6 +289,7 @@ function CalendarView({ events }: { events: Event[] }) {
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
                     <button
                         onClick={prevMonth}
+                        type="button"
                         className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 text-gray-500 transition-colors"
                         aria-label="Previous month"
                     >
@@ -303,6 +304,7 @@ function CalendarView({ events }: { events: Event[] }) {
 
                     <button
                         onClick={nextMonth}
+                        type="button"
                         className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 text-gray-500 transition-colors"
                         aria-label="Next month"
                     >
@@ -460,9 +462,10 @@ export default function UpcomingEvents() {
 
             <div className="flex justify-end mb-5">
                 <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1">
-                    <button
-                        onClick={() => setView("calendar")}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        <button
+                            onClick={() => setView("calendar")}
+                            type="button"
+                            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "calendar" ? "#fff" : "transparent",
                             color: view === "calendar" ? "var(--secondary-500)" : "#6b7280",
@@ -472,9 +475,10 @@ export default function UpcomingEvents() {
                     >
                         <CalendarIcon />
                     </button>
-                    <button
-                        onClick={() => setView("list")}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                        <button
+                            onClick={() => setView("list")}
+                            type="button"
+                            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer"
                         style={{
                             background: view === "list" ? "#fff" : "transparent",
                             color: view === "list" ? "var(--secondary-500)" : "#6b7280",

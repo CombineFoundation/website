@@ -4,6 +4,11 @@ import DonationUsage from "@/components/donation/DonationUsage"
 import SuccessfulVentures from "@/components/donation/successfulventures"
 import CtaSection from "@/components/UI/CtaSection"
 
+export const metadata = {
+    title: "Donate",
+    description: "Support Combine Foundation's education, youth, health, and community welfare programs.",
+};
+
 function page() {
     return (
         <div>

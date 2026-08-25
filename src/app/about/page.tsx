@@ -6,6 +6,12 @@ import AboutFounder from "@/components/about/AboutFounder"
 import Combineachievements from "@/components/about/Combineachievements"
 import Ourvalues from "@/components/about/Ourvalues"
 import Goals from "@/components/about/Goals"
+
+export const metadata = {
+    title: "About Us",
+    description: "Learn about Combine Foundation's mission, story, leadership, values, and community impact.",
+};
+
 const AboutPage = () => {
     return (
         <>

@@ -77,6 +77,19 @@ export default function LoginPage() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      await fetch("/api/auth/session", {
+        method: "DELETE",
+        credentials: "include",
+      });
+    } catch {
+      // If the session endpoint is unavailable, the page still continues to the public site.
+    } finally {
+      router.push("/");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg p-4 font-sans">
       <div className="max-w-md w-full">
@@ -166,9 +179,13 @@ export default function LoginPage() {
           </div>
 
           <div className="px-10 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-            <Link href="/" className="text-xs font-bold text-gray-400 hover:text-secondary-500 transition-colors flex items-center gap-1">
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="text-xs font-bold text-gray-400 hover:text-secondary-500 transition-colors flex items-center gap-1"
+            >
               <span className="text-lg">←</span> Back to Website
-            </Link>
+            </button>
             <div className="flex gap-2">
               <div className="w-2 h-2 rounded-full bg-orange"></div>
               <div className="w-2 h-2 rounded-full bg-secondary-500"></div>
