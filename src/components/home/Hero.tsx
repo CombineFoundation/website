@@ -94,7 +94,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className={`relative w-full overflow-hidden bg-gray-300 ${isMobile ? "aspect-[1280/980]" : "aspect-[1280/480]"}`}>
+    <section className={`relative w-full overflow-hidden bg-gray-300 ${isMobile ? "aspect-[1280/700]" : "aspect-[1280/480]"}`}>
       <div
         className="absolute inset-0"
         style={{
@@ -111,7 +111,7 @@ export default function HeroSlider() {
           src={isMobile ? slides[current].mobile : slides[current].image}
           alt={slides[current].alt}
           fill
-          className="object-cover"
+          className={isMobile ? "object-cover object-top" : "object-cover object-center"}
           sizes="100vw"
           priority
         />

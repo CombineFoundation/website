@@ -26,7 +26,8 @@ export default function OurStory() {
                 className="w-full rounded-2xl px-8 py-6 mb-8 md:mb-10 bg-secondary-500"
             >
                 <h2 className="text-white font-bold text-4xl md:text-5xl">
-                    {storyContent.title}
+                    <span className="md:hidden">The Story</span>
+                    <span className="hidden md:inline">{storyContent.title}</span>
                 </h2>
             </div>
 

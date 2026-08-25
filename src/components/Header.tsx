@@ -132,7 +132,7 @@ export default function Header() {
 
       {/* Main Header */}
 
-      <div className="bg-white border-b border-gray-100 shadow-sm px-4 md:px-8 py-4 relative">
+      <div className="bg-white border-b border-gray-100 shadow-sm px-4 md:px-8 md:py-4 relative">
         <div className="max-w-[1500px] mx-auto flex justify-between items-center">
 
           {/* Logo */}
@@ -209,7 +209,7 @@ export default function Header() {
                   <Link 
                     key={item.label} 
                     href={item.href}
-                    className="flex items-center px-5 py-4 bg-white rounded-xl shadow-2xl border border-gray-100 mb-2 text-gray-700 hover:bg-secondary-50 hover:text-secondary-500 transition-colors group/item"
+                    className="flex items-center px-5 py-0 bg-white rounded-xl shadow-2xl border border-gray-100 mb-2 text-gray-700 hover:bg-secondary-50 hover:text-secondary-500 transition-colors group/item"
                   >
                     <div className="w-8 h-8 rounded-full bg-secondary-50 flex items-center justify-center mr-3 group-hover/item:bg-secondary-500 group-hover/item:text-white transition-all">
                       {item.icon}
@@ -237,40 +237,93 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[110px] bg-white z-[90] lg:hidden animate-in fade-in slide-in-from-right duration-300 overflow-y-auto">
-          <div className="p-6 flex flex-col space-y-6">
-            <div className="space-y-4">
-              <Link href="/" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-              <Link href="/about" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
-              
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">Our Work</p>
-                {ourWorkItems.map(item => (
-                  <Link key={item.label} href={item.href} className="flex items-center text-lg font-medium text-secondary-500 ml-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    <span className="mr-2">{item.icon}</span>
-                    {item.label}
+        <div className="fixed inset-0 top-[110px] z-[90] lg:hidden animate-in fade-in duration-300">
+          <div
+            className="absolute inset-0 bg-slate-950/35 backdrop-blur-[2px]"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          <div className="absolute inset-x-0 bottom-0 max-h-[calc(100vh-110px)] overflow-y-auto rounded-t-[2rem] border-t border-white/60 bg-gradient-to-b from-white to-orange-50 shadow-[0_-20px_60px_rgba(15,23,42,0.18)] animate-in slide-in-from-bottom duration-300">
+            
+
+            <div className="px-4 py-5 sm:px-6">
+              <div className="rounded-[1.5rem] border border-white/70 bg-white/80 p-4 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+                <div className="space-y-0">
+                  <Link
+                    href="/"
+                    className="flex items-center justify-between rounded-2xl px-4 py-1 text-lg font-bold text-slate-900 transition hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>Home</span>
+                    <span className="text-secondary-500">↗</span>
                   </Link>
-                ))}
+                  <Link
+                    href="/about"
+                    className="flex items-center justify-between rounded-2xl px-4 py-1 text-lg font-bold text-slate-900 transition hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>About Us</span>
+                    <span className="text-secondary-500">↗</span>
+                  </Link>
+                </div>
+                  <div className="space-y-0">
+                    {ourWorkItems.map((item) => (
+                      <Link
+                    href={item.href}
+                    className="flex items-center justify-between rounded-2xl px-4 py-1 text-lg font-bold text-slate-900 transition hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-secondary-500">{item.icon}</span>
+                  </Link>
+                    ))}
+                  </div>
+                  <div className="space-y-0">
+                    {joinUsItems.map((item) => (
+                      <Link
+                    href={item.href}
+                    className="flex items-center justify-between rounded-2xl px-4 py-1 text-lg font-bold text-slate-900 transition hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-secondary-500">{item.icon}</span>
+                  </Link>
+                    ))}
+                  </div>
+
+                <div className="mt-1 grid grid-cols-2 gap-3">
+                  <Link
+                    href="/our-team"
+                    className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-1 text-center text-base font-bold text-slate-800 transition hover:border-secondary-100 hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Our Team
+                  </Link>
+                  <Link
+                    href="/publications"
+                    className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-1 text-center text-base font-bold text-slate-800 transition hover:border-secondary-100 hover:bg-secondary-50 hover:text-secondary-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Publications
+                  </Link>
+                </div>
               </div>
 
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">Join Us</p>
-                {joinUsItems.map(item => (
-                  <Link key={item.label} href={item.href} className="flex items-center text-lg font-medium text-secondary-500 ml-2" onClick={() => setIsMobileMenuOpen(false)}>
-                    <span className="mr-2">{item.icon}</span>
-                    {item.label}
+              <div className="mt-2 rounded-[1.5rem] bg-secondary-500 p-4 shadow-xl shadow-secondary-500/20">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="text-white">
+                    <p className="text-sm font-semibold opacity-90">Support our work</p>
+                    <p className="mt-1 text-xs opacity-80">Your contribution creates real impact.</p>
+                  </div>
+                  <Link
+                    href="/donations"
+                    className="shrink-0 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-secondary-600 transition hover:bg-orange-50"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Donate Now
                   </Link>
-                ))}
+                </div>
               </div>
-
-              <Link href="/our-team" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Our Team</Link>
-              <Link href="/publications" className="block text-xl font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>Publications</Link>
-            </div>
-
-            <div className="pt-6 border-t border-gray-100 flex flex-col space-y-4">
-              <Link href="/donations" className="w-full bg-secondary-500 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
-                Donate Now
-              </Link>
             </div>
           </div>
         </div>

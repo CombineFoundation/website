@@ -8,7 +8,6 @@ type Report = {
     description: string;
     image: string;
     viewUrl: string;
-    downloadUrl: string;
 };
 
 
@@ -20,7 +19,7 @@ function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
                 <img
                     src={report.image}
                     alt={report.title}
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-top object-cover rounded-xl"
                 />
             </div>
 
@@ -35,29 +34,15 @@ function ReportCard({ report }: { report: Report | FirestoreAnnualReport }) {
                 </p>
 
                 {/* Buttons */}
-                <div className="flex flex-wrap gap-3 mt-5 flex-col md:flex-row w-full ">
+                <div className="mt-5 flex w-full flex-col flex-wrap gap-3 md:flex-row">
                     {/* View */}
                     <a
                         href={report.viewUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="
-                        w-full
-                        min-[830px]:w-[350px] h-[42px] rounded-full text-white font-semibold text-sm flex items-center justify-center hover:opacity-90 transition-opacity "
-                        style={{
-                            background: "linear-gradient(90deg, var(--secondary-700) 0%, var(--secondary-500) 100%)",
-                        }}
+                        className="flex h-[42px] w-full items-center justify-center rounded-full bg-[linear-gradient(90deg,var(--secondary-700)_0%,var(--secondary-500)_100%)] text-sm font-semibold text-white transition-opacity hover:opacity-90 min-[830px]:w-[350px]"
                     >
                         View
-                    </a>
-
-                    {/* Download */}
-                    <a
-                        href={report.downloadUrl}
-                        download
-                        className=" w-full min-[830px]:w-[350px]  h-[42px] rounded-full border border-gray-300 text-gray-700 font-medium text-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
-                    >
-                        Download
                     </a>
                 </div>
             </div>

@@ -261,7 +261,6 @@ export interface FirestoreAnnualReport {
   description: string;
   image: string;
   viewUrl: string;
-  downloadUrl: string;
   createdAt?: string;
 }
 
