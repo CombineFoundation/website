@@ -437,7 +437,11 @@ export default function UpcomingEvents() {
                         post: (d as any).post || "",
                     } as Event;
                 });
-                setEvents(data);
+                const upcomingEvents = data.filter((event) => {
+                    const eventDate = parseEventDate(event.date);
+                    return eventDate !== null && eventDate > new Date();
+                });
+                setEvents(upcomingEvents);
             } catch (error) {
                 console.error("Error fetching events:", error);
             } finally {

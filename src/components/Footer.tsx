@@ -25,7 +25,7 @@ export default function Footer() {
 
       <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
         {/* Left Column (Logo and Text) */}
-        <div className="md:col-span-5 flex flex-col pr-4">
+        <div className="hidden md:col-span-5 md:flex flex-col pr-4">
           <div className="bg-white inline-flex items-center justify-center rounded-md w-max mb-6">
             <Image src="/logo.png" alt="Combine Foundation Logo" width={180} height={135} className="object-contain" />
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           {/* Support */}
-          <div className="flex flex-col space-y-4">
+          <div className="hidden md:flex flex-col space-y-4">
             <h3 className="text-orange font-black text-lg mb-2">Support</h3>
             <Link href="/contact" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Contact Us</Link>
             <Link href="/privacy" className="text-lg font-black text-gray-200 hover:text-white transition-colors">Privacy Policy</Link>

@@ -83,3 +83,19 @@ export async function uploadFile(file: File, folder: string = "files"): Promise<
   const downloadUrl = await getDownloadURL(snapshot.ref);
   return downloadUrl;
 }
+
+/**
+ * Uploads a file and returns the storage path instead of a public download URL.
+ * Use this when you want to store the reference in Firestore and resolve it later
+ * through your own viewing flow.
+ */
+export async function uploadFilePath(file: File, folder: string = "files"): Promise<string> {
+  if (!storage) {
+    throw new Error("Firebase Storage is not initialized.");
+  }
+  const fileExtension = file.name.split(".").pop() || "bin";
+  const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
+  const storageRef = ref(storage, `${folder}/${uniqueFilename}`);
+  await uploadBytes(storageRef, file);
+  return storageRef.fullPath;
+}
