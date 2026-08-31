@@ -23,9 +23,9 @@ const LOCATIONS: Location[] = [
         id: "farm-house",
         title: "Combine Farm House",
         subtitle: "",
-        address: "House 23, Street 3 Block 13D, Gulshan - e - Iqbal",
+        address: "Colors of Combine Farmhouse, Sadabahar street, near arabain farmhouse, Gadap Town, Karachi,",
         mapSrc:
-            "https://maps.google.com/maps?q=24.9214,67.0901&z=14&ie=UTF8&output=embed",
+            "https://maps.google.com/maps?q=25.0153294,67.2458646&z=14&ie=UTF8&output=embed",
     },
 ];
 
