@@ -44,6 +44,7 @@ export default function HeroSlider() {
   const [sliding, setSliding] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("next");
   const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -51,6 +52,14 @@ export default function HeroSlider() {
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
   }, []);
 
   const goNext = useCallback(() => {
@@ -71,11 +80,12 @@ export default function HeroSlider() {
   }, [goNext]);
 
   useEffect(() => {
+    if (reduceMotion) return;
     startTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [startTimer]);
+  }, [startTimer, reduceMotion]);
 
   const handleNext = () => {
     goNext();
@@ -113,7 +123,7 @@ export default function HeroSlider() {
           fill
           className={isMobile ? "object-cover object-top" : "object-cover object-center"}
           sizes="100vw"
-          priority
+          priority={!reduceMotion}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
       </div>

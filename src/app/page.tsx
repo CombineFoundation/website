@@ -8,6 +8,12 @@ import SplashBanner from "@/components/UI/SplashBanner";
 import { getAllBlogs } from "@/lib/blogs";
 import { getAllProjects } from "@/lib/projects";
 
+export const metadata = {
+  title: "Combine Foundation",
+  description:
+    "Combine Foundation is a nonprofit organization focused on education, health awareness, youth empowerment, and community welfare in Pakistan.",
+};
+
 export const dynamic = "force-dynamic";
 
 export default async function Home() {

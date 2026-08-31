@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getBlogBySlug, getAllBlogSlugs, getAllBlogs } from "@/lib/blogs";
 import BlogDetail from "@/components/blog/BlogDetail";
+import type { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{
@@ -13,6 +14,29 @@ export async function generateStaticParams() {
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Blog",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+    },
+  };
+}
 
 export default async function BlogPage({ params }: PageProps) {
   const { slug } = await params;

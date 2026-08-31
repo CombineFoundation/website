@@ -120,11 +120,11 @@ export default function Header() {
               <span className="hidden sm:inline text-[10px] md:text-xs">info@combinefoundation.org</span>
             </a>
             <a
-              href="tel:+922134801551-52"
+              href="tel:03208686644"
               className="flex items-center space-x-2 hover:text-blue-200 transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span className="hidden sm:inline text-[10px] md:text-xs">+92 21 34801551-52</span>
+              <span className="hidden sm:inline text-[10px] md:text-xs">03208686644</span>
             </a>
           </div>
         </div>
@@ -229,6 +229,8 @@ export default function Header() {
           <button 
             className="lg:hidden p-2 text-secondary-500 hover:bg-secondary-50 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>

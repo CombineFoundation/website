@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Terms of Service",
+  description: "Review the terms that apply when using the Combine Foundation website.",
+};
+
 const sections = [
   {
     title: "About These Terms",

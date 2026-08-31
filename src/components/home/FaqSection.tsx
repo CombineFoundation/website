@@ -79,14 +79,17 @@ type FaqRowProps = {
   item: FaqItem;
   isOpen: boolean;
   onToggle: () => void;
+  panelId: string;
 };
 
-function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
+function FaqRow({ item, isOpen, onToggle, panelId }: FaqRowProps) {
   return (
     <div className="border-b border-gray-200 transition-colors duration-300 hover:bg-black/[0.02]">
       <button
+        type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={panelId}
         className="flex w-full items-center justify-between gap-4 px-4 py-5 text-left cursor-pointer group"
       >
         <span className="text-base font-semibold text-gray-900 transition-colors duration-300 group-hover:text-secondary-500 md:text-lg">
@@ -102,6 +105,7 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
       </button>
 
       <div
+        id={panelId}
         className={`grid px-4 transition-all duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr] pb-5 opacity-100" : "grid-rows-[0fr] pb-0 opacity-0"
         }`}
@@ -159,6 +163,7 @@ export default function FaqSection({ description }: FaqSectionProps) {
             key={item.id}
             item={item}
             isOpen={openId === item.id}
+            panelId={`faq-panel-${item.id}`}
             onToggle={() => toggle(item.id)}
           />
         ))}
