@@ -204,12 +204,13 @@ export default function Header() {
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute top-full right-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-[100]">
+              <div className="absolute top-full right-0 mt-0 w-64 opacity-0 bg-w invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-[100]">
+                <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden mt-2">
                 {joinUsItems.map((item) => (
                   <Link 
                     key={item.label} 
                     href={item.href}
-                    className="flex items-center px-5 py-0 bg-white rounded-xl shadow-2xl border border-gray-100 mb-2 text-gray-700 hover:bg-secondary-50 hover:text-secondary-500 transition-colors group/item"
+                    className="flex items-center px-4 py-3 text-gray-700 hover:bg-secondary-50 hover:text-secondary-500 transition-colors group/item"
                   >
                     <div className="w-8 h-8 rounded-full bg-secondary-50 flex items-center justify-center mr-3 group-hover/item:bg-secondary-500 group-hover/item:text-white transition-all">
                       {item.icon}
@@ -217,6 +218,7 @@ export default function Header() {
                     <span className="text-sm font-medium">{item.label}</span>
                   </Link>
                 ))}
+                </div>
               </div>
             </div>
 

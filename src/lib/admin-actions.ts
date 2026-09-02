@@ -80,8 +80,12 @@ export interface FirestoreContact {
 export interface FirestoreDonation {
   id?: string;
   name: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone: string;
+  country?: string;
+  city?: string;
   amount: number;
   paymentMethod: string;
   createdAt?: any;
@@ -507,6 +511,13 @@ export async function addSplashBanner(
     createdAt: serverTimestamp(),
   });
   return ref.id;
+}
+
+export async function updateSplashBanner(
+  id: string,
+  data: Partial<Omit<FirestoreSplash, "id" | "createdAt">>
+): Promise<void> {
+  await updateDoc(doc(getDb(), "splashBanners", id), { ...data });
 }
 
 export async function deleteSplashBanners(ids: string[]): Promise<void> {

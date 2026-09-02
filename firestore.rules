@@ -61,7 +61,34 @@ service cloud.firestore {
     }
 
     match /donations/{donationId} {
-      allow create: if true;
+      allow create: if request.resource.data.keys().hasOnly([
+        'name', 'firstName', 'lastName', 'email', 'phone',
+        'country', 'city', 'amount', 'paymentMethod', 'createdAt'
+      ])
+      && request.resource.data.name is string
+      && request.resource.data.name.size() >= 5
+      && request.resource.data.name.size() <= 161
+      && request.resource.data.firstName is string
+      && request.resource.data.firstName.size() >= 2
+      && request.resource.data.firstName.size() <= 80
+      && request.resource.data.lastName is string
+      && request.resource.data.lastName.size() >= 2
+      && request.resource.data.lastName.size() <= 80
+      && request.resource.data.email is string
+      && request.resource.data.email.size() >= 5
+      && request.resource.data.email.size() <= 254
+      && request.resource.data.phone is string
+      && request.resource.data.phone.size() >= 7
+      && request.resource.data.phone.size() <= 20
+      && request.resource.data.country in ['PK', 'US', 'UK', 'AE']
+      && request.resource.data.city is string
+      && request.resource.data.city.size() >= 2
+      && request.resource.data.city.size() <= 80
+      && request.resource.data.amount is number
+      && request.resource.data.amount > 0
+      && request.resource.data.amount <= 10000000
+      && request.resource.data.paymentMethod in ['card', 'bank', 'jazzcash', 'easypaisa']
+      && request.resource.data.createdAt is timestamp;
       allow read, update, delete: if request.auth != null;
     }
 
