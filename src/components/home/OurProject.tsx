@@ -162,7 +162,7 @@ export default function ProjectsSlider({ projects: initialProjects }: ProjectsSl
             src={project.image}
             alt={project.name}
             fill
-            className="object-cover object-center"
+            className="motion-image object-cover object-center"
             sizes="(max-width: 768px) 100vw, 1500px"
             priority
           />

@@ -17,6 +17,7 @@ import {
   ArrowRight,
   BookOpen
 } from "lucide-react";
+import PageMotion from "@/components/UI/PageMotion";
 
 export default function CareerPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -65,6 +66,7 @@ export default function CareerPage() {
   };
 
   return (
+    <PageMotion>
     <div className="min-h-screen bg-[#F8FAFC] font-sans flex flex-col">
 
       {/* Main Content Area */}
@@ -235,5 +237,6 @@ export default function CareerPage() {
         )}
       </section>
     </div>
+    </PageMotion>
   );
 }

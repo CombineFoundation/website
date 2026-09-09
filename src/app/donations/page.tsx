@@ -3,6 +3,7 @@ import DonationForm from "@/components/donation/DonationForm"
 import DonationUsage from "@/components/donation/DonationUsage"
 import SuccessfulVentures from "@/components/donation/successfulventures"
 import CtaSection from "@/components/UI/CtaSection"
+import PageMotion from "@/components/UI/PageMotion"
 
 export const metadata = {
     title: "Donate",
@@ -11,12 +12,12 @@ export const metadata = {
 
 function page() {
     return (
-        <div>
+        <PageMotion>
             <DonationForm />
             <DonationUsage />
             <SuccessfulVentures />
             <CtaSection text="Your Support Can Save Dreams" buttonText="Support Now" url="#form" />
-        </div>
+        </PageMotion>
     )
 }
 

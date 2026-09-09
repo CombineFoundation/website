@@ -11,7 +11,7 @@ export default function ClientChrome({ children }: { children: React.ReactNode }
   return (
     <>
       {!isAdminPage && <Header />}
-      <main className="flex-grow flex flex-col overflow-x-hidden">{children}</main>
+      <main className="site-main grow flex flex-col overflow-x-clip">{children}</main>
       {!isAdminPage && <Footer />}
     </>
   );

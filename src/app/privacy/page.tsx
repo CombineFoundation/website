@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageMotion from "@/components/UI/PageMotion";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -60,6 +61,7 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
+    <PageMotion>
     <div className="bg-gray-50 text-gray-800">
       <section className="bg-secondary-600 px-4 py-20 text-white md:px-8 md:py-28">
         <div className="mx-auto max-w-4xl">
@@ -99,5 +101,6 @@ export default function PrivacyPolicyPage() {
         </div>
       </main>
     </div>
+    </PageMotion>
   );
 }

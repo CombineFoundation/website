@@ -6,6 +6,7 @@ import PageHeroMobile from "@/components/UI/Pageheromobile";
 import AchievementsList from "@/components/projects/Achievementslist ";
 import { getAllProjects, type Project } from "@/lib/projects";
 import { Loader2 } from "lucide-react";
+import PageMotion from "@/components/UI/PageMotion";
 
 const AchievementsMap = dynamic(() => import("@/components/projects/map"), { ssr: false });
 
@@ -55,15 +56,17 @@ export default function Projects() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-20">
+      <PageMotion>
+        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-20">
         <Loader2 className="w-10 h-10 text-orange animate-spin" />
         <span className="mt-4 text-gray-600 font-medium">Loading projects...</span>
-      </div>
+        </div>
+      </PageMotion>
     );
   }
 
   return (
-    <>
+    <PageMotion>
       <PageHeroMobile title="Projects" imageSrc="/achievement-gallery/hero.svg" />
       <AchievementsMap
         projects={projects}
@@ -75,6 +78,6 @@ export default function Projects() {
         activeId={activeId}
         onToggle={handleCardToggle}
       />
-    </>
+    </PageMotion>
   );
 }
