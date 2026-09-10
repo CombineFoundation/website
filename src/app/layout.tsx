@@ -43,7 +43,6 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} h-full w-full antialiased overflow-x-hidden`}
     >
-      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-40X0587BRT"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
