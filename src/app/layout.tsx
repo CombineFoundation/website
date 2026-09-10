@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -43,16 +44,27 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} h-full w-full antialiased overflow-x-hidden`}
     >
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-40X0587BRT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-40X0587BRT');
-</script>
-      <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
+      <body
+        className="min-h-full flex flex-col overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <ClientChrome>{children}</ClientChrome>
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-40X0587BRT"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-40X0587BRT');
+          `}
+        </Script>
+
         <SpeedInsights />
         <Analytics />
       </body>
