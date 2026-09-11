@@ -4,10 +4,11 @@ import WhyJoinUs from "@/components/volunteer/Whyjoinus"
 import CtaSection from "@/components/UI/CtaSection";
 import HearFromVolunteers from "@/components/volunteer/ourVolunteer";
 import VolunteerFAQ from "@/components/volunteer/VolunteerFAQ";
+import PageMotion from "@/components/UI/PageMotion";
 
 export default function VolunteerPage() {
     return (
-        <div>
+        <PageMotion>
             <Hero text1="VOLUNTEER" text2="PROGRAM"
                 image1="/volunteer-program/hero g (2).svg"
                 image2="/volunteer-program/hero g.svg"
@@ -20,6 +21,6 @@ export default function VolunteerPage() {
             <CtaSection text="More Than Volunteering — A Career Journey" buttonText="Join Today" url="https://www.combinefoundationportal.com/volunteer/apply" />
             <HearFromVolunteers />
             <VolunteerFAQ />
-        </div>
+        </PageMotion>
     );
 }

@@ -4,6 +4,7 @@ import Mouslider from "@/components/publications/Mouseslider"
 import TaxShariaCertificates from "@/components/publications/Taxshariacertificates "
 import { fetchMOUs, fetchAnnualReports, type FirestoreAnnualReport,type FirestorePartner, fetchPartners } from "@/lib/admin-actions"
 import PartnersSection from "@/components/our-team/partners-section"
+import PageMotion from "@/components/UI/PageMotion"
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ const page = async () => {
     }
 
     return (
-        <div>
+        <PageMotion>
             <PageHeroMobile
                 imageSrc="/publications/hero.svg"
                 title="Publications"
@@ -33,7 +34,7 @@ const page = async () => {
             {reports.length > 0 && <AnnualReports reports={reports} />}
             <PartnersSection partners={mous} />
             <TaxShariaCertificates />
-        </div>
+        </PageMotion>
     )
 }
 

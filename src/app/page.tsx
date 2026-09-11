@@ -4,7 +4,8 @@ import OurProject from "@/components/home/OurProject";
 import FounderInfo from "@/components/home/FounderInfo";
 import FaqSection from "@/components/home/FaqSection"; 
 import BlogSection from "@/components/home/BlogSection";
-import SplashBanner from "@/components/UI/SplashBanner";
+// import SplashBanner from "@/components/UI/SplashBanner";
+import Reveal from "@/components/UI/Reveal";
 import { getAllBlogs } from "@/lib/blogs";
 import { getAllProjects } from "@/lib/projects";
 
@@ -21,15 +22,17 @@ export default async function Home() {
   const projects = await getAllProjects();
   return (
     <div>
-      <SplashBanner />
-      <Hero />
-      <OurImpact />
-      <OurProject projects={projects} />
-      <FounderInfo />
-      <FaqSection
-      description = "Find answers to common questions about our mission, projects, and how you can get involved."
-      />
-      <BlogSection blogs={blogs} />
+      {/* <SplashBanner /> */}
+      <Reveal><Hero /></Reveal>
+      <Reveal delay={80}><OurImpact /></Reveal>
+      <Reveal delay={120}><OurProject projects={projects} /></Reveal>
+      <Reveal delay={80}><FounderInfo /></Reveal>
+      <Reveal delay={120}>
+        <FaqSection
+          description="Find answers to common questions about our mission, projects, and how you can get involved."
+        />
+      </Reveal>
+      <Reveal delay={80}><BlogSection blogs={blogs} /></Reveal>
     </div>
   );
 }

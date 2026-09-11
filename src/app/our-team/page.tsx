@@ -6,6 +6,7 @@ import BoardOfMembers from "@/components/our-team/board-of-members"
 import LeadershipSections from "@/components/our-team/leadership-sections"
 import PartnersSection from "@/components/our-team/partners-section"
 import { fetchTeamMembers, fetchPartners, fetchMOUs, type FirestoreTeamMember, type FirestorePartner, type FirestoreMOU } from "@/lib/admin-actions"
+import PageMotion from "@/components/UI/PageMotion"
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ const Page = async () => {
   const displayPartners = mouPartners.length > 0 ? mouPartners : partners;
 
   return (
-    <>
+    <PageMotion>
       <Hero text1="OUR" text2="TEAM" image1="/home/projects/4.svg" image2="/home/impact cards/8.svg" text1Size="big" text2Size="big" mobileTitle="OUR TEAM"/>
       <FounderProfile />
       <CeoProfile />
@@ -48,7 +49,7 @@ const Page = async () => {
       <BoardOfMembers members={teamMembers} />
       <LeadershipSections members={teamMembers} />
       <PartnersSection partners={displayPartners as FirestorePartner[]} />
-    </>
+    </PageMotion>
   )
 }
 

@@ -6,6 +6,7 @@ import AboutFounder from "@/components/about/AboutFounder"
 import Combineachievements from "@/components/about/Combineachievements"
 import Ourvalues from "@/components/about/Ourvalues"
 import Goals from "@/components/about/Goals"
+import PageMotion from "@/components/UI/PageMotion"
 
 export const metadata = {
     title: "About Us",
@@ -14,7 +15,7 @@ export const metadata = {
 
 const AboutPage = () => {
     return (
-        <>
+        <PageMotion>
             <AboutHero
                 text1="ABOUT"
                 text2="COMBINE"
@@ -31,7 +32,7 @@ const AboutPage = () => {
             <Combineachievements />
             <Ourvalues />
             <Goals />
-        </>
+        </PageMotion>
     )
 }
 

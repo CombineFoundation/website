@@ -4,6 +4,7 @@ import CoursesOffered from "@/components/free-courses/CoursesOffered";
 import SuccessStories from "@/components/free-courses/SuccessStories";
 import FaqSection from "@/components/home/FaqSection";
 import { getAllCourses, SuccessStory } from "@/lib/freeCourses";
+import PageMotion from "@/components/UI/PageMotion";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export default async function Home() {
     .filter((s) => s.name && s.description);
 
   return (
-  <main>
+  <PageMotion>
     <Hero text1="Free" text2="Courses" image1="/course/hero.svg" image2="/course/hero (2).svg"
     mobileTitle="Free Courses" text1Size = "big"
     text2Size="big"
@@ -32,5 +33,5 @@ export default async function Home() {
     <SuccessStories stories={stories} />
     <FaqSection />
 
-  </main>
+  </PageMotion>
 )}

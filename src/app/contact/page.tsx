@@ -1,5 +1,6 @@
 import Contact from "@/components/contact/contact";
 import Locations from "@/components/contact/locations";
+import PageMotion from "@/components/UI/PageMotion";
 
 export const metadata = {
     title: "Contact Us",
@@ -8,10 +9,10 @@ export const metadata = {
 
 export default function ContactPage() {
     return (
-        <>
+        <PageMotion>
             <Contact />
             <Locations />
-        </>
+        </PageMotion>
 
     )
 }

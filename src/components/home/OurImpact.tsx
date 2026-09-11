@@ -85,7 +85,7 @@ function ImpactCard({ item }: ImpactCardProps) {
           alt={item.title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
-          className="object-cover object-top"
+          className="motion-image object-cover object-top"
         />
       </div>
 

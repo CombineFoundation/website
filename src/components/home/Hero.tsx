@@ -121,7 +121,7 @@ export default function HeroSlider() {
           src={isMobile ? slides[current].mobile : slides[current].image}
           alt={slides[current].alt}
           fill
-          className={isMobile ? "object-cover object-top" : "object-cover object-center"}
+          className={`motion-image ${isMobile ? "object-cover object-top" : "object-cover object-center"}`}
           sizes="100vw"
           priority={!reduceMotion}
         />

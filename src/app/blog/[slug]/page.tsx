@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getBlogBySlug, getAllBlogSlugs, getAllBlogs } from "@/lib/blogs";
 import BlogDetail from "@/components/blog/BlogDetail";
 import type { Metadata } from "next";
+import PageMotion from "@/components/UI/PageMotion";
 
 interface PageProps {
   params: Promise<{
@@ -47,5 +48,5 @@ export default async function BlogPage({ params }: PageProps) {
     return notFound();
   }
 
-  return <BlogDetail post={post} blogs={blogs} />;
+  return <PageMotion><BlogDetail post={post} blogs={blogs} /></PageMotion>;
 }
