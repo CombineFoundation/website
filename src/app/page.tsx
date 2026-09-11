@@ -4,7 +4,7 @@ import OurProject from "@/components/home/OurProject";
 import FounderInfo from "@/components/home/FounderInfo";
 import FaqSection from "@/components/home/FaqSection"; 
 import BlogSection from "@/components/home/BlogSection";
-import SplashBanner from "@/components/UI/SplashBanner";
+// import SplashBanner from "@/components/UI/SplashBanner";
 import Reveal from "@/components/UI/Reveal";
 import { getAllBlogs } from "@/lib/blogs";
 import { getAllProjects } from "@/lib/projects";
@@ -22,7 +22,7 @@ export default async function Home() {
   const projects = await getAllProjects();
   return (
     <div>
-      <SplashBanner />
+      {/* <SplashBanner /> */}
       <Reveal><Hero /></Reveal>
       <Reveal delay={80}><OurImpact /></Reveal>
       <Reveal delay={120}><OurProject projects={projects} /></Reveal>
