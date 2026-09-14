@@ -449,9 +449,11 @@ export async function deletePartners(ids: string[]): Promise<void> {
 export interface FirestoreJob {
   id?: string;
   title: string;
+  department: string;
   location: string;
   type: string;
   description: string;
+  formLink?: string;
   requirements: string[];
   active: boolean;
   createdAt?: any;
